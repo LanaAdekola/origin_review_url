@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% extends 'base.html' %}
+  {% load static %}
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block head_title %}Innocelf{% endblock head_title %}
+    </title>
+  </head>
+
+  <body>
+    {% block content %}
+
+    <style>
+      #customer_testimonials {
+        background: url('/static/img/innoimg/Testimony_Walled_Background.jpg');
+        background-size: contain
+      }
+
+      .border-rounded {
+        border-radius: 30px;
+      }
+    </style>
+
+    <div class="container-fluid w-75" id="customer_testimonials">
+      <div class="row text-center justify-content-center">
+        <h2 class="h1-responsive font-weight-bold my-5 lato-regular">Client Feedback</h2>
+      </div>
+      <div class="row ">
+        <div class="col m-4 bg-white border-rounded">
+          <carousel-item name="Adam M." designation="Product Developer - Canada" comment-on-upwork="yes"
+            actual-testimony='I have had the pleasure of working with Pranita over the last 6 months while I put together and finalized a very important patent application. Pranita was flexible, attentive and went over and above to make sure that I was able to meet a very tight schedule, despite having to deal with competing timelines from my formulation team. Pranita’s guidance and experience with pharmaceutical patents was paramount in ensuring that the final product was ready for application. I would absolutely recommend Pranita for anybody needing help with the patenting process, specifically as it relates to the pharmaceutical industry. I will be keeping her contact close for future guidance!'>
+          </carousel-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col m-4 bg-white border-rounded">
+          <carousel-item name="Jason M." designation="GSM Sales" comment-on-upwork="yes"
+            actual-testimony="Pranita was a great help and excellent worker. She was very positive and completed our tasks in a timely manner. I would recommend Pranita for anyone needing a patent or other legal help in the future.">
+          </carousel-item>
+        </div>
+        <div class="col m-4 bg-white border-rounded">
+          <carousel-item name="D. Kumar" designation="Solo Inventor" comment-on-upwork="yes"
+            actual-testimony="Amazing Work, Very Detailed , Clear, Coherent And Thorough Information. Cannot Ask For More. Thank You">
+          </carousel-item>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col m-4 bg-white border-rounded">
+          <carousel-item name="Lennie F." designation="Brace Direct" comment-on-upwork="yes"
+            actual-testimony="Pranita Dharmadhikari has been great to work with and we will continue to use her in the future. We have used her on multiple projects for patent research and all were completed in a timely manner and the final results were very well prepared. Highly recommended.">
+          </carousel-item>
+        </div>
+        <div class="col m-4 bg-white border-rounded">
+          <carousel-item name="David H." designation="2PLUSH LLC" comment-on-upwork="yes"
+            actual-testimony="I was quite pleased with the scope of work performed, regarding the patent search report. I appreciate the professionalism! Couldn't have done it without Pranita.">
+          </carousel-item>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="{% static 'js/innojs/html_components.js' %}"></script>
+    {% endblock content %}
+  </body>
+
+</html>
