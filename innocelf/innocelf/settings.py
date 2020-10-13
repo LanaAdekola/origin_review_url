@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'innoservices',
 
     # All auth apps
+    'crispy_forms',
     # 'allauth',
     # 'allauth.account'
 ]
@@ -137,3 +138,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# RECAPTCHA KEYS
+RECAPTCHA_SITE_KEY = os.environ.get('RECAPTCHA_SITE_KEY')
+RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')

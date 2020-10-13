@@ -4,7 +4,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-superdark lato-regular">
 
   <!-- Navbar brand -->
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="{% url 'innoservices:home' %}">
     <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SVG.svg' %}" alt="Innocelf_Logo" width="150px">
   </a>
 
@@ -48,7 +48,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#">Contact</a>
+        <a class="nav-link" href="{% url 'innoservices:contact-us' %}">Contact</a>
       </li>
 
       <li class="nav-item">
