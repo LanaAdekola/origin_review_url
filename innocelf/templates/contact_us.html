@@ -18,53 +18,70 @@
   <body>
     {% block content %}
 
-    <div class="container-fluid align-items-center mt-5 mb-5" id="contact_us_container" style="max-width: 1500px;">
-      <div class="row">
-        <div class="col mx-3 align-self-center">
-          <img src="{% static 'img/innoimg/InnocelfContactUs_Photo.jpg' %}" alt="Innocelf_Contact_Us" class="m-auto"
-            height="500px">
-        </div>
+    <style>
+      #contact_us_container {
+        background: url('/static/img/innoimg/Innocelf_ContactUs_Picture.jpg');
+        background-size: cover;
+      }
 
-        <div class="col mx-3 align-self-center">
+      input::placeholder {
+        color: white !important;
+      }
+
+      textarea::placeholder {
+        color: white !important;
+      }
+    </style>
+    <!-- style="max-width: 1500px; height: 740px;" -->
+    <div class="container-fluid align-items-center" id="contact_us_container" style="height: 940px;">
+      <div class="row" style="height: inherit;">
+
+        <div class="col-4 mx-auto align-self-end mb-5">
+          <div class="row justify-content-center mb-2">
+            <a type="button" class="btn btn-light btn-large" href="https://calendly.com/innocelf/virtual-appointment"
+              target="_blank">
+              Schedule a Consultation
+            </a>
+          </div>
+          <div class="row justify-content-center mb-2">
+            <h5 class="h5-responsive text-white lato-bold text-center">OR</h5>
+          </div>
+          <div class="row justify-content-center mb-2">
+            <h2 class="h2-responsive text-white lato-bold text-center">CONTACT US</h2>
+          </div>
           <form action="" id="contact_us_form" method="POST" class="lato-regular">
 
             {% csrf_token %}
 
             <div class="form-row">
               <div class="form-group col-md-6">
-                {{ form.first_name.label_tag }}
                 {{ form.first_name }}
               </div>
               <div class="form-group col-md-6">
-                {{ form.last_name.label_tag }}
                 {{ form.last_name }}
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                {{ form.email.label_tag }}
                 {{ form.email }}
               </div>
               <div class="form-group col-md-6">
-                {{ form.phone.label_tag }}
                 {{ form.phone }}
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col">
-                {{ form.inquiry_reason.label_tag }}
                 {{ form.inquiry_reason }}
               </div>
             </div>
             <div class="form-row">
               <div class="form-group col">
-                {{ form.explanation.label_tag }}
                 {{ form.explanation }}
               </div>
             </div>
 
             <div class="form-row justify-content-end">
-              <button class="btn btn-dark g-recaptcha" data-sitekey="{{ recaptcha_site_key }}" data-callback="onSubmit"
+              <button class="btn btn-light g-recaptcha" data-sitekey="{{ recaptcha_site_key }}" data-callback="onSubmit"
                 data-action="submit" type="submit">
                 Submit Inquiry
               </button>
