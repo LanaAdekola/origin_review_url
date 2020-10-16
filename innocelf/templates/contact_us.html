@@ -20,7 +20,7 @@
 
     <style>
       #contact_us_container {
-        background: url('/static/img/innoimg/Innocelf_ContactUs_Picture.jpg');
+        background: url('/static/img/innoimg/Innocelf_ContactUs_Picture_Reduced.jpg');
         background-size: cover;
       }
 
@@ -32,15 +32,18 @@
         color: white !important;
       }
     </style>
+
+    {% include '_navbar.html' %}
+
     <!-- style="max-width: 1500px; height: 740px;" -->
     <div class="container-fluid align-items-center" id="contact_us_container" style="height: 940px;">
       <div class="row" style="height: inherit;">
 
         <div class="col-4 mx-auto align-self-end mb-5">
           <div class="row justify-content-center mb-2">
-            <a type="button" class="btn btn-light btn-large" href="https://calendly.com/innocelf/virtual-appointment"
-              target="_blank">
-              Schedule a Consultation
+            <a type="button" class="btn btn-light btn-large btn-block"
+              href="https://calendly.com/innocelf/virtual-appointment" target="_blank">
+              Schedule a Virtual Consultation
             </a>
           </div>
           <div class="row justify-content-center mb-2">
@@ -90,6 +93,8 @@
         </div>
       </div>
     </div>
+
+    {% include '_footer.html' %}
 
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script type="text/javascript" src="{% static 'js/innojs/contact_us.js' %}"></script>

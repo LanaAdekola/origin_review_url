@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     # Own apps
     'innoservices',
+    'innoaccounts',
 
     # All auth apps
     'crispy_forms',
@@ -152,3 +153,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # RECAPTCHA KEYS
 RECAPTCHA_SITE_KEY = os.environ.get('RECAPTCHA_SITE_KEY')
 RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')
+
+LOGIN_REDIRECT_URL = 'innoservices:home'
+LOGIN_URL = 'innoaccounts:login-user'
