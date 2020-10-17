@@ -61,6 +61,8 @@
         </div>
 
         <script src="https://www.google.com/recaptcha/api.js"></script>
+        <script type="module" src="{% static 'js/innojs/_global_functions.js' %}"></script>
+        <script type="module" src="{% static 'js/innojs/register_user.js' %}"></script>
         <script>
             function onSubmit(token) {
                 document.getElementById("register_user_form").submit();

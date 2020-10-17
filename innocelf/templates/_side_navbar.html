@@ -1,0 +1,118 @@
+{% load static %}
+
+<div class="bg">
+    <!-- SideNav slide-out button -->
+    <a href="#" data-activates="slide-out" class="btn btn-dark p-3 button-collapse">
+        <i class="fas fa-bars"></i>
+    </a>
+</div>
+
+
+<!-- Sidebar navigation -->
+<div id="slide-out" class="side-nav fixed bg-dark lato-regular">
+    <ul class="custom-scrollbar">
+        <!-- Logo -->
+        <li class="mb-2">
+            <div class="justify-content-center">
+                <a href="#" class="pl-0">
+                    <img src="{% static 'img/innoimg/InnocelfLogo_IconOnly_SVG.svg' %}"
+                        class="img-fluid flex-center mx-auto mt-4 p-0" style="height: 50px;">
+                </a>
+
+                <div class="row text-center mt-5">
+                    <h5 class="mx-auto">
+                        {{ user.first_name }} {{ user.last_name }}
+                    </h5>
+                </div>
+
+                <div class="d-flex mx-auto text-center justify-content-center">
+                    <a class="text-decoration-none text-white px-0 text-right" href="">
+                        <h6 class="d-inline">
+                            Profile |
+                        </h6>
+                    </a>
+                    <a class="text-decoration-none text-white ml-1 pl-0 mr-sm-2 text-left"
+                        href="{% url 'innoaccounts:logout-user' %}">
+                        <h6 class="d-inline">
+                            Logout
+                        </h6>
+                    </a>
+                </div>
+            </div>
+
+        </li>
+        <!--/. Logo -->
+
+        <!-- Side navigation links -->
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <li>
+                    <a class="collapsible-header waves-effect arrow-r active">
+                        <i class="fas fa-project-diagram"></i>
+                        Project List
+                        <i class="fas fa-angle-down rotate-icon"></i>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#" class="waves-effect">Submit listing</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Registration form</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="collapsible-header waves-effect arrow-r">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        Invoices
+                        <i class="fas fa-angle-down rotate-icon"></i>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#" class="waves-effect">For bloggers</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">For authors</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="collapsible-header waves-effect arrow-r">
+                        <i class="fas fa-sitemap"></i>
+                        Knowledge Center
+                        <i class="fas fa-angle-down rotate-icon"></i>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="#" class="waves-effect">Introduction</a>
+                            </li>
+                            <li><a href="#" class="waves-effect">Monthly meetings</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li><a class="collapsible-header waves-effect arrow-r">
+                        <i class="far fa-envelope"></i>
+                        Contact me
+                        <i class="fas fa-angle-down rotate-icon"></i>
+                    </a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li>
+                                <a href="#" class="waves-effect">
+                                    <span>Email: pranita.dharmadhikari@innocelf.com</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="waves-effect">
+                                    Phone: 248-606-2236
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <!--/. Side navigation links -->
+    </ul>
+    <div class="sidenav-bg"></div>
+</div>
+<!--/. Sidebar navigation -->

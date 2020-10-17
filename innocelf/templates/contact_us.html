@@ -97,7 +97,8 @@
     {% include '_footer.html' %}
 
     <script src="https://www.google.com/recaptcha/api.js"></script>
-    <script type="text/javascript" src="{% static 'js/innojs/contact_us.js' %}"></script>
+    <script type="module" src="{% static 'js/innojs/_global_functions.js' %}"></script>
+    <script type="module" src="{% static 'js/innojs/contact_us.js' %}"></script>
 
     <script>
       function onSubmit(token) {

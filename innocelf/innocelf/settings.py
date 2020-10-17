@@ -154,5 +154,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 RECAPTCHA_SITE_KEY = os.environ.get('RECAPTCHA_SITE_KEY')
 RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')
 
-LOGIN_REDIRECT_URL = 'innoservices:home'
+# LOGIN_REDIRECT_URL = '/account-home/f{User.}'
 LOGIN_URL = 'innoaccounts:login-user'

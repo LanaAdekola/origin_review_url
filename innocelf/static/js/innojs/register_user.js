@@ -1,8 +1,6 @@
 'use strict';
 
-'use strict';
-
 import { addDashestoPhoneNumber } from './_global_functions.js';
 
-let phoneNumberTextInputId = 'contact_us_phone';
+let phoneNumberTextInputId = 'register_user_phone_number';
 addDashestoPhoneNumber(phoneNumberTextInputId);
