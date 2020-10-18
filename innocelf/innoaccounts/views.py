@@ -11,7 +11,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse
 
 from .forms import UserRegisterForm
-from .models import InnocelfCustomer
+from .models import InnocelfClient
 
 
 def register_user(request):
@@ -40,14 +40,14 @@ def register_user(request):
             if form.is_valid():
                 form.save()
 
-                customer = InnocelfCustomer(
+                client = InnocelfClient(
                     first_name=form.cleaned_data.get('first_name'),
                     last_name=form.cleaned_data.get('last_name'),
                     email=form.cleaned_data.get('email'),
                     phone=form.cleaned_data.get('phone'),
                     company_name=form.cleaned_data.get('company')
                 )
-                customer.save()
+                client.save()
 
                 messages.success(
                     request, 'Your profile has been created with the given username and password')
