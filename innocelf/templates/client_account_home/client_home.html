@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     {% extends 'base.html' %}
+    {% load static %}
 
     <head>
         <meta charset="UTF-8">
@@ -12,10 +13,11 @@
         </title>
     </head>
 
+    {% block content %}
+
     <body>
-        {% block content %}
         {% include '_side_navbar.html' %}
-        {% endblock content %}
     </body>
+    {% endblock content %}
 
 </html>

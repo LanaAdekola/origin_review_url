@@ -1,8 +1,10 @@
 {% load static %}
 
+<hr style="margin-top: 10rem">
+
 <div class="bg">
     <!-- SideNav slide-out button -->
-    <a href="#" data-activates="slide-out" class="btn btn-dark p-3 button-collapse">
+    <a href="#" data-activates="slide-out" class="btn btn-dark p-3 button-collapse" style="height: 50px;">
         <i class="fas fa-bars"></i>
     </a>
 </div>
@@ -14,7 +16,7 @@
         <!-- Logo -->
         <li class="mb-2">
             <div class="justify-content-center">
-                <a href="#" class="pl-0">
+                <a href="{% url 'innoaccounts:client-home' user %}" class="pl-0" onclick="showHome()">
                     <img src="{% static 'img/innoimg/InnocelfLogo_IconOnly_SVG.svg' %}"
                         class="img-fluid flex-center mx-auto mt-4 p-0" style="height: 50px;">
                 </a>
@@ -26,7 +28,8 @@
                 </div>
 
                 <div class="d-flex mx-auto text-center justify-content-center">
-                    <a class="text-decoration-none text-white px-0 text-right" href="">
+                    <a class="text-decoration-none text-white px-0 text-right"
+                        href="{% url 'innoaccounts:client-home-profile' user %}">
                         <h6 class="d-inline">
                             Profile |
                         </h6>

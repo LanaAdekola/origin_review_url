@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    {% extends 'base.html' %}
+    {% load static %}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block head_title %}
+            Innocelf | User Home | Profile
+            {% endblock head_title %}
+        </title>
+    </head>
+
+    {% block content %}
+
+    <body>
+        <style>
+            input::placeholder {
+                color: black !important;
+            }
+        </style>
+
+        {% include '_side_navbar.html' %}
+
+        <div class="container-lg lato-regular mt-1 " id="profile_container" style="margin-left: 20rem">
+            <div class="row justify-content-center text-align-center lato-bold mb-3">
+                <h3>Client Profile</h3>
+            </div>
+            <div class="container border border-light rounded-lg">
+                <form action="" method="POST" id="change_client_information" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-row px-5 pt-3" id="client_name_row">
+                        <div class="form-group col-md-6">
+                            <label for="client_first_name" class="control-label"> First Name</label>
+                            <input class="form-control" type="text" name="client_first_name" id="client_first_name"
+                                value="{{client_qs.first_name}}" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="client_last_name" class="control-label"> Last Name</label>
+                            <input class="form-control" type="text" name="client_last_name" id="client_last_name"
+                                value="{{client_qs.last_name}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row px-5 pt-1" id="client_company_row">
+                        <div class="form-group col-md-12">
+                            <label for="client_company" class="control-label"> Company</label>
+                            <input class="form-control" type="text" name="client_company" id="client_company"
+                                value="{{client_qs.company}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row px-5 pt-1" id="client_contact_row">
+                        <div class="form-group col-md-6">
+                            <label for="client_email" class="control-label"> Email Address</label>
+                            <input class="form-control" type="text" name="client_email" id="client_email"
+                                value="{{client_qs.email}}" disabled>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="client_phone" class="control-label">Phone</label>
+                            <input class="form-control" type="text" name="client_phone" id="client_phone"
+                                value="{{client_qs.phone}}" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row px-5 pt-2">
+                        <div class="form-group col-md-6">
+                            <div class="form-group mt-4">
+                                <div class="form-check">
+                                    {% if client_qs.global_nda_authorization %}
+                                    <input class="form-check-input" name="client_use_global_nda"
+                                        id="client_use_global_nda" type="checkbox" checked disabled>
+                                    {% else %}
+                                    <input class="form-check-input" name="client_use_global_nda"
+                                        id="client_use_global_nda" type="checkbox" disabled>
+                                    {% endif %}
+                                    <label class="form-check-label" for="client_use_global_nda">
+                                        <h6>Use a Global Non Disclosure Agreement (NDA)</h6>
+                                        <a data-toggle="collapse" href="#client_use_global_nda_info"
+                                            aria-expanded="false" aria-controls="client_use_global_nda_info">
+                                            <h6 style="font-size:small">more</h6>
+                                        </a>
+                                        <div class="collapse" id="client_use_global_nda_info">
+                                            <p style="font-size: small">
+                                                This non-disclosure agreement will be used for all the projects
+                                                you collaborate on with Innocelf, LLC.
+                                            </p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="client_global_nda" class="control-label align-self-center pr-5">Attach
+                                NDA</label>
+                            <div class="file-field md-form mt-1 ml-0">
+                                <div class="btn btn-flat border border-dark btn-sm float-left disabled"
+                                    id="client_global_nda_choose_file">
+                                    <span>Choose file</span>
+                                    <input type="file" name="client_global_nda" id="client_global_nda" disabled>
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text" placeholder="Uploaded File" disabled>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+            </div>
+
+            <button class="btn btn-flat border border-dark float-left" id="edit_client_profile" type="button">
+                Edit Profile
+            </button>
+            <button class="btn btn-dark border border-dark float-right" id="save_client_profile" type="submit" disabled>
+                Save Changes
+            </button>
+            </form>
+
+        </div>
+
+
+        <!-- Central Modal Small -->
+        <div class="modal fade" id="information_saved_success_modal" tabindex="-1" role="dialog"
+            aria-labelledby="information_saved_success_modal_title" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content" id="information_saved_success_modal_content">
+                    <div class="modal-header" id="information_saved_success_modal_header">
+                        <h4 class="modal-title w-100" id="information_saved_success_modal_title">
+                            Information Updated
+                        </h4>
+                    </div>
+                    <div class="modal-body" id="information_saved_success_modal_title">
+                        <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i>
+                        <p>
+                            Your information was updated successfully.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Central Modal Small -->
+
+        {{ json_client_qs|json_script:"client_qs" }}
+        <script type="text/javascript" src="{% static 'js/innojs/client_account_home/client_profile.js' %}"></script>
+    </body>
+
+    {% endblock content %}
+
+</html>
