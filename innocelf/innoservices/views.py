@@ -19,6 +19,34 @@ def home_view(request, *args, **kwargs):
     return render(request, 'home_page.html')
 
 
+def technology_view(request, *args, **kwargs):
+    '''
+    Enlisting all the technologies that Innocelf supports with its services
+    '''
+    return render(request, 'technology_page.html')
+
+
+def privacy_policy(request, *args, **kwargs):
+    '''
+    Defining a page for privacy policy that will be tagged on using the link near the footer
+    '''
+    return render(request, 'privacy_policy.html')
+
+
+def disclaimer(request, *args, **kwargs):
+    '''
+    Defining a page for the websites disclaimer and will be part of the footer
+    '''
+    return render(request, 'disclaimer.html')
+
+
+def website_terms_and_conditions(request, *args, **kwargs):
+    '''
+    Defining a page for the websites terms and conditions and will be a part of the footer
+    '''
+    return render(request, 'terms_and_conditions.html')
+
+
 class ContactUsView(FormView):
 
     '''

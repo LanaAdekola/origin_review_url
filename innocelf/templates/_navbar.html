@@ -35,21 +35,40 @@
                 </div>
             </li>
             <!-- Dropdown Diligence-->
-            <li class="nav-item dropdown">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'innoservices:technologies' %}">
+                    Technology
+                </a>
+            </li>
+            <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     Technology
                 </a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Healthcare and Medical Devices</a>
-                    <a class="dropdown-item" href="#">Pharmaceutical</a>
-                    <a class="dropdown-item" href="#">Chemical and Material Science</a>
-                    <a class="dropdown-item" href="#">Biotechnology and Life Sciences</a>
-                    <a class="dropdown-item" href="#">Food Technology</a>
-                    <a class="dropdown-item" href="#">Consumer Products</a>
-                    <a class="dropdown-item" href="#">Mechanical</a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#healthcare">
+                        Healthcare and Medical Devices
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#pharmaceutical">
+                        Pharmaceutical
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#chemical-material-science">
+                        Chemical and Material Science
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#biotechnology-life-sciences">
+                        Biotechnology and Life Sciences
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#food-technology">
+                        Food Technology
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#consumer-products">
+                        Consumer Products
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#healthcare">
+                        Mechanical
+                    </a>
                 </div>
-            </li>
+            </li> -->
 
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'innoservices:contact-us' %}">
@@ -74,7 +93,7 @@
 
         <div class="nav-item my-0 d-flex">
             {% if user.is_authenticated %}
-            <a class="nav-link text-decoration-none text-white pr-0" href="{% url 'innoaccounts:user-home' user %}">
+            <a class="nav-link text-decoration-none text-white pr-0" href="{% url 'innoaccounts:client-home' user %}">
                 <h6 class="d-inline">Account |</h6>
             </a>
             <a class="nav-link text-decoration-none text-white ml-1 pl-0 mr-sm-2"

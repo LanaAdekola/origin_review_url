@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% extends 'base.html' %}
+    {% load static %}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block head_title %}
+            Innocelf | Technology
+            {% endblock head_title %}
+        </title>
+    </head>
+
+    {% block content %}
+
+    <body>
+        {% include '_navbar.html' %}
+
+        <!-- Card -->
+        <div class="card card-cascade wider my-5">
+
+            <!-- Card content -->
+            <div class="card-body card-body-cascade text-center bg-light" style="border-radius: 0.6rem;">
+
+                <!-- Title -->
+                <h2 class="card-title lato-bold text-uppercase">Technologies We Excel In</h2>
+
+            </div>
+
+            <!-- Card image -->
+            <div class="view-cascade" style="font-size: larger;">
+                <div class="row mb-5">
+                    <div class="col view overlay">
+                        <img src="{% static 'img/innoimg/innocelf-medicaldevices-technology-reduced.jpg' %}"
+                            alt="innocelf-medicaldevices-technology" class="animated fadeInLeftBig"
+                            style="width: inherit">
+                        <div class="mask d-flex align-self-center rgba-black-strong">
+                            <h3 class="lato-bold white-text m-auto">
+                                Healthcare and Medical Devices
+                            </h3>
+                            <ul class="lato-regular white-text m-auto list-unstyled">
+                                <li>Cardiac Assistive Devices</li>
+                                <li>Catheters</li>
+                                <li>Diagnostics</li>
+                                <li>Glucose Monitors</li>
+                                <li>Implanted Devices</li>
+                                <li>Orthopedic Devices</li>
+                                <li>Surgical Instrumentation</li>
+                                <li>Ultrasound Technology</li>
+                                <li>Pain Management Devices</li>
+                                <li>Meters / Monitors</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col view overlay">
+                        <img src="{% static 'img/innoimg/innocelf-pharmaceutical-technology-reduced.jpg' %}"
+                            alt="innocelf-pharmaceutical-technology" class="animated fadeInDownBig"
+                            style="width: inherit">
+                        <div class="mask d-flex align-self-center rgba-black-strong">
+                            <h3 class="lato-bold white-text m-auto">
+                                Pharmaceutical
+                            </h3>
+                            <ul class="lato-regular white-text m-auto list-unstyled">
+                                <li>Chemical / Markush Structure Searching</li>
+                                <li>Formulations / Compositions</li>
+                                <li>Mechanism of Action Searching</li>
+                                <li>Natural Products / Nutraceuticals</li>
+                                <li>Vitamin and Mineral Compositions</li>
+                                <li>Method of Synthesis</li>
+                                <li>New Chemical Molecule (MCE)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col view overlay">
+                        <img src="{% static 'img/innoimg/innocelf-chemistry-technology-reduced.jpg' %}"
+                            alt="innocelf-chemistry-technology" class="animated fadeInRightBig" style="width: inherit">
+                        <div class="mask d-flex align-self-center rgba-black-strong">
+                            <h3 class="lato-bold white-text m-auto">
+                                Chemical and Material Science
+                            </h3>
+                            <ul class="lato-regular white-text m-auto list-unstyled">
+                                <li>Agrochemicals and Fertilizers</li>
+                                <li>Industrial Processes</li>
+                                <li>Inorganics and Alloys</li>
+                                <li>Papermaking Technologies</li>
+                                <li>Polymers</li>
+                                <li>Reaction Pathways</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col view overlay">
+                        <img src="{% static 'img/innoimg/innocelf-biotech-technology-reduced.jpg' %}"
+                            alt="innocelf-biotech-technology" class="animated fadeInLeftBig" style="width: inherit">
+                        <div class="mask d-flex align-self-center rgba-black-strong">
+                            <h3 class="lato-bold white-text m-auto">
+                                Biotechnology and Life Sciences
+                            </h3>
+                            <ul class="lato-regular white-text m-auto list-unstyled">
+                                <li>Antibodies</li>
+                                <li>Cell Culture Methodologies</li>
+                                <li>Cell and Tissue Technologies</li>
+                                <li>Diagnostics: Tests and Assays</li>
+                                <li>DNA and Protein Sequence Searching</li>
+                                <li>Peptide Therapies</li>
+                                <li>Stem Cell Technologies</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col view overlay">
+                        <img src="{% static 'img/innoimg/innocelf-foodtechnology-technology-reduced.jpg' %}" alt=""
+                            class="animated fadeInUpBig" style="width: inherit">
+                        <div class="mask d-flex align-self-center rgba-black-strong">
+                            <h3 class="lato-bold white-text m-auto">
+                                Food Technology
+                            </h3>
+                            <ul class="lato-regular white-text m-auto list-unstyled">
+                                <li>Preservation</li>
+                                <li>Processing</li>
+                                <li>Nanotechnology</li>
+                                <li>Fortification</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col view overlay">
+                        <img src="{% static 'img/innoimg/innocelf-consumerproducts-technology-reduced.jpg' %}"
+                            alt="innocelf-consumerproducts-technology" class="animated fadeInRightBig"
+                            style="width: inherit">
+                        <div class="mask d-flex align-self-center rgba-black-strong">
+                            <h3 class="lato-bold white-text m-auto">
+                                Consumer Products
+                            </h3>
+                            <ul class="lato-regular white-text m-auto list-unstyled">
+                                <li>Apparel and Footwear</li>
+                                <li>Health and Beauty Products</li>
+                                <li>Household Goods</li>
+                                <li>Consumer Electronics</li>
+                                <li>Food and Beverages</li>
+                                <li>Toys and Games</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <a href="#!">
+                    <div class="mask rgba-white-slight">
+
+                    </div>
+                </a>
+            </div>
+
+        </div>
+        <!-- Card -->
+
+
+        {% include '_footer.html'%}
+
+        <script>
+            $(document).ready(function () {
+                new WOW().init();
+            });
+        </script>
+    </body>
+    {% endblock content %}
+
+</html>
