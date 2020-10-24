@@ -12,7 +12,7 @@
     </title>
   </head>
 
-  <body>
+  <body class="creative-lp">
     {% block content %}
 
     <style>
@@ -24,61 +24,524 @@
       .border-rounded {
         border-radius: 30px;
       }
+
+      #homepage_first_section {
+        background: url('/static/img/innoimg/TestingImages/innocelf-homepage-header-picture2.jpg');
+        background-size: cover
+      }
+
+      /* #streak_of_testimonials {
+                background: url('/static/img/innoimg/TestingImages/innocelf-homepage-streak-picture.jpg');
+            } */
+
+      nav {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1030;
+      }
+
+      html,
+      body,
+      header,
+      .intro-2 {
+        height: 100%;
+      }
+
+      @media (max-width: 740px) {
+
+        html,
+        body,
+        header,
+        .intro-2 {
+          height: 900px;
+        }
+      }
+
+      @media (min-width: 800px) and (max-width: 850px) {
+
+        html,
+        body,
+        header,
+        .intro-2 {
+          height: 900px;
+        }
+      }
+
+      .map-container {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+      }
+
+      .map-container iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
     </style>
 
-    {% include '_navbar.html' %}
+    <header>
+      {% include '_navbar.html' %}
 
-    <div class="container-fluid w-75" id="customer_testimonials">
-      <div class="row text-center justify-content-center">
-        <h2 class="h1-responsive font-weight-bold my-5 lato-regular">Client Feedback</h2>
-      </div>
-      <div class="row ">
-        <div class="col m-4 bg-white border-rounded">
-          <carousel-item name="Adam M." designation="Product Developer - Canada" comment-on-upwork="yes"
-            actual-testimony='I have had the pleasure of working with Pranita over the last 6 months while I put together and finalized a very important patent application. Pranita was flexible, attentive and went over and above to make sure that I was able to meet a very tight schedule, despite having to deal with competing timelines from my formulation team. Pranita’s guidance and experience with pharmaceutical patents was paramount in ensuring that the final product was ready for application. I would absolutely recommend Pranita for anybody needing help with the patenting process, specifically as it relates to the pharmaceutical industry. I will be keeping her contact close for future guidance!'>
-          </carousel-item>
+      <section class="view intro-2" id="homepage_first_section">
+        <div class="mask">
+          <div class="container h-100 d-flex justify-content-center align-items-center">
+            <div class="row flex-center pt-5 mt-3">
+              <div class="col-md-12 col-lg-6 text-center text-md-left margins">
+                <div class="dark-grey-text">
+                  <h1 class="display-4 title mt-md-5 mt-lg-0 font-weight-bold wow fadeIn" data-wow-delay="0.3s">
+                    <strong class="lato-bold">Patentability Search</strong>
+                  </h1>
+                  <hr class="hr-dark wow fadeIn" data-wow-delay="0.3s">
+                  <h6 class="wow fadeIn lato-regular" data-wow-delay="0.3s">
+                    The USPTO has issued over 10 million patents so far. Let us help you get yours
+                    without infringing on others.
+                  </h6>
+                  <br>
+                  <a class="btn btn-dark lato-regular font-weight-bold ml-lg-0 wow fadeIn" data-wow-delay="0.3s"
+                    href="#technologies_and_expertise">Expertise</a>
+                  <a class="btn btn-outline-dark lato-regular font-weight-bold wow fadeIn" data-wow-delay="0.3s"
+                    href="{% url 'innoservices:contact-us' %}">Contact Us
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-md-12 col-lg-6 wow fadeIn" data-wow-delay="0.3s">
+                <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png" alt="" class="img-fluid">
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col m-4 bg-white border-rounded">
-          <carousel-item name="Jason M." designation="GSM Sales" comment-on-upwork="yes"
-            actual-testimony="Pranita was a great help and excellent worker. She was very positive and completed our tasks in a timely manner. I would recommend Pranita for anyone needing a patent or other legal help in the future.">
-          </carousel-item>
-        </div>
-        <div class="col m-4 bg-white border-rounded">
-          <carousel-item name="D. Kumar" designation="Solo Inventor" comment-on-upwork="yes"
-            actual-testimony="Amazing Work, Very Detailed , Clear, Coherent And Thorough Information. Cannot Ask For More. Thank You">
-          </carousel-item>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col m-4 bg-white border-rounded">
-          <carousel-item name="Lennie F." designation="Brace Direct" comment-on-upwork="yes"
-            actual-testimony="Pranita Dharmadhikari has been great to work with and we will continue to use her in the future. We have used her on multiple projects for patent research and all were completed in a timely manner and the final results were very well prepared. Highly recommended.">
-          </carousel-item>
-        </div>
-        <div class="col m-4 bg-white border-rounded">
-          <carousel-item name="David H." designation="2PLUSH LLC" comment-on-upwork="yes"
-            actual-testimony="I was quite pleased with the scope of work performed, regarding the patent search report. I appreciate the professionalism! Couldn't have done it without Pranita.">
-          </carousel-item>
-        </div>
+      </section>
+
+    </header>
+
+    <main>
+
+      <div class="container">
+
+        <!-- Section: About -->
+        <section id="about" class="about mt-5 mb-5 py-3 wow fadeIn" data-wow-delay="0.2s">
+
+          <!-- Grid row -->
+          <div class="row pt-2 mt-5">
+
+            <!-- Grid column -->
+            <div class="col-lg-5 col-md-12 mb-3 wow fadeIn" data-wow-delay="0.4s">
+              <!-- Image -->
+              <img src="{% static 'img/innoimg/TestingImages/innocelf-homepage-section2-picture1.jpg' %}"
+                class="img-fluid z-depth-1 rounded" alt="My photo">
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-6 ml-auto col-md-12 wow fadeIn" data-wow-delay="0.4s">
+
+              <!-- Secion heading -->
+              <h3 class="mb-5 dark-grey-text title font-weight-bold wow fadeIn" data-wow-delay="0.2s">
+                <strong class="lato-bold">We Believe in Your Ideas!</strong>
+              </h3>
+
+              <!-- Description -->
+              <p class="grey-text text-justify lato-regular">Let Innocelf guide you through the process of
+                patentability search, novelty search and important product research.</p>
+              <p class="grey-text text-justify lato-regular">The USPTO now requires all patents to be
+                prior art searched before filing; that's where we come in!</p>
+              <p class="grey-text text-justify mb-5 lato-regular">Relevant patents out there? Nothing a
+                clearance search, state of the art search can't solve.</p>
+
+            </div>
+            <!-- Grid column -->
+
+          </div>
+          <!-- Grid row -->
+
+        </section>
+        <!-- Section: About -->
+
+        <hr>
+
+        <!-- Section: Features v.4 -->
+        <section id="technologies_and_expertise" class="mb-5 pb-4">
+
+          <!-- Section heading -->
+          <h3 class="text-center title my-5 dark-grey-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
+            <strong class="lato-bold">Technologies and Expertise</strong>
+          </h3>
+
+          <!-- Section sescription -->
+          <p class="text-center w-responsive mx-auto my-5 grey-text wow fadeIn lato-regular" data-wow-delay="0.2s">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum quas, eos officia maiores
+            ipsam ipsum
+            dolores reiciendis
+            ad voluptas, animi obcaecati adipisci sapiente mollitia.</p>
+
+          <!-- Grid row -->
+          <div class="row features-small wow fadeIn lato-regular" data-wow-delay="0.4s">
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-12">
+              <!-- Grid row -->
+              <div class="row mb-3">
+                <div class="col-2">
+                  <i class="fas fa-mortar-pestle fa-2x"></i>
+                </div>
+                <div class="col-10 mb-2">
+                  <h5 class="font-weight-bold title">Medical Devices</h5>
+                  <ul class="grey-text list-unstyled">
+                    <li>Cardiac Assistive Devices</li>
+                    <li>Diagnostics</li>
+                    <li>Surgical Instrumentation</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Grid row -->
+
+              <!-- Grid row -->
+              <div class="row mb-3">
+                <div class="col-2">
+                  <i class="fas fa-prescription fa-2x"></i>
+                </div>
+                <div class="col-10 mb-2">
+                  <h5 class="font-weight-bold title">Pharmacuetical</h5>
+                  <ul class="grey-text list-unstyled">
+                    <li>Formulations / Compositions</li>
+                    <li>Method of Synthesis</li>
+                    <li>Natural Products / Nutraceuticals</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Grid row -->
+
+              <!-- Grid row -->
+              <div class="row">
+                <div class="col-2">
+                  <i class="fas fa-atom fa-2x"></i>
+                </div>
+                <div class="col-10 mb-2">
+                  <h5 class="font-weight-bold title">Chemical & Material Sciences</h5>
+                  <ul class="grey-text list-unstyled">
+                    <li>Industrial Processes</li>
+                    <li>Inorganics and Alloys</li>
+                    <li>Polymers</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Grid row -->
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-lg-4 col-md-12 mb-1 text-center text-md-left">
+              <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png" alt=""
+                class="z-depth-0 img-fluid">
+            </div>
+            <!-- Grid column -->
+
+            <!-- Third column -->
+            <div class="col-lg-4 col-md-12">
+              <!-- Grid row -->
+              <div class="row mb-3">
+                <div class="col-2">
+                  <i class="fas fa-heartbeat fa-2x"></i>
+                </div>
+                <div class="col-10 mb-2">
+                  <h5 class="font-weight-bold title">Biotech and Life Sciences</h5>
+                  <ul class="grey-text list-unstyled">
+                    <li>Antibodies</li>
+                    <li>Diagnostics: Tests and Assays</li>
+                    <li>Peptide Therapies</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Grid row -->
+
+              <!-- Grid row -->
+              <div class="row mb-3">
+                <div class="col-2">
+                  <i class="fas fa-stroopwafel fa-2x"></i>
+                </div>
+                <div class="col-10 mb-2">
+                  <h5 class="font-weight-bold title">Food Technology</h5>
+                  <ul class="grey-text list-unstyled">
+                    <li>Preservation</li>
+                    <li>Processing</li>
+                    <li>Fortification</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Grid row -->
+
+              <!-- Grid row -->
+              <div class="row">
+                <div class="col-2">
+                  <i class="fas fa-compact-disc fa-2x"></i>
+                </div>
+                <div class="col-10 mb-2">
+                  <h5 class="font-weight-bold title">Consumer Products</h5>
+                  <ul class="grey-text list-unstyled">
+                    <li>Apparel and Footwear</li>
+                    <li>Household Goods</li>
+                    <li>Food and Beverages</li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Grid row -->
+            </div>
+            <!-- Third column -->
+          </div>
+          <!-- Grid row -->
+
+        </section>
+        <!-- Section: Features v.4 -->
 
       </div>
-    </div>
+
+      <!-- Streak -->
+      <div class="streak streak-photo streak-long-2" id="streak_of_testimonials"
+        style="background-image: url('/static/img/innoimg/TestingImages/innocelf-homepage-streak-picture.jpg');">
+        <div class="flex-center" style="background-color: rgba(0, 0, 0, 0.9);">
+          <div class="container">
+
+            <!-- Section heading -->
+            <h3 class="text-center mb-3 pb-3 white-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
+              <strong class="lato-bold">Client Feedback</strong>
+            </h3>
+
+            <!--First row-->
+            <div class="row text-center">
+
+              <!--First column-->
+              <div class="col-md-3 mb-2">
+                <carousel-item name="Jason M." designation="GSM Sales" comment-on-upwork="yes"
+                  actual-testimony="Pranita was a great help and excellent worker. She was very positive and completed our tasks in a timely manner. I would recommend Pranita for anyone needing a patent or other legal help in the future.">
+                </carousel-item>
+              </div>
+              <!--/First column-->
+
+              <!--Second column-->
+              <div class="col-md-3 mb-2">
+                <carousel-item name="David H." designation="2PLUSH LLC" comment-on-upwork="yes"
+                  actual-testimony="I was quite pleased with the scope of work performed, regarding the patent search report. I appreciate the professionalism! Couldn't have done it without Pranita.">
+                </carousel-item>
+              </div>
+              <!--/Second column-->
+
+              <!--Third column-->
+              <div class="col-md-3 mb-2">
+                <carousel-item name="Lennie F." designation="Brace Direct" comment-on-upwork="yes"
+                  actual-testimony="Pranita Dharmadhikari has been great to work with and we will continue to use her in the future. We have used her on multiple projects for patent research and all were completed in a timely manner and the final results were very well prepared. Highly recommended.">
+                </carousel-item>
+              </div>
+              <!--/Third column-->
+
+              <!--Fourth column-->
+              <div class="col-md-3">
+                <carousel-item name="D. Kumar" designation="Solo Inventor" comment-on-upwork="yes"
+                  actual-testimony="Amazing Work, Very Detailed , Clear, Coherent And Thorough Information. Cannot Ask For More. Thank You">
+                </carousel-item>
+              </div>
+              <!--/Fourth column-->
+
+            </div>
+            <!--First row-->
+
+          </div>
+        </div>
+      </div>
+      <!-- Streak -->
+
+      <div class="container-fluid cloudy-knoxville-gradient z-depth-1">
+        <div class="container py-4">
+
+          <!--Section: Services-->
+          <section id="services" class="mt-3 mb-3 pb-3">
+
+            <!-- Section heading -->
+            <h3 class="text-center title my-5 pt-4 pb-5 lato-bold font-weight-bold wow fadeIn" data-wow-delay="0.2s">
+              <strong>Innocelf's Services</strong>
+            </h3>
+
+            <!-- First row -->
+            <div class="row wow fadeIn lato-regular" data-wow-delay="0.4s">
+
+              <!-- First column -->
+              <div class="col-md-6 mb-4 text-center">
+
+                <!--Panel-->
+                <div class="card card-body text-left white hoverable">
+                  <p class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold">
+                    <i class="fas fa-square mr-2" aria-hidden="true"></i>
+                    <strong>Patentability and Novelty Search</strong>
+                  </p>
+                  <p class="grey-text font-small mx-4">A comprehensive research to prove novelty of each element of your
+                    invention.
+                  <p class="font-small font-weight-bold orange-text mx-4 mb-0">
+                    <a>read more</a>
+                  </p>
+                  </p>
+                </div>
+                <!--/.Panel-->
+
+              </div>
+              <!-- /First column -->
+
+              <!-- Second column -->
+              <div class="col-md-6 mb-4 text-center">
+
+                <!--Panel-->
+                <div class="card card-body text-left white hoverable">
+                  <p class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold">
+                    <i class="fas fa-square mr-2" aria-hidden="true"></i>
+                    <strong>Clearance Search</strong>
+                  </p>
+                  <p class="grey-text font-small mx-4">Identify patent and non-patent documents which may impact the
+                    claims of a specific patent.
+                  <p class="font-small font-weight-bold orange-text mx-4 mb-0">
+                    <a>read more</a>
+                  </p>
+                  </p>
+                </div>
+                <!--/.Panel-->
+
+              </div>
+              <!-- /.Second column -->
+
+              <!-- Third column -->
+              <div class="col-md-6 mb-4 text-center">
+
+                <!--Panel-->
+                <div class="card card-body text-left white hoverable">
+                  <p class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold">
+                    <i class="fas fa-square mr-2" aria-hidden="true"></i>
+                    <strong>Freedom to Operate Search</strong>
+                  </p>
+                  <p class="grey-text font-small mx-4">Commercialize your product without infringing on others valid
+                    intellectual property rights.
+                  <p class="font-small font-weight-bold mx-4 mb-0">
+                    <a>read more</a>
+                  </p>
+                  </p>
+                </div>
+                <!--/.Panel-->
+
+              </div>
+              <!-- /.Third column -->
+
+              <!-- Fourth column -->
+              <div class="col-md-6 mb-4 text-center">
+
+                <!--Panel-->
+                <div class="card card-body text-left white hoverable">
+                  <p class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold">
+                    <i class="fas fa-square mr-2" aria-hidden="true"></i>
+                    <strong>Product Research</strong>
+                  </p>
+                  <p class="grey-text font-small mx-4">A comprehensive research to identify commercial potential for your
+                    product.
+                  <p class="font-small font-weight-bold orange-text mx-4 mb-0">
+                    <a>read more</a>
+                  </p>
+                  </p>
+                </div>
+                <!--/.Panel-->
+
+              </div>
+              <!-- /.Fourth column -->
+
+            </div>
+            <!-- /.First row -->
+
+          </section>
+          <!--/Section: Services-->
+
+          <hr>
+
+          <section id="contact" class="section pb-5 mb-5">
+
+            <!--Section heading-->
+            <h2 class="text-center text-uppercase font-weight-bold my-5 pt-5 wow fadeIn lato-bold" data-wow-delay="0.2s"
+              style="visibility: visible; animation-name: fadeIn; animation-delay: 0.2s;">
+              Contact
+            </h2>
+            <!--Section sescription-->
+            <p class="text-center w-responsive mx-auto mb-5 pb-5 lato-regular">
+              Talk to us by either filling out the contact form or scheduling a virtual meet. Let the search begin.
+            </p>
+
+            <div class="row lato-regular">
+
+              <!--First column-->
+              <div class="col-lg-5 mb-2 align-self-center">
+                <a type="button" class="btn btn-dark btn-block" href="https://calendly.com/innocelf/virtual-appointment"
+                  target="_blank">
+                  Schedule a Virtual Consultation
+                </a>
+
+                <a type="button" href="{% url 'innoservices:contact-us' %}" class="btn btn-dark btn-block">
+                  Contact Us
+                </a>
+              </div>
+              <!--/First column-->
+
+              <!--Second column-->
+              <div class="col-lg-7">
+
+                <!--Google map-->
+                <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 400px">
+                  <iframe
+                    src="https://maps.google.com/maps?q=detroit&amp;t=&amp;z=7&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+                    style="border:0" allowfullscreen="" frameborder="0"></iframe>
+                </div>
+                <br>
+
+              </div>
+              <!--/Second column-->
+
+            </div>
+
+          </section>
+
+        </div>
+      </div>
+
+    </main>
+
+
+
 
 
     {% include '_footer.html' %}
 
 
-
-
-
-
-
-
-
-
+    <script src="https://maps.google.com/maps/api/js"></script>
     <script type="text/javascript" src="{% static 'js/innojs/html_components.js' %}"></script>
+    <script>
+      // Animation init
+      $(document).ready(function () {
+        new WOW().init();
+      });
+
+      // Gallery
+      $(function () {
+        var selectedClass = "";
+        $(".filter").click(function () {
+          selectedClass = $(this).attr("data-rel");
+          $("#gallery").fadeTo(100, 0.1);
+          $("#gallery div").not("." + selectedClass).fadeOut().removeClass('animation');
+          setTimeout(function () {
+            $("." + selectedClass).fadeIn().addClass('animation');
+            $("#gallery").fadeTo(300, 1);
+          }, 300);
+        });
+      });
+
+    </script>
     {% endblock content %}
   </body>
 

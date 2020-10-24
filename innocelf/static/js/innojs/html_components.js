@@ -9,7 +9,7 @@ class CarouselItem extends HTMLElement {
 
 	createParagraph() {
 		let createP = document.createElement('p');
-		createP.classList = 'text-justify p-3 mb-0';
+		createP.classList = 'text-justify p-3 mb-0 white-text';
 		createP.style.fontSize = 'small';
 
 		let createSpan = document.createElement('span');
@@ -32,10 +32,10 @@ class CarouselItem extends HTMLElement {
 		createTestimony.classList = 'testimonial';
 
 		let createHR = document.createElement('hr');
-		createHR.classList = 'my-2 w-50';
+		createHR.classList = 'my-2 w-50 hr-bold hr-light';
 
 		let commentSource = document.createElement('span');
-		commentSource.classList = 'float-right my-n3 lato-thin';
+		commentSource.classList = 'float-right my-n4 lato-light white-text';
 		commentSource.style.fontSize = 'x-small';
 		if (this.getAttribute('comment-on-upwork') === 'yes') {
 			commentSource.textContent = 'Comment on UpWork.com';
@@ -45,12 +45,12 @@ class CarouselItem extends HTMLElement {
 
 		let createName = document.createElement('h5');
 		createName.textContent = this.getAttribute('name');
-		createName.classList = 'font-weight-bold lato-bold';
+		createName.classList = 'font-weight-bold lato-bold white-text';
 		createName.style.fontSize = 'small';
 
 		let createDesignation = document.createElement('h6');
 		createDesignation.textContent = this.getAttribute('designation');
-		createDesignation.classList = 'font-weight-bold mb-3 lato-bold';
+		createDesignation.classList = 'font-weight-bold mb-3 lato-bold white-text';
 		createDesignation.style.fontSize = 'smaller';
 
 		createTestimony.append(this.createParagraph(), createHR, commentSource, createName, createDesignation);
