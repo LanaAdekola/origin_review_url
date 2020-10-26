@@ -51,7 +51,7 @@ def testimonials(request, *args, **kwargs):
     '''
     Defining a page for the websites / the company's testimonials
     '''
-    return render(request, 'testimonials.html')
+    return render(request, 'about_us_and_testimonials.html')
 
 
 class ContactUsView(FormView):

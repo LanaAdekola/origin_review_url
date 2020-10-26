@@ -5,7 +5,8 @@
 
     <!-- Navbar brand -->
     <a class="navbar-brand" href="{% url 'innoservices:home' %}">
-        <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SVG.svg' %}" alt="Innocelf_Logo" width="150px">
+        <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SVG.png' %}" alt="innocelf-patent-research-full-logo"
+            width="150px">
     </a>
 
     <!-- Collapse button -->
@@ -77,13 +78,13 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'innoservices:testimonials' %}">
+                <a class="nav-link" href="{% url 'innoservices:about-us-and-testimonials' %}#testimonials_in_about_us">
                     Testimonials
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'innoservices:about-us-and-testimonials' %}">
                     About
                 </a>
             </li>

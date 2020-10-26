@@ -20,6 +20,6 @@ urlpatterns = [
     path('disclaimer/', disclaimer, name='disclaimer'),
     path('terms-and-conditions/', website_terms_and_conditions,
          name='terms-and-conditions'),
-    path('testimonials/', testimonials, name='testimonials'),
+    path('about-us-and-testimonials/', testimonials, name='about-us-and-testimonials'),
     # path('user-login/', '', name='user-login')
 ]
