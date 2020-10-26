@@ -34,26 +34,12 @@ class CarouselItem extends HTMLElement {
 		let createHR = document.createElement('hr');
 		createHR.classList = 'my-2 w-50 hr-bold hr-light';
 
-		let commentSource = document.createElement('span');
-		commentSource.classList = 'float-right my-n4 lato-light white-text';
-		commentSource.style.fontSize = 'x-small';
-		if (this.getAttribute('comment-on-upwork') === 'yes') {
-			commentSource.textContent = 'Comment on UpWork.com';
-		} else {
-			commentSource.textContent = '';
-		}
-
 		let createName = document.createElement('h5');
 		createName.textContent = this.getAttribute('name');
 		createName.classList = 'font-weight-bold lato-bold white-text';
 		createName.style.fontSize = 'small';
 
-		let createDesignation = document.createElement('h6');
-		createDesignation.textContent = this.getAttribute('designation');
-		createDesignation.classList = 'font-weight-bold mb-3 lato-bold white-text';
-		createDesignation.style.fontSize = 'smaller';
-
-		createTestimony.append(this.createParagraph(), createHR, commentSource, createName, createDesignation);
+		createTestimony.append(this.createParagraph(), createHR, createName);
 
 		return createTestimony;
 	}
