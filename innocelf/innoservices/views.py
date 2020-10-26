@@ -30,21 +30,28 @@ def privacy_policy(request, *args, **kwargs):
     '''
     Defining a page for privacy policy that will be tagged on using the link near the footer
     '''
-    return render(request, 'privacy_policy.html')
+    return render(request, 'terms_and_conditions/privacy_policy.html')
 
 
 def disclaimer(request, *args, **kwargs):
     '''
     Defining a page for the websites disclaimer and will be part of the footer
     '''
-    return render(request, 'disclaimer.html')
+    return render(request, 'terms_and_conditions/disclaimer.html')
 
 
 def website_terms_and_conditions(request, *args, **kwargs):
     '''
     Defining a page for the websites terms and conditions and will be a part of the footer
     '''
-    return render(request, 'terms_and_conditions.html')
+    return render(request, 'terms_and_conditions/terms_and_conditions.html')
+
+
+def testimonials(request, *args, **kwargs):
+    '''
+    Defining a page for the websites / the company's testimonials
+    '''
+    return render(request, 'testimonials.html')
 
 
 class ContactUsView(FormView):

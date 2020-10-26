@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% extends 'base.html' %}
+  {% load static %}
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block head_title %}
+      Innocelf | Testimonials
+      {% endblock head_title %}
+    </title>
+  </head>
+
+  {% block content %}
+
+  <body>
+    {% include '_navbar.html' %}
+
+    <div class="container-fluid cloudy-knoxville-gradient d-flex align-items-center justify-content-center"
+      style="height: 8rem;">
+      <h1 class="lato-bold">
+        ABOUT US
+      </h1>
+    </div>
+
+    <div class="container-lg my-5 px-5 pt-5 pb-3 z-depth-1">
+      <div class="row">
+        <div class="col text-center">
+          <img src="{% static 'img/innoimg/innocelf-pranita-photo.jpg' %}" alt="Pranita Photo" height="400px">
+        </div>
+        <div class="col">
+          <h3 class="lato-regular brown-text">
+            Hi, I am Pranya Dharmya
+          </h3>
+          <p class="text-justify lato-regular">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem amet similique tempore aperiam quibusdam,
+            eveniet aliquam, in eaque id dolorem pariatur at doloremque quia iusto. A amet hic aperiam cum.
+            Commodi neque voluptatum, voluptatem sapiente maiores amet. Odit ut dolorum unde ipsum quos reiciendis
+            saepe, libero reprehenderit vitae, omnis quas iure. Ab rerum voluptas deserunt, aut minus a earum animi!
+            Cumque excepturi beatae, consequatur laudantium tenetur tempore eos deserunt ad ipsum sunt minima cum
+            quibusdam similique recusandae, rerum corporis! Totam esse voluptates voluptatem in reiciendis sequi
+            molestiae repellat sunt vitae?
+          </p>
+          <p class="text-justify lato-regular">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem amet similique tempore aperiam quibusdam,
+            eveniet aliquam, in eaque id dolorem pariatur at doloremque quia iusto. A amet hic aperiam cum.
+            Commodi neque voluptatum, voluptatem sapiente maiores amet. Odit ut dolorum unde ipsum quos reiciendis
+            saepe, libero reprehenderit vitae, omnis quas iure. Ab rerum voluptas deserunt, aut minus a earum animi!
+            Cumque excepturi beatae, consequatur laudantium tenetur tempore eos deserunt ad ipsum sunt minima cum
+            quibusdam similique recusandae, rerum corporis! Totam esse voluptates voluptatem in reiciendis sequi
+            molestiae repellat sunt vitae?
+          </p>
+          <p class="text-justify lato-regular">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem amet similique tempore aperiam quibusdam,
+            eveniet aliquam, in eaque id dolorem pariatur at doloremque quia iusto. A amet hic aperiam cum.
+            Commodi neque voluptatum, voluptatem sapiente maiores amet. Odit ut dolorum unde ipsum quos reiciendis
+            saepe, libero reprehenderit vitae, omnis quas iure. Ab rerum voluptas deserunt, aut minus a earum animi!
+            Cumque excepturi beatae, consequatur laudantium tenetur tempore eos deserunt ad ipsum sunt minima cum
+            quibusdam similique recusandae, rerum corporis! Totam esse voluptates voluptatem in reiciendis sequi
+            molestiae repellat sunt vitae?
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid cloudy-knoxville-gradient d-flex align-items-center justify-content-center"
+      style="height: 15rem;">
+      <div class="row w-50 h-100">
+        <div class="col-3 align-self-center">
+          <h1 class="lato-bold">
+            Our Mission
+          </h1>
+        </div>
+        <div class="col-9 align-self-center text-justify">
+          <h4 class="lato-regular" style="line-height: 2.5rem;">
+            To empower all inventors out there with relevant patent and market information to enable them to pursue
+            patenting their
+            inventions.
+          </h4>
+          <h4 class="lato-regular" style="line-height: 2.5rem;">
+            To believe in new ideas and supporting invention rights of small businesses, solo inventors and
+            private sellers.
+          </h4>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container my-5 px-5 pt-5 pb-3 z-depth-1">
+
+      <!--Section: Content-->
+      <section class="text-center dark-grey-text">
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-md-12 mb-4">
+
+            <div class="wrapper-carousel-fix">
+
+              <!-- Carousel Wrapper -->
+              <div id="carousel-example-1" class="carousel no-flex testimonial-carousel slide" data-ride="carousel"
+                data-interval="false">
+                <!--Slides-->
+                <div class="carousel-inner" role="listbox">
+                  <!--First slide-->
+                  <div class="carousel-item active">
+                    <testimonial-card testimonial-name="Adam M."
+                      testimonial-content="I have had the pleasure of working with Pranita over the last 6 months while I put together and finalized a very important patent application. Pranita was flexible, attentive and went over and above to make sure that I was able to meet a very tight schedule, despite having to deal with competing timelines from my formulation team. Pranita’s guidance and experience with pharmaceutical patents was paramount in ensuring that the final product was ready for application. I would absolutely recommend Pranita for anybody needing help with the patenting process, specifically as it relates to the pharmaceutical industry. I will be keeping her contact close for future guidance!">
+                    </testimonial-card>
+                  </div>
+                  <!--First slide-->
+                  <!--Second slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Jason M."
+                      testimonial-content="Pranita was a great help and excellent worker. She was very positive and completed our tasks in a timely manner. I would recommend Pranita for anyone needing a patent or other legal help in the future.">
+                    </testimonial-card>
+                  </div>
+                  <!--Second slide-->
+                  <!--Third slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="D. Kumar"
+                      testimonial-content="Amazing Work, Very Detailed , Clear, Coherent And Thorough Information. Cannot Ask For More. Thank You">
+                    </testimonial-card>
+                  </div>
+                  <!--Third slide-->
+                  <!--Fourth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Lennie F."
+                      testimonial-content="Pranita Dharmadhikari has been great to work with and we will continue to use her in the future. We have used her on multiple projects for patent research and all were completed in a timely manner and the final results were very well prepared. Highly recommended.">
+                    </testimonial-card>
+                  </div>
+                  <!--Fourth slide-->
+                  <!--Fifth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="David H."
+                      testimonial-content="I was quite pleased with the scope of work performed, regarding the patent search report. I appreciate the professionalism! Couldn't have done it without Pranita.">
+                    </testimonial-card>
+                  </div>
+                  <!--Fifth slide-->
+                  <!--Sixth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Robin B."
+                      testimonial-content="Pranita is a good person to work with. I appreciate and respect her work.">
+                    </testimonial-card>
+                  </div>
+                  <!--Sixth slide-->
+                </div>
+                <!--Slides-->
+                <!--Controls-->
+                <a class="carousel-control-prev left carousel-control" href="#carousel-example-1" role="button"
+                  data-slide="prev">
+                  <span class="icon-prev" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next right carousel-control" href="#carousel-example-1" role="button"
+                  data-slide="next">
+                  <span class="icon-next" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+                <!--Controls-->
+              </div>
+              <!-- Carousel Wrapper -->
+
+            </div>
+
+          </div>
+          <!-- Grid column -->
+
+        </div>
+        <!-- Grid row -->
+
+      </section>
+      <!--Section: Content-->
+
+
+    </div>
+
+    {% include '_footer.html' %}
+
+    <script type="text/javascript" src="{% static 'js/innojs/html_components.js' %}"></script>
+  </body>
+  {% endblock content %}
+
+</html>

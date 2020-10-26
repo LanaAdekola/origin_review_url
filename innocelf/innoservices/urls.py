@@ -4,7 +4,8 @@ from .views import (
     technology_view,
     privacy_policy,
     disclaimer,
-    website_terms_and_conditions
+    website_terms_and_conditions,
+    testimonials
 )
 from django.urls import path, include
 
@@ -17,6 +18,8 @@ urlpatterns = [
     path('contact-us/',  ContactUsView.as_view(), name='contact-us'),
     path('privacy-policy/', privacy_policy, name='privacy-policy'),
     path('disclaimer/', disclaimer, name='disclaimer'),
-    path('terms-and-conditions/', website_terms_and_conditions, name='terms-and-conditions'),
+    path('terms-and-conditions/', website_terms_and_conditions,
+         name='terms-and-conditions'),
+    path('testimonials/', testimonials, name='testimonials'),
     # path('user-login/', '', name='user-login')
 ]

@@ -26,7 +26,7 @@
       }
 
       #homepage_first_section {
-        background: url('/static/img/innoimg/TestingImages/innocelf-homepage-header-picture2.jpg');
+        background: url('/static/img/innoimg/innocelf-homepage-header-picture5.jpg');
         background-size: cover
       }
 
@@ -89,30 +89,22 @@
       {% include '_navbar.html' %}
 
       <section class="view intro-2" id="homepage_first_section">
-        <div class="mask">
+        <div class="mask rgba-black-strong">
           <div class="container h-100 d-flex justify-content-center align-items-center">
             <div class="row flex-center pt-5 mt-3">
-              <div class="col-md-12 col-lg-6 text-center text-md-left margins">
+              <div class="col-md-12 col-lg-12 text-center text-md-left margins">
                 <div class="dark-grey-text">
                   <h1 class="display-4 title mt-md-5 mt-lg-0 font-weight-bold wow fadeIn" data-wow-delay="0.3s">
-                    <strong class="lato-bold">Patentability Search</strong>
+                    <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SVG.svg' %}" alt=""
+                      class="wow fadeIn img-responsive">
+                    <!-- <strong
+                      class="lato-bold display-4 font-weight-bold text-uppercase white-text mb-4 wow fadeIn">INNOCELF</strong> -->
                   </h1>
                   <hr class="hr-dark wow fadeIn" data-wow-delay="0.3s">
-                  <h6 class="wow fadeIn lato-regular" data-wow-delay="0.3s">
-                    The USPTO has issued over 10 million patents so far. Let us help you get yours
-                    without infringing on others.
-                  </h6>
-                  <br>
-                  <a class="btn btn-dark lato-regular font-weight-bold ml-lg-0 wow fadeIn" data-wow-delay="0.3s"
-                    href="#technologies_and_expertise">Expertise</a>
-                  <a class="btn btn-outline-dark lato-regular font-weight-bold wow fadeIn" data-wow-delay="0.3s"
-                    href="{% url 'innoservices:contact-us' %}">Contact Us
-                  </a>
+                  <h5 class="wow fadeIn lato-regular white-text text-right mt-n1" data-wow-delay="0.3s">
+                    We Believe In Your Ideas
+                  </h5>
                 </div>
-              </div>
-
-              <div class="col-md-12 col-lg-6 wow fadeIn" data-wow-delay="0.3s">
-                <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png" alt="" class="img-fluid">
               </div>
             </div>
           </div>
@@ -121,7 +113,7 @@
 
     </header>
 
-    <main>
+    <main class="cloudy-knoxville-gradient mt-n5">
 
       <div class="container">
 
@@ -132,9 +124,9 @@
           <div class="row pt-2 mt-5">
 
             <!-- Grid column -->
-            <div class="col-lg-5 col-md-12 mb-3 wow fadeIn" data-wow-delay="0.4s">
+            <div class="col-lg-6 col-md-12 mb-3 wow fadeIn" data-wow-delay="0.4s">
               <!-- Image -->
-              <img src="{% static 'img/innoimg/TestingImages/innocelf-homepage-section2-picture1.jpg' %}"
+              <img src="{% static 'img/innoimg/innocelf-homepage-section2-picture2.jpg' %}"
                 class="img-fluid z-depth-1 rounded" alt="My photo">
             </div>
             <!-- Grid column -->
@@ -143,17 +135,28 @@
             <div class="col-lg-6 ml-auto col-md-12 wow fadeIn" data-wow-delay="0.4s">
 
               <!-- Secion heading -->
-              <h3 class="mb-5 dark-grey-text title font-weight-bold wow fadeIn" data-wow-delay="0.2s">
-                <strong class="lato-bold">We Believe in Your Ideas!</strong>
+              <h3 class="mb-5 title text-uppercase font-weight-bold lato-bold wow fadeIn text-center"
+                data-wow-delay="0.2s">
+                What Should You Expect
               </h3>
 
               <!-- Description -->
-              <p class="grey-text text-justify lato-regular">Let Innocelf guide you through the process of
-                patentability search, novelty search and important product research.</p>
-              <p class="grey-text text-justify lato-regular">The USPTO now requires all patents to be
-                prior art searched before filing; that's where we come in!</p>
-              <p class="grey-text text-justify mb-5 lato-regular">Relevant patents out there? Nothing a
-                clearance search, state of the art search can't solve.</p>
+              <p class="grey-text text-justify lato-regular ml-4">With Innocelf you will receive
+                high quality patent search reports and analyses.Innocelf's collaboration will
+                help you make informed decisions
+                with
+                proven methodologies beforecommercializing the invention.</p>
+              <p class="grey-text text-justify lato-regular ml-4">We work with attorneys, small
+                business, solo inventors and
+                are open for long-term partnerships / collaborative effortswith them. That and the technologies
+                we are
+                an expert in makes us an excellent choice.
+              <p class="grey-text text-justify lato-regular ml-4">Innocelf believes in transparency, constructive
+                feedback
+                and regular communication in every engagement. We are also masters of confidentiality, so you can assure
+                your inventions are safe with us.</p>
+              </p>
+              <p class="grey-text text-justify mb-5 lato-regular"></p>
 
             </div>
             <!-- Grid column -->
@@ -167,25 +170,23 @@
         <hr>
 
         <!-- Section: Features v.4 -->
-        <section id="technologies_and_expertise" class="mb-5 pb-4">
+        <section id="technologies_and_expertise" class="mb-5 pb-5">
 
           <!-- Section heading -->
-          <h3 class="text-center title my-5 dark-grey-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
-            <strong class="lato-bold">Technologies and Expertise</strong>
-          </h3>
+          <h2 class="text-center title my-5 font-weight-bold lato-bold wow fadeIn text-uppercase" data-wow-delay="0.2s">
+            Technologies and Expertise
+          </h2>
 
           <!-- Section sescription -->
-          <p class="text-center w-responsive mx-auto my-5 grey-text wow fadeIn lato-regular" data-wow-delay="0.2s">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum quas, eos officia maiores
-            ipsam ipsum
-            dolores reiciendis
-            ad voluptas, animi obcaecati adipisci sapiente mollitia.</p>
+          <p class="text-center w-responsive mx-auto my-5 wow fadeIn lato-regular" data-wow-delay="0.2s">
+            We cover a large spectrum of technologies to perform searching services. That way all related patents, even
+            if from a different sector, can be vetted.</p>
 
           <!-- Grid row -->
           <div class="row features-small wow fadeIn lato-regular" data-wow-delay="0.4s">
 
             <!-- Grid column -->
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-12 pr-0">
               <!-- Grid row -->
               <div class="row mb-3">
                 <div class="col-2">
@@ -237,20 +238,18 @@
             <!-- Grid column -->
 
             <!-- Grid column -->
-            <div class="col-lg-4 col-md-12 mb-1 text-center text-md-left">
-              <img src="https://mdbootstrap.com/img/Mockups/Transparent/Small/admin-new.png" alt=""
-                class="z-depth-0 img-fluid">
+            <div class="col-lg-4 col-md-12 mb-1 px-0 text-center text-md-left align-self-center">
+              <img src="{% static 'img/innoimg/innocelf-homepage-technology-picture1.jpg' %}" alt=""
+                class="z-depth-0 img-fluid" style="max-width: 110%">
             </div>
             <!-- Grid column -->
 
             <!-- Third column -->
-            <div class="col-lg-4 col-md-12">
+            <div class="col-lg-4 col-md-12 pl-0">
               <!-- Grid row -->
               <div class="row mb-3">
-                <div class="col-2">
-                  <i class="fas fa-heartbeat fa-2x"></i>
-                </div>
-                <div class="col-10 mb-2">
+
+                <div class="col-10 mb-2 text-right">
                   <h5 class="font-weight-bold title">Biotech and Life Sciences</h5>
                   <ul class="grey-text list-unstyled">
                     <li>Antibodies</li>
@@ -258,15 +257,15 @@
                     <li>Peptide Therapies</li>
                   </ul>
                 </div>
+                <div class="col-2">
+                  <i class="fas fa-heartbeat fa-2x"></i>
+                </div>
               </div>
               <!-- Grid row -->
 
               <!-- Grid row -->
               <div class="row mb-3">
-                <div class="col-2">
-                  <i class="fas fa-stroopwafel fa-2x"></i>
-                </div>
-                <div class="col-10 mb-2">
+                <div class="col-10 mb-2 text-right">
                   <h5 class="font-weight-bold title">Food Technology</h5>
                   <ul class="grey-text list-unstyled">
                     <li>Preservation</li>
@@ -274,21 +273,24 @@
                     <li>Fortification</li>
                   </ul>
                 </div>
+                <div class="col-2">
+                  <i class="fas fa-stroopwafel fa-2x"></i>
+                </div>
               </div>
               <!-- Grid row -->
 
               <!-- Grid row -->
               <div class="row">
-                <div class="col-2">
-                  <i class="fas fa-compact-disc fa-2x"></i>
-                </div>
-                <div class="col-10 mb-2">
+                <div class="col-10 mb-2 text-right">
                   <h5 class="font-weight-bold title">Consumer Products</h5>
                   <ul class="grey-text list-unstyled">
                     <li>Apparel and Footwear</li>
                     <li>Household Goods</li>
                     <li>Food and Beverages</li>
                   </ul>
+                </div>
+                <div class="col-2">
+                  <i class="fas fa-compact-disc fa-2x"></i>
                 </div>
               </div>
               <!-- Grid row -->
@@ -304,14 +306,15 @@
 
       <!-- Streak -->
       <div class="streak streak-photo streak-long-2" id="streak_of_testimonials"
-        style="background-image: url('/static/img/innoimg/TestingImages/innocelf-homepage-streak-picture.jpg');">
+        style="background-image: url('/static/img/innoimg/innocelf-homepage-streak-picture.jpg');">
         <div class="flex-center" style="background-color: rgba(0, 0, 0, 0.9);">
           <div class="container">
 
             <!-- Section heading -->
-            <h3 class="text-center mb-3 pb-3 white-text font-weight-bold wow fadeIn" data-wow-delay="0.2s">
-              <strong class="lato-bold">Client Feedback</strong>
-            </h3>
+            <h2 class="text-center mb-3 pb-3 white-text text-uppercase font-weight-bold wow fadeIn lato-bold"
+              data-wow-delay="0.2s">
+              CLIENT FEEDBACK
+            </h2>
 
             <!--First row-->
             <div class="row text-center">
@@ -363,9 +366,10 @@
           <section id="services" class="mt-3 mb-3 pb-3">
 
             <!-- Section heading -->
-            <h3 class="text-center title my-5 pt-4 pb-5 lato-bold font-weight-bold wow fadeIn" data-wow-delay="0.2s">
-              <strong>Innocelf's Services</strong>
-            </h3>
+            <h2 class="text-center title my-5 pt-4 pb-5 lato-bold font-weight-bold text-uppercase wow fadeIn"
+              data-wow-delay="0.2s">
+              Services
+            </h2>
 
             <!-- First row -->
             <div class="row wow fadeIn lato-regular" data-wow-delay="0.4s">
@@ -442,7 +446,8 @@
                     <i class="fas fa-square mr-2" aria-hidden="true"></i>
                     <strong>Product Research</strong>
                   </p>
-                  <p class="grey-text font-small mx-4">A comprehensive research to identify commercial potential for your
+                  <p class="grey-text font-small mx-4">A comprehensive research to identify commercial potential for
+                    your
                     product.
                   <p class="font-small font-weight-bold orange-text mx-4 mb-0">
                     <a>read more</a>

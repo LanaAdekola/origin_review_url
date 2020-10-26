@@ -72,3 +72,38 @@ class CarouselItem extends HTMLElement {
 }
 
 customElements.define('carousel-item', CarouselItem);
+
+class TestimonialCard extends HTMLElement {
+	constructor() {
+		super();
+	}
+
+	createTestimonialContent() {
+		let testimonialPara = document.createElement('p');
+		testimonialPara.classList = 'lead lato-light-italic';
+		testimonialPara.textContent = this.getAttribute('testimonial-content');
+
+		return testimonialPara;
+	}
+
+	createAvatarDiv() {
+		let avatar = document.createElement('div');
+		avatar.classList = 'view card-img-64 mx-auto mt-5 mb-4';
+
+		return avatar;
+	}
+
+	createTestimonialPerson() {
+		let testimonialPerson = document.createElement('p');
+		testimonialPerson.classList = 'text-muted lato-regular';
+		testimonialPerson.textContent = this.getAttribute('testimonial-name');
+
+		return testimonialPerson;
+	}
+
+	connectedCallback() {
+		this.append(this.createTestimonialContent(), this.createAvatarDiv(), this.createTestimonialPerson());
+	}
+}
+
+customElements.define('testimonial-card', TestimonialCard);
