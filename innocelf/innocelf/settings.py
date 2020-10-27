@@ -156,3 +156,11 @@ RECAPTCHA_SECRET_KEY = os.environ.get('RECAPTCHA_SECRET_KEY')
 
 # LOGIN_REDIRECT_URL = '/account-home/f{User.}'
 LOGIN_URL = 'innoaccounts:login-user'
+
+# Setting up Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('INNOCELF_GMAIL_USER_ID')
+EMAIL_HOST_PASSWORD = os.environ.get('INNOCELF_GMAIL_APP_PASS')

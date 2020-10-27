@@ -1,10 +1,12 @@
 import os
-import urllib
+import urllib.request
+import urllib.parse
 import json
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, ListView, View
+from django.core.mail import send_mail
 
 from .forms import ContactUsForm
 from .models import ContactUs
@@ -63,7 +65,7 @@ class ContactUsView(FormView):
     form = ContactUsForm
 
     def get(self, *args, **kwargs):
-
+        print(settings.EMAIL_HOST_PASSWORD)
         form = self.form
         recaptcha_site_key = settings.RECAPTCHA_SITE_KEY
 
@@ -105,6 +107,16 @@ class ContactUsView(FormView):
 
                 messages.info(
                     self.request, 'Your inquiry has been recorded. We will reach out to you in 1-2 business day(s).')
+
+                send_mail(
+                    subject='ATTENTION!! Someone contacted you on Innocelf',
+                    message=f"{form['first_name'].value()} {form['last_name'].value()} with the email id {form['email'].value()} and phone number {form['phone'].value()} has contacted you.\n\n The reason for their inquiry is {form['inquiry_reason'].value()}.\n They typed this message: {form['explanation'].value()}",
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=['ppd24@case.edu',
+                                    'dharmadhikari.pranita@gmail.com'],
+                    fail_silently=False
+                )
+
                 return redirect('innoservices:contact-us')
 
             else:
