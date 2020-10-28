@@ -1,7 +1,7 @@
 {% load static %}
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-superdark lato-regular">
+<nav class="navbar navbar-expand-lg navbar-dark bg-superdark lato-regular" style="height: 5rem;">
 
     <!-- Navbar brand -->
     <a class="navbar-brand" href="{% url 'innoservices:home' %}">
@@ -27,48 +27,63 @@
                     Services
                 </a>
                 <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Patentability / Novelty Search</a>
-                    <a class="dropdown-item" href="#">Clearance Search</a>
-                    <a class="dropdown-item" href="#">Invalidity Search</a>
-                    <a class="dropdown-item" href="#">Freedom to Operate Search</a>
-                    <a class="dropdown-item" href="#">Landscape / State of the Art</a>
-                    <a class="dropdown-item" href="#">Product Research</a>
+                    <a class="dropdown-item"
+                        href="{% url 'innoservices:technologies' %}#patentability_and_novelty_search">
+                        Patentability /
+                        Novelty Search
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#validity_invalidity_search">
+                        Invalidity Search
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#freedom_to_operate_search">
+                        Freedom to Operate
+                        Search
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#product_research">
+                        Product
+                        Research
+                    </a>
+                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#landscape_state_of_the_art">
+                        Landscape /
+                        State of the Art
+                    </a>
                 </div>
             </li>
             <!-- Dropdown Diligence-->
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'innoservices:technologies' %}">
+                <a class="nav-link" href="{% url 'innoservices:technologies' %}#tech_page_technology_section">
                     Technology
                 </a>
             </li>
-            <!-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Technology
-                </a>
-                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#healthcare">
-                        Healthcare and Medical Devices
+            <!-- <li class=" nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Technology
                     </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#pharmaceutical">
-                        Pharmaceutical
-                    </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#chemical-material-science">
-                        Chemical and Material Science
-                    </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#biotechnology-life-sciences">
-                        Biotechnology and Life Sciences
-                    </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#food-technology">
-                        Food Technology
-                    </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#consumer-products">
-                        Consumer Products
-                    </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#healthcare">
-                        Mechanical
-                    </a>
-                </div>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#healthcare">
+                            Healthcare and Medical Devices
+                        </a>
+                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#pharmaceutical">
+                            Pharmaceutical
+                        </a>
+                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#chemical-material-science">
+                            Chemical and Material Science
+                        </a>
+                        <a class="dropdown-item"
+                            href="{% url 'innoservices:technologies' %}#biotechnology-life-sciences">
+                            Biotechnology and Life Sciences
+                        </a>
+                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#food-technology">
+                            Food Technology
+                        </a>
+                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#consumer-products">
+                            Consumer Products
+                        </a>
+                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#healthcare">
+                            Mechanical
+                        </a>
+                    </div>
             </li> -->
 
             <li class="nav-item">

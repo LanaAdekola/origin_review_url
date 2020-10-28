@@ -209,18 +209,17 @@
             <div class="col-md-6 mb-4 text-center">
 
               <!--Panel-->
-              <div class="card card-body text-left white hoverable">
-                <p class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold">
-                  <i class="fas fa-square mr-2" aria-hidden="true"></i>
-                  <strong>Patentability and Novelty Search</strong>
-                </p>
-                <p class="grey-text font-small mx-4">A comprehensive research to prove novelty of each element of your
-                  invention.
-                <p class="font-small font-weight-bold orange-text mx-4 mb-0">
-                  <a>read more</a>
-                </p>
-                </p>
-              </div>
+              <a href="{% url 'innoservices:technologies' %}#patentability_and_novelty_search">
+                <div class="card card-body text-left white hoverable">
+                  <p class="font-weight-bold title font-weight-bold text-uppercase text-dark mt-4 mx-4 lato-bold">
+                    <i class="fas fa-square mr-2" aria-hidden="true"></i>
+                    <strong>Patentability and Novelty Search</strong>
+                  </p>
+                  <p class="grey-text font-small mx-4">A comprehensive research to prove novelty of each element of your
+                    invention.
+                  </p>
+                </div>
+              </a>
               <!--/.Panel-->
 
             </div>
@@ -230,18 +229,18 @@
             <div class="col-md-6 mb-4 text-center">
 
               <!--Panel-->
-              <div class="card card-body text-left white hoverable">
-                <p class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold">
-                  <i class="fas fa-square mr-2" aria-hidden="true"></i>
-                  <strong>Clearance Search</strong>
-                </p>
-                <p class="grey-text font-small mx-4">Identify patent and non-patent documents which may impact the
-                  claims of a specific patent.
-                <p class="font-small font-weight-bold orange-text mx-4 mb-0">
-                  <a>read more</a>
-                </p>
-                </p>
-              </div>
+              <a href="{% url 'innoservices:technologies' %}#clearance_search">
+                <div class="card card-body text-left white hoverable">
+                  <p
+                    class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold text-dark">
+                    <i class="fas fa-square mr-2" aria-hidden="true"></i>
+                    <strong>Clearance Search</strong>
+                  </p>
+                  <p class="grey-text font-small mx-4">Identify patent and non-patent documents which may impact the
+                    claims of a specific patent.
+                  </p>
+                </div>
+              </a>
               <!--/.Panel-->
 
             </div>
@@ -251,18 +250,18 @@
             <div class="col-md-6 mb-4 text-center">
 
               <!--Panel-->
-              <div class="card card-body text-left white hoverable">
-                <p class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold">
-                  <i class="fas fa-square mr-2" aria-hidden="true"></i>
-                  <strong>Freedom to Operate Search</strong>
-                </p>
-                <p class="grey-text font-small mx-4">Commercialize your product without infringing on others valid
-                  intellectual property rights.
-                <p class="font-small orange-text font-weight-bold mx-4 mb-0">
-                  <a>read more</a>
-                </p>
-                </p>
-              </div>
+              <a href="{% url 'innoservices:technologies' %}#freedom_to_operate_search">
+                <div class="card card-body text-left white hoverable">
+                  <p
+                    class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold text-dark">
+                    <i class="fas fa-square mr-2" aria-hidden="true"></i>
+                    <strong>Freedom to Operate Search</strong>
+                  </p>
+                  <p class="grey-text font-small mx-4">Commercialize your product without infringing on others valid
+                    intellectual property rights.
+                  </p>
+                </div>
+              </a>
               <!--/.Panel-->
 
             </div>
@@ -272,19 +271,19 @@
             <div class="col-md-6 mb-4 text-center">
 
               <!--Panel-->
-              <div class="card card-body text-left white hoverable">
-                <p class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold">
-                  <i class="fas fa-square mr-2" aria-hidden="true"></i>
-                  <strong>Product Research</strong>
-                </p>
-                <p class="grey-text font-small mx-4">A comprehensive research to identify commercial potential for
-                  your
-                  product.
-                <p class="font-small font-weight-bold orange-text mx-4 mb-0">
-                  <a>read more</a>
-                </p>
-                </p>
-              </div>
+              <a href="{% url 'innoservices:technologies' %}#product_research">
+                <div class="card card-body text-left white hoverable">
+                  <p
+                    class="font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold text-dark">
+                    <i class="fas fa-square mr-2" aria-hidden="true"></i>
+                    <strong>Product Research</strong>
+                  </p>
+                  <p class="grey-text font-small mx-4">A comprehensive research to identify commercial potential for
+                    your
+                    product.
+                  </p>
+                </div>
+              </a>
               <!--/.Panel-->
 
             </div>
@@ -570,6 +569,8 @@
           }, 300);
         });
       });
+
+      document.getElementById('comment_on_upwork').style.display = 'inline'
 
     </script>
     {% endblock content %}

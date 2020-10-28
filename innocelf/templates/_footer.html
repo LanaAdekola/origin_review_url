@@ -1,79 +1,154 @@
 {% load static %}
+
+<style>
+  footer p {
+    margin-bottom: 0.5rem
+  }
+</style>
+
 <!-- Footer -->
 <footer class="page-footer font-small bg-superdark pt-4 lato-regular">
 
-    <!-- Footer Elements -->
-    <div class="container">
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left mt-5 mx-auto" style="max-width: 1500px;">
 
-        <!--Grid row-->
-        <div class="row justify-content-center text-center">
+    <!-- Grid row -->
+    <div class="row mt-3">
 
-            <!--Grid column-->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3" style="font-size: large;">
-                <h6 class="text-uppercase mb-4 font-weight-bold">Contact</h6>
-                <p>
-                    <i class="fas fa-home mr-3"></i>South-East Michigan, USA</p>
-                <p>
-                    <i class="fas fa-phone mr-3"></i> +1 (248) 606-2236 </p>
-            </div>
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-4 col-xl-3 ml-auto pr-0 mb-4">
 
-            <!--Grid column-->
-            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+        <!-- Content -->
+        <h6 class="text-uppercase lato-bold">Innocelf LLC</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>We are a Michigan based company who provide reliable patent research to facilitate educated,
+          confident and successful decisions for
+          your
+          invention protection.</p>
 
-                <ul class="list-unstyled list-inline">
-                    <li class="list-inline-item">
-                        <a class="li-ic">
-                            <i class="fab fa-linkedin-in fa-lg white-text mr-4"> </i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="fb-ic">
-                            <i class="fab fa-facebook-f fa-lg white-text mr-4"> </i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="ins-ic">
-                            <i class="fab fa-instagram fa-lg white-text mr-4"> </i>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a class="tw-ic">
-                            <i class="fab fa-twitter fa-lg white-text mr-4"> </i>
-                        </a>
-                    </li>
-                </ul>
+      </div>
+      <!-- Grid column -->
 
-            </div>
-            <!--Grid column-->
+      <!-- Grid column -->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
 
-        </div>
-        <!--Grid row-->
+        <!-- Links -->
+        <h6 class="text-uppercase lato-bold">Services</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#patentability_and_novelty_search">Patentability and Novelty
+            Search</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#validity_invalidity_search">Validity / Invalidity Search</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#freedom_to_operate_search">Freedom to Operate Search</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#product_research">Product Research</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#landscape_state_of_the_art">Landscape / State of the Art
+            Search</a>
+        </p>
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase lato-bold">Expertise</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Healthcare and Medical
+            Devices</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Pharmaceutical</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Chemical and Material Science</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Biotechnology and Life
+            Sciences</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Food Technology</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Consumer Products</a>
+        </p>
+      </div>
+      <!-- Grid column -->
+
+      <!-- Grid column -->
+      <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-md-0 mb-4">
+
+        <!-- Links -->
+        <h6 class="text-uppercase lato-bold">Contact</h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+          <i class="fas fa-home mr-3"></i>Michigan, USA</p>
+        <p>
+          <a type="button" class="btn btn-light btn-sm text-dark"
+            href="https://calendly.com/innocelf/virtual-appointment" target="_blank">
+            Schedule Consultation
+          </a>
+        </p>
+        <p>
+          <a type="button" href="{% url 'innoservices:contact-us' %}" class="btn btn-light btn-sm text-dark">
+            Contact Us
+          </a>
+        </p>
+        <p>
+        <ul class="list-unstyled list-inline">
+          <li class="list-inline-item">
+            <a class="li-ic" href="https://www.linkedin.com/company/innocelf-llc" target="_blank">
+              <i class="fab fa-linkedin-in fa-lg white-text mr-4"> </i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="fb-ic" href="https://www.facebook.com/Innocelf-106570791228978" target="_blank">
+              <i class="fab fa-facebook-f fa-lg white-text mr-4"> </i>
+            </a>
+          </li>
+        </ul>
+        </p>
+
+      </div>
+      <!-- Grid column -->
 
     </div>
-    <!-- Footer Elements -->
+    <!-- Grid row -->
 
-    <!-- Copyright -->
-    <div class="footer-copyright text-center pt-3">© 2020 Copyright:
-        <a href="#">INNOCELF, LLC. All Rights Reserved</a>
-        <div class="row justify-content-center">
-            <div class="col-md-1 col-lg-1 col-xl-1 mt-3">
-                <a href="{% url 'innoservices:privacy-policy' %}">Privacy Policy</a>
-            </div>
-            <div class="col-md-1 col-lg-1 col-xl-1 mt-3">
-                <a href="{% url 'innoservices:terms-and-conditions' %}">Terms of Use</a>
-            </div>
-            <div class="col-md-1 col-lg-1 col-xl-1 mt-3">
-                <a href="{% url 'innoservices:disclaimer' %}">Disclaimer</a>
-            </div>
+  </div>
+  <!-- Footer Links -->
 
-        </div>
+  <!-- Copyright -->
+  <div class="footer-copyright text-center pt-3">© 2020 Copyright:
+    <a href="#">INNOCELF, LLC. All Rights Reserved</a>
+    <div class="row justify-content-center">
+      <div class="col-md-1 col-lg-1 col-xl-1 mt-3">
+        <a href="{% url 'innoservices:privacy-policy' %}">Privacy Policy</a>
+      </div>
+      <div class="col-md-1 col-lg-1 col-xl-1 mt-3">
+        <a href="{% url 'innoservices:terms-and-conditions' %}">Terms of Use</a>
+      </div>
+      <div class="col-md-1 col-lg-1 col-xl-1 mt-3">
+        <a href="{% url 'innoservices:disclaimer' %}">Disclaimer</a>
+      </div>
 
     </div>
-    <!-- Copyright -->
 
-    <div class="footer-copyright" style="font-size: xx-small;">
-        * Comment from Upwork.com
-    </div>
+  </div>
+  <!-- Copyright -->
+
+  <div class="footer-copyright" style="font-size: xx-small; display: none;" id="comment_on_upwork">
+    * Comment from Upwork.com
+  </div>
 
 </footer>
 <!-- Footer -->

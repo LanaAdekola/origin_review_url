@@ -93,3 +93,74 @@ class TestimonialCard extends HTMLElement {
 }
 
 customElements.define('testimonial-card', TestimonialCard);
+
+class ServiceDescription extends HTMLElement {
+	constructor() {
+		super();
+	}
+
+	createServiceTitle() {
+		let title = document.createElement('p');
+		title.classList = 'font-weight-bold title font-weight-bold text-uppercase spacing mt-4 mx-4 lato-bold';
+
+		let titleIcon = document.createElement('i');
+		titleIcon.classList = 'fas fa-square mr-2';
+		titleIcon.setAttribute('aria-hidden', 'true');
+
+		let titleText = document.createElement('strong');
+		titleText.textContent = this.getAttribute('service-name');
+
+		title.append(titleIcon, titleText);
+		return title;
+	}
+
+	createServiceDescription() {
+		let description = document.createElement('p');
+		description.classList = 'grey-text font-small mx-4 text-justify';
+		description.textContent = this.getAttribute('first-glimpse');
+		description.style.wordSpacing = '0.3rem';
+		description.id = this.getAttribute('id') + '_paragraph';
+
+		let dots = document.createElement('span');
+		dots.id = this.getAttribute('id') + '_dots';
+		dots.textContent = '...';
+
+		let detail = document.createElement('span');
+		detail.id = this.getAttribute('id') + '_detail';
+		detail.textContent = this.getAttribute('service-detail');
+		detail.style.display = 'none';
+
+		description.append(dots, detail);
+
+		return description;
+	}
+
+	createReadMoreButton() {
+		let pTag = document.createElement('p');
+		pTag.classList = 'font-small font-weight-bold orange-text mx-4 mb-0';
+
+		let aTag = document.createElement('a');
+		aTag.id = this.getAttribute('id') + '_show_more';
+		aTag.textContent = 'read more';
+		aTag.setAttribute('onclick', this.getAttribute('function'));
+
+		pTag.append(aTag);
+
+		return pTag;
+	}
+
+	createCardWrapper() {
+		let card = document.createElement('div');
+		card.classList = 'card card-body text-left white hoverable';
+
+		card.append(this.createServiceTitle(), this.createServiceDescription(), this.createReadMoreButton());
+
+		return card;
+	}
+
+	connectedCallback() {
+		this.append(this.createCardWrapper());
+	}
+}
+
+customElements.define('service-description', ServiceDescription);
