@@ -3,129 +3,97 @@
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-dark bg-superdark lato-regular" style="height: 5rem;">
 
-    <!-- Navbar brand -->
-    <a class="navbar-brand" href="{% url 'innoservices:home' %}">
-        <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SVG.png' %}" alt="innocelf-patent-research-full-logo"
-            width="150px">
-    </a>
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="{% url 'innoservices:home' %}">
+    <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SVG.png' %}" alt="innocelf-patent-research-full-logo"
+      width="150px">
+  </a>
 
-    <!-- Collapse button -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="basicExampleNav">
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
 
-        <!-- Links -->
-        <ul class="navbar-nav m-auto nav-fill w-50">
-            <!-- Dropdown Services -->
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    Services
-                </a>
-                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item"
-                        href="{% url 'innoservices:technologies' %}#patentability_and_novelty_search">
-                        Patentability /
-                        Novelty Search
-                    </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#validity_invalidity_search">
-                        Invalidity Search
-                    </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#freedom_to_operate_search">
-                        Freedom to Operate
-                        Search
-                    </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#product_research">
-                        Product
-                        Research
-                    </a>
-                    <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#landscape_state_of_the_art">
-                        Landscape /
-                        State of the Art
-                    </a>
-                </div>
-            </li>
-            <!-- Dropdown Diligence-->
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'innoservices:technologies' %}#tech_page_technology_section">
-                    Technology
-                </a>
-            </li>
-            <!-- <li class=" nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        Technology
-                    </a>
-                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#healthcare">
-                            Healthcare and Medical Devices
-                        </a>
-                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#pharmaceutical">
-                            Pharmaceutical
-                        </a>
-                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#chemical-material-science">
-                            Chemical and Material Science
-                        </a>
-                        <a class="dropdown-item"
-                            href="{% url 'innoservices:technologies' %}#biotechnology-life-sciences">
-                            Biotechnology and Life Sciences
-                        </a>
-                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#food-technology">
-                            Food Technology
-                        </a>
-                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#consumer-products">
-                            Consumer Products
-                        </a>
-                        <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#healthcare">
-                            Mechanical
-                        </a>
-                    </div>
-            </li> -->
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'innoservices:contact-us' %}">
-                    Contact
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'innoservices:about-us-and-testimonials' %}#testimonials_in_about_us">
-                    Testimonials
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'innoservices:about-us-and-testimonials' %}">
-                    About
-                </a>
-            </li>
-
-        </ul>
-        <!-- Links -->
-
-        <div class="nav-item my-0 d-flex">
-            {% if user.is_authenticated %}
-            <a class="nav-link text-decoration-none text-white pr-0" href="{% url 'innoaccounts:client-home' user %}">
-                <h6 class="d-inline">Account |</h6>
-            </a>
-            <a class="nav-link text-decoration-none text-white ml-1 pl-0 mr-sm-2"
-                href="{% url 'innoaccounts:logout-user' %}">
-                <h6 class="d-inline">Logout</h6>
-            </a>
-            {% else %}
-            <a class="nav-link text-decoration-none text-white mr-sm-2" href="{% url 'innoaccounts:login-user' %}">
-                Login
-            </a>
-
-            {% endif %}
+    <!-- Links -->
+    <ul class="navbar-nav m-auto nav-fill w-50">
+      <!-- Dropdown Services -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          Services
+        </a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#patentability_and_novelty_search">
+            Patentability /
+            Novelty Search
+          </a>
+          <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#validity_invalidity_search">
+            Invalidity Search
+          </a>
+          <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#freedom_to_operate_search">
+            Freedom to Operate
+            Search
+          </a>
+          <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#product_research">
+            Product
+            Research
+          </a>
+          <a class="dropdown-item" href="{% url 'innoservices:technologies' %}#landscape_state_of_the_art">
+            Landscape /
+            State of the Art
+          </a>
         </div>
+      </li>
+      <!-- Dropdown Diligence-->
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'innoservices:technologies' %}#tech_page_technology_section">
+          Technology
+        </a>
+      </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'innoservices:contact-us' %}">
+          Contact
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'innoservices:about-us-and-testimonials' %}#testimonials_in_about_us">
+          Testimonials
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'innoservices:about-us-and-testimonials' %}">
+          About
+        </a>
+      </li>
+
+    </ul>
+    <!-- Links -->
+
+    <div class="nav-item my-0 d-flex">
+      {% if user.is_authenticated %}
+      <a class="nav-link text-decoration-none text-white pr-0" href="{% url 'innoaccounts:client-home' user %}">
+        <h6 class="d-inline">Account |</h6>
+      </a>
+      <a class="nav-link text-decoration-none text-white ml-1 pl-0 mr-sm-2" href="{% url 'innoaccounts:logout-user' %}">
+        <h6 class="d-inline">Logout</h6>
+      </a>
+      {% else %}
+      <a class="nav-link text-decoration-none text-white mr-sm-2" href="{% url 'innoaccounts:login-user' %}">
+        Login
+      </a>
+
+      {% endif %}
     </div>
-    <!-- Collapsible content -->
+
+  </div>
+  <!-- Collapsible content -->
 
 </nav>
 <!--/.Navbar-->

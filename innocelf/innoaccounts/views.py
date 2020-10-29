@@ -13,8 +13,14 @@ from django.urls import reverse
 from django.core import serializers
 from django.http import HttpResponse
 
-from .forms import UserRegisterForm
-from .models import InnocelfClient
+from .forms import (
+    UserRegisterForm,
+    InnocelfStartProjectForm,
+)
+from .models import (
+    InnocelfClient,
+    InnocelfStartProject,
+)
 
 
 def register_user(request):
@@ -77,8 +83,36 @@ class UserLogin(LoginView):
 
     def post(self, *args, **kwargs):
         settings.LOGIN_REDIRECT_URL = reverse(
-            'innoaccounts:user-home', kwargs={'username': self.request.POST.get('username')})
+            'innoaccounts:client-home', kwargs={'user': self.request.POST.get('username')})
         return LoginView.post(self, self.request)
+
+
+class UserAccountView(View, LoginRequiredMixin):
+    '''
+    Class for user account view (particularly the homepage)
+    '''
+
+    def get(self, *args, **kwargs):
+        '''
+        Get request views and responses for user account view
+        '''
+        username = self.kwargs['user']
+        user_qs = User.objects.get(username=username)
+
+        client_qs = InnocelfClient.objects.get(
+            first_name=user_qs.first_name, last_name=user_qs.last_name)
+        json_client_qs = serializers.serialize('json', [client_qs, ])
+
+        context = {
+            'user_qs': user_qs,
+            'client_qs': client_qs,
+            'json_client_qs': json_client_qs
+        }
+
+        if 'profile' in self.request.get_full_path():
+            return render(self.request, 'client_account_home/client_profile.html', context=context)
+        else:
+            return render(self.request, 'client_account_home/client_home.html', context=context)
 
 
 def upload_global_nda_documents(user, client, pdf_binary):
@@ -149,15 +183,20 @@ def update_client_profile(request, *args, **kwargs):
     })
 
 
-class UserAccountView(View, LoginRequiredMixin):
+class StartProjectRequest(View):
     '''
-    Class for user account view (particularly the homepage)
+    Class to initiate and save a new project request that is based on the InnocelfStartProject model
     '''
+
+    template_name = 'client_account_home/client_start_new_project.html'
+    model = InnocelfStartProject
+    form = InnocelfStartProjectForm
 
     def get(self, *args, **kwargs):
         '''
-        Get request views and responses for user account view
+        Get request for the form that will filled out by existing clients to start a project
         '''
+        form_qs = self.form
         username = self.kwargs['user']
         user_qs = User.objects.get(username=username)
 
@@ -166,12 +205,41 @@ class UserAccountView(View, LoginRequiredMixin):
         json_client_qs = serializers.serialize('json', [client_qs, ])
 
         context = {
+            'form': form_qs,
             'user_qs': user_qs,
             'client_qs': client_qs,
             'json_client_qs': json_client_qs
         }
 
-        if 'profile' in self.request.get_full_path():
-            return render(self.request, 'client_account_home/client_profile.html', context=context)
-        else:
-            return render(self.request, 'client_account_home/client_home.html', context=context)
+        return render(self.request, self.template_name, context)
+
+    def post(self, *args, **kwargs):
+        '''
+        Handle post request of the start project request from a particular client
+        '''
+        if self.request.is_ajax():
+            form_qs = self.form(self.request.POST)
+            user = self.request.user
+            user_qs = User.objects.get(username=user.get_username())
+
+            client_qs = InnocelfClient.objects.get(
+                first_name=user_qs.first_name, last_name=user_qs.last_name
+            )
+
+            if form_qs.is_valid():
+                new_start_project_request = self.model()
+                new_start_project_request.client = client_qs
+                new_start_project_request.project_type = form_qs.cleaned_data['project_type']
+                new_start_project_request.project_description = form_qs.cleaned_data[
+                    'project_description']
+                # new_start_project_request.save()
+
+                return HttpResponse({
+                    'Success'
+                })
+
+            else:
+
+                return HttpResponse({
+                    'data': 'Failure'
+                })

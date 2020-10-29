@@ -8,6 +8,15 @@ PROJECT_STATUS = (
     ('Completed', 'Completed')
 )
 
+INNOCELF_SERVICES = (
+    ('PS', 'Patentability / Novelty Search'),
+    ('IS', 'Invalidity Search'),
+    ('FOS', 'Freedom to Operate / Clearance Search'),
+    ('PR', 'Product Research'),
+    ('LSA', 'Landscape / State of the Art Search'),
+    ('OT', 'Other / Not Listed')
+)
+
 
 class InnocelfClient(models.Model):
     '''
@@ -91,3 +100,16 @@ class InnocelfInvoice(models.Model):
 
     def __str__(self):
         return f'{self.project_associated.name} {self.client.first_name}, Amount: {self.project_amount}'
+
+
+class InnocelfStartProject(models.Model):
+    '''
+    Model to save all requests for a particular client that wants to start a project with Innocelf
+    '''
+    client = models.ForeignKey(InnocelfClient, on_delete=models.CASCADE)
+    project_type = models.CharField(max_length=4, choices=INNOCELF_SERVICES)
+    project_description = models.CharField(max_length=3000)
+    project_approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.client.first_name} {self.client.last_name} requested {self.project_type}'

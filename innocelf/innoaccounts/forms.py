@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import InnocelfStartProject
 
 
 class UserRegisterForm(UserCreationForm):
@@ -27,3 +28,29 @@ class UserRegisterForm(UserCreationForm):
         if email_qs.exists():
             raise forms.ValidationError(
                 'Account with this email address already exists. Please login to your account.')
+
+
+class InnocelfStartProjectForm(forms.ModelForm):
+
+    class Meta:
+        model = InnocelfStartProject
+        fields = ['project_type', 'project_description']
+
+        widgets = {
+            'project_type': forms.Select(attrs={
+                'class': 'custom-select custom-select-md lato-regular mt-3',
+                'id': 'start_new_project_type'
+            }),
+            'project_description': forms.Textarea(attrs={
+                'class': 'form-control lato-regular mt-3 mb-3',
+                'id': 'start_new_project_description',
+                'rows': '3',
+                'maxlength': '3000',
+                'placeholder': 'Please provide a detailed description of the product. Include any relevant links that you might find useful.'
+            })
+        }
+
+        labels = {
+            'project_type': 'Project Type*',
+            'project_description': 'Project Description* (Limit 3000 characters)'
+        }

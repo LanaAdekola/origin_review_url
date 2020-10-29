@@ -4,7 +4,8 @@ from .views import (
     register_user,
     UserAccountView,
     UserLogin,
-    update_client_profile
+    update_client_profile,
+    StartProjectRequest
 )
 
 app_name = 'innoaccounts'
@@ -20,6 +21,8 @@ urlpatterns = [
          UserAccountView.as_view(), name='client-home'),
     path('client-home/<user>/profile',
          UserAccountView.as_view(), name='client-home-profile'),
+    path('client-home/<user>/start-new-project',
+         StartProjectRequest.as_view(), name='client-home-start-new-project'),
 
     path('update-client-profile', update_client_profile,
          name='update-client-profile')
