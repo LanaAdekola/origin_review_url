@@ -7,6 +7,12 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {% block meta_data %}
+    <meta name="description"
+      content="Innocelf, LLC is a Michigan based company who provide reliable patent research to facilitate educated, confident and successful decisions for your invention protection. Here you will find patent research at its best. From patentability searches, freedom to operate searches to general product research. We excel in a multitude of technologies from pharmacuetical to consumer products and from medical devices to food technology." />
+    {% endblock meta_data %}
+
     <title>
       {% block head_title %}Innocelf{% endblock head_title %}
     </title>

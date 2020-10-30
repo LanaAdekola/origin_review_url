@@ -7,9 +7,17 @@ from .views import (
     website_terms_and_conditions,
     testimonials
 )
+from .sitemaps import StaticViewSiteMap
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+
 
 app_name = 'innoservices'
+
+sitemaps = {
+    'static': StaticViewSiteMap,
+}
+
 
 urlpatterns = [
     path('', home_view, name='home'),
@@ -20,6 +28,11 @@ urlpatterns = [
     path('disclaimer/', disclaimer, name='disclaimer'),
     path('terms-and-conditions/', website_terms_and_conditions,
          name='terms-and-conditions'),
-    path('about-us-and-testimonials/', testimonials, name='about-us-and-testimonials'),
+    path('about-us-and-testimonials/', testimonials,
+         name='about-us-and-testimonials'),
+
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
+         name='django.contrib.sitemaps.views.sitemap'),
+
     # path('user-login/', '', name='user-login')
 ]

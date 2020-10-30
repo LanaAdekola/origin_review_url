@@ -6,6 +6,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% block meta_data %}
+        <meta name="description"
+            content="The following terms and conditions apply when a user uses Innocelf and its website." />
+        {% endblock meta_data %}
         <title>
             {% block head_title %}
             Innocelf | Terms and Conditions
