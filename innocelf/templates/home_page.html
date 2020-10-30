@@ -36,9 +36,66 @@
         background-size: cover
       }
 
-      /* #streak_of_testimonials {
-                background: url('/static/img/innoimg/TestingImages/innocelf-homepage-streak-picture.jpg');
-            } */
+      #we_provide_relaible_patent_research_strip {
+        line-height: 3.3rem;
+      }
+
+      #innocelf_patent_research_technology_picture {
+        max-width: 110%;
+      }
+
+      @media (min-width: 375px) and (max-width: 768px) {
+        #header_innocelf_logo {
+          width: 100%;
+        }
+
+        #patent_research_at_its_best_para1.ml-4,
+        #patent_research_at_its_best_para2.ml-4,
+        #patent_research_at_its_best_para3.ml-4 {
+          margin-left: 0px !important
+        }
+
+        #we_provide_relaible_patent_research_strip {
+          line-height: 2.0rem;
+        }
+
+        #innocelf_patent_research_technology_picture {
+          max-width: 75%;
+        }
+
+        #client_feedback_title {
+          margin-bottom: 0.5rem !important;
+          padding-bottom: 0.5rem !important;
+          margin-top: 0.5rem !important;
+          padding-top: 0.5rem !important;
+        }
+
+        .order-xsm-first {
+          order: -1;
+          padding-left: 30px;
+          padding-right: 15px
+        }
+
+        .order-xsm-last {
+          order: 13;
+          padding-left: 30px;
+          text-align: start !important;
+        }
+      }
+
+      /* @media (max-width: 768px) {
+        .order-xsm-first {
+          order: -1;
+          padding-left: 30px;
+          padding-right: 15px
+        }
+
+        .order-xsm-last {
+          order: 13;
+          padding-left: 30px;
+          text-align: start !important;
+        }
+      } */
 
       nav {
         position: fixed !important;
@@ -102,12 +159,13 @@
                 <div class="dark-grey-text">
                   <h1 class="display-4 title mt-md-5 mt-lg-0 font-weight-bold wow fadeIn" data-wow-delay="0.3s">
                     <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SVG.png' %}"
-                      alt="innocelf-patent-research-full-logo" class="wow fadeIn img-responsive">
+                      alt="innocelf-patent-research-full-logo" class="wow fadeIn img-responsive"
+                      id="header_innocelf_logo">
                     <!-- <strong
                       class="lato-bold display-4 font-weight-bold text-uppercase white-text mb-4 wow fadeIn">INNOCELF</strong> -->
                   </h1>
                   <hr class="hr-dark wow fadeIn" data-wow-delay="0.3s">
-                  <h5 class="wow fadeIn lato-regular white-text text-right mt-n1" data-wow-delay="0.3s">
+                  <h5 class="wow fadeIn lato-regular white-text text-right mt-n1 h5-responsive" data-wow-delay="0.3s">
                     We Believe In Your Ideas
                   </h5>
                 </div>
@@ -126,7 +184,8 @@
         <!-- Section: About -->
         <section id="about" class="about mt-5 mb-5 py-3 wow fadeIn" data-wow-delay="0.2s">
 
-          <h2 class="text-center title my-5 pt-4 pb-5 lato-bold font-weight-bold text-uppercase wow fadeIn"
+          <h2
+            class="text-center title my-5 pt-4 pb-5 lato-bold font-weight-bold text-uppercase wow fadeIn h2-responsive"
             data-wow-delay="0.2s">
             PATENT RESEARCH AT IT'S BEST
           </h2>
@@ -152,16 +211,19 @@
               </h3> -->
 
               <!-- Description -->
-              <p class="grey-text text-justify lato-regular ml-4">With Innocelf you will receive
+              <p class="grey-text text-justify lato-regular ml-4" id="patent_research_at_its_best_para1">With Innocelf
+                you will receive
                 high quality patent search reports and analyses. Innocelf's collaboration will
                 help you make informed decisions
                 with
                 proven methodologies before commercializing the invention.</p>
-              <p class="grey-text text-justify lato-regular ml-4">We work with attorneys, small
+              <p class="grey-text text-justify lato-regular ml-4" id="patent_research_at_its_best_para2">We work with
+                attorneys, small
                 business, solo inventors and
                 are open for long-term partnerships / collaborative efforts. That and the technologies
                 thrive in makes us an excellent choice.
-              <p class="grey-text text-justify lato-regular ml-4">Innocelf believes in transparency, constructive
+              <p class="grey-text text-justify lato-regular ml-4" id="patent_research_at_its_best_para2">Innocelf
+                believes in transparency, constructive
                 feedback
                 and regular communication in every engagement to be as effective as possible. We are also masters of
                 confidentiality, so you can assure
@@ -187,8 +249,8 @@
           <div class="container d-flex align-self-center justify-content-center">
 
             <!-- Section heading -->
-            <h2 class="text-center white-text text-uppercase font-weight-bold wow fadeIn lato-regular"
-              data-wow-delay="0.2s" style="line-height: 3.3rem;">
+            <h2 class="text-center white-text text-uppercase font-weight-bold wow fadeIn lato-regular h2-responsive"
+              data-wow-delay="0.2s" id="we_provide_relaible_patent_research_strip">
               We provide reliable patent research to facilitate educated, confident and successful decisions for your
               invention protection.
             </h2>
@@ -203,7 +265,8 @@
         <section id="services" class="mt-3 mb-5 pb-3">
 
           <!-- Section heading -->
-          <h2 class="text-center title my-5 pt-4 pb-5 lato-bold font-weight-bold text-uppercase wow fadeIn"
+          <h2
+            class="text-center title my-5 pt-4 pb-5 lato-bold font-weight-bold text-uppercase wow fadeIn h2-responsive"
             data-wow-delay="0.2s">
             Services
           </h2>
@@ -307,7 +370,7 @@
         <section id="technologies_and_expertise" class="mt-3 mb-5 pb-5">
 
           <!-- Section heading -->
-          <h2 class="text-center title mt-5 pt-4 font-weight-bold lato-bold wow fadeIn text-uppercase"
+          <h2 class="text-center title mt-5 pt-4 font-weight-bold lato-bold wow fadeIn text-uppercase h2-responsive"
             data-wow-delay="0.2s">
             Technologies and Expertise
           </h2>
@@ -328,7 +391,7 @@
                   <i class="fas fa-mortar-pestle fa-2x"></i>
                 </div>
                 <div class="col-10 mb-2">
-                  <h5 class="font-weight-bold title">Medical Devices</h5>
+                  <h5 class="font-weight-bold title h5-responsive">Medical Devices</h5>
                   <ul class="grey-text list-unstyled">
                     <li>Cardiac Assistive Devices</li>
                     <li>Diagnostics</li>
@@ -344,7 +407,7 @@
                   <i class="fas fa-prescription fa-2x"></i>
                 </div>
                 <div class="col-10 mb-2">
-                  <h5 class="font-weight-bold title">Pharmacuetical</h5>
+                  <h5 class="font-weight-bold title h5-responsive">Pharmacuetical</h5>
                   <ul class="grey-text list-unstyled">
                     <li>Formulations / Compositions</li>
                     <li>Method of Synthesis</li>
@@ -360,7 +423,7 @@
                   <i class="fas fa-atom fa-2x"></i>
                 </div>
                 <div class="col-10 mb-2">
-                  <h5 class="font-weight-bold title">Chemical & Material Sciences</h5>
+                  <h5 class="font-weight-bold title h5-responsive">Chemical & Material Sciences</h5>
                   <ul class="grey-text list-unstyled">
                     <li>Industrial Processes</li>
                     <li>Inorganics and Alloys</li>
@@ -375,7 +438,8 @@
             <!-- Grid column -->
             <div class="col-lg-4 col-md-12 mb-1 px-0 text-center text-md-left align-self-center">
               <img src="{% static 'img/innoimg/innocelf-homepage-technology-picture1.jpg' %}"
-                alt="innocelf-patent-research-technology-picture" class="z-depth-0 img-fluid" style="max-width: 110%">
+                alt="innocelf-patent-research-technology-picture" class="z-depth-0 img-fluid"
+                id="innocelf_patent_research_technology_picture">
             </div>
             <!-- Grid column -->
 
@@ -384,15 +448,15 @@
               <!-- Grid row -->
               <div class="row mb-3">
 
-                <div class="col-10 mb-2 text-right">
-                  <h5 class="font-weight-bold title">Biotech and Life Sciences</h5>
+                <div class="col-10 mb-2 text-right order-lg-first order-sm-last order-xsm-last">
+                  <h5 class="font-weight-bold title h5-responsive">Biotech and Life Sciences</h5>
                   <ul class="grey-text list-unstyled">
                     <li>Antibodies</li>
                     <li>Diagnostics: Tests and Assays</li>
                     <li>Peptide Therapies</li>
                   </ul>
                 </div>
-                <div class="col-2">
+                <div class="col-2 order-lg-last order-sm-first order-xsm-first">
                   <i class="fas fa-heartbeat fa-2x"></i>
                 </div>
               </div>
@@ -400,15 +464,15 @@
 
               <!-- Grid row -->
               <div class="row mb-3">
-                <div class="col-10 mb-2 text-right">
-                  <h5 class="font-weight-bold title">Food Technology</h5>
+                <div class="col-10 mb-2 text-right order-lg-first order-sm-last order-xsm-last">
+                  <h5 class="font-weight-bold title h5-responsive">Food Technology</h5>
                   <ul class="grey-text list-unstyled">
                     <li>Preservation</li>
                     <li>Processing</li>
                     <li>Fortification</li>
                   </ul>
                 </div>
-                <div class="col-2">
+                <div class="col-2 order-lg-last order-sm-first order-xsm-first">
                   <i class="fas fa-stroopwafel fa-2x"></i>
                 </div>
               </div>
@@ -416,15 +480,15 @@
 
               <!-- Grid row -->
               <div class="row">
-                <div class="col-10 mb-2 text-right">
-                  <h5 class="font-weight-bold title">Consumer Products</h5>
+                <div class="col-10 mb-2 text-right order-lg-first order-sm-last order-xsm-last">
+                  <h5 class="font-weight-bold title h5-responsive">Consumer Products</h5>
                   <ul class="grey-text list-unstyled">
                     <li>Apparel and Footwear</li>
                     <li>Household Goods</li>
                     <li>Food and Beverages</li>
                   </ul>
                 </div>
-                <div class="col-2">
+                <div class="col-2 order-lg-last order-sm-first order-xsm-first">
                   <i class="fas fa-compact-disc fa-2x"></i>
                 </div>
               </div>
@@ -446,8 +510,9 @@
           <div class="container">
 
             <!-- Section heading -->
-            <h2 class="text-center mb-3 pb-3 white-text text-uppercase font-weight-bold wow fadeIn lato-bold"
-              data-wow-delay="0.2s">
+            <h2
+              class="text-center mb-3 pb-3 white-text text-uppercase font-weight-bold wow fadeIn lato-bold h2-responsive"
+              data-wow-delay="0.2s" id="client_feedback_title">
               CLIENT FEEDBACK
             </h2>
 
@@ -500,8 +565,8 @@
           <section id="contact" class="section pb-5 mb-5">
 
             <!--Section heading-->
-            <h2 class="text-center text-uppercase font-weight-bold my-5 pt-5 wow fadeIn lato-bold" data-wow-delay="0.2s"
-              style="visibility: visible; animation-name: fadeIn; animation-delay: 0.2s;">
+            <h2 class="text-center text-uppercase font-weight-bold my-5 pt-5 wow fadeIn lato-bold h2-responsive"
+              data-wow-delay="0.2s" style="visibility: visible; animation-name: fadeIn; animation-delay: 0.2s;">
               Contact
             </h2>
             <!--Section sescription-->
