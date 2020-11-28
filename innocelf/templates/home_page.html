@@ -613,19 +613,19 @@
     </main>
 
 
-<!-- Modal -->
-<div class="modal fade bottom" id="CookiesModal" tabindex="-1" role="dialog" aria-labelledby="CookiesModalLabel" aria-hidden="false" data-backdrop='false'>
-  <div class="modal-dialog modal-frame modal-bottom modal-sm" role="document">
-    <div class="modal-content">
-      <div class="modal-body lato-regular">
-        <span>The website uses cookies to ensure you get the best experience on our website.</span>
-        <span><a href="{% url 'innoservices:privacy-policy' %}">Learn More</a></span>
-        <button type="button" class="btn btn-dark btn-sm lato-regular float-right m-0" data-dismiss="modal">I Understand</button>
+    <div class="modal fade bottom" id="CookiesModal" tabindex="-1" role="dialog" aria-labelledby="CookiesModalLabel"
+      aria-hidden="false" data-backdrop='false'>
+      <div class="modal-dialog modal-frame modal-bottom modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body lato-regular">
+            <span>The website uses cookies to ensure you get the best experience on our website.</span>
+            <span><a href="{% url 'innoservices:privacy-policy' %}">Learn More</a></span>
+            <button type="button" class="btn btn-dark btn-sm lato-regular float-right m-0" data-dismiss="modal">I
+              Understand</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-<!-- Modal -->
 
 
     {% include '_footer.html' %}
@@ -655,9 +655,9 @@
 
       document.getElementById('comment_on_upwork').style.display = 'inline'
 
-      window.addEventListener('load', function() {
+      window.addEventListener('load', function () {
         $('#CookiesModal').modal('show')
-      }) 
+      })
 
     </script>
     {% endblock content %}
