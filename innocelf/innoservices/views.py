@@ -7,18 +7,36 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, ListView, View
 from django.core.mail import send_mail
+from django.http import HttpResponse
 
 from .forms import ContactUsForm
 from .models import ContactUs
 
-# Create your views here.
+PRIVACY_POLICY_RESPONSE = '''The information contained in this website is provided for informational purposes only, and should not be
+                construed as legal advice, nor are they intended as a source of advertising or solicitation. The
+                material on this website may not reflect the most current legal developments. We disclaim all liability
+                in respect to actions taken or not taken based on any or all the contents of this site to the fullest
+                extent permitted by law. Do not act or refrain from acting upon this information without seeking
+                professional legal counsel in your own state. No past results serve in any way as a guarantee of future
+                results.\nTestimonials found on this website are actual client reviews of INNOCELF, LLC or team members. We
+                appreciate our clients and their willingness to share their experiences. Please keep in mind that the
+                success of any matter depends on the unique circumstances of each case: we cannot guarantee particular
+                results for future clients based on successes we have achieved in past matters.'''
 
 
 def home_view(request, *args, **kwargs):
     '''
     Defining homepage of Innocelf
     '''
-    return render(request, 'home_page.html')
+
+    # Setting the cookies here
+    if 'PrivacyPolicy' in request.COOKIES: 
+        response = render(request, 'home_page.html')
+    else:
+        response = render(request, 'home_page.html')
+        response.set_cookie('PrivacyPolicy', PRIVACY_POLICY_RESPONSE)
+
+    return response
 
 
 def technology_view(request, *args, **kwargs):
