@@ -633,6 +633,7 @@
 
     <script src="https://maps.google.com/maps/api/js"></script>
     <script type="text/javascript" src="{% static 'js/innojs/html_components.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/innojs/home_page.js' %}"></script>
     <script>
       // Animation init
       $(document).ready(function () {
@@ -652,13 +653,6 @@
           }, 300);
         });
       });
-
-      document.getElementById('comment_on_upwork').style.display = 'inline'
-
-      window.addEventListener('load', function () {
-        $('#CookiesModal').modal('show')
-      })
-
     </script>
     {% endblock content %}
   </body>
