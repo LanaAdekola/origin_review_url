@@ -66,7 +66,7 @@ class TestimonialCard extends HTMLElement {
 
 	createTestimonialContent() {
 		let testimonialPara = document.createElement('p');
-		testimonialPara.classList = 'lead lato-light-italic';
+		testimonialPara.classList = 'lead lato-light-italic h6-responsive';
 		testimonialPara.textContent = this.getAttribute('testimonial-content');
 
 		return testimonialPara;
@@ -81,14 +81,14 @@ class TestimonialCard extends HTMLElement {
 
 	createTestimonialPerson() {
 		let testimonialPerson = document.createElement('p');
-		testimonialPerson.classList = 'text-muted lato-regular';
+		testimonialPerson.classList = 'text-muted lato-bold';
 		testimonialPerson.textContent = this.getAttribute('testimonial-name');
 
 		return testimonialPerson;
 	}
 
 	connectedCallback() {
-		this.append(this.createTestimonialContent(), this.createAvatarDiv(), this.createTestimonialPerson());
+		this.append(this.createTestimonialContent(), this.createTestimonialPerson());
 	}
 }
 

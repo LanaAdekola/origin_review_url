@@ -24,6 +24,40 @@
   <body>
     {% include '_navbar.html' %}
 
+    <style>
+      #pranita_photo {
+        height: 400px
+      }
+
+      #education_column {
+        text-align: center;
+      }
+
+      #about_us_container {
+        border-left: black, thin;
+        border-right: black, thin
+      }
+
+      @media (max-width: 768px) {
+        #pranita_photo {
+          height: 300px
+        }
+
+        #education_column {
+          text-align: left;
+        }
+
+        #about_us_container {
+          border-left: white, thin;
+          border-right: white, thin
+        }
+
+        #about_us_column {
+          padding: 0px
+        }
+      }
+    </style>
+
     <div class="container-fluid cloudy-knoxville-gradient d-flex align-items-center justify-content-center"
       style="height: 8rem;">
       <h1 class="lato-bold">
@@ -31,62 +65,62 @@
       </h1>
     </div>
 
-    <div class="container-lg my-5 px-5 pt-5 pb-3 border-left border-right">
+    <div class="container-lg my-5 px-5 pt-5 pb-3 border-left border-right" id="about_us_container">
       <div class="row">
-        <div class="col text-center">
-          <img src="{% static 'img/innoimg/innocelf-pranita-photo.jpg' %}" alt="Pranita Photo" height="400px">
-          <div class="row mt-5 ml-2">
+        <div class="col" id="education_column">
+          <img src="{% static 'img/innoimg/innocelf-pranita-photo.jpg' %}" alt="Pranita Photo" id="pranita_photo">
+          <div class="row mt-5 ml-lg-2 ml-sm-0">
             <div class="row mt-1">
               <h5 class="lato-bold-italic">
                 EDUCATION:
               </h5>
             </div>
           </div>
-          <div class="row lato-regular mt-1 ml-2 p-0">
-            <p style="font-size: large;">
+          <div class="row lato-regular my-3 ml-lg-2 ml-sm-0 p-0">
+            <div class="col-12 text-left p-0" style="font-size: large;">
               Masters in Patent Practice,
-              <b class="lato-light-italic mt-1" style="font-size: small;">
-                Case Western Reserve University, Ohio
-              </b>
-            </p>
+            </div>
+            <div class="col-12 lato-light-italic mt-1 text-left p-0" style="font-size: small;">
+              Case Western Reserve University, Ohio
+            </div>
           </div>
-          <div class="row lato-regular mt-1 ml-2 p-0">
-            <p style="font-size: large;">
+          <div class="row lato-regular my-3 ml-lg-2 ml-sm-0 p-0">
+            <div class="col-12 text-left p-0" style="font-size: large;">
               Masters in Pharmacology,
-              <b class="lato-light-italic mt-1" style="font-size: small;">
-                University of Pune, India
-              </b>
-            </p>
+            </div>
+            <div class="col-12 lato-light-italic mt-1 text-left p-0" style="font-size: small;">
+              University of Pune, India
+            </div>
           </div>
-          <div class="row lato-regular mt-1 ml-2 p-0">
-            <p style="font-size: large;">
+          <div class="row lato-regular my-3 ml-lg-2 ml-sm-0 p-0">
+            <div class="col-12 text-left p-0" style="font-size: large;">
               Bachelors in Pharmaceutical Sciences,
-              <b class="lato-light-italic mt-1" style="font-size: small;">
-                Mumbai University, India
-              </b>
-            </p>
+            </div>
+            <div class="col-12 lato-light-italic mt-1 text-left p-0" style="font-size: small;">
+              Mumbai University, India
+            </div>
           </div>
 
-          <div class="row mt-3 ml-2">
+          <div class="row mt-3 ml-lg-2 ml-sm-0">
             <div class="row mt-1">
               <h5 class="lato-bold-italic">
                 AFFILIATIONS:
               </h5>
             </div>
           </div>
-          <div class="row lato-regular mt-1 ml-2 p-0">
+          <div class="row lato-regular my-3 ml-lg-2 ml-sm-0 p-0">
             <p style="font-size: large;">
               American Intellectual Property Law Association (AIPLA)
             </p>
           </div>
-          <div class="row lato-regular mt-1 ml-2 p-0">
+          <div class="row lato-regular my-3 ml-lg-2 ml-sm-0 p-0">
             <p style="font-size: large;">
               Michigan Intellectual Property Law Association (MIPLA)
             </p>
           </div>
         </div>
-        <div class="col">
-          <h3 class="lato-regular brown-text">
+        <div class="col" id="about_us_column">
+          <h3 class="h3-responsive lato-regular brown-text">
             Hi, I am Pranita Dharmadhikari
           </h3>
           <p class="text-justify lato-regular">
@@ -134,9 +168,9 @@
     </section>
 
 
-    <div class="container my-5 px-5 pt-5 pb-3" id="testimonials_in_about_us" style="height: 700px">
+    <div class="container my-5 px-sm-0 px-lg-5 pt-5 pb-3" id="testimonials_in_about_us">
 
-      <h3 class="text-center lato-bold mb-5">
+      <h3 class="text-center lato-bold">
         What Do Our Clients Say?
       </h3>
 
@@ -144,7 +178,7 @@
       <section class="text-center dark-grey-text">
 
         <!-- Grid row -->
-        <div class="row mt-5 p-5" style="height: inherit;">
+        <div class="row mt-5 p-lg-5 p-sm-0" style="height: inherit;">
 
           <!-- Grid column -->
           <div class="col-md-12 mb-4">
@@ -153,7 +187,17 @@
 
               <!-- Carousel Wrapper -->
               <div id="carousel-example-1" class="carousel no-flex testimonial-carousel slide" data-ride="carousel"
-                data-interval="false">
+                data-interval="5000">
+
+                <!--Controls-->
+                <div class="controls-top mb-3">
+                  <a class="btn-floating btn-sm" href="#carousel-example-1" data-slide="prev"><i
+                      class="fas fa-chevron-left black-text"></i></a>
+                  <a class="btn-floating btn-sm" href="#carousel-example-1" data-slide="next"><i
+                      class="fas fa-chevron-right black-text"></i></a>
+                </div>
+                <!--Controls-->
+
                 <!--Slides-->
                 <div class="carousel-inner" role="listbox">
                   <!--First slide-->
@@ -214,18 +258,6 @@
                   <!--Eigth slide-->
                 </div>
                 <!--Slides-->
-                <!--Controls-->
-                <a class="carousel-control-prev left carousel-control" href="#carousel-example-1" role="button"
-                  data-slide="prev">
-                  <span class="icon-prev" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next right carousel-control" href="#carousel-example-1" role="button"
-                  data-slide="next">
-                  <span class="icon-next" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-                <!--Controls-->
               </div>
               <!-- Carousel Wrapper -->
 
