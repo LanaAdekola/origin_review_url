@@ -28,6 +28,7 @@
       #contact_us_container {
         background: url('/static/img/innoimg/Innocelf_ContactUs_Picture_Reduced.jpg');
         background-size: cover;
+        height: 940px
       }
 
       input::placeholder {
@@ -37,15 +38,30 @@
       textarea::placeholder {
         color: white !important;
       }
+
+      #main_column {
+        margin-bottom: 3rem;
+      }
+
+      @media (max-width: 768px) {
+        #main_column {
+          margin-top: 3rem;
+          margin-bottom: 3rem;
+        }
+
+        #contact_us_container {
+          height: auto
+        }
+      }
     </style>
 
     {% include '_navbar.html' %}
 
     <!-- style="max-width: 1500px; height: 740px;" -->
-    <div class="container-fluid align-items-center" id="contact_us_container" style="height: 940px;">
+    <div class="container-fluid align-items-center" id="contact_us_container">
       <div class="row mask rgba-black-light" style="height: inherit;">
 
-        <div class="col-4 mx-auto align-self-end mb-5">
+        <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto align-self-end" id="main_column">
           <div class="row justify-content-center mb-2">
             <a type="button" class="btn btn-light btn-large btn-block"
               href="https://calendly.com/innocelf/virtual-appointment" target="_blank">
