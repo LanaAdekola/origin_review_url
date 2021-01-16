@@ -83,7 +83,6 @@ class ContactUsView(FormView):
     form = ContactUsForm
 
     def get(self, *args, **kwargs):
-        print(settings.EMAIL_HOST_PASSWORD)
         form = self.form
         recaptcha_site_key = settings.RECAPTCHA_SITE_KEY
 
