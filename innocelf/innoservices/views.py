@@ -30,7 +30,7 @@ def home_view(request, *args, **kwargs):
     '''
 
     # Setting the cookies here
-    if 'PrivacyPolicy' in request.COOKIES: 
+    if 'PrivacyPolicy' in request.COOKIES:
         response = render(request, 'home_page.html')
     else:
         response = render(request, 'home_page.html')
@@ -72,6 +72,14 @@ def testimonials(request, *args, **kwargs):
     Defining a page for the websites / the company's testimonials
     '''
     return render(request, 'about_us_and_testimonials.html')
+
+
+def contact_us_confirmation(request, *args, **kwargs):
+    '''
+    This page will be displayed when the client contacts Innocelf LLC.
+    This is a landing page after the contact us portion has been successful.
+    '''
+    return render(request, 'contact_us_confirmation.html')
 
 
 class ContactUsView(FormView):
@@ -122,8 +130,8 @@ class ContactUsView(FormView):
 
                 contact.save()
 
-                messages.info(
-                    self.request, 'Your inquiry has been recorded. We will reach out to you in 1-2 business day(s).')
+                # messages.info(
+                #     self.request, 'Your inquiry has been recorded. We will reach out to you in 1-2 business day(s).')
 
                 send_mail(
                     subject='ATTENTION!! Someone contacted you on Innocelf',
@@ -134,7 +142,7 @@ class ContactUsView(FormView):
                     fail_silently=False
                 )
 
-                return redirect('innoservices:contact-us')
+                return redirect('innoservices:contact-us-confirmation')
 
             else:
                 messages.error(
