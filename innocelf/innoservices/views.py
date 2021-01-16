@@ -130,8 +130,8 @@ class ContactUsView(FormView):
 
                 contact.save()
 
-                # messages.info(
-                #     self.request, 'Your inquiry has been recorded. We will reach out to you in 1-2 business day(s).')
+                messages.info(
+                    self.request, 'Your inquiry has been recorded. We will reach out to you in 1-2 business day(s).')
 
                 send_mail(
                     subject='ATTENTION!! Someone contacted you on Innocelf',

@@ -1,6 +1,6 @@
 'use strict';
 
-export function addDashestoPhoneNumber(phoneNumberTextInputId) {
+function addDashestoPhoneNumber(phoneNumberTextInputId) {
 	document.getElementById(phoneNumberTextInputId).addEventListener('keyup', function () {
 		let phoneNumber = this.value;
 		let phoneNumberNew;

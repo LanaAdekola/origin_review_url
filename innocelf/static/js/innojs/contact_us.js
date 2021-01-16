@@ -1,9 +1,5 @@
 'use strict';
 
-'use strict';
-
-import { addDashestoPhoneNumber } from './_global_functions.js';
-
 let phoneNumberTextInputId = 'contact_us_phone';
 addDashestoPhoneNumber(phoneNumberTextInputId);
 
@@ -14,3 +10,19 @@ document
 		el.style.backgroundColor = '#2f2c2c';
 		el.style.color = 'white';
 	});
+
+document.getElementById('submit_contact_us_form').addEventListener('click', function (e) {
+	if (document.getElementById('contact_us_form').checkValidity()) {
+		e.preventDefault();
+		grecaptcha.ready(function () {
+			grecaptcha.execute(recaptcha_site_key, { action: 'submit' }).then(function (token) {
+				let input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = 'g-recaptcha-response';
+				input.value = token;
+				document.getElementById('contact_us_form').append(input);
+				document.getElementById('contact_us_form').submit();
+			});
+		});
+	}
+});
