@@ -6,7 +6,11 @@ from .views import (
     disclaimer,
     website_terms_and_conditions,
     testimonials,
-    contact_us_confirmation
+    contact_us_confirmation,
+    send_review_request,
+    record_client_review,
+    #     RecordClientReview,
+    record_review_confirmation
 )
 from .sitemaps import StaticViewSiteMap
 from django.urls import path, include
@@ -33,6 +37,13 @@ urlpatterns = [
          name='terms-and-conditions'),
     path('about-us-and-testimonials/', testimonials,
          name='about-us-and-testimonials'),
+
+    path('administrative/send-review-request/',
+         send_review_request, name='send-review-request'),
+    path('write-review/<uuid_token>/',
+         record_client_review, name='record-review'),
+    path('write-review/<uuid_token>/confirmation/',
+         record_review_confirmation, name='record-review-confirmation'),
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),

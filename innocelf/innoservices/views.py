@@ -2,15 +2,19 @@ import os
 import urllib.request
 import urllib.parse
 import json
+import uuid
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import FormView, ListView, View
 from django.core.mail import send_mail
 from django.http import HttpResponse
+from django.template.loader import get_template
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core import serializers
 
-from .forms import ContactUsForm
-from .models import ContactUs
+from .forms import ContactUsForm, SendReviewRequestForm, ClientReviewForm
+from .models import ContactUs, SendReviewRequest, ClientReview
 
 PRIVACY_POLICY_RESPONSE = '''The information contained in this website is provided for informational purposes only, and should not be
                 construed as legal advice, nor are they intended as a source of advertising or solicitation. The
@@ -71,7 +75,13 @@ def testimonials(request, *args, **kwargs):
     '''
     Defining a page for the websites / the company's testimonials
     '''
-    return render(request, 'about_us_and_testimonials.html')
+    all_reviews = ClientReview.objects.all()
+    all_reviews_json = serializers.serialize(
+        'json', all_reviews, cls=DjangoJSONEncoder)
+    context = {
+        'all_reviews_json': all_reviews_json
+    }
+    return render(request, 'about_us_and_testimonials.html', context)
 
 
 def contact_us_confirmation(request, *args, **kwargs):
@@ -147,3 +157,99 @@ class ContactUsView(FormView):
             else:
                 messages.error(
                     self.request, 'Re-Captcha Failed. Please try again later.')
+
+
+def send_review_request(request, *args, **kwargs):
+    '''
+    This function sends a reviewe request to a customer with a unique uuid.
+    '''
+    form = SendReviewRequestForm()
+    context = {
+        'form': form
+    }
+
+    if request.POST:
+        # TODO: Limit sending the emails to the people who are superusers
+        form = SendReviewRequestForm(request.POST)
+        if form.is_valid():
+            unique_uuid = uuid.uuid4().hex
+            new_review_request = SendReviewRequest(
+                first_name=request.POST['first_name'],
+                last_name=request.POST['last_name'],
+                email=request.POST['email'],
+                uuid=unique_uuid
+            )
+            new_review_request.save()
+
+            email_context = {
+                'first_name': request.POST['first_name'],
+                # 'unique_link': f'http://127.0.0.1:8000/write-review/{unique_uuid}/',
+                'unique_link': f'https://www.innocelf.com/write-review/{unique_uuid}/'
+            }
+            email_template = get_template(
+                '../templates/client_reviews/email_template.html'
+            ).render(email_context)
+
+            send_mail(
+                subject='Request for Review -- Innocelf, LLC',
+                message='',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[request.POST['email']],
+                html_message=email_template,
+                fail_silently=False
+            )
+            print(request.POST)
+            print('post')
+
+    return render(request, 'client_reviews/send_review_request.html', context)
+
+
+def record_review_confirmation(request, *args, **kwargs):
+    '''
+    This view will be shown to the clients who post a review for Innocelf.
+    '''
+    return render(request, 'client_reviews/record_review_confirmation.html')
+
+
+def record_client_review(request, *args, **kwargs):
+    '''
+    This function takes in the unique uuid token to record a review that the client posted
+    '''
+    form = ClientReviewForm()
+
+    unique_uuid = kwargs['uuid_token']
+
+    # Filter review requests to get the client first name and last name
+    client_review_request = SendReviewRequest.objects.filter(
+        uuid=unique_uuid, uuid_used=False)
+
+    if client_review_request:
+        first_name = client_review_request[0].first_name
+        last_name = client_review_request[0].last_name
+        context = {
+            'form': form,
+            'first_name': first_name,
+            'last_name': last_name
+        }
+
+        if request.POST:
+            form = ClientReviewForm(request.POST)
+            if form.is_valid():
+                new_review = ClientReview(
+                    first_name=request.POST['first_name'],
+                    last_name=request.POST['last_name'],
+                    review=request.POST['review']
+                )
+                new_review.save()
+
+                client_review_request[0].uuid_used = True
+                client_review_request[0].save()
+
+                return redirect('innoservices:record-review-confirmation', uuid_token=unique_uuid)
+
+        return render(request, 'client_reviews/record_review.html', context)
+
+    else:
+        messages.error(request,
+                       'Your unique link has either expired or is incorrect. Please check the link, try again or contact us from our homepage.')
+        return redirect('innoservices:home')

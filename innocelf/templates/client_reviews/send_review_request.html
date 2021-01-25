@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    {% extends 'base.html' %}
+    {% load static %}
+    {% load crispy_forms_tags %}
+    {% load crispy_forms_filters %}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <title>
+            {% block head_title %}
+            Send Review Requests | Innocelf
+            {% endblock head_title %}
+        </title>
+    </head>
+
+    <body>
+        {% block content %}
+
+        <style>
+            body {
+                background-color: #212121 !important;
+            }
+        </style>
+
+        <a class="row" href="{% url 'innoservices:home' %}">
+            <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground.png' %}" alt="Innocelf_Logo" width="150px"
+                class="mx-auto my-3">
+        </a>
+
+        <div class="container-fluid lato-regular align-self-center p-5 bg-white mb-5" style="max-width: 700px;">
+            <form action="" method="POST" id="send_client_review_request">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4 lato-bold">
+                        Send Review Request
+                    </legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-row justify-content-center">
+                    <button class="btn btn-dark" type="submit">
+                        Send Request
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="row">
+
+        </div>
+
+        {% endblock content %}
+
+    </body>
+
+</html>
