@@ -1,20 +1,22 @@
-import os
-import urllib.request
-import urllib.parse
 import json
+import os
+import urllib.parse
+import urllib.request
 import uuid
+from datetime import datetime
+
 from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import render, redirect, reverse
-from django.views.generic import FormView, ListView, View
-from django.core.mail import send_mail
-from django.http import HttpResponse
-from django.template.loader import get_template
-from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
+from django.core.mail import send_mail
+from django.core.serializers.json import DjangoJSONEncoder
+from django.http import HttpResponse
+from django.shortcuts import redirect, render, reverse
+from django.template.loader import get_template
+from django.views.generic import FormView, ListView, View
 
-from .forms import ContactUsForm, SendReviewRequestForm, ClientReviewForm
-from .models import ContactUs, SendReviewRequest, ClientReview
+from .forms import ClientReviewForm, ContactUsForm, SendReviewRequestForm
+from .models import ClientReview, ContactUs, SendReviewRequest
 
 PRIVACY_POLICY_RESPONSE = '''The information contained in this website is provided for informational purposes only, and should not be
                 construed as legal advice, nor are they intended as a source of advertising or solicitation. The
@@ -75,7 +77,7 @@ def testimonials(request, *args, **kwargs):
     '''
     Defining a page for the websites / the company's testimonials
     '''
-    all_reviews = ClientReview.objects.all()
+    all_reviews = ClientReview.objects.filter(accepted=True)
     all_reviews_json = serializers.serialize(
         'json', all_reviews, cls=DjangoJSONEncoder)
     context = {
@@ -169,37 +171,42 @@ def send_review_request(request, *args, **kwargs):
     }
 
     if request.POST:
-        # TODO: Limit sending the emails to the people who are superusers
-        form = SendReviewRequestForm(request.POST)
-        if form.is_valid():
-            unique_uuid = uuid.uuid4().hex
-            new_review_request = SendReviewRequest(
-                first_name=request.POST['first_name'],
-                last_name=request.POST['last_name'],
-                email=request.POST['email'],
-                uuid=unique_uuid
-            )
-            new_review_request.save()
+        if request.user.is_superuser:
+            # TODO: Limit sending the emails to the people who are superusers
+            form = SendReviewRequestForm(request.POST)
+            if form.is_valid():
+                unique_uuid = uuid.uuid4().hex
+                new_review_request = SendReviewRequest(
+                    first_name=request.POST['first_name'],
+                    last_name=request.POST['last_name'],
+                    email=request.POST['email'],
+                    uuid=unique_uuid
+                )
+                new_review_request.save()
 
-            email_context = {
-                'first_name': request.POST['first_name'],
-                # 'unique_link': f'http://127.0.0.1:8000/write-review/{unique_uuid}/',
-                'unique_link': f'https://www.innocelf.com/write-review/{unique_uuid}/'
-            }
-            email_template = get_template(
-                '../templates/client_reviews/email_template.html'
-            ).render(email_context)
+                email_context = {
+                    'first_name': request.POST['first_name'],
+                    # 'unique_link': f'http://127.0.0.1:8000/write-review/{unique_uuid}/',
+                    'unique_link': f'https://www.innocelf.com/write-review/{unique_uuid}/'
+                }
+                email_template = get_template(
+                    '../templates/client_reviews/email_template.html'
+                ).render(email_context)
 
-            send_mail(
-                subject='Request for Review -- Innocelf, LLC',
-                message='',
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[request.POST['email']],
-                html_message=email_template,
-                fail_silently=False
-            )
-            print(request.POST)
-            print('post')
+                send_mail(
+                    subject='Request for Review -- Innocelf, LLC',
+                    message='',
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[request.POST['email']],
+                    html_message=email_template,
+                    fail_silently=False
+                )
+                print(request.POST)
+                print('post')
+        else:
+            messages.error(
+                request, 'You are not authorized to send these requests. Please login as an administrator.')
+            return redirect('innoservices:send-review-request')
 
     return render(request, 'client_reviews/send_review_request.html', context)
 
@@ -235,10 +242,16 @@ def record_client_review(request, *args, **kwargs):
         if request.POST:
             form = ClientReviewForm(request.POST)
             if form.is_valid():
+                datetime_today = datetime.now()
+                current_month = datetime_today.strftime('%B')
+                current_year = datetime_today.strftime('%Y')
+                month_year = current_month + ' ' + current_year
+
                 new_review = ClientReview(
                     first_name=request.POST['first_name'],
                     last_name=request.POST['last_name'],
-                    review=request.POST['review']
+                    review=request.POST['review'],
+                    month_year=month_year
                 )
                 new_review.save()
 
