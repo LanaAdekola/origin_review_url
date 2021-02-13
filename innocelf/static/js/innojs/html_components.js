@@ -84,6 +84,15 @@ class TestimonialCard extends HTMLElement {
 		testimonialPerson.classList = 'text-muted lato-bold';
 		testimonialPerson.textContent = this.getAttribute('testimonial-name');
 
+		if (this.getAttribute('upwork-review') === 'true') {
+			let span = document.createElement('span');
+			span.textContent = ' *';
+			span.style.fontSize = 'smaller';
+			span.classList = 'lato-light';
+			testimonialPerson.append(span);
+			// testimonialPerson.textContent += ' *';
+		}
+
 		return testimonialPerson;
 	}
 

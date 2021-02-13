@@ -23,6 +23,9 @@ function addReviews() {
 		newReviewCard.setAttribute('testimonial-name', testimonialName);
 		newReviewCard.setAttribute('testimonial-content', allReviewsJson[i].fields.review);
 
+		if (allReviewsJson[i].fields.upwork_review === true) {
+			newReviewCard.setAttribute('upwork-review', 'true');
+		}
 		carouselItem.append(newReviewCard);
 
 		document.getElementById('carousel_review_list').append(carouselItem);
