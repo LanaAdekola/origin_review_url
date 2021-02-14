@@ -1,5 +1,8 @@
 'use strict';
 
+// Enable the "comment on upwork" asterisk
+document.getElementById('comment_on_upwork').style.display = 'inline';
+
 function addReviews() {
 	let allReviews = JSON.parse(document.getElementById('all_reviews_json').textContent);
 	let allReviewsJson = JSON.parse(allReviews);
