@@ -1,0 +1,69 @@
+{% load static %}
+
+<!-- SideNav slide-out button -->
+<a href="#" data-activates="client-admin-landing-sidebar" class="btn btn-primary p-3 button-collapse"><i
+    class="fas fa-bars"></i></a>
+
+<!-- Sidebar navigation -->
+<div id="client-admin-landing-sidebar" class="side-nav fixed">
+  <ul class="custom-scrollbar">
+    <!-- Logo -->
+    <li>
+      <div class="justify-content-center">
+        <a onclick="hideAllContainers()" class="pl-0" id="sidebar_icon">
+          <img src="{% static 'img/innoimg/InnocelfLogo_IconOnly_SVG.svg' %}"
+            class="img-fluid flex-center mx-auto mt-4 p-0" style="height: 50px;">
+        </a>
+
+        <div class="row text-center lato-regular mt-3">
+          <h5 class="mx-auto">
+            {{ user.first_name }} {{ user.last_name }}
+          </h5>
+        </div>
+
+        <hr class="my-1 border-light">
+        <div class="d-flex mx-auto text-center justify-content-center lato-regular">
+          <a class="text-decoration-none text-white ml-1 pl-0 mr-sm-2 text-left"
+            href="{% url 'ClientAdmin:client-admin-logout' %}">
+            <h6 class="d-inline">
+              Logout
+            </h6>
+          </a>
+        </div>
+        <hr class="my-1 border-light">
+      </div>
+    </li>
+    <!--/. Logo -->
+    <!-- Side navigation links -->
+    <li>
+      <ul class="collapsible collapsible-accordion">
+        <li class="text-center mb-2">
+          <button class="btn btn-sm btn-outline-light lato-regular" type="button" id="add_new_client_sidebar">
+            Add Client
+          </button>
+        </li>
+        <li>
+          <a class="waves-effect lato-regular" id="show_potential_client_table">
+            <i class="fas fa-user-clock"></i>
+            Potential Clients
+          </a>
+        </li>
+        <li>
+          <a class="waves-effect lato-regular">
+            <i class="fas fa-user-check"></i>
+            Current Clients
+          </a>
+        </li>
+        <li>
+          <a class="waves-effect lato-regular">
+            <i class="fas fa-user-times"></i>
+            Abandoned Clients
+          </a>
+        </li>
+      </ul>
+    </li>
+    <!--/. Side navigation links -->
+  </ul>
+  <div class="sidenav-bg bg-dark"></div>
+</div>
+<!--/. Sidebar navigation -->

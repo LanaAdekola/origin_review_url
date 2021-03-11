@@ -22,7 +22,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('innoservices.urls', namespace='innoservices')),
-    path('', include('innoaccounts.urls', namespace='innoaccounts'))
+    path('', include('innoaccounts.urls', namespace='innoaccounts')),
+    path('client-admin/', include('ClientAdmin.urls',
+                     namespace='ClientAdmin')),
 ]
 
 if settings.DEBUG:

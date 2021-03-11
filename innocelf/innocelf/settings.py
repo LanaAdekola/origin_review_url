@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # Own apps
     'innoservices',
     'innoaccounts',
+    'ClientAdmin.apps.ClientadminConfig',
 
     # All auth apps
     'crispy_forms',

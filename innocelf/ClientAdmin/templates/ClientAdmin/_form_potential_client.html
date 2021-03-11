@@ -1,0 +1,72 @@
+<form action="" method="POST" id="potential_client_details_form" validate>
+  {% csrf_token %}
+  <div class="container w-100 m-0 p-0 d-none" id="potential_client_details">
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4 lato-bold">
+        Potiential Project
+      </legend>
+
+      <div class="form-row align-items-center justify-content-center">
+
+        <div class="form-row align-items-center justify-content-center">
+          <div class="md-form col-md-3 mr-3">
+            <label class="requiredField" for="add_potentialProject_clientName">
+              {{ potential_project_form.client_name.label }}
+              <span class="asteriskField">*</span>
+            </label>
+            {{ potential_project_form.client_name }}
+          </div>
+
+          <div class="md-form col-md-3 mr-3">
+            <label for="add_potentialProject_clientCompany">
+              {{ potential_project_form.client_company.label }}
+            </label>
+            {{ potential_project_form.client_company }}
+          </div>
+
+          <div class="md-form col-md-3 mr-3">
+            <label class="requiredField" for="add_potentialProject_clientEmail">
+              {{ potential_project_form.client_email.label }}
+            </label>
+            {{ potential_project_form.client_email }}
+          </div>
+
+        </div>
+
+        <div class="form-row align-items-center justify-content-center">
+          <div class="md-form col-md-3 mr-3">
+            <label class="requiredField" for="add_potentialProject_projectName">
+              {{ potential_project_form.project_name.label }}
+              <span class="asteriskField">*</span>
+            </label>
+            {{ potential_project_form.project_name }}
+          </div>
+
+          <div class="form-check col-md-3 mr-3">
+            <label class="requiredField lato-light" for="add_potentialProject_projectType" style="color:#7e7e7e">
+              {{ potential_project_form.project_type.label }}
+              <span class="asteriskField">*</span>
+            </label>
+            {{ potential_project_form.project_type }}
+          </div>
+
+          <div class="md-form col-md-3 mr-3 input-with-post-icon datepicker">
+            <label class="requiredField lato-light" for="add_potentialProject_initialContactDate">
+              {{ potential_project_form.initial_contact_date.label }}
+              <span class="asteriskField">*</span>
+            </label>
+            {{ potential_project_form.initial_contact_date }}
+            <i class="fas fa-calendar input-prefix"></i>
+          </div>
+          <input type="hidden" id="add_potentialProject_initialContactDate_TimeStamp"
+            name="initial_contact_date_timestamp" value="">
+        </div>
+
+    </fieldset>
+    <div class="form-row justify-content-center">
+      <button class="btn btn-dark lato-regular" type="submit" id="add_potential_project_form_save">
+        Save
+      </button>
+    </div>
+  </div>
+</form>
