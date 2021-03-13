@@ -14,12 +14,15 @@ PROJECT_TYPE_CHOICES = (
 )
 
 
-class Payment(models.Model):
+def _camel_case(full_string: str):
     '''
-    Creates a payment instance for a particular project
+    Joins strings together and returns a "camel cased" string to be used in slugs
     '''
-    amount = models.FloatField(default=0)
-    payment_date = models.DateField()
+    constituents = full_string.split(' ')
+    new_string = constituents[0].title() + ''.join(x.title()
+                                                   for x in constituents[1:])
+
+    return new_string
 
 
 class Project(models.Model):
@@ -46,19 +49,56 @@ class Project(models.Model):
 
     # Revenue
     expected_revenue = models.FloatField(default=0)
-    payment = models.ForeignKey('Payment', on_delete=models.CASCADE)
-    paid = models.BooleanField(default=False)
+
+    # Project Complete?
+    is_project_complete = models.BooleanField(default=False)
 
     # Identifier
     slug = models.SlugField()
 
     # TODO: Figure out the number of days it took based on start and end dates
     # TODO: Figure out if the project was completed in time (based on deadline and end date)
+    # TODO: Check and ensure that start date is "less" than end date
+
+    def __str__(self):
+        return f'{self.client_name}"s {self.project_type} project'
 
     def save(self, *args, **kwargs):
-        self.slug = self.client_name + '-' + self.project_name + \
-            '-' + self.project_type + '-' + self.project_deadline
+        client_name_cc = _camel_case(self.client_name)
+        project_name_cc = _camel_case(self.project_name)
+        project_type_cc = self.project_type
+        project_deadline_cc = self.project_deadline.strftime('%Y%m%d')
+        expected_revenue_cc = str(int(self.expected_revenue))
+
+        self.slug = client_name_cc + '-' + project_name_cc + \
+            '-' + project_type_cc + '-' + project_deadline_cc + '-' + expected_revenue_cc
         super(Project, self).save(*args, **kwargs)
+
+    def get_number_of_days_to_complete(self):
+        '''
+        Calculates the number of days it took to complete the project
+        '''
+        date_difference = self.end_date - self.start_date
+        number_of_days = date_difference.days
+
+        return number_of_days
+
+    def was_project_completed_before_deadline(self):
+        '''
+        Returns a boolean of whether the project was completed on time or not
+        '''
+        boolean = self.end_date <= self.project_deadline
+        return boolean
+
+
+class Payment(models.Model):
+    '''
+    Creates a payment instance for a particular project
+    '''
+    project = models.ForeignKey(
+        'Project', on_delete=models.CASCADE, null=True, blank=True)
+    amount = models.FloatField(default=0)
+    payment_date = models.DateField()
 
 
 class PotentialProject(models.Model):
@@ -78,5 +118,19 @@ class PotentialProject(models.Model):
     # Initial Contact
     initial_contact_date = models.DateField(default=datetime.date.today)
 
+    # Creating a slug
+    slug = models.SlugField(default='')
+
     def __str__(self):
         return f'{self.client_name}"s {self.project_type} project'
+
+    def save(self, *args, **kwargs):
+        client_name_cc = _camel_case(self.client_name)
+        project_name_cc = _camel_case(self.project_name)
+        project_type_cc = self.project_type
+        initial_contact_date_cc = self.initial_contact_date.strftime('%Y%m%d')
+
+        self.slug = client_name_cc + '-' + project_name_cc + \
+            '-' + project_type_cc + '-' + initial_contact_date_cc
+
+        super(PotentialProject, self).save(*args, **kwargs)

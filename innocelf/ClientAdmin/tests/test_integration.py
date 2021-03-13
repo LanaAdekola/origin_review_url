@@ -3,41 +3,26 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase, LiveSer
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from django.shortcuts import reverse
+from django.contrib.auth.models import User
 import time
 from ClientAdmin.models import PotentialProject
+from selenium.webdriver.support import expected_conditions as EC
 
 
-LOGIN_DATA = {
-    '1': {
-        'username': 'pratik_user',
-        'password': 'ppdm@love',
-        'result': False
-    },
-    '2': {
-        'username': 'pratik_user',
-        'password': '1843364',
-        'result': False
-    },
-    '3': {
-        'username': 'pranya',
-        'password': 'ppdm@love',
-        'result': False
-    },
-    '4': {
-        'username': 'pratikmahamuni_superadmin',
-        'password': 'ppdm@love',
-        'result': True
-    }
-}
-
-
-def common_setup_login_client_admin():
+def common_setup_login_client_admin(caller):
     '''
     The function logs in the user with the prrovided credentials and returns a browser instant.
     '''
+    # Create a superuser
+    test_super_user = User.objects.create_superuser(
+        'test_superuser',
+        'test@superuser.com',
+        '1843_test_superuser'
+    )
+
     # Initiate the browser and navigate to the client admin login page
     browser = webdriver.Chrome('/home/pratik/Downloads/chromedriver')
-    localhost = 'http://127.0.0.1:8000'
+    localhost = caller.live_server_url
     login_url = localhost + reverse('ClientAdmin:client-admin-login')
 
     # Navigate to the page
@@ -52,11 +37,11 @@ def common_setup_login_client_admin():
     )
 
     # Send the appropriate keys
-    username_input.send_keys('pratikmahamuni_superadmin')
-    password_input.send_keys('ppdm@love')
+    username_input.send_keys('test_superuser')
+    password_input.send_keys('1843_test_superuser')
     login_button.click()
 
-    return browser
+    return test_super_user, browser
 
 
 class TestLoginCredentials(StaticLiveServerTestCase):
@@ -71,12 +56,23 @@ class TestLoginCredentials(StaticLiveServerTestCase):
         self.browser = webdriver.Chrome('/home/pratik/Downloads/chromedriver')
 
         # Navigate to client admin login url
-        self.localhost = 'http://127.0.0.1:8000'
+        self.localhost = self.live_server_url
         add_url = self.localhost + reverse('ClientAdmin:client-admin-login')
         self.browser.get(add_url)
 
         # Maximize window
         self.browser.maximize_window()
+
+        # Create Users
+        test_normal_user = User.objects.create(
+            username='test_normaluser',
+            password='1843_test_normaluser'
+        )
+        test_super_user = User.objects.create_superuser(
+            'test_superuser',
+            'test@test.com',
+            '1843_test_superuser'
+        )
 
     def tearDown(self):
         '''
@@ -88,6 +84,39 @@ class TestLoginCredentials(StaticLiveServerTestCase):
         '''
         Tries out multiple login attempts and asserts that the login is successful or not
         '''
+
+        LOGIN_DATA = {
+            '1': {
+                'username': 'test_normaluser',
+                'password': '1843_test_',
+                'result': False
+            },
+            '2': {
+                'username': 'test_normal',
+                'password': '1843_test_normaluser',
+                'result': False
+            },
+            '3': {
+                'username': 'test_normaluser',
+                'password': '1843_test_normaluser',
+                'result': False
+            },
+            '4': {
+                'username': 'test_superuser',
+                'password': '1843_test_',
+                'result': False
+            },
+            '5': {
+                'username': 'test_super',
+                'password': '1843_test_superuser',
+                'result': False
+            },
+            '6': {
+                'username': 'test_superuser',
+                'password': '1843_test_superuser',
+                'result': True
+            },
+        }
 
         for key in LOGIN_DATA.keys():
             # Username and password inputs
@@ -116,9 +145,9 @@ class TestLoginCredentials(StaticLiveServerTestCase):
                 self.assertNotEqual(landing_url, self.browser.current_url)
 
 
-class TestPotentialClient(TransactionTestCase):
+class TestPotentialClient(StaticLiveServerTestCase):
     '''
-    The class tests the addition of Potential Clients to the backend. It will also check that the 
+    The class tests the addition of Potential Clients to the backend. It will also check that the
     instance is saved appropriately to the backend
     '''
 
@@ -127,7 +156,8 @@ class TestPotentialClient(TransactionTestCase):
         Set up
         '''
         # Initiate the browser and navigate to the client admin login page
-        self.browser = common_setup_login_client_admin()
+        self.test_super_user, self.browser = common_setup_login_client_admin(
+            self)
 
         # Add new client button on the sidebar
         self.add_new_client_button = self.browser.find_element_by_id(
@@ -273,10 +303,226 @@ class TestPotentialClient(TransactionTestCase):
 
             # Click save
             save_potential_client_button.click()
-            time.sleep(2)
 
             # Check that no container is showed.
             add_new_client_container = self.browser.find_element_by_id(
                 'add_new_client_container'
             )
             self.assertFalse(add_new_client_container.is_displayed())
+
+            self.assertTrue(
+                isinstance(
+                    PotentialProject.objects.get(
+                        client_name=form_data[key]['client_name']),
+                    PotentialProject
+                )
+            )
+
+        potential_project_qs = PotentialProject.objects.all()
+        self.assertEqual(len(potential_project_qs), 2)
+
+    def test_same_information_doesnt_save(self):
+        '''
+        Tests the fact that the same information if inputted by the user will be not saved and
+        an alert will be shown
+        '''
+
+        form_data = {
+            '1': {
+                'client_name': 'Test Potential Client',
+                'client_company': 'Testing Company',
+                'client_email': 'test@test.com',
+                'project_name': 'Test Patent Search',
+                'project_type': 'Product Research',
+                'initial_contact_date': '08 March, 2021',
+                'project_type_backend': 'PRR'
+            },
+            '2': {
+                'client_name': 'Test Potential Client',
+                'client_company': 'Testing Company',
+                'client_email': 'test@test.com',
+                'project_name': 'Test Patent Search',
+                'project_type': 'Product Research',
+                'initial_contact_date': '08 March, 2021',
+                'project_type_backend': 'PRR'
+            }
+        }
+
+        client_name = self.browser.find_element_by_id(
+            'add_potentialProject_clientName'
+        )
+        client_company = self.browser.find_element_by_id(
+            'add_potentialProject_clientCompany'
+        )
+        client_email = self.browser.find_element_by_id(
+            'add_potentialProject_clientEmail'
+        )
+        project_name = self.browser.find_element_by_id(
+            'add_potentialProject_projectName'
+        )
+        project_type = self.browser.find_element_by_xpath(
+            '//select[@id="add_potentialProject_projectType"]'
+        )
+        initial_contact_date = self.browser.find_element_by_id(
+            'add_potentialProject_initialContactDate'
+        )
+        save_potential_client_button = self.browser.find_element_by_id(
+            'add_potential_project_form_save'
+        )
+
+        for key in form_data.keys():
+            # Click the appropriate buttons to get to the form
+            self.add_new_client_button.click()
+            self.potential_client_radio.find_element_by_xpath('./..').click()
+
+            # Clear out all the inputs from the form
+            client_name.clear()
+            client_company.clear()
+            client_email.clear()
+            project_name.clear()
+            initial_contact_date.clear()
+
+            # Input the relevant items
+            client_name.send_keys(
+                form_data[key]['client_name']
+            )
+            client_company.send_keys(
+                form_data[key]['client_company']
+            )
+            client_email.send_keys(
+                form_data[key]['client_email']
+            )
+            project_name.send_keys(
+                form_data[key]['project_name']
+            )
+            initial_contact_date.send_keys(
+                form_data[key]['initial_contact_date']
+            )
+            project_type = self.browser.find_element_by_xpath(
+                '//select[@id="add_potentialProject_projectType"]/option[text()="' +
+                form_data[key]['project_type'] + '"]'
+            )
+            project_type.click()
+
+            # Click save
+            save_potential_client_button.click()
+
+            if key == '1':
+                # Check that no container is showed.
+                add_new_client_container = self.browser.find_element_by_id(
+                    'add_new_client_container'
+                )
+                self.assertFalse(add_new_client_container.is_displayed())
+            elif key == '2':
+                WebDriverWait(self.browser, 10).until(
+                    lambda d: EC.alert_is_present())
+                alert = self.browser.switch_to_alert()
+
+                self.assertEqual(
+                    alert.text,
+                    'A similar client with the same project exists in the DB. Please rename the project to something specific.'
+                )
+                alert.accept()
+                add_new_client_container = self.browser.find_element_by_id(
+                    'add_new_client_container'
+                )
+                self.assertTrue(add_new_client_container.is_displayed())
+
+
+class TestProject(StaticLiveServerTestCase):
+    '''
+    The class tests the addition of Current Clients to the backend. It will also check that the instance is saved appropriately
+    '''
+
+    def setUp(self):
+        '''
+        Set up
+        '''
+        # Initiate the browser and navigate to the client admin login page
+        self.browser = webdriver.Chrome('/home/pratik/Downloads/chromedriver')
+        localhost = 'http://127.0.0.1:8000'
+        login_url = localhost + reverse('ClientAdmin:client-admin-login')
+
+        # Navigate to the page
+        self.browser.get(login_url)
+        self.browser.maximize_window()
+
+        # Getting the user and password inputs
+        username_input = self.browser.find_element_by_id('id_username')
+        password_input = self.browser.find_element_by_id('id_password')
+        login_button = self.browser.find_element_by_xpath(
+            '//button[@type="submit"][contains(@class, "btn btn-dark")]'
+        )
+
+        username_input.send_keys('pratikmahamuni_superadmin')
+        password_input.send_keys('ppdm@love')
+        login_button.click()
+
+        # Add new client button on the sidebar
+        self.add_new_client_button = self.browser.find_element_by_id(
+            'add_new_client_sidebar'
+        )
+        self.add_new_client_button.click()
+        self.current_client_radio = self.browser.find_element_by_id(
+            'choose_current_client'
+        )
+        self.current_client_radio.find_element_by_xpath('./..').click()
+
+    def test_fill_form(self):
+        '''
+        This function automates filling the contents of the form because I am too lazy to do it
+        '''
+        client_name = self.browser.find_element_by_id(
+            'add_project_clientName'
+        )
+        client_company = self.browser.find_element_by_id(
+            'add_project_clientCompany'
+        )
+        client_email = self.browser.find_element_by_id(
+            'add_project_clientEmail'
+        )
+        project_name = self.browser.find_element_by_id(
+            'add_project_projectName'
+        )
+        project_deadline = self.browser.find_element_by_id(
+            'add_project_projectDeadline'
+        )
+        project_type = self.browser.find_element_by_xpath(
+            '//select[@id="add_project_projectType"]/option[text()="Landscape / State of the Art"]'
+        )
+        start_date = self.browser.find_element_by_id(
+            'add_project_startDate'
+        )
+        end_date = self.browser.find_element_by_id(
+            'add_project_endDate'
+        )
+        expected_revenue = self.browser.find_element_by_id(
+            'add_project_expectedRevenue'
+        )
+        add_payment_button = self.browser.find_element_by_id(
+            'add_project_addPayment'
+        )
+        save_button = self.browser.find_element_by_id(
+            'add_project_form_save'
+        )
+
+        client_name.send_keys('Pratik Mahamuni')
+        client_company.send_keys('Estokx')
+        client_email.send_keys('ppma@mtu.edu')
+        project_name.send_keys('Some Patent Work')
+        project_type.click()
+        project_deadline.send_keys('15 April, 2021')
+        start_date.send_keys('15 March, 2021')
+        end_date.send_keys('20 March, 2021')
+        expected_revenue.clear()
+        expected_revenue.send_keys('700')
+
+        add_payment_button.click()
+        WebDriverWait(self.browser, 10).until(
+            lambda d: d.find_element_by_id('add_project_payment').is_displayed())
+        add_payment = self.browser.find_element_by_id('add_project_payment')
+        add_payment.send_keys('400')
+
+        save_button.click()
+
+        time.sleep(2)

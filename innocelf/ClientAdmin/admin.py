@@ -6,7 +6,15 @@ class PaymentAdmin(admin.ModelAdmin):
     '''
     Updates the list of how the payments are shown in the admin portal
     '''
-    list_display = ['amount', 'payment_date']
+    list_display = ['project', 'amount', 'payment_date']
+
+
+class PotentialProjectAdmin(admin.ModelAdmin):
+    '''
+    Updates the list of how the potential projects are shown in the admin portal
+    '''
+    list_display = ['client_name', 'project_name',
+                    'project_type', 'initial_contact_date', 'slug']
 
 
 class ProjectAdmin(admin.ModelAdmin):
@@ -14,10 +22,10 @@ class ProjectAdmin(admin.ModelAdmin):
     Updates the list of how the projects are shown in the admin portal
     '''
     list_display = ['client_name', 'project_name',
-                    'project_type', 'project_deadline', 'paid', 'slug']
+                    'project_type', 'project_deadline', 'slug']
 
 
 # Register your models here.
-admin.site.register(Payment)
-admin.site.register(Project)
-admin.site.register(PotentialProject)
+admin.site.register(Payment, PaymentAdmin)
+admin.site.register(Project, ProjectAdmin)
+admin.site.register(PotentialProject, PotentialProjectAdmin)

@@ -51,7 +51,7 @@ class ProjectForm(forms.ModelForm):
             'project_deadline': forms.DateInput(attrs={
                 'class': 'form-control lato-regular',
                 'id': 'add_project_projectDeadline',
-                'type': 'date'
+                # 'type': 'date'
             }),
             'project_estimated_days': forms.NumberInput(attrs={
                 'class': 'form-control lato-regular',
@@ -60,12 +60,12 @@ class ProjectForm(forms.ModelForm):
             'start_date': forms.DateInput(attrs={
                 'class': 'form-control lato-regular',
                 'id': 'add_project_startDate',
-                'type': 'date'
+                # 'type': 'date'
             }),
             'end_date': forms.DateInput(attrs={
                 'class': 'form-control lato-regular',
                 'id': 'add_project_endDate',
-                'type': 'date'
+                # 'type': 'date'
             }),
             'expected_revenue': forms.TextInput(attrs={
                 'class': 'form-control lato-regular',

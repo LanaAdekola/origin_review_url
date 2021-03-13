@@ -99,3 +99,25 @@ class SavePotentialProjectTest(TestCase):
 
         potential_project_qs = PotentialProject.objects.all()
         self.assertEqual(len(potential_project_qs), 1)
+
+        self.assertEqual(
+            potential_project_qs[0].slug,
+            'TestName-TestProject-PRR-' + datetime.datetime.today().strftime('%Y%m%d')
+        )
+
+        # Send the exact same data again and verify that the qs is still one
+        response_same = self.client.post(
+            reverse('ClientAdmin:save-potential-project-ajax'),
+            {
+                'client_name': 'Test Name',
+                'client_company': 'Test Company',
+                'client_email': 'test@test.com',
+                'project_name': 'Test Project',
+                'project_type': 'PRR',
+                'initial_contact_date_timestamp': str(datetime_today_timestamp)
+            }
+        )
+        self.assertEqual(response_same.status_code, 200)
+        potential_project_qs = PotentialProject.objects.all()
+        self.assertEqual(len(potential_project_qs), 1)
+        self.assertNotEqual(len(potential_project_qs), 2)

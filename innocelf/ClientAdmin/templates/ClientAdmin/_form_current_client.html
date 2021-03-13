@@ -76,6 +76,7 @@
           {{ project_form.project_deadline }}
           <i class="fas fa-calendar input-prefix"></i>
         </div>
+        <input type="hidden" id="add_project_projectDeadline_TimeStamp" name="project_deadline_timestamp">
       </div>
 
       <div class="form-row align-items-center justify-content-center">
@@ -95,6 +96,7 @@
           {{ project_form.start_date }}
           <i class="fas fa-calendar input-prefix"></i>
         </div>
+        <input type="hidden" id="add_project_startDate_TimeStamp" name="start_date_timestamp">
 
         <div class="md-form col-md-3 mr-3 input-with-post-icon datepicker">
           <label class="requiredField lato-light" for="add_project_endDate">
@@ -104,6 +106,7 @@
           {{ project_form.end_date }}
           <i class="fas fa-calendar input-prefix"></i>
         </div>
+        <input type="hidden" id="add_project_endDate_TimeStamp" name="end_date_timestamp">
       </div>
 
       <div class="form-row align-items-center justify-content-center">
@@ -116,8 +119,10 @@
         </div>
 
         <div class="form-check col-md-3">
-          <input type="checkbox" class="form-check-input" id="add_project_hasPaid">
-          <label class="form-check-label" for="add_project_hasPaid" style="color: #7e7e7e">Paid?</label>
+          <button class="btn btn-link" id="add_project_addPayment" type="button">
+            <i class="fas fa-plus fa-lg text-success mr-2"></i>
+            Add Payment
+          </button>
         </div>
       </div>
 

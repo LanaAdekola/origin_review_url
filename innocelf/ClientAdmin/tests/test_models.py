@@ -89,3 +89,16 @@ class PotentialProjectTest(TestCase):
             potential_project.initial_contact_date.strftime('%Y-%m-%d'),
             date_today
         )
+
+    def test_slug_saver(self):
+        '''
+        Tests whether the slug is being saved properly
+        '''
+        potential_project = PotentialProject.objects.get(id=1)
+        date_today_YYYYMMDD = datetime.datetime.today().strftime('%Y%m%d')
+        self.assertEqual(
+            potential_project.slug,
+            'TestPotentialClient-TestPatentSearch-PRR-' + date_today_YYYYMMDD
+        )
+
+

@@ -18,6 +18,13 @@
   <body>
     {% block content %}
     <link href=" {% static 'css/addons/datatables2.min.css' %} " rel="stylesheet">
+
+    <style>
+      .popover-header {
+        background-color: #212121 !important;
+      }
+    </style>
+
     {% include './_sidebar.html' %}
 
     <div class="container-lg m-auto d-none" id="add_new_client_container">
@@ -41,8 +48,32 @@
     </div>
 
     {% include './_table_potential_client.html' %}
+    {% include './_table_current_client.html' %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="add_payment_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document" id="add_payment_modal_document">
+        <div class="modal-content" id="add_payment_modal_content">
+          <div class="modal-header" id="add_payment_modal_header">
+            <h5 class="modal-title lato-bold" id="add_payment_modal_title">Add Payment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="add_payment_modal_body">
+          </div>
+          <div class="modal-footer" id="add_payment_modal_footer">
+            <button type="button" class="btn btn-dark btn-sm" id="add_payment_modal_footer_submit">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal -->
 
     {{ potential_project_clients_serialize|json_script:"potential_project_clients_serialize" }}
+    {{ current_project_clients_serialize|json_script:"current_project_clients_serialize" }}
+    {{ payments_serialize|json_script:"payments_serialize" }}
     <script type="text/javascript" src="{% static 'js/addons/datatables2.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'ClientAdmin/js/client_admin_page.js' %}"></script>
     <script>
