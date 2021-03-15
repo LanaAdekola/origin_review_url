@@ -13,6 +13,8 @@ PROJECT_TYPE_CHOICES = (
     ('FPD', 'Full Patent Draft')
 )
 
+# TODO: Make a model for Long Term Clients. The one where we can add more if need be.
+
 
 def _camel_case(full_string: str):
     '''
@@ -55,10 +57,6 @@ class Project(models.Model):
 
     # Identifier
     slug = models.SlugField()
-
-    # TODO: Figure out the number of days it took based on start and end dates
-    # TODO: Figure out if the project was completed in time (based on deadline and end date)
-    # TODO: Check and ensure that start date is "less" than end date
 
     def __str__(self):
         return f'{self.client_name}"s {self.project_type} project'

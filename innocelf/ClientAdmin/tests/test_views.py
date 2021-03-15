@@ -2,8 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 import datetime
-from ClientAdmin.models import PotentialProject
-from ClientAdmin.tests.test_forms import form_data
+from ClientAdmin.models import PotentialProject, Project, Payment
 
 
 class UserLoginTest(TestCase):
@@ -121,3 +120,160 @@ class SavePotentialProjectTest(TestCase):
         potential_project_qs = PotentialProject.objects.all()
         self.assertEqual(len(potential_project_qs), 1)
         self.assertNotEqual(len(potential_project_qs), 2)
+
+
+class SaveProjectAndPaymentsAndCompletionTest(TestCase):
+    '''
+    Tests saving Projects through AJAX responses
+    '''
+    @classmethod
+    def setUpTestData(cls):
+
+        cls.project_deadline_timestamp = int(
+            round(
+                datetime.datetime(2021, 3, 20).timestamp() * 1000.0,
+                0
+            )
+        )
+        cls.start_date_timestamp = int(
+            round(
+                datetime.datetime(2021, 3, 15).timestamp() * 1000.0,
+                0
+            )
+        )
+        cls.end_date_timestamp = int(
+            round(
+                datetime.datetime(2021, 3, 19).timestamp() * 1000.0,
+                0
+            )
+        )
+
+        cls.main_project_data = {
+            'client_name': 'Test Potential Client',
+            'client_company': 'Testing Company',
+            'client_email': 'test@test.com',
+            'project_name': 'Test Patent Search',
+            'project_type': 'PRR',
+            'project_deadline_timestamp': str(cls.project_deadline_timestamp),
+            'project_estimated_days': 40,
+            'start_date_timestamp': str(cls.start_date_timestamp),
+            'end_date_timestamp': str(cls.end_date_timestamp),
+            'expected_revenue': 1000
+        }
+
+        cls.main_project_data_payment = {
+            'client_name': 'Test Potential Client',
+            'client_company': 'Testing Company',
+            'client_email': 'test@test.com',
+            'project_name': 'Test Patent Search',
+            'project_type': 'PRR',
+            'project_deadline_timestamp': str(cls.project_deadline_timestamp),
+            'project_estimated_days': 40,
+            'start_date_timestamp': str(cls.start_date_timestamp),
+            'end_date_timestamp': str(cls.end_date_timestamp),
+            'expected_revenue': 1000,
+            'payment': 400
+        }
+
+    def test_save_project_without_payment(self):
+        '''
+        Test project save without payment included
+        '''
+
+        response = self.client.post(
+            reverse('ClientAdmin:save-project-ajax'),
+            self.main_project_data
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        project_qs = Project.objects.all()
+        self.assertEqual(len(project_qs), 1)
+        self.assertEqual(
+            'TestPotentialClient-TestPatentSearch-PRR-' +
+            datetime.datetime(2021, 3, 20).strftime('%Y%m%d') + '-1000',
+            project_qs[0].slug
+        )
+
+        # Try sending the same data again and verify that the instance is not saved
+        response = self.client.post(
+            reverse('ClientAdmin:save-project-ajax'),
+            self.main_project_data
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        project_qs = Project.objects.all()
+        self.assertEqual(len(project_qs), 1)
+        self.assertNotEqual(len(project_qs), 2)
+
+    def test_save_project_with_payment(self):
+        '''
+        Test project save with payment included
+        '''
+        response = self.client.post(
+            reverse('ClientAdmin:save-project-ajax'),
+            self.main_project_data_payment
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        project_qs = Project.objects.all()
+        self.assertEqual(len(project_qs), 1)
+
+        payment_qs = Payment.objects.all()
+        self.assertEqual(len(payment_qs), 1)
+        self.assertEqual(payment_qs[0].project, project_qs[0])
+
+    def test_add_payment_modal(self):
+        '''
+        Tests the addition of payments through the modal
+        '''
+        response_save_project = self.client.post(
+            reverse('ClientAdmin:save-project-ajax'),
+            self.main_project_data_payment
+        )
+        self.assertEqual(response_save_project.status_code, 200)
+
+        # Send payment
+        response_add_payment = self.client.post(
+            reverse('ClientAdmin:add-payment-modal-ajax'),
+            {
+                '_elementId': 'TestPotentialClient-TestPatentSearch-PRR-' +
+                datetime.datetime(2021, 3, 20).strftime('%Y%m%d') + '-1000',
+                'dollarValue': 200
+            }
+        )
+        self.assertEqual(response_add_payment.status_code, 200)
+
+        project_qs = Project.objects.all()
+        payment_qs = Payment.objects.all()
+        payment_qs_project_spec = Payment.objects.filter(project=project_qs[0])
+
+        self.assertEqual(len(payment_qs), 2)
+        self.assertEqual(len(payment_qs_project_spec), 2)
+
+    def test_mark_project_complete(self):
+        '''
+        Tests the completion of projects through AJAX
+        '''
+        response_save_project = self.client.post(
+            reverse('ClientAdmin:save-project-ajax'),
+            self.main_project_data_payment
+        )
+        self.assertEqual(response_save_project.status_code, 200)
+
+        response_mark_complete = self.client.post(
+            reverse('ClientAdmin:mark-project-complete-ajax'),
+            {
+                '_elementId': 'TestPotentialClient-TestPatentSearch-PRR-' +
+                datetime.datetime(2021, 3, 20).strftime('%Y%m%d') + '-1000'
+            }
+        )
+        self.assertEqual(response_mark_complete.status_code, 200)
+
+        project_qs = Project.objects.all()
+        self.assertTrue(project_qs[0].is_project_complete)
+
+        project_qs_complete = Project.objects.filter(is_project_complete=True)
+        self.assertEqual(len(project_qs_complete), 1)

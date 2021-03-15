@@ -110,9 +110,17 @@ def save_potential_project(request, *args, **kwargs):
         slug=new_potential_project.slug)
     if len(potential_project_qs) > 1:
         new_potential_project.delete()
-        return HttpResponse({'Fail'})
+        return JsonResponse({
+            'message': 'Fail'
+        })
     else:
-        return HttpResponse({'Success'})
+        potential_project_qs = PotentialProject.objects.all()
+        potential_project_clients_serialize = serializers.serialize(
+            'json', potential_project_qs)
+        return JsonResponse({
+            'message': 'Success',
+            'potential_project_clients_serialize': potential_project_clients_serialize
+        })
 
 
 def save_project(request, *args, **kwargs):
@@ -141,6 +149,8 @@ def save_project(request, *args, **kwargs):
         end_date=end_date_yyyymmdd,
         expected_revenue=post_request['expected_revenue'],
     )
+    if 'client_long_term' in post_request and post_request['client_long_term'] == 'on':
+        new_project.client_long_term = True
     new_project.save()
 
     # Check whether this same instance was saved previously
@@ -148,7 +158,9 @@ def save_project(request, *args, **kwargs):
         slug=new_project.slug)
     if len(project_qs) > 1:
         new_project.delete()
-        return HttpResponse({'Fail'})
+        return JsonResponse({
+            'message': 'Fail'
+        })
     else:
         if 'payment' in post_request:
             payment = float(post_request['payment'])
@@ -161,7 +173,17 @@ def save_project(request, *args, **kwargs):
         else:
             payment = 0
 
-        return HttpResponse({'Tested'})
+        project_qs = Project.objects.all()
+        payment_qs = Payment.objects.all()
+        current_project_clients_serialize = serializers.serialize(
+            'json', project_qs)
+        payments_serialize = serializers.serialize('json', payment_qs)
+
+        return JsonResponse({
+            'message': 'Success',
+            'current_project_clients_serialize': current_project_clients_serialize,
+            'payments_serialize': payments_serialize
+        })
 
 
 def mark_project_complete(request, *args, **kwargs):

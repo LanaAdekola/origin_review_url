@@ -57,6 +57,8 @@
         <div class="modal-content" id="add_payment_modal_content">
           <div class="modal-header" id="add_payment_modal_header">
             <h5 class="modal-title lato-bold" id="add_payment_modal_title">Add Payment</h5>
+            {% csrf_token %}
+            <input type="hidden" name="add_payment_project_slug" id="add_payment_project_slug">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

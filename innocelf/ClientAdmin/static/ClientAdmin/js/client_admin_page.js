@@ -11,6 +11,29 @@ const PROJECT_TYPE_CHOICES = {
 	FPD: 'Full Patent Draft',
 };
 
+const LONG_TERM_CLIENTS = {
+	sagacityLegal: {
+		personName: 'Randi Karpinia',
+		companyName: 'Sagacity Legal',
+		personEmail: 'randi.karpinia@sagacitylegal.com',
+	},
+	katherineKoenig: {
+		personName: 'Katherine Koenig',
+		companyName: 'Katherine Law Firm',
+		personEmail: 'randi.karpinia@sagacitylegal.com',
+	},
+	anilaRasul: {
+		personName: 'Anila Rasul',
+		companyName: 'Anila Rasul Law Firm',
+		personEmail: 'randi.karpinia@sagacitylegal.com',
+	},
+	mesandco: {
+		personName: 'Maria Lizi Stroud',
+		companyName: 'MES and CO',
+		personEmail: 'randi.karpinia@sagacitylegal.com',
+	},
+};
+
 ///////////////////////////////////// Document on Ready Function /////////////////////////////////////
 
 $(document).ready(function () {
@@ -141,10 +164,19 @@ document.getElementById('add_potential_project_form_save').addEventListener('cli
 			processData: false,
 			contentType: false,
 			success: function (data) {
-				if (data === 'Success') {
+				if (data.message === 'Success') {
 					hideAllContainers();
 					document.getElementById('potential_client_details_form').reset();
-				} else if (data === 'Fail') {
+
+					document.getElementById('potential_client_table').querySelector('tbody').innerHTML = '';
+
+					document.getElementById('potential_project_clients_serialize').textContent = JSON.stringify(
+						data.potential_project_clients_serialize
+					);
+					populatePotentialProjectTable();
+
+					document.getElementById('show_potential_client_table').click();
+				} else if (data.message === 'Fail') {
 					alert(
 						'A similar client with the same project exists in the DB. Please rename the project to something specific.'
 					);
@@ -429,10 +461,20 @@ document.getElementById('add_project_form_save').addEventListener('click', funct
 			processData: false,
 			contentType: false,
 			success: function (data) {
-				if (data === 'Success') {
+				if (data.message === 'Success') {
 					hideAllContainers();
 					projectForm.reset();
-				} else if (data === 'Fail') {
+
+					document.getElementById('current_client_table').querySelector('tbody').innerHTML = '';
+
+					document.getElementById('current_project_clients_serialize').textContent = JSON.stringify(
+						data.current_project_clients_serialize
+					);
+					document.getElementById('payments_serialize').textContent = JSON.stringify(data.payments_serialize);
+					populateCurrentProjectTable();
+
+					document.getElementById('show_current_client_table').click();
+				} else if (data.message === 'Fail') {
 					alert(
 						'A similar client with the same project exists in the DB. Please rename the project to something specific.'
 					);
@@ -628,48 +670,14 @@ class CurrentClientTableRow extends HTMLTableRowElement {
 		);
 
 		let addPaymentButton = this.querySelector('button[id$="_addPaymentButton"]');
-		addPaymentButton.addEventListener('click', function () {
+		addPaymentButton.addEventListener('click', function (e) {
 			document.getElementById('add_payment_modal_body').innerHTML = '';
 			let addPaymentInput = new PaymentTextInput(_elementId + '_addPaymentModal');
 			addPaymentInput.classList.add('my-0');
 			document.getElementById('add_payment_modal_body').append(addPaymentInput);
+			document.getElementById('add_payment_project_slug').value = _elementId;
 
 			$('#add_payment_modal').modal('show');
-
-			document.getElementById('add_payment_modal_footer_submit').addEventListener('click', function () {
-				let dollarValue = addPaymentInput.querySelector('input').value;
-
-				if (!parseFloat(dollarValue)) {
-					alert('Only numbers are allowed in this field');
-					return;
-				}
-
-				$.ajax({
-					type: 'POST',
-					url: '/client-admin/add-payment-modal',
-					data: {
-						dollarValue,
-						_elementId,
-						csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
-					},
-					success: function (data) {
-						if (data.message === 'Success') {
-							// Empty the table
-							document.getElementById('current_client_table').querySelector('tbody').innerHTML = '';
-
-							document.getElementById('current_project_clients_serialize').textContent = JSON.stringify(
-								data.current_project_clients_serialize
-							);
-							document.getElementById('payments_serialize').textContent = JSON.stringify(
-								data.payments_serialize
-							);
-
-							populateCurrentProjectTable();
-							$('#add_payment_modal').modal('hide');
-						}
-					},
-				});
-			});
 		});
 	}
 
@@ -739,7 +747,7 @@ class CurrentClientTableRow extends HTMLTableRowElement {
 		col2.setAttribute('data-toggle', 'tooltip');
 		col2.setAttribute('title', 'Add Payment');
 		let addPaymentButton = document.createElement('button');
-		addPaymentButton.classList = 'btn btn-link p-1 text-primary';
+		addPaymentButton.classList = 'btn btn-link p-1 d-inline-flex text-primary';
 		addPaymentButton.id = this.elementId + '_addPaymentButton';
 		let dollarIcon = document.createElement('i');
 		dollarIcon.classList = 'fas fa-dollar-sign fa-lg';
@@ -769,7 +777,13 @@ function populateCurrentProjectTable() {
 			let fields = currentProjectClientsJson[key].fields;
 			let pkCurrentProject = currentProjectClientsJson[key].pk;
 
-			let indexOfPayments = paymentsJson.map((x, i) => (x.fields.project === pkCurrentProject ? i : ''));
+			let indexOfPayments = paymentsJson.map((x, i) => {
+				if (x.fields.project === pkCurrentProject) {
+					return i;
+				} else {
+				}
+			});
+			indexOfPayments = indexOfPayments.filter((x) => x !== undefined);
 
 			// Create the payment string
 			let paymentString = '';
@@ -802,3 +816,40 @@ function populateCurrentProjectTable() {
 }
 
 populateCurrentProjectTable();
+
+//////////////////////////////////////// Add Payments Modal ////////////////////////////////////////
+
+document.getElementById('add_payment_modal_footer_submit').addEventListener('click', function () {
+	let _elementId = document.getElementById('add_payment_project_slug').value;
+	let dollarValue = document.getElementById('add_payment_modal_body').querySelector('input').value;
+
+	if (!parseFloat(dollarValue)) {
+		alert('Only numbers are allowed in this field');
+		return;
+	}
+
+	$.ajax({
+		type: 'POST',
+		url: '/client-admin/add-payment-modal',
+		data: {
+			dollarValue,
+			_elementId,
+			csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+		},
+		success: function (data) {
+			if (data.message === 'Success') {
+				// Empty the table
+				document.getElementById('current_client_table').querySelector('tbody').innerHTML = '';
+
+				document.getElementById('current_project_clients_serialize').textContent = JSON.stringify(
+					data.current_project_clients_serialize
+				);
+				document.getElementById('payments_serialize').textContent = JSON.stringify(data.payments_serialize);
+
+				populateCurrentProjectTable();
+				$('#add_payment_modal').modal('hide');
+				$('#current_client_table').DataTable();
+			}
+		},
+	});
+});
