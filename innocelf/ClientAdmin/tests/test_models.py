@@ -79,7 +79,7 @@ class PotentialProjectTest(TestCase):
         self.assertEqual(project_type, 'project type')
         self.assertEqual(initial_contact_date, 'initial contact date')
 
-    def test_default_date(self):
+    def test_defaults(self):
         '''
         Tests that the default date is inputted properly
         '''
@@ -88,6 +88,13 @@ class PotentialProjectTest(TestCase):
         self.assertEqual(
             potential_project.initial_contact_date.strftime('%Y-%m-%d'),
             date_today
+        )
+
+        self.assertFalse(
+            potential_project.is_client_abandoned
+        )
+        self.assertFalse(
+            potential_project.is_client_current
         )
 
     def test_slug_saver(self):

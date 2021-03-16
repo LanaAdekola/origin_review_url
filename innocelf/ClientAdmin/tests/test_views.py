@@ -277,3 +277,56 @@ class SaveProjectAndPaymentsAndCompletionTest(TestCase):
 
         project_qs_complete = Project.objects.filter(is_project_complete=True)
         self.assertEqual(len(project_qs_complete), 1)
+
+
+class MakeClientCurrentAndAbandonClientTest(TestCase):
+    '''
+    Tests Making Client Current and Abandoning Client through AJAX responses
+    '''
+    @classmethod
+    def setUpTestData(cls):
+        '''
+        Create Potential Projects
+        '''
+        PotentialProject.objects.create(
+            client_name='Test Potential Client',
+            client_email='test@test.com',
+            project_name='Test Patent Search',
+            project_type='PRR'
+        )
+
+    def test_make_client_current(self):
+        '''
+        Tests the view of making the client current through AJAX
+        '''
+        potential_project = PotentialProject.objects.get(id=1)
+        potential_project_slug = potential_project.slug
+
+        response = self.client.post(
+            reverse('ClientAdmin:make-client-current-ajax'),
+            {
+                '_elementId': potential_project_slug
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+
+        potential_project = PotentialProject.objects.get(id=1)
+        self.assertTrue(potential_project.is_client_current)
+
+    def test_abandon_client(self):
+        '''
+        Tests the view of abandoning the client through AJAX
+        '''
+        potential_project = PotentialProject.objects.get(id=1)
+        potential_project_slug = potential_project.slug
+
+        response = self.client.post(
+            reverse('ClientAdmin:abandon-client-ajax'),
+            {
+                '_elementId': potential_project_slug
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+
+        potential_project = PotentialProject.objects.get(id=1)
+        self.assertTrue(potential_project.is_client_abandoned)

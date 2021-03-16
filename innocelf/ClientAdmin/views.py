@@ -232,3 +232,46 @@ def add_payment_modal(request, *args, **kwargs):
         'current_project_clients_serialize': current_project_clients_serialize,
         'payments_serialize': payments_serialize
     })
+
+
+def make_client_current(request, *args, **kwargs):
+    '''
+    Makes the client current when the appropriate buttons are clicked, via AJAX
+    '''
+    potential_project_slug = request.POST['_elementId']
+    potential_project = PotentialProject.objects.get(
+        slug=potential_project_slug)
+
+    potential_project.is_client_current = True
+    potential_project.save()
+
+    potential_project_qs = PotentialProject.objects.all()
+    potential_project_clients_serialize = serializers.serialize(
+        'json', potential_project_qs)
+
+    return JsonResponse({
+        'message': 'Success',
+        'potential_project_clients_serialize': potential_project_clients_serialize
+    })
+
+
+def abandon_client(request, *args, **kwargs):
+    '''
+    Abandons the client when the appropriate buttons are clicked, via AJAX
+    '''
+
+    potential_project_slug = request.POST['_elementId']
+    potential_project = PotentialProject.objects.get(
+        slug=potential_project_slug)
+
+    potential_project.is_client_abandoned = True
+    potential_project.save()
+
+    potential_project_qs = PotentialProject.objects.all()
+    potential_project_clients_serialize = serializers.serialize(
+        'json', potential_project_qs)
+
+    return JsonResponse({
+        'message': 'Success',
+        'potential_project_clients_serialize': potential_project_clients_serialize
+    })

@@ -116,6 +116,12 @@ class PotentialProject(models.Model):
     # Initial Contact
     initial_contact_date = models.DateField(default=datetime.date.today)
 
+    # Is Client current
+    is_client_current = models.BooleanField(default=False)
+
+    # Is client abandoned
+    is_client_abandoned = models.BooleanField(default=False)
+
     # Creating a slug
     slug = models.SlugField(default='')
 

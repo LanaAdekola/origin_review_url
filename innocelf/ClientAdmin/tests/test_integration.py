@@ -759,6 +759,215 @@ class TestPotentialProjectTable(StaticLiveServerTestCase):
     Tests that the Potential project table has been displayed correctly and that the functionality makes sense
     '''
 
+    def setUp(self):
+        '''
+        Set up, make new potential projects and open browser
+        '''
+        for i in range(30):
+            random_project_type = random.randrange(0, 5)
+            random_estimated_days = random.randrange(5, 40)
+            random_expected_revenue = random.randrange(500, 1000)
+            PotentialProject.objects.create(
+                client_name='Test Client ' + str(i),
+                client_company='Test Company ' + str(i),
+                client_email='test' + str(i) + '@email.com',
+                project_name='Test Project ' + str(i),
+                project_type=PROJECT_TYPE_CHOICES[random_project_type][0],
+                initial_contact_date=datetime.datetime(2021, 3, 30),
+            )
+
+        self.test_super_user, self.browser = common_setup_login_client_admin(
+            self)
+
+        self.potential_clients_sidebar = self.browser.find_element_by_id(
+            'show_potential_client_table'
+        )
+        self.abandoned_clients_sidebar = self.browser.find_element_by_id(
+            'show_abandoned_client_table'
+        )
+
+    def tearDown(self):
+        '''
+        Tear Down
+        '''
+        self.browser.close()
+
+    def test_table_contents_are_displayed(self):
+        '''
+        Tests the process of making the client current, includes a prompt and then going to the 
+        form to make current
+        '''
+        # Click the potential clients sidebar button
+        self.browser.execute_script(
+            'arguments[0].click()', self.potential_clients_sidebar
+        )
+
+        # Assert that the table container and the table is displayed
+        table_container = self.browser.find_element_by_id(
+            'table_potential_client_container')
+        table = self.browser.find_element_by_id('potential_client_table')
+        self.assertTrue(table_container.is_displayed())
+        self.assertTrue(table.is_displayed())
+
+        # Assert that the table numbers being displayed are proper
+        table_numbers = self.browser.find_element_by_id(
+            'potential_client_table_info'
+        )
+        self.assertEqual(table_numbers.text, '1 - 10 of 30')
+
+        # Change the number of rows displayed to 50
+        self.browser.find_element_by_xpath(
+            '//select[@name="potential_client_table_length"]/option[text()="50"]'
+        ).click()
+        table_numbers = self.browser.find_element_by_id(
+            'potential_client_table_info'
+        )
+        self.assertEqual(table_numbers.text, '1 - 30 of 30')
+
+    def test_make_client_current(self):
+        '''
+        Tests the process of making the client current, includes a prompt and then going to the 
+        form to make current
+        '''
+        # Click the potential clients sidebar button
+        self.browser.execute_script(
+            'arguments[0].click()', self.potential_clients_sidebar
+        )
+
+        self.browser.find_element_by_xpath(
+            '//select[@name="potential_client_table_length"]/option[text()="50"]'
+        ).click()
+
+        n = 0
+        for pot_project in PotentialProject.objects.all():
+            project_slug = pot_project.slug
+
+            # Click the make client current button
+            make_client_current_button = self.browser.find_element_by_id(
+                project_slug + '_makeCurrentButton'
+            )
+            make_client_current_button.click()
+            # Alert is present
+            WebDriverWait(self.browser, 10).until(EC.alert_is_present())
+            self.browser.switch_to_alert().accept()
+
+            n += 1
+
+            self.browser.implicitly_wait(5)
+            current_client_container = self.browser.find_element_by_id(
+                'current_client_details'
+            )
+            self.assertTrue(current_client_container.is_displayed())
+
+            # Assert that the first few fields are already filled out
+            client_name = self.browser.find_element_by_id(
+                'add_project_clientName')
+            client_company = self.browser.find_element_by_id(
+                'add_project_clientCompany')
+            client_email = self.browser.find_element_by_id(
+                'add_project_clientEmail')
+            project_name = self.browser.find_element_by_id(
+                'add_project_projectName')
+            project_type = self.browser.find_element_by_id(
+                'add_project_projectType')
+
+            self.assertEqual(client_name.get_attribute(
+                'value'), pot_project.client_name)
+            self.assertEqual(client_company.get_attribute(
+                'value'), pot_project.client_company)
+            self.assertEqual(client_email.get_attribute(
+                'value'), pot_project.client_email)
+            self.assertEqual(project_name.get_attribute(
+                'value'), pot_project.project_name)
+            self.assertEqual(project_type.get_attribute(
+                'value'), pot_project.project_type)
+
+            # Assert back end stuff
+            project_real_time = PotentialProject.objects.get(slug=project_slug)
+            self.assertTrue(project_real_time.is_client_current)
+
+            # Navigate back to the table
+            self.browser.execute_script(
+                'arguments[0].click()', self.potential_clients_sidebar
+            )
+
+            # Change the number of rows displayed to 50
+            self.browser.find_element_by_xpath(
+                '//select[@name="potential_client_table_length"]/option[text()="50"]'
+            ).click()
+            table_numbers = self.browser.find_element_by_id(
+                'potential_client_table_info'
+            )
+            table_rows = self.browser.find_element_by_id(
+                'potential_client_table').find_elements_by_tag_name('tbody')[0].find_elements_by_tag_name('tr')
+            self.assertEqual(len(table_rows), 30 - n)
+
+    def test_abandon_client(self):
+        '''
+        Tests the process of abandoning a client, includes a prompt
+        '''
+
+        # Click the potential clients sidebar button
+        self.browser.execute_script(
+            'arguments[0].click()', self.potential_clients_sidebar
+        )
+
+        self.browser.find_element_by_xpath(
+            '//select[@name="potential_client_table_length"]/option[text()="50"]'
+        ).click()
+
+        n = 0
+        for pot_project in PotentialProject.objects.all():
+            project_slug = pot_project.slug
+
+            # Click the make client current button
+            abandon_client_button = self.browser.find_element_by_id(
+                project_slug + '_abandonClientButton'
+            )
+            abandon_client_button.click()
+            # Alert is present
+            WebDriverWait(self.browser, 10).until(EC.alert_is_present())
+            self.browser.switch_to_alert().accept()
+
+            n += 1
+
+            # Navigate back to the table
+            self.browser.execute_script(
+                'arguments[0].click()', self.potential_clients_sidebar
+            )
+
+            # Change the number of rows displayed to 50
+            self.browser.find_element_by_xpath(
+                '//select[@name="potential_client_table_length"]/option[text()="50"]'
+            ).click()
+            table_numbers = self.browser.find_element_by_id(
+                'potential_client_table_info'
+            )
+            table_rows = self.browser.find_element_by_id(
+                'potential_client_table').find_elements_by_tag_name('tbody')[0].find_elements_by_tag_name('tr')
+            self.assertEqual(len(table_rows), 30 - n)
+
+            # Assert back end stuff
+            project_real_time = PotentialProject.objects.get(slug=project_slug)
+            self.assertTrue(project_real_time.is_client_abandoned)
+
+            # Navigate to the abandon client table and verify that the number of rows is increasing there
+            self.browser.execute_script(
+                'arguments[0].click()', self.abandoned_clients_sidebar
+            )
+            # Change the number of rows displayed to 50
+            self.browser.find_element_by_xpath(
+                '//select[@name="abandoned_client_table_length"]/option[text()="50"]'
+            ).click()
+            table_rows = self.browser.find_element_by_id(
+                'abandoned_client_table').find_elements_by_tag_name('tbody')[0].find_elements_by_tag_name('tr')
+            self.assertEqual(len(table_rows), 0 + n)
+
+            # Navigate back to the potential clients table
+            self.browser.execute_script(
+                'arguments[0].click()', self.potential_clients_sidebar
+            )
+
 
 class TestProjectTable(StaticLiveServerTestCase):
     '''

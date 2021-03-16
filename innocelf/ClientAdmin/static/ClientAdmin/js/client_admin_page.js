@@ -65,6 +65,7 @@ window.addEventListener('load', function () {
 	// Activate the tables
 	$('#potential_client_table').DataTable();
 	$('#current_client_table').DataTable();
+	$('#abandoned_client_table').DataTable();
 });
 
 //////////////////////////////////////// Hide all Containers ////////////////////////////////////////
@@ -79,6 +80,7 @@ function hideAllContainers() {
 		'potential_client_details',
 		'table_potential_client_container',
 		'table_current_client_container',
+		'table_abandoned_client_container',
 	];
 
 	for (let i = 0; i < CONTAINER_ID_LIST.length; i++) {
@@ -301,6 +303,80 @@ class PotentialClientTableRow extends HTMLTableRowElement {
 			initialContactDateCell,
 			tableCellButtons
 		);
+
+		let makeCurrentButton = this.querySelector('button[id$="_makeCurrentButton"]');
+		makeCurrentButton.addEventListener('click', function (e) {
+			if (confirm('Are you sure you want to make this client current?')) {
+				let tableRow = document.querySelector('tr[id="' + _elementId + '"]');
+
+				document.getElementById('add_project_clientName').value = tableRow.getAttribute('client-name');
+				document.getElementById('add_project_clientCompany').value = tableRow.getAttribute('client-company');
+				document.getElementById('add_project_clientEmail').value = tableRow.getAttribute('client-email');
+				document.getElementById('add_project_projectName').value = tableRow.getAttribute('project-name');
+				document.getElementById('add_project_projectType').value = Object.keys(PROJECT_TYPE_CHOICES).find(
+					(key) => PROJECT_TYPE_CHOICES[key] === tableRow.getAttribute('project-type')
+				);
+
+				document.getElementById('add_new_client_sidebar').click();
+				document.getElementById('choose_current_client').click();
+
+				$.ajax({
+					type: 'POST',
+					data: {
+						_elementId,
+						csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+					},
+					url: '/client-admin/make-client-current',
+					success: function (data) {
+						if (data.message === 'Success') {
+							// Empty the table
+							document.getElementById('potential_client_table').querySelector('tbody').innerHTML = '';
+
+							document.getElementById('potential_project_clients_serialize').textContent = JSON.stringify(
+								data.potential_project_clients_serialize
+							);
+							populatePotentialProjectTable();
+
+							$('#potential_client_table').DataTable();
+						}
+					},
+				});
+			} else {
+				return;
+			}
+		});
+
+		let abandonButton = this.querySelector('button[id$="_abandonClientButton');
+		abandonButton.addEventListener('click', function (e) {
+			if (confirm('Are you sure you want to abandon this client? This process cannot be undone (easily)')) {
+				$.ajax({
+					type: 'POST',
+					data: {
+						_elementId,
+						csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+					},
+					url: '/client-admin/abandon-client',
+					success: function (data) {
+						if (data.message === 'Success') {
+							// Empty the table
+							document.getElementById('potential_client_table').querySelector('tbody').innerHTML = '';
+							document.getElementById('abandoned_client_table').querySelector('tbody').innerHTML = '';
+
+							document.getElementById('potential_project_clients_serialize').textContent = JSON.stringify(
+								data.potential_project_clients_serialize
+							);
+							populatePotentialProjectTable();
+							populateAbandonedProjectTable();
+
+							$('#potential_client_table').DataTable();
+							$('#abandoned_client_table').DataTable();
+						}
+					},
+				});
+			} else {
+				return;
+			}
+		});
 	}
 
 	connectedCallback() {
@@ -329,6 +405,7 @@ class PotentialClientTableRow extends HTMLTableRowElement {
 		col1.setAttribute('title', 'Make Client Current');
 		let checkButton = document.createElement('button');
 		checkButton.classList = 'btn btn-link p-1';
+		checkButton.id = this.elementId + '_makeCurrentButton';
 		let checkIcon = document.createElement('i');
 		checkIcon.classList = 'fas fa-check-circle fa-lg text-success';
 		checkButton.append(checkIcon);
@@ -340,6 +417,7 @@ class PotentialClientTableRow extends HTMLTableRowElement {
 		col2.setAttribute('title', 'Abandon Client');
 		let banButton = document.createElement('button');
 		banButton.classList = 'btn btn-link p-1';
+		banButton.id = this.elementId + '_abandonClientButton';
 		let banIcon = document.createElement('i');
 		banIcon.classList = 'fas fa-ban fa-lg text-danger';
 		banButton.append(banIcon);
@@ -366,17 +444,19 @@ function populatePotentialProjectTable() {
 		if (Object.hasOwnProperty.call(potentialProjectClientsJson, key)) {
 			let fields = potentialProjectClientsJson[key].fields;
 
-			let potentialClientTableRow = new PotentialClientTableRow(
-				'this-id-' + key,
-				fields.client_name,
-				fields.client_company,
-				fields.client_email,
-				fields.project_name,
-				PROJECT_TYPE_CHOICES[fields.project_type],
-				fields.initial_contact_date
-			);
+			if (fields.is_client_current === false && fields.is_client_abandoned === false) {
+				let potentialClientTableRow = new PotentialClientTableRow(
+					fields.slug,
+					fields.client_name,
+					fields.client_company,
+					fields.client_email,
+					fields.project_name,
+					PROJECT_TYPE_CHOICES[fields.project_type],
+					fields.initial_contact_date
+				);
 
-			document.getElementById('potential_client_table').querySelector('tbody').append(potentialClientTableRow);
+				document.getElementById('potential_client_table').querySelector('tbody').append(potentialClientTableRow);
+			}
 		}
 	}
 }
@@ -853,3 +933,135 @@ document.getElementById('add_payment_modal_footer_submit').addEventListener('cli
 		},
 	});
 });
+
+////////////////////////////////////// Abandoned Clients Table //////////////////////////////////////
+
+// Show abandoned clients table
+document.getElementById('show_abandoned_client_table').addEventListener('click', function () {
+	hideAllContainers();
+	document.getElementById('table_abandoned_client_container').classList.remove('d-none');
+});
+
+/**
+ * Creates an instance of the Potential Client / Potential Project Table Row. The row will be appended to
+ * the potential_client_table
+ * @property {string} elementId - The id the row should have
+ * @property {string} clientName - The client name that will be displayed on the row
+ * @property {string} clientCompany - The client's company that will be displayed on the row
+ * @property {string} clientEmail - The client's email that will be displayed on the row
+ * @property {string} initialContactDate - The initial contact date that will be displayed on the row.
+ */
+class AbandonedClientTableRow extends HTMLTableRowElement {
+	static get observedAttributes() {
+		return [
+			'id',
+			'client-name',
+			'client-company',
+			'client-email',
+			// 'project-name',
+			// 'project-type',
+			'initial-contact-date',
+		];
+	}
+
+	get elementId() {
+		return this.getAttribute('id');
+	}
+
+	get clientName() {
+		return this.getAttribute('client-name');
+	}
+
+	get clientEmail() {
+		return this.getAttribute('client-email');
+	}
+
+	get clientCompany() {
+		return this.getAttribute('client-company');
+	}
+
+	get initialContactDate() {
+		return this.getAttribute('initial-contact-date');
+	}
+
+	set elementId(newName) {
+		this.setAttribute('id', newName);
+	}
+
+	set clientName(newName) {
+		this.setAttribute('client-name', newName);
+	}
+
+	set clientEmail(newValue) {
+		this.setAttribute('client-email', newValue);
+	}
+
+	set clientCompany(newName) {
+		this.setAttribute('client-company', newName);
+	}
+
+	set initialContactDate(newName) {
+		this.setAttribute('initial-contact-date', newName);
+	}
+
+	constructor(_elementId, _clientName, _clientCompany, _clientEmail, _initialContactDate) {
+		super();
+
+		this.elementId = _elementId;
+		this.clientName = _clientName;
+		this.clientCompany = _clientCompany;
+		this.clientEmail = _clientEmail;
+		this.initialContactDate = _initialContactDate;
+
+		let clientNameCell = this.createTableCell(_clientName);
+		let clientCompanyCell = this.createTableCell(_clientCompany);
+		let clientEmailCell = this.createTableCell(_clientEmail);
+		let initialContactDateCell = this.createTableCell(_initialContactDate);
+
+		this.append(clientNameCell, clientCompanyCell, clientEmailCell, initialContactDateCell);
+	}
+
+	connectedCallback() {
+		//
+	}
+
+	createTableCell(cellText) {
+		let td = document.createElement('td');
+		td.textContent = cellText;
+		td.style.verticalAlign = 'middle';
+		td.style.textAlign = 'center';
+		td.style.fontSize = 'small';
+
+		return td;
+	}
+}
+
+customElements.define('abandoned-client-table-row', AbandonedClientTableRow, { extends: 'tr' });
+
+/**
+ * Populates the Abandoned Project / Client Table by using the Json outputs from the backend
+ */
+function populateAbandonedProjectTable() {
+	let potentialProjectClients = JSON.parse(document.getElementById('potential_project_clients_serialize').textContent);
+	let potentialProjectClientsJson = JSON.parse(potentialProjectClients);
+
+	for (const key in potentialProjectClientsJson) {
+		if (Object.hasOwnProperty.call(potentialProjectClientsJson, key)) {
+			let fields = potentialProjectClientsJson[key].fields;
+
+			if (fields.is_client_abandoned === true) {
+				let abandonedClientTableRow = new AbandonedClientTableRow(
+					fields.slug,
+					fields.client_name,
+					fields.client_company,
+					fields.client_email,
+					fields.initial_contact_date
+				);
+
+				document.getElementById('abandoned_client_table').querySelector('tbody').append(abandonedClientTableRow);
+			}
+		}
+	}
+}
+
+populateAbandonedProjectTable();
