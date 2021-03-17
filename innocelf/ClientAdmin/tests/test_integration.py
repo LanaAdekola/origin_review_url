@@ -1156,6 +1156,7 @@ class TestProjectTable(StaticLiveServerTestCase):
 
             self.assertEqual(len(payment_real_time), 1)
 
+        all_projects = Project.objects.all()
         for i in range(1, 11):
             WebDriverWait(self.browser, 10).until(
                 lambda d: d.find_element_by_id(
@@ -1163,7 +1164,7 @@ class TestProjectTable(StaticLiveServerTestCase):
             )
             random_payment = random.randrange(100, 500)
 
-            project = Project.objects.get(id=i)
+            project = all_projects[i]
             add_payment_button = self.browser.find_element_by_id(
                 project.slug + '_addPaymentButton'
             )
@@ -1283,13 +1284,13 @@ class TestMontlyRevenueTable(StaticLiveServerTestCase):
                 else:
                     if i == 0:
                         # print(j, int(float(col.text)))
-                        self.assertEqual(int(float(col.text)),
+                        self.assertEqual(int(float(col.text.split('$')[1])),
                                          self.year_1[j-1])
                     elif i == 1:
-                        self.assertEqual(int(float(col.text)),
+                        self.assertEqual(int(float(col.text.split('$')[1])),
                                          self.year_2[j-1])
                     elif i == 2:
-                        self.assertEqual(int(float(col.text)),
+                        self.assertEqual(int(float(col.text.split('$')[1])),
                                          self.year_3[j-1])
 
 

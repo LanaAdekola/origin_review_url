@@ -76,6 +76,34 @@
     </div>
     <!-- End Modal -->
 
+    <!-- Edit Row Modal -->
+    <div class="modal fade" id="edit_row_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document" id="edit_row_modal_document">
+        <div class="modal-content" id="edit_row_modal_content">
+          <div class="modal-header" id="edit_row_modal_header">
+            <h5 class="modal-title lato-bold" id="edit_row_modal_title">Edit Row</h5>
+            
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body" id="edit_row_modal_body">
+            <form type="post" id="edit_project_row_form" validate>
+              <input type="hidden" name="edit_row_project_slug" id="edit_row_project_slug">
+              <input type="hidden" name="edit_project_row_projectDeadline_timestamp" id="edit_project_row_projectDeadline_timestamp">
+              {% csrf_token %}
+              {{edit_project_form|crispy }}
+          </div>
+          <div class="modal-footer" id="edit_row_modal_footer">
+            <button type="submit" class="btn btn-dark btn-sm" id="edit_row_modal_footer_submit">Submit</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- End Edit Row Modal -->
+
     {{ long_term_clients_serialize|json_script:"long_term_clients_serialize" }}
     {{ potential_project_clients_serialize|json_script:"potential_project_clients_serialize" }}
     {{ current_project_clients_serialize|json_script:"current_project_clients_serialize" }}

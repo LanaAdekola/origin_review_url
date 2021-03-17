@@ -175,3 +175,63 @@ class PotentialProjectForm(forms.ModelForm):
             'project_type': 'Project Type',
             'initial_contact_date': 'Initial Contact Date',
         }
+
+
+class EditProjectForm(forms.ModelForm):
+    '''
+    Creates an instance of a form that will edit the Project already listed on the front end
+    '''
+    class Meta:
+        model = Project
+        fields = [
+            'client_name',
+            'client_company',
+            'client_email',
+            'project_name',
+            'project_type',
+            'project_deadline',
+            'expected_revenue'
+        ]
+
+        widgets = {
+            'client_name': forms.TextInput(attrs={
+                'class': 'form-control form-control-sm lato-regular',
+                'id': 'edit_project_row_clientName',
+            }),
+            'client_company': forms.TextInput(attrs={
+                'class': 'form-control form-control-sm lato-regular',
+                'id': 'edit_project_row_clientCompany'
+            }),
+            'client_email': forms.EmailInput(attrs={
+                'class': 'form-control form-control-sm lato-regular',
+                'id': 'edit_project_row_clientEmail'
+            }),
+            'project_name': forms.TextInput(attrs={
+                'class': 'form-control form-control-sm lato-regular',
+                'id': 'edit_project_row_projectName'
+            }),
+            'project_type': forms.Select(attrs={
+                'class': 'custom-select custom-select-sm lato-regular',
+                'id': 'edit_project_row_projectType'
+            }),
+            'project_deadline': forms.DateInput(attrs={
+                'class': 'form-control form-control-sm lato-regular',
+                'id': 'edit_project_row_projectDeadline',
+                'type': 'date'
+            }),
+            'expected_revenue': forms.TextInput(attrs={
+                'class': 'form-control form-control-sm lato-regular',
+                'id': 'edit_project_row_expectedRevenue'
+            }),
+        }
+
+        labels = {
+            'client_name': 'Client Full Name',
+            'client_company': 'Client Company (Optional)',
+            'client_long_term': 'Long Term Client?',
+            'client_email': 'Client Email',
+            'project_name': 'Project Name',
+            'project_type': 'Project Type',
+            'project_deadline': 'Project Deadline',
+            'expected_revenue': 'Expected Revenue',
+        }

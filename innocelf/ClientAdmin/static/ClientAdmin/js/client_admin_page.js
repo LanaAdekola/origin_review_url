@@ -765,6 +765,24 @@ class CurrentClientTableRow extends HTMLTableRowElement {
 
 			$('#add_payment_modal').modal('show');
 		});
+
+		let editRowButton = this.querySelector('button[id$="_editRowButton"]');
+		editRowButton.addEventListener('click', function () {
+			document.getElementById('edit_row_project_slug').value = _elementId;
+
+			// Input the already ready fields in the form
+			document.getElementById('edit_project_row_clientName').value = _clientName;
+			document.getElementById('edit_project_row_clientCompany').value = _clientCompany;
+			document.getElementById('edit_project_row_clientEmail').value = _clientEmail;
+			document.getElementById('edit_project_row_projectName').value = _projectName;
+			document.getElementById('edit_project_row_projectType').value = Object.keys(PROJECT_TYPE_CHOICES).find(
+				(x) => PROJECT_TYPE_CHOICES[x] === _projectType
+			);
+			document.getElementById('edit_project_row_projectDeadline').value = _projectDeadline;
+			document.getElementById('edit_project_row_expectedRevenue').value = _expectedRevenue;
+
+			$('#edit_row_modal').modal('show');
+		});
 	}
 
 	connectedCallback() {}
@@ -811,12 +829,15 @@ class CurrentClientTableRow extends HTMLTableRowElement {
 
 	createTableCellButtons() {
 		let td = document.createElement('td');
+		td.classList = 'px-0';
+		td.style.textAlign = 'center';
+		td.style.verticalAlign = 'middle';
 
 		let row = document.createElement('div');
 		row.classList = 'row m-0 w-100 justify-content-center align-items-center';
 
 		let col1 = document.createElement('div');
-		col1.classList = 'col-5 ml-0 p-0';
+		col1.classList = 'col-4 m-0 p-0';
 		col1.setAttribute('data-toggle', 'tooltip');
 		col1.setAttribute('title', 'Mark Project Done');
 		let checkButton = document.createElement('button');
@@ -829,7 +850,7 @@ class CurrentClientTableRow extends HTMLTableRowElement {
 		col1.append(checkButton);
 
 		let col2 = document.createElement('div');
-		col2.classList = 'col-5 ml-0 p-0';
+		col2.classList = 'col-4 m-0 p-0';
 		col2.setAttribute('data-toggle', 'tooltip');
 		col2.setAttribute('title', 'Add Payment');
 		let addPaymentButton = document.createElement('button');
@@ -842,7 +863,21 @@ class CurrentClientTableRow extends HTMLTableRowElement {
 		addPaymentButton.append(dollarIcon, addIcon);
 		col2.append(addPaymentButton);
 
-		row.append(col1, col2);
+		let col3 = document.createElement('div');
+		col3.classList = 'col-4 m-0 p-0';
+		col3.setAttribute('data-toggle', 'tooltip');
+		col3.setAttribute('title', 'Edit Row');
+		let editRowButton = document.createElement('button');
+		editRowButton.classList = 'btn btn-link p-1 d-inline-flex text-dark';
+		editRowButton.id = this.elementId + '_editRowButton';
+		let editIcon = document.createElement('i');
+		editIcon.classList = 'far fa-edit fa-lg';
+		// let addIcon = document.createElement('i');
+		// addIcon.classList = 'fas fa-plus fa-lg';
+		editRowButton.append(editIcon);
+		col3.append(editRowButton);
+
+		row.append(col3, col1, col2);
 		td.append(row);
 
 		return td;
@@ -938,6 +973,49 @@ document.getElementById('add_payment_modal_footer_submit').addEventListener('cli
 			}
 		},
 	});
+});
+
+////////////////////////////////////// Edit Project Row Submit //////////////////////////////////////
+
+document.getElementById('edit_row_modal_footer_submit').addEventListener('click', function (e) {
+	let editProjectRowForm = document.getElementById('edit_project_row_form');
+
+	if (editProjectRowForm.checkValidity()) {
+		e.preventDefault();
+
+		let projectDeadlineTimestamp = Date.parse(document.getElementById('edit_project_row_projectDeadline').value);
+		document.getElementById('edit_project_row_projectDeadline_timestamp').value = projectDeadlineTimestamp;
+
+		let formData = new FormData(editProjectRowForm);
+		$.ajax({
+			type: 'POST',
+			url: '/client-admin/edit-project-row',
+			data: formData,
+			cache: false,
+			processData: false,
+			contentType: false,
+			success: function (data) {
+				if (data.message === 'Success') {
+					// Empty the table
+					document.getElementById('current_client_table').querySelector('tbody').innerHTML = '';
+
+					document.getElementById('current_project_clients_serialize').textContent = JSON.stringify(
+						data.current_project_clients_serialize
+					);
+					document.getElementById('payments_serialize').textContent = JSON.stringify(data.payments_serialize);
+
+					populateCurrentProjectTable();
+
+					$('#edit_row_modal').modal('hide');
+					$('#current_client_table').DataTable();
+				} else if (data.message === 'Fail') {
+					alert(
+						'A similar client with the same project exists in the DB. Please rename the project to something specific.'
+					);
+				}
+			},
+		});
+	}
 });
 
 ////////////////////////////////////// Abandoned Clients Table //////////////////////////////////////
@@ -1279,7 +1357,7 @@ class MonthlyRevenueTableRow extends HTMLTableRowElement {
 
 	createTableCell(cellText) {
 		let td = document.createElement('td');
-		td.textContent = cellText;
+		td.textContent = '$' + cellText;
 		td.style.verticalAlign = 'middle';
 		td.style.textAlign = 'center';
 		td.style.fontSize = 'small';

@@ -413,3 +413,61 @@ class SaveLongTermClientTest(TestCase):
 
         ltc_qs = LongTermClient.objects.all()
         self.assertEqual(len(ltc_qs), 1)
+
+
+class EditProjectRowTest(TestCase):
+    '''
+    Tests the editing of the project row via AJAX
+    '''
+
+    @classmethod
+    def setUpTestData(cls):
+        '''
+        Create a project
+        '''
+        Project.objects.create(
+            client_name='Test Potential Client',
+            client_company='Testing Company',
+            client_email='test@test.com',
+            project_name='Test Patent Search',
+            project_type='PRR',
+            project_deadline=datetime.date(2021, 3, 20),
+            project_estimated_days=40,
+            start_date=datetime.date(2021, 3, 10),
+            end_date=datetime.date(2021, 3, 15),
+            expected_revenue=1000
+        )
+
+    def test_edit_project_row(self):
+        '''
+        Tests the editing of projects
+        '''
+        project = Project.objects.get(id=1)
+
+        response = self.client.post(
+            reverse('ClientAdmin:edit-project-row-ajax'),
+            {
+                'edit_row_project_slug': project.slug,
+                'client_name': 'Edit Test Potential Client',
+                'client_company': 'Edit Testing Company',
+                'client_email': 'edit_test@test.com',
+                'project_name': 'Edit Test Patent Search',
+                'project_type': 'FPD',
+                'edit_project_row_projectDeadline_timestamp': int(
+                    round(
+                        datetime.datetime(2021, 3, 15).timestamp() * 1000.0,
+                        0
+                    )
+                ),
+                'expected_revenue': 5000,
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        project_edited = Project.objects.get(id=1)
+        self.assertEqual(
+            project_edited.slug,
+            'EditTestPotentialClient-EditTestPatentSearch-FPD-20210315-5000'
+        )
+

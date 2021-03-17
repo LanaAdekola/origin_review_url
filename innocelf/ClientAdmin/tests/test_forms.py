@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ClientAdmin.forms import PotentialProjectForm, ProjectForm, LongTermClientForm
+from ClientAdmin.forms import PotentialProjectForm, ProjectForm, LongTermClientForm, EditProjectForm
 
 form_data_potential_project = {
     '1': {
@@ -255,6 +255,99 @@ form_data_ltc = {
     }
 }
 
+form_data_edit_project = {
+    '1': {
+        'client_name': 'Test Name',
+        'client_company': '',
+        'client_email': 'test@mail.com',
+        'project_name': 'Test Project Name',
+        'project_type': 'PRR',
+        'project_deadline': '2021-03-20',
+        'expected_revenue': '1500',
+        'is_valid': True
+    },
+    '2': {
+        'client_name': 'Test Name',
+        'client_company': 'Test Company',
+        'client_email': 'test@mail.com',
+        'project_name': 'Test Project Name',
+        'project_type': 'PRR',
+        'project_deadline': '2021-03-20',
+        'expected_revenue': '1500',
+        'is_valid': True
+    },
+    '3': {
+        'client_name': 'Test Name',
+        'client_company': 'Test Company',
+        'client_email': '',
+        'project_name': '',
+        'project_type': 'PRR',
+        'project_deadline': '2021-03-20',
+        'expected_revenue': '1500',
+        'is_valid': False
+    },
+    '4': {
+        'client_name': 'Test Name',
+        'client_company': '',
+        'client_email': '',
+        'project_name': 'Test Project Name',
+        'project_type': 'ABC',
+        'project_deadline': '2021-03-20',
+        'expected_revenue': '1500',
+        'is_valid': False
+    },
+    '5': {
+        'client_name': '',
+        'client_company': '',
+        'client_email': 'test@mail.com',
+        'project_name': 'Test Project Name',
+        'project_type': 'PRR',
+        'project_deadline': '2021-03-20',
+        'expected_revenue': '1500',
+        'is_valid': False
+    },
+    '6': {
+        'client_name': 'Test Name',
+        'client_company': 'Test Company',
+        'client_email': 'test@mail.com',
+        'project_name': 'Test Project Name',
+        'project_type': 'FPD',
+        'project_deadline': '',
+        'expected_revenue': '1500',
+        'is_valid': False
+    },
+    '8': {
+        'client_name': 'Test Name',
+        'client_company': 'Test Company',
+        'client_email': 'test@mail.com',
+        'project_name': 'Test Project Name',
+        'project_type': 'FPD',
+        'project_deadline': '2021-03-20',
+        'expected_revenue': '1500',
+        'is_valid': True
+    },
+    '9': {
+        'client_name': 'Test Name',
+        'client_company': 'Test Company',
+        'client_email': 'test@mail.com',
+        'project_name': 'Test Project Name',
+        'project_type': 'FPD',
+        'project_deadline': 'LOL',
+        'expected_revenue': '1500',
+        'is_valid': False
+    },
+    '11': {
+        'client_name': 'Test Name',
+        'client_company': 'Test Company',
+        'client_email': 'LOL',
+        'project_name': 'Test Project Name',
+        'project_type': 'FPD',
+        'project_deadline': '2021-03-20',
+        'expected_revenue': '1500',
+        'is_valid': False
+    }
+}
+
 
 class PotentialProjectFormTest(TestCase):
     '''
@@ -377,6 +470,50 @@ class LongTermClientFormTest(TestCase):
                 'client_email': form_data_ltc[key]['client_email'],
             })
             if form_data_ltc[key]['is_valid']:
+                self.assertTrue(form.is_valid(), msg=f'{key} should be False')
+            else:
+                self.assertFalse(form.is_valid(), msg=f'{key} should be True')
+
+
+class EditProjectFormTest(TestCase):
+    '''
+    Tests the validity of the forms, the labels and other things that are required
+    The tests are done with a few form inputs and tested whether they are valid or not
+    '''
+
+    def test_form_labels(self):
+        '''
+        Tets that the form labels are what we intended them to be
+        '''
+        form = EditProjectForm()
+        self.assertEqual(form.fields['client_name'].label, 'Client Full Name')
+        self.assertEqual(form.fields['client_company'].label,
+                         'Client Company (Optional)')
+        self.assertEqual(form.fields['client_email'].label, 'Client Email')
+        self.assertEqual(form.fields['project_name'].label, 'Project Name')
+        self.assertEqual(form.fields['project_type'].label, 'Project Type')
+        self.assertEqual(
+            form.fields['project_deadline'].label, 'Project Deadline')
+        self.assertEqual(
+            form.fields['expected_revenue'].label, 'Expected Revenue')
+
+    def test_required_fields(self):
+        '''
+        Tests that the form validation is passed only when all the required fields are inputted and
+        that the fields are inputted in the right format i.e. email in emailField etc.
+        '''
+
+        for key in form_data_edit_project.keys():
+            form = EditProjectForm(data={
+                'client_name': form_data_edit_project[key]['client_name'],
+                'client_company': form_data_edit_project[key]['client_company'],
+                'client_email': form_data_edit_project[key]['client_email'],
+                'project_name': form_data_edit_project[key]['project_name'],
+                'project_type': form_data_edit_project[key]['project_type'],
+                'project_deadline': form_data_edit_project[key]['project_deadline'],
+                'expected_revenue': form_data_edit_project[key]['expected_revenue'],
+            })
+            if form_data_edit_project[key]['is_valid']:
                 self.assertTrue(form.is_valid(), msg=f'{key} should be False')
             else:
                 self.assertFalse(form.is_valid(), msg=f'{key} should be True')

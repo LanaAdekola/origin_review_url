@@ -9,7 +9,7 @@ from django.core import serializers
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render, reverse
 
-from .forms import LongTermClientForm, PotentialProjectForm, ProjectForm
+from .forms import LongTermClientForm, PotentialProjectForm, ProjectForm, EditProjectForm
 from .models import LongTermClient, Payment, PotentialProject, Project
 
 
@@ -61,6 +61,7 @@ def client_admin_view(request, *args, **kwargs):
     long_term_client_form = LongTermClientForm()
     project_form = ProjectForm()
     potential_project_form = PotentialProjectForm()
+    edit_project_form = EditProjectForm()
 
     # Obtain all long term clients
     long_term_clients = LongTermClient.objects.all()
@@ -91,6 +92,7 @@ def client_admin_view(request, *args, **kwargs):
         'long_term_client_form': long_term_client_form,
         'project_form': project_form,
         'potential_project_form': potential_project_form,
+        'edit_project_form': edit_project_form,
         'long_term_clients_serialize': long_term_clients_serialize,
         'potential_project_clients_serialize': potential_project_clients_serialize,
         'current_project_clients_serialize': current_project_clients_serialize,
@@ -330,3 +332,45 @@ def monthly_revenue_calculator():
             monthly_revenue_dict[str(year)][str(month)] = total_dollar_value
 
     return monthly_revenue_dict
+
+
+def edit_project_row(request, *args, **kwargs):
+    '''
+    Edits the project row via AJAX requests
+    '''
+    post_request = request.POST
+    project_deadline_yyyymmdd = datetime.datetime.fromtimestamp(
+        int(post_request['edit_project_row_projectDeadline_timestamp']) / 1000.0
+    )
+
+    project = Project.objects.get(slug=post_request['edit_row_project_slug'])
+
+    project.client_name = post_request['client_name']
+    project.client_company = post_request['client_company']
+    project.client_email = post_request['client_email']
+    project.project_name = post_request['project_name']
+    project.project_type = post_request['project_type']
+    project.project_deadline = project_deadline_yyyymmdd
+    project.expected_revenue = float(post_request['expected_revenue'])
+
+    project.save()
+
+    # Verify that only one instance of this project exists
+    project_qs = Project.objects.filter(
+        slug=project.slug)
+    if len(project_qs) > 1:
+        return JsonResponse({
+            'message': 'Fail'
+        })
+    else:
+        project_qs = Project.objects.all()
+        payment_qs = Payment.objects.all()
+        current_project_clients_serialize = serializers.serialize(
+            'json', project_qs)
+        payments_serialize = serializers.serialize('json', payment_qs)
+
+        return JsonResponse({
+            'message': 'Success',
+            'current_project_clients_serialize': current_project_clients_serialize,
+            'payments_serialize': payments_serialize
+        })
