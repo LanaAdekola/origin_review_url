@@ -1363,6 +1363,7 @@ class TestLongTermClients(StaticLiveServerTestCase):
                     'long_term_client_details')
                 self.assertTrue(ltc_form_container.is_displayed())
             elif form_data_ltc[key]['is_valid'] == True:
+                self.browser.implicitly_wait(10)
                 ltc_form_container = self.browser.find_element_by_id(
                     'long_term_client_details')
                 self.assertFalse(ltc_form_container.is_displayed())

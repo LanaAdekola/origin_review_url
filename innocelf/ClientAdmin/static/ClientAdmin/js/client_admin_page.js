@@ -1332,6 +1332,9 @@ populateMonthlyRevenueTable();
 
 ///////////////////////////////////////// Long Term Clients /////////////////////////////////////////
 
+/**
+ * Populates the select for long term clients in the current client form
+ */
 function populateLongTermClients() {
 	let longTermClients = JSON.parse(document.getElementById('long_term_clients_serialize').textContent);
 	let longTermClientsJson = JSON.parse(longTermClients);
