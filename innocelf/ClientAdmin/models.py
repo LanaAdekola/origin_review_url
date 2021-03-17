@@ -27,6 +27,19 @@ def _camel_case(full_string: str):
     return new_string
 
 
+class LongTermClient(models.Model):
+    '''
+    Creates a Long term client instance using their name, company name and email address
+    #TODO: May add more fields later if required
+    '''
+    client_name = models.CharField(max_length=250)
+    client_company = models.CharField(max_length=250)
+    client_email = models.EmailField()
+
+    def __str__(self):
+        return f'{self.client_name} of {self.client_company}'
+
+
 class Project(models.Model):
     '''
     Creates a project instance for a particular client using the Project Type, start dates, end dates,

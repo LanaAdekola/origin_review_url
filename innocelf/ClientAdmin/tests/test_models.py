@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ClientAdmin.models import PotentialProject, Project, Payment
+from ClientAdmin.models import PotentialProject, Project, Payment, LongTermClient
 import datetime
 
 
@@ -341,3 +341,63 @@ class PaymentTest(TestCase):
         )
 
         self.assertEqual(len(payment_qs), 2)
+
+
+class LongTermClientTest(TestCase):
+    '''
+    Tests the Long Term Client model (referencing the Mozilla example)
+    https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing
+    '''
+
+    @classmethod
+    def setUpTestData(cls):
+        '''
+        Creates a test data set that will not be modified during the tests
+        'client_name': 'Test Potential Client',
+        'client_company': 'Testing Company',
+        'client_email': 'test@test.com',
+        '''
+        LongTermClient.objects.create(
+            client_name='Test Potential Client',
+            client_company='Testing Company',
+            client_email='test@test.com',
+        )
+
+    def test_objects_max_length(self):
+        '''
+        Tests the client's name and company's name max length
+        '''
+        long_term_client = LongTermClient.objects.get(id=1)
+        client_name_maxLength = long_term_client._meta.get_field(
+            'client_name'
+        ).max_length
+        client_company_maxLength = long_term_client._meta.get_field(
+            'client_company'
+        ).max_length
+
+        self.assertEqual(client_name_maxLength, 250)
+        self.assertEqual(client_company_maxLength, 250)
+
+    def test_object_name_is_clientName_of_CompanyName(self):
+        '''
+        Tests that the object name is Client Names"s Project Type project
+        '''
+        long_term_client = LongTermClient.objects.get(id=1)
+        expected_ltc_name = 'Test Potential Client of Testing Company'
+        self.assertEqual(expected_ltc_name, str(long_term_client))
+
+    def test_object_labels(self):
+        '''
+        Tests the labels for all the fields of the model
+        '''
+        long_term_client = LongTermClient.objects.get(id=1)
+        client_name = long_term_client._meta.get_field(
+            'client_name').verbose_name
+        client_company = long_term_client._meta.get_field(
+            'client_company').verbose_name
+        client_email = long_term_client._meta.get_field(
+            'client_email').verbose_name
+
+        self.assertEqual(client_name, 'client name')
+        self.assertEqual(client_company, 'client company')
+        self.assertEqual(client_email, 'client email')

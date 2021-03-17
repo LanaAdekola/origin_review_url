@@ -1,5 +1,12 @@
 from django.contrib import admin
-from .models import Payment, Project, PotentialProject
+from .models import Payment, Project, PotentialProject, LongTermClient
+
+
+class LongTermClientAdmin(admin.ModelAdmin):
+    '''
+    Updates the list of the the Long Term Clients are shown in the admin portal
+    '''
+    list_display = ['client_name', 'client_company', 'client_email']
 
 
 class PaymentAdmin(admin.ModelAdmin):
@@ -29,3 +36,4 @@ class ProjectAdmin(admin.ModelAdmin):
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(PotentialProject, PotentialProjectAdmin)
+admin.site.register(LongTermClient, LongTermClientAdmin)

@@ -2,7 +2,9 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 import datetime
-from ClientAdmin.models import PotentialProject, Project, Payment
+from ClientAdmin.models import PotentialProject, Project, Payment, LongTermClient
+import random
+from ClientAdmin.views import monthly_revenue_calculator
 
 
 class UserLoginTest(TestCase):
@@ -330,3 +332,84 @@ class MakeClientCurrentAndAbandonClientTest(TestCase):
 
         potential_project = PotentialProject.objects.get(id=1)
         self.assertTrue(potential_project.is_client_abandoned)
+
+
+class MonthlyRevenueDictTest(TestCase):
+    '''
+    Tests the formation of the dict for the monthly revenue per year
+    '''
+
+    @classmethod
+    def setUpTestData(cls):
+        '''
+        Create a bunch of payments for the same project and see if the dict is created properly
+        '''
+
+        Project.objects.create(
+            client_name='Test Potential Client',
+            client_company='Testing Company',
+            client_email='test@test.com',
+            project_name='Test Patent Search',
+            project_type='PRR',
+            project_deadline=datetime.datetime(2021, 3, 25),
+            project_estimated_days=40,
+            start_date=datetime.datetime(2021, 3, 15),
+            end_date=datetime.datetime(2021, 3, 20),
+            expected_revenue=1000
+        )
+
+        years = [2020, 2021, 2022]
+        payment_days = [4, 16]
+
+        cls.monthly_revenue_dict_whole = {}
+        for year in years:
+            cls.monthly_revenue_dict_whole[str(year)] = {}
+            for month in range(1, 13):
+                monthly_amount = 0
+                for day in payment_days:
+                    random_amount = random.randrange(300, 400)
+                    monthly_amount += random_amount
+                    Payment.objects.create(
+                        project=Project.objects.get(id=1),
+                        amount=random_amount,
+                        payment_date=datetime.datetime(year, month, day)
+                    )
+
+                cls.monthly_revenue_dict_whole[str(
+                    year)][str(month)] = monthly_amount
+
+    def test_monthly_revenue_dict(self):
+        '''
+        Tests the monthly revenue dict has the right values
+        '''
+        monthy_revenue_dict = monthly_revenue_calculator()
+        self.assertEqual(self.monthly_revenue_dict_whole, monthy_revenue_dict)
+
+        payment_qs = Payment.objects.filter(project=Project.objects.get(id=1))
+        self.assertEqual(len(payment_qs), 3*12*2)
+
+
+class SaveLongTermClientTest(TestCase):
+    '''
+    Tests saving long term clients via AJAX
+    '''
+
+    def test_save_long_term_client(self):
+        datetime_today_timestamp = int(
+            round(
+                datetime.datetime.today().timestamp() * 1000.0,
+                0
+            )
+        )
+        response = self.client.post(
+            reverse('ClientAdmin:save-long-term-client-ajax'),
+            {
+                'client_name': 'Test Name',
+                'client_company': 'Test Company',
+                'client_email': 'test@test.com',
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+
+        ltc_qs = LongTermClient.objects.all()
+        self.assertEqual(len(ltc_qs), 1)

@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ClientAdmin.forms import PotentialProjectForm, ProjectForm
+from ClientAdmin.forms import PotentialProjectForm, ProjectForm, LongTermClientForm
 
 form_data_potential_project = {
     '1': {
@@ -222,6 +222,39 @@ form_data_project = {
     }
 }
 
+form_data_ltc = {
+    '1': {
+        'client_name': 'Test Name',
+        'client_company': '',
+        'client_email': 'test@mail.com',
+        'is_valid': False
+    },
+    '2': {
+        'client_name': '',
+        'client_company': '',
+        'client_email': 'test@mail.com',
+        'is_valid': False
+    },
+    '3': {
+        'client_name': 'Test Name',
+        'client_company': 'Test Company',
+        'client_email': '',
+        'is_valid': False
+    },
+    '4': {
+        'client_name': 'Test Name',
+        'client_company': 'Test Company',
+        'client_email': 'absososls',
+        'is_valid': False
+    },
+    '5': {
+        'client_name': 'Test Name',
+        'client_company': 'Test Company',
+        'client_email': 'test@mail.com',
+        'is_valid': True
+    }
+}
+
 
 class PotentialProjectFormTest(TestCase):
     '''
@@ -262,7 +295,7 @@ class PotentialProjectFormTest(TestCase):
                 self.assertFalse(form.is_valid())
 
 
-class TestProjectForm(TestCase):
+class ProjectFormTest(TestCase):
     '''
     Tests the validity of the forms, the labels and other things that are required
     The tests are done with a few form inputs and tested whether they are valid or not
@@ -310,6 +343,40 @@ class TestProjectForm(TestCase):
                 'expected_revenue': form_data_project[key]['expected_revenue'],
             })
             if form_data_project[key]['is_valid']:
+                self.assertTrue(form.is_valid(), msg=f'{key} should be False')
+            else:
+                self.assertFalse(form.is_valid(), msg=f'{key} should be True')
+
+
+class LongTermClientFormTest(TestCase):
+    '''
+    Tests the validity of the forms, the labels and other things that are required
+    The tests are done with a few form inputs and tested whether they are valid or not
+    '''
+
+    def test_form_labels(self):
+        '''
+        Tets that the form labels are what we intended them to be
+        '''
+        form = LongTermClientForm()
+        self.assertEqual(form.fields['client_name'].label, 'Client Full Name')
+        self.assertEqual(form.fields['client_company'].label,
+                         'Client Company')
+        self.assertEqual(form.fields['client_email'].label, 'Client Email')
+
+    def test_required_fields(self):
+        '''
+        Tests that the form validation is passed only when all the required fields are inputted and
+        that the fields are inputted in the right format i.e. email in emailField etc.
+        '''
+
+        for key in form_data_ltc.keys():
+            form = LongTermClientForm(data={
+                'client_name': form_data_ltc[key]['client_name'],
+                'client_company': form_data_ltc[key]['client_company'],
+                'client_email': form_data_ltc[key]['client_email'],
+            })
+            if form_data_ltc[key]['is_valid']:
                 self.assertTrue(form.is_valid(), msg=f'{key} should be False')
             else:
                 self.assertFalse(form.is_valid(), msg=f'{key} should be True')

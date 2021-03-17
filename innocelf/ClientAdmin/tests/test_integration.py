@@ -1,6 +1,6 @@
 import time
 
-from ClientAdmin.models import Payment, PotentialProject, Project
+from ClientAdmin.models import Payment, PotentialProject, Project, LongTermClient
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import (LiveServerTestCase,
                                                 StaticLiveServerTestCase)
@@ -10,7 +10,7 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from .test_forms import form_data_potential_project, form_data_project
+from .test_forms import form_data_potential_project, form_data_project, form_data_ltc
 from ClientAdmin.models import PROJECT_TYPE_CHOICES
 import random
 import datetime
@@ -655,6 +655,7 @@ class TestProjectSave(StaticLiveServerTestCase):
             if key == '2':
                 WebDriverWait(self.browser, 10).until(
                     lambda d: EC.alert_is_present())
+                self.browser.implicitly_wait(1)
                 alert = self.browser.switch_to_alert()
 
                 self.assertEqual(
@@ -794,7 +795,7 @@ class TestPotentialProjectTable(StaticLiveServerTestCase):
 
     def test_table_contents_are_displayed(self):
         '''
-        Tests the process of making the client current, includes a prompt and then going to the 
+        Tests the process of making the client current, includes a prompt and then going to the
         form to make current
         '''
         # Click the potential clients sidebar button
@@ -826,7 +827,7 @@ class TestPotentialProjectTable(StaticLiveServerTestCase):
 
     def test_make_client_current(self):
         '''
-        Tests the process of making the client current, includes a prompt and then going to the 
+        Tests the process of making the client current, includes a prompt and then going to the
         form to make current
         '''
         # Click the potential clients sidebar button
@@ -1155,14 +1156,14 @@ class TestProjectTable(StaticLiveServerTestCase):
 
             self.assertEqual(len(payment_real_time), 1)
 
-        for i in range(10):
+        for i in range(1, 11):
             WebDriverWait(self.browser, 10).until(
                 lambda d: d.find_element_by_id(
                     'table_current_client_container').is_displayed()
             )
             random_payment = random.randrange(100, 500)
 
-            project = Project.objects.get(id=i + 1)
+            project = Project.objects.get(id=i)
             add_payment_button = self.browser.find_element_by_id(
                 project.slug + '_addPaymentButton'
             )
@@ -1191,3 +1192,227 @@ class TestProjectTable(StaticLiveServerTestCase):
                 project=project_real_time)
 
             self.assertEqual(len(payment_real_time), 2)
+
+
+class TestMontlyRevenueTable(StaticLiveServerTestCase):
+    '''
+    Tests that the monthly revenue table displays the right values
+    '''
+
+    def setUp(self):
+        '''
+        Set up. Create a project and a bunch of payments for three years
+        '''
+
+        Project.objects.create(
+            client_name='Test Potential Client',
+            client_company='Testing Company',
+            client_email='test@test.com',
+            project_name='Test Patent Search',
+            project_type='PRR',
+            project_deadline=datetime.datetime(2021, 3, 25),
+            project_estimated_days=40,
+            start_date=datetime.datetime(2021, 3, 15),
+            end_date=datetime.datetime(2021, 3, 20),
+            expected_revenue=1000
+        )
+
+        self.years = [2020, 2021, 2022]
+        payment_days = [4, 16]
+
+        self.year_1 = []
+        self.year_2 = []
+        self.year_3 = []
+
+        for year in self.years:
+            for month in range(1, 13):
+                monthly_amount = 0
+                for day in payment_days:
+                    random_amount = random.randrange(300, 400)
+                    monthly_amount += random_amount
+                    Payment.objects.create(
+                        project=Project.objects.get(id=1),
+                        amount=random_amount,
+                        payment_date=datetime.datetime(year, month, day)
+                    )
+
+                if year == 2020:
+                    self.year_1.append(monthly_amount)
+                elif year == 2021:
+                    self.year_2.append(monthly_amount)
+                elif year == 2022:
+                    self.year_3.append(monthly_amount)
+
+        # print(self.year_1)
+        # print(self.year_2)
+        # print(self.year_3)
+
+        self.test_super_user, self.browser = common_setup_login_client_admin(
+            self)
+
+        self.monthly_revenue_sidebar = self.browser.find_element_by_id(
+            'show_monthly_revenue_table'
+        )
+
+    def tearDown(self):
+        '''
+        Tear Down
+        '''
+        self.browser.close()
+
+    def test_monthly_revenue_table(self):
+        '''
+        Tests that the monthly revenue table is displayed properly with all the required values.
+        '''
+        self.browser.execute_script(
+            'arguments[0].click()', self.monthly_revenue_sidebar
+        )
+
+        # Obtain Table
+        monthly_revenue_table = self.browser.find_element_by_id(
+            'monthly_revenue_table')
+        monthly_revenue_table_rows = monthly_revenue_table.find_element_by_tag_name(
+            'tbody').find_elements_by_tag_name('tr')
+
+        for i, row in enumerate(monthly_revenue_table_rows):
+            columns = row.find_elements_by_tag_name('td')
+
+            for j, col in enumerate(columns):
+                if j == 0:
+                    self.assertEqual(col.text, str(self.years[i]))
+                else:
+                    if i == 0:
+                        # print(j, int(float(col.text)))
+                        self.assertEqual(int(float(col.text)),
+                                         self.year_1[j-1])
+                    elif i == 1:
+                        self.assertEqual(int(float(col.text)),
+                                         self.year_2[j-1])
+                    elif i == 2:
+                        self.assertEqual(int(float(col.text)),
+                                         self.year_3[j-1])
+
+
+class TestLongTermClients(StaticLiveServerTestCase):
+    '''
+    Tests the saving of Long Term clients and their display in that one dropdown
+    '''
+
+    def setUp(self):
+        '''
+        Set Up
+        '''
+
+        for i in range(5):
+            LongTermClient.objects.create(
+                client_name='Test Name ' + str(i),
+                client_company='Test Company ' + str(i),
+                client_email='test' + str(i) + '@email.com'
+            )
+
+        # Initiate the browser and navigate to the client admin login page
+        self.test_super_user, self.browser = common_setup_login_client_admin(
+            self)
+
+        # Add new client button on the sidebar
+        self.add_new_client_button = self.browser.find_element_by_id(
+            'add_new_client_sidebar'
+        )
+        # Choose current client radio
+        self.current_client_radio = self.browser.find_element_by_id(
+            'choose_current_client'
+        )
+
+        # Add new long term client button sidebar
+        self.add_ltc_client_button = self.browser.find_element_by_id(
+            'add_long_term_client_sidebar'
+        )
+
+    def tearDown(self):
+        self.browser.close()
+
+    def test_long_term_client_create(self):
+        '''
+        Tests that the long term client creation gives the user the required visual feedback
+        '''
+        self.add_ltc_client_button.click()
+        client_name = self.browser.find_element_by_id(
+            'add_long_term_client_clientName')
+        client_company = self.browser.find_element_by_id(
+            'add_long_term_client_clientCompany')
+        client_email = self.browser.find_element_by_id(
+            'add_long_term_client_clientEmail')
+        save_button = self.browser.find_element_by_id(
+            'add_long_term_client_form_save'
+        )
+
+        for key in form_data_ltc.keys():
+            client_name.clear()
+            client_company.clear()
+            client_email.clear()
+
+            client_name.send_keys(form_data_ltc[key]['client_name'])
+            client_company.send_keys(form_data_ltc[key]['client_company'])
+            client_email.send_keys(form_data_ltc[key]['client_email'])
+
+            save_button.click()
+
+            self.browser.implicitly_wait(5)
+            if form_data_ltc[key]['is_valid'] == False:
+                ltc_form_container = self.browser.find_element_by_id(
+                    'long_term_client_details')
+                self.assertTrue(ltc_form_container.is_displayed())
+            elif form_data_ltc[key]['is_valid'] == True:
+                ltc_form_container = self.browser.find_element_by_id(
+                    'long_term_client_details')
+                self.assertFalse(ltc_form_container.is_displayed())
+
+    def test_long_term_clients_displayed_in_select(self):
+        '''
+        Tests that all the long term clients are displayed in the select properly
+        '''
+        client_name = self.browser.find_element_by_id('add_project_clientName')
+        client_company = self.browser.find_element_by_id(
+            'add_project_clientCompany')
+        client_email = self.browser.find_element_by_id(
+            'add_project_clientEmail')
+
+        # click the add client button followed by the radio
+        self.add_new_client_button.click()
+        self.current_client_radio.find_element_by_xpath('./..').click()
+
+        # click the long term client check button
+        long_term_client_check = self.browser.find_element_by_id(
+            'add_project_isLongTermClient')
+        self.browser.execute_script(
+            'arguments[0].click()', long_term_client_check
+        )
+
+        # click the long term client list button
+        long_term_client_list = self.browser.find_element_by_id(
+            'add_project_longTermClientList')
+        self.browser.execute_script(
+            'arguments[0].click()', long_term_client_list
+        )
+
+        long_term_clients_in_dropdown = long_term_client_list.find_elements_by_tag_name(
+            'option')
+        self.assertEqual(len(long_term_clients_in_dropdown), 6)
+
+        for i in range(1, 6):
+            self.assertEqual(
+                long_term_clients_in_dropdown[i].text, 'Test Company ' + str(i - 1))
+
+            # Select the options one by one and verify that the same text gets displayed
+            self.browser.find_element_by_xpath(
+                '//select[@id="add_project_longTermClientList"]/option[text()="' +
+                'Test Company ' + str(i - 1) + '"]'
+            ).click()
+            self.assertEqual(client_name.get_attribute(
+                'value'), 'Test Name ' + str(i - 1))
+            self.assertEqual(client_company.get_attribute(
+                'value'), 'Test Company ' + str(i - 1))
+            self.assertEqual(client_email.get_attribute(
+                'value'), 'test' + str(i - 1) + '@email.com')
+
+        # time.sleep(10)

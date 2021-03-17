@@ -6,7 +6,7 @@
         Enlist Project
       </legend>
 
-      <div class="form-row align-items-center justify-content-center">
+      <div class="form-row align-items-center justify-content-center mb-4">
         <div class="form-check col-md-3">
           <input type="checkbox" class="form-check-input" id="add_project_isLongTermClient" name="client_long_term">
           <label class="form-check-label" for="add_project_isLongTermClient" style="color: #7e7e7e">Long Term
@@ -14,19 +14,14 @@
         </div>
 
         <div class="form-check col-md-3 lato-regular d-none">
-          <select class="custom-select custom-select-sm" id="add_project_longTermClientList">
-            <option value="" selected></option>
-            <option value="sagacityLegal">Sagacity Legal</option>
-            <option value="katherineKoenig">Katherine Koenig</option>
-            <option value="anilaRasul">Anila Rasul</option>
-            <option value="mesandco">MES & CO.</option>
+          <select class="custom-select custom-select-sm lato-regular" id="add_project_longTermClientList">
           </select>
         </div>
       </div>
 
 
       <div class="form-row align-items-center justify-content-center">
-        <div class="md-form col-md-3 mr-3">
+        <div class="form-group col-md-3 mr-3">
           <label class="requiredField" for="add_project_clientName">
             {{ project_form.client_name.label }}
             <span class="asteriskField">*</span>
@@ -34,14 +29,14 @@
           {{ project_form.client_name }}
         </div>
 
-        <div class="md-form col-md-3 mr-3">
+        <div class="form-group col-md-3 mr-3">
           <label for="add_project_clientCompany">
             {{ project_form.client_company.label }}
           </label>
           {{ project_form.client_company }}
         </div>
 
-        <div class="md-form col-md-3 mr-3">
+        <div class="form-group col-md-3 mr-3">
           <label class="requiredField" for="add_project_clientEmail">
             {{ project_form.client_email.label }}
             <span class="asteriskField">*</span>
@@ -52,7 +47,7 @@
       </div>
 
       <div class="form-row align-items-center justify-content-center">
-        <div class="md-form col-md-3 mr-3">
+        <div class="form-group col-md-3 mr-3">
           <label class="requiredField" for="add_project_projectName">
             {{ project_form.project_name.label }}
             <span class="asteriskField">*</span>
@@ -60,27 +55,28 @@
           {{ project_form.project_name }}
         </div>
 
-        <div class="form-check col-md-3 mr-3">
-          <label class="requiredField lato-light" for="add_project_projectType" style="color:#7e7e7e">
+        <div class="form-group col-md-3 mr-3">
+          <label class="requiredField lato-light" for="add_project_projectType">
             {{ project_form.project_type.label }}
             <span class="asteriskField">*</span>
           </label>
           {{ project_form.project_type }}
         </div>
 
-        <div class="md-form col-md-3 mr-3 input-with-post-icon datepicker">
+        <div class="form-group col-md-3 mr-3 datepicker">
           <label class="requiredField lato-light" for="add_project_projectDeadline">
             {{ project_form.project_deadline.label }}
             <span class="asteriskField">*</span>
           </label>
+          <i class="fas fa-calendar input-prefix"
+            style="position: absolute; left:initial; right: 16px; cursor: pointer"></i>
           {{ project_form.project_deadline }}
-          <i class="fas fa-calendar input-prefix"></i>
         </div>
         <input type="hidden" id="add_project_projectDeadline_TimeStamp" name="project_deadline_timestamp">
       </div>
 
       <div class="form-row align-items-center justify-content-center">
-        <div class="md-form col-md-3 mr-3">
+        <div class="form-group col-md-3 mr-3">
           <label class="requiredField" for="add_project_projectEstimatedDays">
             {{ project_form.project_estimated_days.label }}
             <span class="asteriskField">*</span>
@@ -88,29 +84,31 @@
           {{ project_form.project_estimated_days }}
         </div>
 
-        <div class="md-form col-md-3 mr-3 input-with-post-icon datepicker">
+        <div class="form-group col-md-3 mr-3 input-with-post-icon datepicker">
           <label class="requiredField lato-light" for="add_project_startDate">
             {{ project_form.start_date.label }}
             <span class="asteriskField">*</span>
           </label>
+          <i class="fas fa-calendar input-prefix"
+            style="position: absolute; left:initial; right: 16px; cursor: pointer"></i>
           {{ project_form.start_date }}
-          <i class="fas fa-calendar input-prefix"></i>
         </div>
         <input type="hidden" id="add_project_startDate_TimeStamp" name="start_date_timestamp">
 
-        <div class="md-form col-md-3 mr-3 input-with-post-icon datepicker">
+        <div class="form-group col-md-3 mr-3 input-with-post-icon datepicker">
           <label class="requiredField lato-light" for="add_project_endDate">
             {{ project_form.end_date.label }}
             <span class="asteriskField">*</span>
           </label>
+          <i class="fas fa-calendar input-prefix"
+            style="position: absolute; left:initial; right: 16px; cursor: pointer"></i>
           {{ project_form.end_date }}
-          <i class="fas fa-calendar input-prefix"></i>
         </div>
         <input type="hidden" id="add_project_endDate_TimeStamp" name="end_date_timestamp">
       </div>
 
       <div class="form-row align-items-center justify-content-center">
-        <div class="md-form col-md-3 mr-3">
+        <div class="form-group col-md-3 mr-3">
           <label class="requiredField" for="add_project_expectedRevenue">
             {{ project_form.expected_revenue.label }}
             <span class="asteriskField">*</span>

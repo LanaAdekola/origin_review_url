@@ -46,10 +46,12 @@
       {% include './_form_current_client.html' %}
       {% include './_form_potential_client.html' %}
     </div>
+    {% include './_form_long_term_client.html' %}
 
     {% include './_table_potential_client.html' %}
     {% include './_table_current_client.html' %}
     {% include './_table_abandoned_client.html' %}
+    {% include './_table_monthly_revenue.html' %}
 
     <!-- Modal -->
     <div class="modal fade" id="add_payment_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -74,9 +76,11 @@
     </div>
     <!-- End Modal -->
 
+    {{ long_term_clients_serialize|json_script:"long_term_clients_serialize" }}
     {{ potential_project_clients_serialize|json_script:"potential_project_clients_serialize" }}
     {{ current_project_clients_serialize|json_script:"current_project_clients_serialize" }}
     {{ payments_serialize|json_script:"payments_serialize" }}
+    {{ monthly_revenue_dict|json_script:"monthly_revenue_dict" }}
     <script type="text/javascript" src="{% static 'js/addons/datatables2.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'ClientAdmin/js/client_admin_page.js' %}"></script>
     <script>

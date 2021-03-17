@@ -1,14 +1,16 @@
-from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponse, JsonResponse
-from django.contrib import messages
-from django.contrib.auth.views import LoginView
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
-from .forms import ProjectForm, PotentialProjectForm
-from .models import Project, PotentialProject, Payment
-import json
-from django.core import serializers
 import datetime
+import json
+
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
+from django.core import serializers
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import redirect, render, reverse
+
+from .forms import LongTermClientForm, PotentialProjectForm, ProjectForm
+from .models import LongTermClient, Payment, PotentialProject, Project
 
 
 class UserLogin(LoginView):
@@ -56,8 +58,14 @@ def client_admin_view(request, *args, **kwargs):
     Renders the client administration page
     '''
     # Initialize Forms
+    long_term_client_form = LongTermClientForm()
     project_form = ProjectForm()
     potential_project_form = PotentialProjectForm()
+
+    # Obtain all long term clients
+    long_term_clients = LongTermClient.objects.all()
+    long_term_clients_serialize = serializers.serialize(
+        'json', long_term_clients)
 
     # Obtain all potential clients / projects
     potential_project_clients = PotentialProject.objects.all()
@@ -75,15 +83,38 @@ def client_admin_view(request, *args, **kwargs):
         'json', payments
     )
 
+    # Monthly revenue calculator
+    monthly_revenue_dict = monthly_revenue_calculator()
+
     context = {
         'user': request.user,
+        'long_term_client_form': long_term_client_form,
         'project_form': project_form,
         'potential_project_form': potential_project_form,
+        'long_term_clients_serialize': long_term_clients_serialize,
         'potential_project_clients_serialize': potential_project_clients_serialize,
         'current_project_clients_serialize': current_project_clients_serialize,
-        'payments_serialize': payments_serialize
+        'payments_serialize': payments_serialize,
+        'monthly_revenue_dict': monthly_revenue_dict
     }
     return render(request, 'ClientAdmin/client_admin_page.html', context)
+
+
+def save_long_term_client(request, *args, **kwargs):
+    '''
+    Saves long term client via AJAX request
+    '''
+    post_request = request.POST
+    long_term_client = LongTermClient(
+        client_name=post_request['client_name'],
+        client_company=post_request['client_company'],
+        client_email=post_request['client_email'],
+    )
+    long_term_client.save()
+
+    return JsonResponse({
+        'message': 'Success'
+    })
 
 
 def save_potential_project(request, *args, **kwargs):
@@ -275,3 +306,27 @@ def abandon_client(request, *args, **kwargs):
         'message': 'Success',
         'potential_project_clients_serialize': potential_project_clients_serialize
     })
+
+
+def monthly_revenue_calculator():
+    '''
+    The function calculates and returns the monthly revenue as a dictionary
+    '''
+    payments = Payment.objects.all()
+    unique_years = [d.year for d in payments.dates('payment_date', 'year')]
+
+    monthly_revenue_dict = {}
+    for year in unique_years:
+        monthly_revenue_dict[str(year)] = {}
+
+        unique_months = [d.month for d in payments.filter(payment_date__year=year).dates(
+            'payment_date', 'month')]
+
+        for month in unique_months:
+            dollar_values = [d.amount for d in payments.filter(
+                payment_date__year=year).filter(payment_date__month=month)]
+            total_dollar_value = sum(dollar_values)
+
+            monthly_revenue_dict[str(year)][str(month)] = total_dollar_value
+
+    return monthly_revenue_dict

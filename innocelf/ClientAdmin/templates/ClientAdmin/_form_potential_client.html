@@ -9,7 +9,7 @@
       <div class="form-row align-items-center justify-content-center">
 
         <div class="form-row align-items-center justify-content-center">
-          <div class="md-form col-md-3 mr-3">
+          <div class="form-group col-md-3 mr-3">
             <label class="requiredField" for="add_potentialProject_clientName">
               {{ potential_project_form.client_name.label }}
               <span class="asteriskField">*</span>
@@ -17,14 +17,14 @@
             {{ potential_project_form.client_name }}
           </div>
 
-          <div class="md-form col-md-3 mr-3">
+          <div class="form-group col-md-3 mr-3">
             <label for="add_potentialProject_clientCompany">
               {{ potential_project_form.client_company.label }}
             </label>
             {{ potential_project_form.client_company }}
           </div>
 
-          <div class="md-form col-md-3 mr-3">
+          <div class="form-group col-md-3 mr-3">
             <label class="requiredField" for="add_potentialProject_clientEmail">
               {{ potential_project_form.client_email.label }}
             </label>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-row align-items-center justify-content-center">
-          <div class="md-form col-md-3 mr-3">
+          <div class="form-group col-md-3 mr-3">
             <label class="requiredField" for="add_potentialProject_projectName">
               {{ potential_project_form.project_name.label }}
               <span class="asteriskField">*</span>
@@ -42,21 +42,22 @@
             {{ potential_project_form.project_name }}
           </div>
 
-          <div class="form-check col-md-3 mr-3">
-            <label class="requiredField lato-light" for="add_potentialProject_projectType" style="color:#7e7e7e">
+          <div class="form-group col-md-3 mr-3">
+            <label class="requiredField lato-light" for="add_potentialProject_projectType">
               {{ potential_project_form.project_type.label }}
               <span class="asteriskField">*</span>
             </label>
             {{ potential_project_form.project_type }}
           </div>
 
-          <div class="md-form col-md-3 mr-3 input-with-post-icon datepicker">
+          <div class="form-group col-md-3 mr-3 datepicker">
             <label class="requiredField lato-light" for="add_potentialProject_initialContactDate">
               {{ potential_project_form.initial_contact_date.label }}
               <span class="asteriskField">*</span>
             </label>
+            <i class="fas fa-calendar input-prefix"
+              style="position: absolute; left:initial; right: 16px; cursor: pointer"></i>
             {{ potential_project_form.initial_contact_date }}
-            <i class="fas fa-calendar input-prefix"></i>
           </div>
           <input type="hidden" id="add_potentialProject_initialContactDate_TimeStamp"
             name="initial_contact_date_timestamp" value="">

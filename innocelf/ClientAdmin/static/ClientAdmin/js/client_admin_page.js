@@ -66,6 +66,7 @@ window.addEventListener('load', function () {
 	$('#potential_client_table').DataTable();
 	$('#current_client_table').DataTable();
 	$('#abandoned_client_table').DataTable();
+	$('#monthly_revenue_table').DataTable();
 });
 
 //////////////////////////////////////// Hide all Containers ////////////////////////////////////////
@@ -75,12 +76,14 @@ window.addEventListener('load', function () {
  */
 function hideAllContainers() {
 	let CONTAINER_ID_LIST = [
+		'long_term_client_details',
 		'add_new_client_container',
 		'current_client_details',
 		'potential_client_details',
 		'table_potential_client_container',
 		'table_current_client_container',
 		'table_abandoned_client_container',
+		'table_monthly_revenue_container',
 	];
 
 	for (let i = 0; i < CONTAINER_ID_LIST.length; i++) {
@@ -140,6 +143,9 @@ document.getElementById('add_project_isLongTermClient').addEventListener('change
 		longTermClientDropdownRow.classList.remove('d-none');
 	} else if (this.checked === false) {
 		longTermClientDropdownRow.classList.add('d-none');
+		document.getElementById('add_project_clientName').value = '';
+		document.getElementById('add_project_clientCompany').value = '';
+		document.getElementById('add_project_clientEmail').value = '';
 	}
 });
 
@@ -474,7 +480,7 @@ class PaymentTextInput extends HTMLDivElement {
 		super();
 		this.inputId = _inputId;
 
-		this.classList = 'md-form';
+		this.classList = 'form-group';
 		this.append(this.createLabel(), this.createInput());
 	}
 
@@ -490,7 +496,7 @@ class PaymentTextInput extends HTMLDivElement {
 	createInput() {
 		let input = document.createElement('input');
 		input.id = this.inputId;
-		input.classList = 'form-control lato-regular';
+		input.classList = 'form-control form-control-sm lato-regular';
 		input.type = 'text';
 		input.name = 'payment';
 		input.required = true;
@@ -1065,3 +1071,336 @@ function populateAbandonedProjectTable() {
 }
 
 populateAbandonedProjectTable();
+
+/////////////////////////////////////// Monthly Revenue Table ///////////////////////////////////////
+
+document.getElementById('show_monthly_revenue_table').addEventListener('click', function () {
+	hideAllContainers();
+	document.getElementById('table_monthly_revenue_container').classList.remove('d-none');
+});
+
+/**
+ * Creates an instance of the Potential Client / Potential Project Table Row. The row will be appended to
+ * the potential_client_table
+ * @property {string} elementId - The id the row should have
+ * @property {string} clientName - The client name that will be displayed on the row
+ * @property {string} clientCompany - The client's company that will be displayed on the row
+ * @property {string} clientEmail - The client's email that will be displayed on the row
+ * @property {string} initialContactDate - The initial contact date that will be displayed on the row.
+ */
+class MonthlyRevenueTableRow extends HTMLTableRowElement {
+	static get observedAttributes() {
+		return [
+			'year',
+			'january',
+			'february',
+			'march',
+			'april',
+			'may',
+			'june',
+			'july',
+			'august',
+			'september',
+			'october',
+			'november',
+			'december',
+		];
+	}
+
+	get year() {
+		return this.getAttribute('year');
+	}
+
+	get january() {
+		return this.getAttribute('january');
+	}
+
+	get february() {
+		return this.getAttribute('february');
+	}
+
+	get march() {
+		return this.getAttribute('march');
+	}
+
+	get april() {
+		return this.getAttribute('april');
+	}
+
+	get may() {
+		return this.getAttribute('may');
+	}
+
+	get june() {
+		return this.getAttribute('june');
+	}
+
+	get july() {
+		return this.getAttribute('july');
+	}
+
+	get august() {
+		return this.getAttribute('august');
+	}
+
+	get september() {
+		return this.getAttribute('september');
+	}
+
+	get october() {
+		return this.getAttribute('october');
+	}
+
+	get november() {
+		return this.getAttribute('november');
+	}
+
+	get december() {
+		return this.getAttribute('december');
+	}
+
+	set year(newValue) {
+		this.setAttribute('year', newValue);
+	}
+
+	set january(newValue) {
+		this.setAttribute('january', newValue);
+	}
+
+	set february(newValue) {
+		this.setAttribute('february', newValue);
+	}
+
+	set march(newValue) {
+		this.setAttribute('march', newValue);
+	}
+
+	set april(newValue) {
+		this.setAttribute('april', newValue);
+	}
+
+	set may(newValue) {
+		this.setAttribute('may', newValue);
+	}
+
+	set june(newValue) {
+		this.setAttribute('june', newValue);
+	}
+
+	set july(newValue) {
+		this.setAttribute('july', newValue);
+	}
+
+	set august(newValue) {
+		this.setAttribute('august', newValue);
+	}
+
+	set september(newValue) {
+		this.setAttribute('september', newValue);
+	}
+
+	set october(newValue) {
+		this.setAttribute('october', newValue);
+	}
+
+	set november(newValue) {
+		this.setAttribute('november', newValue);
+	}
+
+	set december(newValue) {
+		this.setAttribute('december', newValue);
+	}
+
+	constructor(
+		_year,
+		_january,
+		_february,
+		_march,
+		_april,
+		_may,
+		_june,
+		_july,
+		_august,
+		_september,
+		_october,
+		_november,
+		_december
+	) {
+		super();
+
+		this.year = _year;
+		this.january = _january;
+		this.february = _february;
+		this.march = _march;
+		this.april = _april;
+		this.may = _may;
+		this.june = _june;
+		this.july = _july;
+		this.august = _august;
+		this.september = _september;
+		this.october = _october;
+		this.november = _november;
+		this.december = _december;
+
+		let yearCell = this.createYearCell(_year);
+		let januaryCell = _january ? this.createTableCell(_january.toFixed(2)) : this.createTableCell('0');
+		let februaryCell = _february ? this.createTableCell(_february.toFixed(2)) : this.createTableCell('0');
+		let marchCell = _march ? this.createTableCell(_march.toFixed(2)) : this.createTableCell('0');
+		let aprilCell = _april ? this.createTableCell(_april.toFixed(2)) : this.createTableCell('0');
+		let mayCell = _may ? this.createTableCell(_may.toFixed(2)) : this.createTableCell('0');
+		let juneCell = _june ? this.createTableCell(_june.toFixed(2)) : this.createTableCell('0');
+		let julyCell = _july ? this.createTableCell(_july.toFixed(2)) : this.createTableCell('0');
+		let augustCell = _august ? this.createTableCell(_august.toFixed(2)) : this.createTableCell('0');
+		let septemberCell = _september ? this.createTableCell(_september.toFixed(2)) : this.createTableCell('0');
+		let octoberCell = _october ? this.createTableCell(_october.toFixed(2)) : this.createTableCell('0');
+		let novemberCell = _november ? this.createTableCell(_november.toFixed(2)) : this.createTableCell('0');
+		let decemberCell = _december ? this.createTableCell(_december.toFixed(2)) : this.createTableCell('0');
+
+		this.append(
+			yearCell,
+			januaryCell,
+			februaryCell,
+			marchCell,
+			aprilCell,
+			mayCell,
+			juneCell,
+			julyCell,
+			augustCell,
+			septemberCell,
+			octoberCell,
+			novemberCell,
+			decemberCell
+		);
+	}
+
+	connectedCallback() {
+		//
+	}
+
+	createTableCell(cellText) {
+		let td = document.createElement('td');
+		td.textContent = cellText;
+		td.style.verticalAlign = 'middle';
+		td.style.textAlign = 'center';
+		td.style.fontSize = 'small';
+
+		return td;
+	}
+
+	createYearCell(cellText) {
+		let td = document.createElement('td');
+		td.textContent = cellText;
+		td.style.verticalAlign = 'middle';
+		td.style.textAlign = 'center';
+		td.classList = 'lato-bold';
+
+		return td;
+	}
+}
+
+customElements.define('monthly-revenue-table-row', MonthlyRevenueTableRow, { extends: 'tr' });
+
+/**
+ * Populates the Monthly Revenue Table by using the JSON outputs from the backend
+ */
+function populateMonthlyRevenueTable() {
+	let monthlyRevenueJson = JSON.parse(document.getElementById('monthly_revenue_dict').textContent);
+
+	for (const year in monthlyRevenueJson) {
+		if (Object.hasOwnProperty.call(monthlyRevenueJson, year)) {
+			let monthlyRevenueTableRow = new MonthlyRevenueTableRow(
+				year,
+				monthlyRevenueJson[year]['1'],
+				monthlyRevenueJson[year]['2'],
+				monthlyRevenueJson[year]['3'],
+				monthlyRevenueJson[year]['4'],
+				monthlyRevenueJson[year]['5'],
+				monthlyRevenueJson[year]['6'],
+				monthlyRevenueJson[year]['7'],
+				monthlyRevenueJson[year]['8'],
+				monthlyRevenueJson[year]['9'],
+				monthlyRevenueJson[year]['10'],
+				monthlyRevenueJson[year]['11'],
+				monthlyRevenueJson[year]['12']
+			);
+			document.getElementById('monthly_revenue_table').querySelector('tbody').append(monthlyRevenueTableRow);
+		}
+	}
+}
+
+populateMonthlyRevenueTable();
+
+///////////////////////////////////////// Long Term Clients /////////////////////////////////////////
+
+function populateLongTermClients() {
+	let longTermClients = JSON.parse(document.getElementById('long_term_clients_serialize').textContent);
+	let longTermClientsJson = JSON.parse(longTermClients);
+
+	let longTermClientSelect = document.getElementById('add_project_longTermClientList');
+
+	let option = document.createElement('option');
+	option.value = '';
+	option.textContent = '';
+	option.selected = true;
+	longTermClientSelect.append(option);
+
+	for (const key in longTermClientsJson) {
+		if (Object.hasOwnProperty.call(longTermClientsJson, key)) {
+			let fields = longTermClientsJson[key].fields;
+
+			let option = document.createElement('option');
+			option.value = fields.client_name + '_' + fields.client_company + '_' + fields.client_email;
+			option.textContent = fields.client_company;
+			option.classList = 'lato-regular';
+
+			longTermClientSelect.append(option);
+		}
+	}
+}
+populateLongTermClients();
+
+document.getElementById('add_long_term_client_sidebar').addEventListener('click', function () {
+	hideAllContainers();
+	document.getElementById('long_term_client_details').classList.remove('d-none');
+});
+
+document.getElementById('add_long_term_client_form_save').addEventListener('click', function (e) {
+	let longTermClientForm = document.getElementById('long_term_client_details_form');
+
+	if (longTermClientForm.checkValidity()) {
+		e.preventDefault();
+
+		let formData = new FormData(longTermClientForm);
+		longTermClientForm.reset();
+
+		$.ajax({
+			type: 'POST',
+			url: '/client-admin/save-long-term-client',
+			data: formData,
+			cache: false,
+			processData: false,
+			contentType: false,
+			success: function (data) {
+				if (data.message === 'Success') {
+					window.location.reload();
+				} else if (data.message === 'Fail') {
+					alert(
+						'A similar client with the same project exists in the DB. Please rename the project to something specific.'
+					);
+				}
+			},
+		});
+	}
+});
+
+document.getElementById('add_project_longTermClientList').addEventListener('change', function (e) {
+	let chosenValue = e.target.value;
+
+	let clientName = chosenValue.split('_')[0];
+	let clientCompany = chosenValue.split('_')[1];
+	let clientEmail = chosenValue.split('_')[2];
+
+	document.getElementById('add_project_clientName').value = clientName;
+	document.getElementById('add_project_clientCompany').value = clientCompany;
+	document.getElementById('add_project_clientEmail').value = clientEmail;
+});

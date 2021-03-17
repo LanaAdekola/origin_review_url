@@ -1,6 +1,40 @@
 from django import forms
-from .models import Project, PotentialProject
+from .models import Project, PotentialProject, LongTermClient
 import datetime
+
+
+class LongTermClientForm(forms.ModelForm):
+    '''
+    Creates a Long Term Client Form for easily creating a Long Term Client
+    '''
+    class Meta:
+        model = LongTermClient
+        fields = [
+            'client_name',
+            'client_company',
+            'client_email'
+        ]
+
+        widgets = {
+            'client_name': forms.TextInput(attrs={
+                'class': 'form-control form-control-sm lato-regular',
+                'id': 'add_long_term_client_clientName',
+            }),
+            'client_company': forms.TextInput(attrs={
+                'class': 'form-control form-control-sm lato-regular',
+                'id': 'add_long_term_client_clientCompany'
+            }),
+            'client_email': forms.EmailInput(attrs={
+                'class': 'form-control form-control-sm lato-regular',
+                'id': 'add_long_term_client_clientEmail'
+            }),
+        }
+
+        labels = {
+            'client_name': 'Client Full Name',
+            'client_company': 'Client Company',
+            'client_email': 'Client Email',
+        }
 
 
 class ProjectForm(forms.ModelForm):
@@ -25,23 +59,23 @@ class ProjectForm(forms.ModelForm):
 
         widgets = {
             'client_name': forms.TextInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_clientName',
             }),
             'client_company': forms.TextInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_clientCompany'
             }),
             'client_long_term': forms.CheckboxInput(attrs={
-                'class': 'form-control',
+                'class': 'form-control form-control-sm',
                 'id': 'add_project_isLongTermClient'
             }),
             'client_email': forms.EmailInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_clientEmail'
             }),
             'project_name': forms.TextInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_projectName'
             }),
             'project_type': forms.Select(attrs={
@@ -49,26 +83,26 @@ class ProjectForm(forms.ModelForm):
                 'id': 'add_project_projectType'
             }),
             'project_deadline': forms.DateInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_projectDeadline',
                 # 'type': 'date'
             }),
             'project_estimated_days': forms.NumberInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_projectEstimatedDays'
             }),
             'start_date': forms.DateInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_startDate',
                 # 'type': 'date'
             }),
             'end_date': forms.DateInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_endDate',
                 # 'type': 'date'
             }),
             'expected_revenue': forms.TextInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_expectedRevenue'
             }),
         }
@@ -108,19 +142,19 @@ class PotentialProjectForm(forms.ModelForm):
 
         widgets = {
             'client_name': forms.TextInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_potentialProject_clientName',
             }),
             'client_company': forms.TextInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_potentialProject_clientCompany'
             }),
             'client_email': forms.EmailInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_potentialProject_clientEmail'
             }),
             'project_name': forms.TextInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_potentialProject_projectName'
             }),
             'project_type': forms.Select(attrs={
@@ -128,7 +162,7 @@ class PotentialProjectForm(forms.ModelForm):
                 'id': 'add_potentialProject_projectType'
             }),
             'initial_contact_date': forms.DateInput(attrs={
-                'class': 'form-control lato-regular',
+                'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_potentialProject_initialContactDate',
             }),
         }
