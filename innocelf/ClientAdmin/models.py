@@ -69,7 +69,7 @@ class Project(models.Model):
     is_project_complete = models.BooleanField(default=False)
 
     # Identifier
-    slug = models.SlugField()
+    slug = models.SlugField(max_length=2500)
 
     def __str__(self):
         return f'{self.client_name}"s {self.project_type} project'
@@ -136,7 +136,7 @@ class PotentialProject(models.Model):
     is_client_abandoned = models.BooleanField(default=False)
 
     # Creating a slug
-    slug = models.SlugField(default='')
+    slug = models.SlugField(default='', max_length=2500)
 
     def __str__(self):
         return f'{self.client_name}"s {self.project_type} project'
