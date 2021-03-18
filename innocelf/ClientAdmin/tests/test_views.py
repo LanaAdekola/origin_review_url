@@ -160,7 +160,7 @@ class SaveProjectAndPaymentsAndCompletionTest(TestCase):
             'project_estimated_days': 40,
             'start_date_timestamp': str(cls.start_date_timestamp),
             'end_date_timestamp': str(cls.end_date_timestamp),
-            'expected_revenue': 1000
+            'expected_revenue': '1000.658'
         }
 
         cls.main_project_data_payment = {
@@ -173,8 +173,8 @@ class SaveProjectAndPaymentsAndCompletionTest(TestCase):
             'project_estimated_days': 40,
             'start_date_timestamp': str(cls.start_date_timestamp),
             'end_date_timestamp': str(cls.end_date_timestamp),
-            'expected_revenue': 1000,
-            'payment': 400
+            'expected_revenue': '1000.658',
+            'payment': '400'
         }
 
     def test_save_project_without_payment(self):
@@ -193,7 +193,8 @@ class SaveProjectAndPaymentsAndCompletionTest(TestCase):
         self.assertEqual(len(project_qs), 1)
         self.assertEqual(
             'TestPotentialClient-TestPatentSearch-PRR-' +
-            datetime.datetime(2021, 3, 20).strftime('%Y%m%d') + '-1000',
+            datetime.datetime(2021, 3, 20).strftime(
+                '%Y%m%d') + '-' + str(int(round(float('1000.658'), 0))),
             project_qs[0].slug
         )
 
@@ -242,7 +243,8 @@ class SaveProjectAndPaymentsAndCompletionTest(TestCase):
             reverse('ClientAdmin:add-payment-modal-ajax'),
             {
                 '_elementId': 'TestPotentialClient-TestPatentSearch-PRR-' +
-                datetime.datetime(2021, 3, 20).strftime('%Y%m%d') + '-1000',
+                datetime.datetime(2021, 3, 20).strftime(
+                    '%Y%m%d') + '-' + str(int(round(float('1000.658'), 0))),
                 'dollarValue': 200
             }
         )
@@ -269,7 +271,8 @@ class SaveProjectAndPaymentsAndCompletionTest(TestCase):
             reverse('ClientAdmin:mark-project-complete-ajax'),
             {
                 '_elementId': 'TestPotentialClient-TestPatentSearch-PRR-' +
-                datetime.datetime(2021, 3, 20).strftime('%Y%m%d') + '-1000'
+                datetime.datetime(2021, 3, 20).strftime(
+                    '%Y%m%d') + '-' + str(int(round(float('1000.658'), 0)))
             }
         )
         self.assertEqual(response_mark_complete.status_code, 200)
@@ -470,4 +473,3 @@ class EditProjectRowTest(TestCase):
             project_edited.slug,
             'EditTestPotentialClient-EditTestPatentSearch-FPD-20210315-5000'
         )
-

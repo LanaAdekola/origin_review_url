@@ -79,7 +79,7 @@ class Project(models.Model):
         project_name_cc = _camel_case(self.project_name)
         project_type_cc = self.project_type
         project_deadline_cc = self.project_deadline.strftime('%Y%m%d')
-        expected_revenue_cc = str(int(self.expected_revenue))
+        expected_revenue_cc = str(int(round(float(self.expected_revenue), 0)))
 
         self.slug = client_name_cc + '-' + project_name_cc + \
             '-' + project_type_cc + '-' + project_deadline_cc + '-' + expected_revenue_cc
