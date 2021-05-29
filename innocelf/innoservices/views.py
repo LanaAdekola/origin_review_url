@@ -86,6 +86,13 @@ def testimonials(request, *args, **kwargs):
     return render(request, 'about_us_and_testimonials.html', context)
 
 
+def frequently_asked_questions(request, *args, **kwargs):
+    '''
+    Defining a page for the websites frequently asked questions
+    '''
+    return render(request, 'faq.html')
+
+
 def contact_us_confirmation(request, *args, **kwargs):
     '''
     This page will be displayed when the client contacts Innocelf LLC.

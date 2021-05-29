@@ -5,6 +5,7 @@ from .views import (
     privacy_policy,
     disclaimer,
     website_terms_and_conditions,
+    frequently_asked_questions,
     testimonials,
     contact_us_confirmation,
     send_review_request,
@@ -37,6 +38,8 @@ urlpatterns = [
          name='terms-and-conditions'),
     path('about-us-and-testimonials/', testimonials,
          name='about-us-and-testimonials'),
+    path('frequently-asked-questions/', frequently_asked_questions,
+         name='frequently-asked-questions'),
 
     path('administrative/send-review-request/',
          send_review_request, name='send-review-request'),
