@@ -50,7 +50,6 @@ class FAQIndividualCard extends HTMLDivElement {
   }
 
   connectedCallback() {
-    console.log("connected");
     this.id = this.elementId;
     this.classList = this.elementClassList;
     this.append(this.createCardHeader(), this.createCardBody());
@@ -129,3 +128,23 @@ class FAQIndividualCard extends HTMLDivElement {
 window.customElements.define("faq-individual-card", FAQIndividualCard, {
   extends: "div",
 });
+
+document
+  .getElementById("expand_all_questions")
+  .addEventListener("click", function () {
+    // All collapse items
+    let allCollapseItems = document.querySelectorAll(".collapse");
+    for (let i = 0; i < allCollapseItems.length; i++) {
+      allCollapseItems[i].classList.add("show");
+    }
+  });
+
+document
+  .getElementById("collapse_all_questions")
+  .addEventListener("click", function () {
+    // All collapse items
+    let allCollapseItems = document.querySelectorAll(".collapse.show");
+    for (let i = 0; i < allCollapseItems.length; i++) {
+      allCollapseItems[i].classList.remove("show");
+    }
+  });
