@@ -21,17 +21,18 @@
         {% block content %}
 
         <style>
-            body {
+            /* body {
                 background-color: #212121 !important;
-            }
+            } */
         </style>
 
         <a class="row" href="{% url 'innoservices:home' %}">
-            <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground.png' %}" alt="Innocelf_Logo" width="150px"
-                class="mx-auto my-3">
+            <img src="{% static 'innoservices/img/Innocelf-Logo-BlackFont-WhiteBack.svg' %}"
+                alt="Innocelf_Logo" width="150px" class="mx-auto my-3">
         </a>
 
-        <div class="container-fluid lato-regular align-self-center p-5 bg-white mb-5" style="max-width: 700px;">
+        <div class="lato-regular self-center p-5 bg-white mb-5"
+            style="max-width: 700px;">
             <form action="" method="POST" id="send_client_review_request">
                 {% csrf_token %}
                 <fieldset class="form-group">
