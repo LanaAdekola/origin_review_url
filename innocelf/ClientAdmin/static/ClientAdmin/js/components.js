@@ -271,8 +271,10 @@ export class RevenueTableRow {
         let td = document.createElement('td');
         td.textContent = '$' + cellText;
         td.classList.add(
-            'block',
-            'w-32',
+            // 'block',
+            // 'flex',
+            // 'w-32',
+            'w-125p',
             'table-cell',
             'text-center',
             'text-base',
@@ -289,8 +291,9 @@ export class RevenueTableRow {
         let td = document.createElement('td');
         td.textContent = cellText;
         td.classList.add(
-            'block',
-            'w-32',
+            // 'block',
+            // 'flex',
+            'w-92p',
             'table-cell',
             'lato-bold',
             'text-center',
@@ -371,16 +374,18 @@ export function createRevenueTable() {
         'December',
     ];
     let revenueTable = new TypicalTable(monthsList, 'revenue-table').result;
-    revenueTable.classList.add('w-11/12', 'mx-auto', 'mb-16');
+    revenueTable.classList.add('w-11/12', 'mx-auto', 'mb-16', 'table-fixed');
 
     // All Table Head Cells
     let tableHeadCells = revenueTable
         .querySelector('#revenue-table-head')
         .querySelectorAll('th');
     tableHeadCells.forEach(function (item, number) {
-        item.classList.add('w-32', 'lato-bold');
+        item.classList.add('lato-bold');
         if (number === 0) {
-            item.classList.add('bg-gray-300');
+            item.classList.add('bg-gray-300', 'w-92p');
+        } else {
+            item.classList.add('w-125p');
         }
     });
 
