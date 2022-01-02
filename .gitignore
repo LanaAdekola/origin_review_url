@@ -3,3 +3,5 @@ __pycache__
 .vscode
 .idea
 node_modules
+reportlab-userguide.pdf
+innocelf/media/GeneratedInvoices/*

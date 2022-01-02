@@ -74,17 +74,17 @@ def register_user(request):
     return render(request, 'register_user.html', context)
 
 
-class UserLogin(LoginView):
+#class UserLogin(LoginView):
 
-    template_name = 'user_login.html'
+    #template_name = 'user_login.html'
 
-    def get(self, *args, **kwargs):
-        return LoginView.get(self, self.request)
+    #def get(self, *args, **kwargs):
+        #return LoginView.get(self, self.request)
 
-    def post(self, *args, **kwargs):
-        settings.LOGIN_REDIRECT_URL = reverse(
-            'innoaccounts:client-home', kwargs={'user': self.request.POST.get('username')})
-        return LoginView.post(self, self.request)
+    #def post(self, *args, **kwargs):
+        #settings.LOGIN_REDIRECT_URL = reverse(
+            #'innoaccounts:client-home', kwargs={'user': self.request.POST.get('username')})
+        #return LoginView.post(self, self.request)
 
 
 class UserAccountView(View, LoginRequiredMixin):
