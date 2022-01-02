@@ -597,9 +597,10 @@ export class ProjectTableRow {
         this.paymentsArray = this.projectRowObject.paymentsObject;
 
         // Create Cells
-        this.createTableCell(this.projectRowObject.client_name);
-        this.createTableCell(this.projectRowObject.client_company);
-        this.createTableCell(this.projectRowObject.client_email, 'text-xs');
+        this.createClientInfoCell();
+        // this.createTableCell(this.projectRowObject.client_name);
+        // this.createTableCell(this.projectRowObject.client_company);
+        // this.createTableCell(this.projectRowObject.client_email, 'text-xs');
         this.createTableCell(this.projectRowObject.project_name);
         this.createTableCell(
             PROJECT_TYPE_CHOICES[this.projectRowObject.project_type]
@@ -637,6 +638,75 @@ export class ProjectTableRow {
         td.append(span);
 
         this.result.append(td);
+    }
+
+    createClientInfoCell() {
+        let td = document.createElement('td');
+        td.classList.add(
+            'flex',
+            'w-60',
+            'table-cell',
+            'text-center',
+            // 'self-center',
+            'py-5',
+            'border-l',
+            'border-black',
+            'relative',
+            'group'
+        );
+
+        let container = this._createClientInfoInnerContainer();
+        let sumContainer = this._createClientInfoMask();
+        td.append(container, sumContainer);
+        this.result.append(td);
+    }
+
+    _createClientInfoInnerContainer() {
+        let container = document.createElement('div');
+        container.classList.add(
+            'flex',
+            'flex-col',
+            'h-full',
+            'my-auto',
+            'gap-2',
+            'justify-center'
+        );
+        let span = document.createElement('span');
+        span.textContent = this.projectRowObject.client_name;
+        span.classList.add('flex', 'justify-center', 'items-center', 'h-full');
+
+        container.append(span);
+        return container;
+    }
+
+    _createClientInfoMask(sumValue) {
+        let container = document.createElement('div');
+        container.classList.add(
+            'flex',
+            'flex-col',
+            'h-full',
+            'w-full',
+            'justify-center',
+            'items-center',
+            'lato-bold',
+            'text-xs',
+            'top-0',
+            'left-0',
+            'absolute',
+            'bg-black',
+            'text-white',
+            'opacity-0',
+            'group-hover:opacity-90'
+        );
+
+        let clientCoSpan = document.createElement('span');
+        clientCoSpan.textContent = this.projectRowObject.client_company;
+
+        let clientEmailSpan = document.createElement('span');
+        clientEmailSpan.textContent = this.projectRowObject.client_email;
+
+        container.append(clientCoSpan, clientEmailSpan);
+        return container;
     }
 
     createPaymentsCell() {
@@ -1064,7 +1134,11 @@ export class ProjectTable extends TypicalTable {
             .querySelector('#' + this.tableId + '-head')
             .querySelectorAll('th');
         allTableHeads.forEach((item, index) => {
-            item.classList.add('w-44', 'lato-bold', 'bg-gray-300');
+            if (index === 0) {
+                item.classList.add('w-60', 'lato-bold', 'bg-gray-300');
+            } else {
+                item.classList.add('w-44', 'lato-bold', 'bg-gray-300');
+            }
         });
     }
 
@@ -1073,7 +1147,8 @@ export class ProjectTable extends TypicalTable {
             .querySelector('#' + this.tableId + '-head')
             .querySelectorAll('[id^="' + this.tableId + '-sort-button-col-"]');
         allSortButtons.forEach((item, index) => {
-            let indexToRemove = [0, 1, 2, 3, 4, 8];
+            // let indexToRemove = [0, 1, 2, 3, 4, 8];
+            let indexToRemove = [0, 1, 2, 6];
             if (indexToRemove.includes(index)) {
                 item.remove();
             }
@@ -1124,11 +1199,11 @@ export class ProjectTable extends TypicalTable {
             let click = 0;
             element.onclick = () => {
                 let field;
-                if (element.id.includes('6')) {
+                if (element.id.includes('4')) {
                     field = 'expected_revenue';
-                } else if (element.id.includes('5')) {
+                } else if (element.id.includes('3')) {
                     field = 'project_deadline_posix';
-                } else if (element.id.includes('7')) {
+                } else if (element.id.includes('5')) {
                     field = 'paymentSum';
                 }
 

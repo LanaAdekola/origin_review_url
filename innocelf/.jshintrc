@@ -26,7 +26,7 @@
 	"undef": true, // Require all non-global variables be declared before they are used.
 	"strict": true, // Require `use strict` pragma in every file.
 	"trailing": true, // Prohibit trailing whitespaces.
-	"unused": true, // Warn when you define and never use your variables
+	"unused": false, // Warn when you define and never use your variables
 
 	// == Relaxing Options ================================================
 	//

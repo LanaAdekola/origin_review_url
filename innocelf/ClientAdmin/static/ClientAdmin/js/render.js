@@ -744,8 +744,8 @@ export function controlRevenueYearDropdownMenu() {
 export function projectTableContainer() {
     let columnHeads = [
         'Client Name',
-        'Client Company',
-        'Client Email',
+        // 'Client Company',
+        // 'Client Email',
         'Project Name',
         'Project Type',
         'Deadline',
@@ -789,8 +789,8 @@ export function projectTableContainer() {
 export function ongoingProjectTableContainer() {
     let columnHeads = [
         'Client Name',
-        'Client Company',
-        'Client Email',
+        // 'Client Company',
+        // 'Client Email',
         'Project Name',
         'Project Type',
         'Deadline',
