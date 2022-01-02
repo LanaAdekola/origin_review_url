@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ClientAdmin.forms import PotentialProjectForm, ProjectForm, LongTermClientForm, EditProjectForm
+from ClientAdmin.forms import ProjectForm, LongTermClientForm, EditProjectForm
 
 form_data_potential_project = {
     '1': {
@@ -347,45 +347,6 @@ form_data_edit_project = {
         'is_valid': False
     }
 }
-
-
-class PotentialProjectFormTest(TestCase):
-    '''
-    Tests the validity of the forms, the labels and other things required
-    '''
-
-    def test_form_labels(self):
-        '''
-        Tests that the form labels are what we intended them to be
-        '''
-        form = PotentialProjectForm()
-        self.assertEqual(form.fields['client_name'].label, 'Client Full Name')
-        self.assertEqual(form.fields['client_company'].label, 'Client Company')
-        self.assertEqual(form.fields['client_email'].label, 'Client Email')
-        self.assertEqual(form.fields['project_name'].label, 'Project Name')
-        self.assertEqual(form.fields['project_type'].label, 'Project Type')
-        self.assertEqual(
-            form.fields['initial_contact_date'].label, 'Initial Contact Date')
-
-    def test_required_fields(self):
-        '''
-        Tests that the form validation is passed only when all the required fields are inputted and
-        that the fields are inputted in the right format i.e. email in emailField etc.
-        '''
-
-        for key in form_data_potential_project.keys():
-            form = PotentialProjectForm(data={
-                'client_name': form_data_potential_project[key]['client_name'],
-                'client_company': form_data_potential_project[key]['client_company'],
-                'client_email': form_data_potential_project[key]['client_email'],
-                'project_name': form_data_potential_project[key]['project_name'],
-                'project_type': form_data_potential_project[key]['project_type'],
-                'initial_contact_date': form_data_potential_project[key]['initial_contact_date'],
-            })
-            if form_data_potential_project[key]['is_valid']:
-                self.assertTrue(form.is_valid())
-            else:
-                self.assertFalse(form.is_valid())
 
 
 class ProjectFormTest(TestCase):

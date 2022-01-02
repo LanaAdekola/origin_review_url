@@ -1,112 +1,13 @@
 from django.test import TestCase
-from ClientAdmin.models import PotentialProject, Project, Payment, LongTermClient
+from ClientAdmin.models import (
+    Project,
+    Payment,
+    LongTermClient,
+    SendInventionDisclosureQuestionnaire,
+    InventionDisclosureQuestionnaire
+)
 import datetime
-
-
-class PotentialProjectTest(TestCase):
-    '''
-    Tests the Potential Project model (referencing the Mozilla example)
-    https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Testing
-    '''
-
-    @classmethod
-    def setUpTestData(cls):
-        '''
-        Creates a test data set that will not be modified during the tests
-        'client_name': 'Test Potential Client',
-        'client_company': 'Testing Company',
-        'client_email': 'test@test.com',
-        'project_name': 'Test Patent Search',
-        'project_type': 'Product Research',
-        'initial_contact_date': '08 March, 2021',
-        '''
-        PotentialProject.objects.create(
-            client_name='Test Potential Client',
-            client_email='test@test.com',
-            project_name='Test Patent Search',
-            project_type='PRR'
-        )
-
-    def test_objects_max_length(self):
-        '''
-        Tests the client's name, company's and project's name max length
-        '''
-        potential_project = PotentialProject.objects.get(id=1)
-        client_name_maxLength = potential_project._meta.get_field(
-            'client_name'
-        ).max_length
-        client_company_maxLength = potential_project._meta.get_field(
-            'client_company'
-        ).max_length
-        project_name_maxLength = potential_project._meta.get_field(
-            'project_name'
-        ).max_length
-
-        self.assertEqual(client_name_maxLength, 250)
-        self.assertEqual(client_company_maxLength, 250)
-        self.assertEqual(project_name_maxLength, 250)
-
-    def test_object_name_is_clientNames_projectName(self):
-        '''
-        Tests that the object name is Client Names"s Project Type project
-        '''
-        potential_project = PotentialProject.objects.get(id=1)
-        expected_project_name = 'Test Potential Client"s PRR project'
-        self.assertEqual(expected_project_name, str(potential_project))
-
-    def test_object_labels(self):
-        '''
-        Tests the labels for all the fields of the model
-        '''
-        potential_project = PotentialProject.objects.get(id=1)
-        client_name = potential_project._meta.get_field(
-            'client_name').verbose_name
-        client_company = potential_project._meta.get_field(
-            'client_company').verbose_name
-        client_email = potential_project._meta.get_field(
-            'client_email').verbose_name
-        project_name = potential_project._meta.get_field(
-            'project_name').verbose_name
-        project_type = potential_project._meta.get_field(
-            'project_type').verbose_name
-        initial_contact_date = potential_project._meta.get_field(
-            'initial_contact_date').verbose_name
-
-        self.assertEqual(client_name, 'client name')
-        self.assertEqual(client_company, 'client company')
-        self.assertEqual(client_email, 'client email')
-        self.assertEqual(project_name, 'project name')
-        self.assertEqual(project_type, 'project type')
-        self.assertEqual(initial_contact_date, 'initial contact date')
-
-    def test_defaults(self):
-        '''
-        Tests that the default date is inputted properly
-        '''
-        potential_project = PotentialProject.objects.get(id=1)
-        date_today = datetime.datetime.today().strftime('%Y-%m-%d')
-        self.assertEqual(
-            potential_project.initial_contact_date.strftime('%Y-%m-%d'),
-            date_today
-        )
-
-        self.assertFalse(
-            potential_project.is_client_abandoned
-        )
-        self.assertFalse(
-            potential_project.is_client_current
-        )
-
-    def test_slug_saver(self):
-        '''
-        Tests whether the slug is being saved properly
-        '''
-        potential_project = PotentialProject.objects.get(id=1)
-        date_today_YYYYMMDD = datetime.datetime.today().strftime('%Y%m%d')
-        self.assertEqual(
-            potential_project.slug,
-            'TestPotentialClient-TestPatentSearch-PRR-' + date_today_YYYYMMDD
-        )
+import uuid
 
 
 class ProjectTest(TestCase):
@@ -401,3 +302,184 @@ class LongTermClientTest(TestCase):
         self.assertEqual(client_name, 'client name')
         self.assertEqual(client_company, 'client company')
         self.assertEqual(client_email, 'client email')
+
+
+class SendInventionDisclosureQuestionnaireTest(TestCase):
+    '''
+    Tests the SendInventionDisclosureQuestionnaire Model
+    '''
+
+    @classmethod
+    def setUpTestData(cls):
+        '''
+        Sets up a test data
+        '''
+        SendInventionDisclosureQuestionnaire.objects.create(
+            client_name='Test Client Name',
+            client_company='Test Client Company',
+            client_email='test_email@test.com',
+            uuid=uuid.uuid4().hex
+        )
+
+    def test_objects_max_length(self):
+        '''
+        The test tests the objects max_length
+        '''
+        instance = SendInventionDisclosureQuestionnaire.objects.all()[0]
+        client_name = instance._meta.get_field('client_name').max_length
+        client_company = instance._meta.get_field('client_company').max_length
+        client_email = instance._meta.get_field('client_email').max_length
+
+        self.assertEqual(
+            client_name,
+            255
+        )
+        self.assertEqual(
+            client_company,
+            255
+        )
+        self.assertEqual(
+            client_email,
+            255
+        )
+
+    def test_defaults(self):
+        '''
+        The function tests the defaults in the model object. This has just one
+        '''
+        instance = SendInventionDisclosureQuestionnaire.objects.all()[0]
+        self.assertFalse(
+            instance.uuid_used
+        )
+
+    def test_string_representation(self):
+        '''
+        The function tests that the string representation of the model / object
+        is accurate
+        '''
+        instance = SendInventionDisclosureQuestionnaire.objects.all()[0]
+        string_representation = str(instance)
+
+        self.assertEqual(
+            string_representation,
+            'Test Client Name of Test Client Company questionnaire request'
+        )
+
+
+class InventionDisclosureQuestionnaireTest(TestCase):
+    '''
+    The class tests the Invention Disclosure Questionnaire model
+    '''
+
+    @classmethod
+    def setUpTestData(cls):
+        '''
+        Sets up a test data
+        '''
+        instance = InventionDisclosureQuestionnaire.objects.create(
+            client_name='Test Client Name',
+            client_company='Test Client Company',
+            client_email='test_email@test.com',
+            title='Test Title',
+            category='MECH',
+            summary='Test Summary of Invention',
+            problem_solved='Test Problem Solved of Invention',
+            closest_art='Test Closest Art of Invention',
+            competing_products='Test Competing Products of Invention',
+            advantages='Test Advantages of Invention',
+            future_improvements='Test Future Improvements of Invention'
+        )
+        instance.save()
+
+    def test_objects_max_length(self):
+        '''
+        The function tests the objects max length
+        '''
+        instance = InventionDisclosureQuestionnaire.objects.all()[0]
+        client_name = instance._meta.get_field('client_name').max_length
+        client_company = instance._meta.get_field('client_company').max_length
+        client_email = instance._meta.get_field('client_email').max_length
+        title = instance._meta.get_field('title').max_length
+        category = instance._meta.get_field('category').max_length
+        summary = instance._meta.get_field('summary').max_length
+        problem_solved = instance._meta.get_field('problem_solved').max_length
+        closest_art = instance._meta.get_field('closest_art').max_length
+        competing_products = instance._meta.get_field(
+            'competing_products').max_length
+        advantages = instance._meta.get_field('advantages').max_length
+        future_improvements = instance._meta.get_field(
+            'future_improvements').max_length
+        slug = instance._meta.get_field('slug').max_length
+
+        self.assertEqual(
+            client_name,
+            255
+        )
+        self.assertEqual(
+            client_company,
+            255
+        )
+        self.assertEqual(
+            client_email,
+            255
+        )
+        self.assertEqual(
+            title,
+            255
+        )
+        self.assertEqual(
+            category,
+            5
+        )
+        self.assertEqual(
+            summary,
+            3000
+        )
+        self.assertEqual(
+            problem_solved,
+            3000
+        )
+        self.assertEqual(
+            closest_art,
+            3000
+        )
+        self.assertEqual(
+            competing_products,
+            3000
+        )
+        self.assertEqual(
+            advantages,
+            3000
+        )
+        self.assertEqual(
+            future_improvements,
+            3000
+        )
+        self.assertEqual(
+            slug,
+            2500
+        )
+
+    def test_string_representation(self):
+        '''
+        The function tests that the string representation of the object is accurate
+        '''
+        instance = InventionDisclosureQuestionnaire.objects.all()[0]
+        string_representation = str(instance)
+
+        self.assertEqual(
+            string_representation,
+            "Test Client Name's questionnaire for Test Title invention"
+        )
+
+    def test_slug_saver(self):
+        '''
+        The function tests that the slug saved is accurate
+        '''
+        instance = InventionDisclosureQuestionnaire.objects.all()[0]
+        expected_slug = 'TestClientName-TestClientCompany-TestTitle-MECH'
+
+        self.assertEqual(
+            instance.slug,
+            expected_slug
+        )

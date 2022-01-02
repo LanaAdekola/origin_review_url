@@ -10,9 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-      {% block head_title %}
       Login | Innocelf Client Administration
-      {% endblock head_title %}
     </title>
   </head>
 
@@ -20,18 +18,39 @@
     {% block content %}
 
     <style>
-      body {
-        background-color: #42404D !important;
-      }
     </style>
 
     <a class="row" href="{% url 'innoservices:home' %}">
-      <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SVG.svg' %}" alt="Innocelf_Logo" width="150px"
-        class="mx-auto my-3">
+      <img
+        src="{% static 'innoservices/img/Innocelf-Logo-BlackFont-WhiteBack.svg' %}"
+        alt="Innocelf_Logo" class="mx-auto my-3 w-1/5">
     </a>
 
-    <div class="container-fluid lato-regular align-self-center p-5 bg-white mb-5" style="max-width: 700px;">
-      <form action="" method="POST" id="register_user_form">
+    <div
+      class="h-full w-1/2 mx-auto my-24 lato-regular border border-black p-8 rounded-xl">
+      <form action="" method="POST" id="login_user_form">
+        {% csrf_token %}
+        <fieldset>
+          <legend class="lato-bold text-2xl mx-auto my-8">
+            Innocelf Client Administration Login
+          </legend>
+          {{ form|crispy }}
+        </fieldset>
+        <div class="form-row justify-content-center">
+          <button
+            class="lato-regular block text-center mx-auto py-2 px-5 rounded-xl shadow cursor-pointer border-2 border-innoblack bg-innoblack text-white focus:ring focus:ring-innoblack focus:ring-offset-4 hover:bg-gray-800 text-sm md:text-lg md:py-3 md:px-8 mt-12"
+            type="submit">
+            Login
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+    <!-- <div
+      class="container-fluid lato-regular align-self-center p-5 bg-white mb-5"
+      style="max-width: 700px;">
+      <form action="" method="POST" id="login_user_form">
         {% csrf_token %}
         <fieldset class="form-group">
           <legend class="border-bottom mb-4 lato-bold">
@@ -49,8 +68,10 @@
 
     <div class="row">
 
-    </div>
+    </div> -->
 
+    <script type="module"
+      src="{% static 'ClientAdmin/js/action.js' %}"></script>
     {% endblock content %}
   </body>
 

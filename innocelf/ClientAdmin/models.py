@@ -12,8 +12,15 @@ PROJECT_TYPE_CHOICES = (
     ('PD', 'Provisional Draft'),
     ('FPD', 'Full Patent Draft')
 )
-
-# TODO: Make a model for Long Term Clients. The one where we can add more if need be.
+INVENTION_TYPE_CHOICES = (
+    ('MECH', 'Mechanical'),
+    ('CONS', 'Consumer Product'),
+    ('SOFT', 'Software Application'),
+    ('BUSI', 'Business Method'),
+    ('BIOM', 'Biomedical'),
+    ('PHRM', 'Pharmaceutical / Life Sciences / Chemistry'),
+    ('OTHR', 'Other')
+)
 
 
 def _camel_case(full_string: str):
@@ -67,6 +74,7 @@ class Project(models.Model):
 
     # Project Complete?
     is_project_complete = models.BooleanField(default=False)
+    is_invoice_sent = models.BooleanField(default=False)
 
     # Identifier
     slug = models.SlugField(max_length=2500)
@@ -112,42 +120,98 @@ class Payment(models.Model):
     payment_date = models.DateField()
 
 
-class PotentialProject(models.Model):
+class SendInventionDisclosureQuestionnaire(models.Model):
     '''
-    Creates a potential project instance for a particular client whose project may come but has not
-    been discussed / provided.
+    The class defines the model for the Send Invention Disclosure Questionnaire
+    model which will be used to define a unique uuid for the questionnaire
     '''
-    # Client Details
-    client_name = models.CharField(max_length=250)
-    client_company = models.CharField(max_length=250, blank=True, null=True)
-    client_email = models.EmailField(blank=True, null=True)
-
-    # Project Details
-    project_name = models.CharField(max_length=250)
-    project_type = models.CharField(max_length=4, choices=PROJECT_TYPE_CHOICES)
-
-    # Initial Contact
-    initial_contact_date = models.DateField(default=datetime.date.today)
-
-    # Is Client current
-    is_client_current = models.BooleanField(default=False)
-
-    # Is client abandoned
-    is_client_abandoned = models.BooleanField(default=False)
-
-    # Creating a slug
-    slug = models.SlugField(default='', max_length=2500)
+    client_name = models.CharField(max_length=255)
+    client_company = models.CharField(max_length=255, null=True, blank=True)
+    client_email = models.EmailField(max_length=255, null=True, blank=True)
+    uuid = models.UUIDField()
+    uuid_used = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.client_name}"s {self.project_type} project'
+        '''
+        String representation of the questionnaire request
+        '''
+        return f"{self.client_name} of {self.client_company} questionnaire request"
+
+
+class InventionDisclosureQuestionnaire(models.Model):
+    '''
+    The class defines the Invention Disclosure Questionnaire which will be sent
+    to new clients for defining their invention through an easy form
+    '''
+    existing_project = models.ForeignKey(
+        'Project',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+
+    client_name = models.CharField(max_length=255)
+    client_company = models.CharField(max_length=255, null=True, blank=True)
+    client_email = models.EmailField(max_length=255, null=True, blank=True)
+
+    title = models.CharField(max_length=255)
+    category = models.CharField(max_length=5, choices=INVENTION_TYPE_CHOICES)
+    summary = models.CharField(max_length=3000)
+
+    # Detailed description of the invention questions
+    problem_solved = models.CharField(max_length=3000)
+    closest_art = models.CharField(max_length=3000)
+    competing_products = models.CharField(max_length=3000)
+    advantages = models.CharField(max_length=3000)
+
+    # Future Improvements
+    future_improvements = models.CharField(
+        max_length=3000,
+        null=True,
+        blank=True
+    )
+
+    # Drawings or Pictures
+    drawings = models.FileField(null=True, blank=True)
+
+    # Slug
+    slug = models.SlugField(max_length=2500)
+
+    def __str__(self):
+        '''
+        String representation of the model
+        '''
+        return f"{self.client_name}'s questionnaire for {self.title} invention"
 
     def save(self, *args, **kwargs):
+        '''
+        The save method of the project where the slug field of the object will
+        be modified
+        '''
         client_name_cc = _camel_case(self.client_name)
-        project_name_cc = _camel_case(self.project_name)
-        project_type_cc = self.project_type
-        initial_contact_date_cc = self.initial_contact_date.strftime('%Y%m%d')
+        client_company_cc = _camel_case(self.client_company)
+        title_cc = _camel_case(self.title)
+        category_cc = self.category
 
-        self.slug = client_name_cc + '-' + project_name_cc + \
-            '-' + project_type_cc + '-' + initial_contact_date_cc
+        self.slug = client_name_cc + '-' + client_company_cc + '-' + title_cc +\
+            '-' + category_cc
+        super(InventionDisclosureQuestionnaire, self).save(*args, **kwargs)
 
-        super(PotentialProject, self).save(*args, **kwargs)
+
+class Invoice(models.Model):
+    '''
+    The class creates an Invoice model with an invoice number, date and the file
+    name to where the invoice is saved for easy access
+    '''
+    number = models.CharField(max_length=50)
+    created_on = models.DateField()
+    filename = models.CharField(max_length=3000)
+
+    client_name_company = models.CharField(max_length=500)
+    address = models.CharField(max_length=3000)
+
+    def __str__(self):
+        '''
+        String representation of the model
+        '''
+        return f'Invoice# {self.number} to {self.client_name_company}'

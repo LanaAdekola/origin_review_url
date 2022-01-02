@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    {% extends 'base.html' %}
+    {% load static %}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    </head>
+
+    <body class="creative-lp">
+        {% block content %}
+
+        {% csrf_token %}
+        <div id="app"></div>
+
+        {{ uuid_used|json_script:"uuid_used" }}
+        {{ client_name|json_script:"client_name" }}
+        {{ client_company|json_script:"client_company" }}
+        {{ client_email|json_script:"client_email" }}
+        <script type="module"
+            src="{% static 'ClientAdmin/js/action.js' %}"></script>
+
+        {% endblock content %}
+    </body>
+
+</html>
