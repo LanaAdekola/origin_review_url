@@ -379,8 +379,8 @@ def save_send_invention_disclosure_quest_form(request, *args, **kwargs):
         email_context = {
             'client_name': post_request['client_name'],
             'link_expiry_date': link_expiry_date,
-            'unique_link': f'http://127.0.0.1:8000/complete-invention-disclosure-questionnaire/{unique_uuid}/',
-            # 'unique_link': f'https://www.innocelf.com/complete-invention-disclosure-questionnaire/{unique_uuid}/'
+            # 'unique_link': f'http://127.0.0.1:8000/complete-invention-disclosure-questionnaire/{unique_uuid}/',
+            'unique_link': f'https://www.innocelf.com/complete-invention-disclosure-questionnaire/{unique_uuid}/'
         }
         email_template = get_template(
             '../templates/client_reviews/email_template_invention_disc_quest.html'
@@ -642,7 +642,6 @@ def download_invoices(request, *args, **kwargs):
     '''
     invoices = Invoice.objects.all().order_by('-id')[:5]
     invoices_serialize = serializers.serialize('json', invoices)
-    print(invoices)
 
     return HttpResponse(invoices_serialize)
 
