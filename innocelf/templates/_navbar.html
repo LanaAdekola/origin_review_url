@@ -1,13 +1,12 @@
 {% load static %}
 
 <!--Navbar-->
-<nav class="navbar navbar-expand-lg navbar-dark bg-superdark lato-regular">
+<nav
+  class="flex py-6 w-4/6 m-auto justify-between items-center flex-wrap lato-regular">
 
   <!-- Navbar brand -->
-  <a class="navbar-brand" href="{% url 'innoservices:home' %}">
-    <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SM_SVG.png' %}"
-      alt="innocelf-patent-research-full-logo" width="150px">
-  </a>
+  <div class="block sm:flex flex-shrink-0 items-center ml-3" id="navbar_logo">
+  </div>
 
   <!-- Collapse button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -17,85 +16,28 @@
   </button>
 
   <!-- Collapsible content -->
-  <div class="collapse navbar-collapse" id="basicExampleNav">
+  <div
+    class="w-50 sm:justify-end block flex-grow sm:flex md:items-center sm:w-auto">
 
-    <!-- Links -->
-    <ul class="navbar-nav m-auto nav-fill w-50">
-      <!-- Dropdown Services -->
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink"
-          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Services
-        </a>
-        <div class="dropdown-menu dropdown-primary"
-          aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item"
-            href="{% url 'innoservices:technologies' %}#patentability_and_novelty_search">
-            Patentability /
-            Novelty Search
-          </a>
-          <a class="dropdown-item"
-            href="{% url 'innoservices:technologies' %}#validity_invalidity_search">
-            Invalidity Search
-          </a>
-          <a class="dropdown-item"
-            href="{% url 'innoservices:technologies' %}#freedom_to_operate_search">
-            Freedom to Operate
-            Search
-          </a>
-          <a class="dropdown-item"
-            href="{% url 'innoservices:technologies' %}#product_research">
-            Product
-            Research
-          </a>
-          <a class="dropdown-item"
-            href="{% url 'innoservices:technologies' %}#landscape_state_of_the_art">
-            Landscape /
-            State of the Art
-          </a>
-        </div>
-      </li>
-      <!-- Dropdown Diligence-->
-      <li class="nav-item">
-        <a class="nav-link"
-          href="{% url 'innoservices:technologies' %}#tech_page_technology_section">
-          Technology
-        </a>
-      </li>
+    <div is="navigation-dropdown-menu" text-content="About"
+      data-links="Our Story, Testimonials, Frequently Asked Questions"></div>
 
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'innoservices:contact-us' %}">
-          Contact
-        </a>
-      </li>
+    <a href="{% url 'innoservices:services' %}" text-content="Services" is="navigation-link">
+    </a>
 
-      <li class="nav-item">
-        <a class="nav-link"
-          href="{% url 'innoservices:about-us-and-testimonials' %}#testimonials_in_about_us">
-          Testimonials
-        </a>
-      </li>
+    <a href="" text-content="Our Process" is="navigation-link">
+    </a>
 
-      <li class="nav-item">
-        <a class="nav-link"
-          href="{% url 'innoservices:about-us-and-testimonials' %}">
-          About
-        </a>
-      </li>
+    <a href="" text-content="Blog" is="navigation-link">
+    </a>
 
-      <li class="nav-item">
-        <a class="nav-link"
-          href="{% url 'innoservices:frequently-asked-questions' %}">
-          FAQs
-        </a>
-      </li>
+    <a href="" text-content="Contact Us" is="navigation-link">
+    </a>
 
-    </ul>
-    <!-- Links -->
-
+    <a href="" text-content="" has-icon="fab fa-linkedin fa-lg"
+      is="navigation-link">
+    </a>
 
   </div>
-  <!-- Collapsible content -->
 
 </nav>
-<!--/.Navbar-->

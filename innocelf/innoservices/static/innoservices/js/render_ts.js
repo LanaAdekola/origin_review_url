@@ -34,8 +34,7 @@ export const STATE = {
 				for your invention, we also enlist all possible claims that one 
 				should consider while drafting a patent application.
                 `,
-                imageSrc:
-                    '/static/innoservices/img/services/researching-new-idea-services.jpg',
+                imageSrc: `/static/innoservices/img/services/servicePage_ResearchingNewIdea.png`,
             },
             'During Commercialization of Your Product': {
                 isFirst: false,
@@ -50,8 +49,7 @@ export const STATE = {
 				litigation is a goal for every business. We can help you achieve this 
 				goal by performing freedom to operate search.
                 `,
-                imageSrc:
-                    '/static/innoservices/img/services/commercializing-product-services.jpg',
+                imageSrc: `/static/innoservices/img/services/servicePage_DuringCommercialization.png`,
             },
             'During Litigation': {
                 isFirst: false,
@@ -62,8 +60,7 @@ export const STATE = {
 				of infringement, a validity/invalidity search with the correct search 
 				methodology is necessary.
                 `,
-                imageSrc:
-                    '/static/innoservices/img/services/during-litigation-services.jpg',
+                imageSrc: `/static/innoservices/img/services/servicePage_DuringLitigation.svg`,
             },
             'Researching New Business Names or Logos': {
                 isFirst: false,
@@ -76,7 +73,7 @@ export const STATE = {
 				on nonrefundable fees for trademark registration applications.
                 `,
                 imageSrc:
-                    '/static/innoservices/img/services/start-a-new-business-services.jpg',
+                    '/static/innoservices/img/services/servicePage_BusinessNameLogo.svg',
             },
             // 'Technology Analysis': {},
             // 'Goal or Object Oriented Search': {},
@@ -326,7 +323,7 @@ export function homepageReviews() {
     return new Promise((resolve) => {
         _obtainAllReviews().then(function (testimonialsObject) {
             let homepageTestimonials = {};
-            let reviewKeys = [2, 4, 1, 6];
+            let reviewKeys = [3, 4, 1, 6, 8];
             for (let i = 0; i < reviewKeys.length; i++) {
                 let random = reviewKeys[i];
                 homepageTestimonials[i] = {

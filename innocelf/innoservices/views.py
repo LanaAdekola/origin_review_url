@@ -10,13 +10,14 @@ from django.contrib import messages
 from django.core import serializers
 from django.core.mail import send_mail
 from django.core.serializers.json import DjangoJSONEncoder
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render, reverse
 from django.template.loader import get_template
 from django.views.generic import FormView, ListView, View
 
 from .forms import ClientReviewForm, ContactUsForm, SendReviewRequestForm
 from .models import ClientReview, ContactUs, SendReviewRequest
+from ClientAdmin.views import _csrf_token_input_html
 
 PRIVACY_POLICY_RESPONSE = '''The information contained in this website is provided for informational purposes only, and should not be
                 construed as legal advice, nor are they intended as a source of advertising or solicitation. The
@@ -37,40 +38,126 @@ def home_view(request, *args, **kwargs):
 
     # Setting the cookies here
     if 'PrivacyPolicy' in request.COOKIES:
-        response = render(request, 'home_page.html')
+        response = render(request, 'innoservices/homepage.html')
     else:
-        response = render(request, 'home_page.html')
+        response = render(request, 'innoservices/homepage.html')
         response.set_cookie('PrivacyPolicy', PRIVACY_POLICY_RESPONSE)
 
     return response
 
 
-def technology_view(request, *args, **kwargs):
+def services_view(request, *args, **kwargs):
     '''
-    Enlisting all the technologies that Innocelf supports with its services
+    Defining the services view for Innocelf
     '''
-    return render(request, 'technology_page.html')
+
+    return render(request, 'innoservices/services.html')
+
+
+def about_us_view(request, *args, **kwargs):
+    '''
+    Defining the about us page for Innocelf
+    '''
+
+    return render(request, 'innoservices/about_us.html')
+
+
+def testimonials_view(request, *args, **kwargs):
+    '''
+    Defining the testimonials page for Innocelf
+    '''
+    return render(request, 'innoservices/testimonials.html')
+
+
+def frequently_asked_questions(request, *args, **kwargs):
+    '''
+    Defining a page for the websites frequently asked questions
+    '''
+    return render(request, 'innoservices/faq.html')
+
+
+def contact_us_view(request, *args, **kwargs):
+    '''
+    Defining a page for the websites contact us page
+    '''
+    return render(request, 'innoservices/contact_us.html')
+
+
+def _obtain_contact_us_form(request, *args, **kwargs):
+    '''
+    Defining a view to get the Contact Us form
+    '''
+    form = ContactUsForm()
+
+    return HttpResponse(form)
+
+
+def _obtain_contact_us_form_csrf(request, *args):
+    """
+    Defining a view to obtain the contact us form csrf token so that the post
+    of the form is successful
+    """
+    csrf_token_html = _csrf_token_input_html(request)
+
+    return HttpResponse(csrf_token_html)
+
+
+def _receive_contact_us_form_response(request, *args, **kwargs):
+    '''
+    Defining a view to record the contact us form responses
+    '''
+    if request.method == 'POST':
+        post_request = request.POST
+        form = ContactUsForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+
+            send_mail(
+                subject='ATTENTION!! Someone contacted you on Innocelf',
+                message=f"{form['full_name'].value()} with the email id {form['email'].value()} has contacted you.\n\n The reason for their inquiry is {form['inquiry_reason'].value()}.\n They typed this message: {form['explanation'].value()}",
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=['ppd24@case.edu',
+                                'dharmadhikari.pranita@gmail.com'],
+                # recipient_list=['ppmahamu@mtu.edu'],
+                fail_silently=False
+            )
+
+            return JsonResponse({
+                'Success': 'Thank you for contacting us. We will get back to you within 48 hours.'
+            })
+        else:
+            return JsonResponse({
+                'Failure': 'The server rejected the form. Please refresh and reverify your inputs.'
+            })
 
 
 def privacy_policy(request, *args, **kwargs):
     '''
     Defining a page for privacy policy that will be tagged on using the link near the footer
     '''
-    return render(request, 'terms_and_conditions/privacy_policy.html')
+    return render(request, 'innoservices/terms_and_conditions/privacy_policy.html')
 
 
 def disclaimer(request, *args, **kwargs):
     '''
     Defining a page for the websites disclaimer and will be part of the footer
     '''
-    return render(request, 'terms_and_conditions/disclaimer.html')
+    return render(request, 'innoservices/terms_and_conditions/disclaimer.html')
 
 
 def website_terms_and_conditions(request, *args, **kwargs):
     '''
     Defining a page for the websites terms and conditions and will be a part of the footer
     '''
-    return render(request, 'terms_and_conditions/terms_and_conditions.html')
+    return render(request, 'innoservices/terms_and_conditions/terms_and_conditions.html')
+
+
+def our_process_view(request, *args, **kwargs):
+    '''
+    Defining a page for highlighting our process
+    '''
+    return render(request, 'innoservices/our_process.html')
 
 
 def testimonials(request, *args, **kwargs):
@@ -83,193 +170,135 @@ def testimonials(request, *args, **kwargs):
     context = {
         'all_reviews_json': all_reviews_json
     }
-    return render(request, 'about_us_and_testimonials.html', context)
 
-
-def frequently_asked_questions(request, *args, **kwargs):
-    '''
-    Defining a page for the websites frequently asked questions
-    '''
-    return render(request, 'faq.html')
-
-
-def contact_us_confirmation(request, *args, **kwargs):
-    '''
-    This page will be displayed when the client contacts Innocelf LLC.
-    This is a landing page after the contact us portion has been successful.
-    '''
-    return render(request, 'contact_us_confirmation.html')
-
-
-class ContactUsView(FormView):
-
-    '''
-    Defining the contact us view
-    '''
-
-    form = ContactUsForm
-
-    def get(self, *args, **kwargs):
-        form = self.form
-        recaptcha_site_key = settings.RECAPTCHA_SITE_KEY
-
-        context = {
-            'form': form,
-            'recaptcha_site_key': recaptcha_site_key
-        }
-
-        return render(self.request, 'contact_us.html', context)
-
-    def post(self, *args, **kwargs):
-
-        form = self.form(self.request.POST)
-        if form.is_valid():
-
-            # Begin recaptcha validation
-            recaptcha_response = self.request.POST.get(
-                'g-recaptcha-response')
-            url = 'https://www.google.com/recaptcha/api/siteverify'
-            values = {
-                'secret': settings.RECAPTCHA_SECRET_KEY,
-                'response': recaptcha_response
-            }
-            data = urllib.parse.urlencode(values).encode()
-            req = urllib.request.Request(url, data=data)
-            response = urllib.request.urlopen(req)
-            result = json.loads(response.read().decode())
-
-            if result['success']:
-                contact = ContactUs()
-                contact.first_name = form['first_name'].value()
-                contact.last_name = form['last_name'].value()
-                contact.email = form['email'].value()
-                contact.phone = form['phone'].value()
-                contact.inquiry_reason = form['inquiry_reason'].value()
-                contact.explanation = form['explanation'].value()
-
-                contact.save()
-
-                messages.info(
-                    self.request, 'Your inquiry has been recorded. We will reach out to you in 1-2 business day(s).')
-
-                send_mail(
-                    subject='ATTENTION!! Someone contacted you on Innocelf',
-                    message=f"{form['first_name'].value()} {form['last_name'].value()} with the email id {form['email'].value()} and phone number {form['phone'].value()} has contacted you.\n\n The reason for their inquiry is {form['inquiry_reason'].value()}.\n They typed this message: {form['explanation'].value()}",
-                    from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=['ppd24@case.edu',
-                                    'dharmadhikari.pranita@gmail.com'],
-                    fail_silently=False
-                )
-
-                return redirect('innoservices:contact-us-confirmation')
-
-            else:
-                messages.error(
-                    self.request, 'Re-Captcha Failed. Please try again later.')
+    return JsonResponse(context)
 
 
 def send_review_request(request, *args, **kwargs):
     '''
-    This function sends a reviewe request to a customer with a unique uuid.
+    The function / view renders the review request template where the administrator
+    can send a request for review to a customer of their choice
+    '''
+    return render(request, 'innoservices/send_review_request/send_review_request.html')
+
+
+def _obtain_send_review_request_form(request, *args, **kwargs):
+    '''
+    The function / view sends the send review request form to the frontend via
+    XML
     '''
     form = SendReviewRequestForm()
-    context = {
-        'form': form
-    }
-
-    if request.POST:
-        if request.user.is_superuser:
-            # TODO: Limit sending the emails to the people who are superusers
-            form = SendReviewRequestForm(request.POST)
-            if form.is_valid():
-                unique_uuid = uuid.uuid4().hex
-                new_review_request = SendReviewRequest(
-                    first_name=request.POST['first_name'],
-                    last_name=request.POST['last_name'],
-                    email=request.POST['email'],
-                    uuid=unique_uuid
-                )
-                new_review_request.save()
-
-                email_context = {
-                    'first_name': request.POST['first_name'],
-                    # 'unique_link': f'http://127.0.0.1:8000/write-review/{unique_uuid}/',
-                    'unique_link': f'https://www.innocelf.com/write-review/{unique_uuid}/'
-                }
-                email_template = get_template(
-                    '../templates/client_reviews/email_template.html'
-                ).render(email_context)
-
-                send_mail(
-                    subject='Request for Review -- Innocelf, LLC',
-                    message='',
-                    from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=[request.POST['email']],
-                    html_message=email_template,
-                    fail_silently=False
-                )
-                print(request.POST)
-                print('post')
-        else:
-            messages.error(
-                request, 'You are not authorized to send these requests. Please login as an administrator.')
-            return redirect('innoservices:send-review-request')
-
-    return render(request, 'client_reviews/send_review_request.html', context)
+    return HttpResponse(form)
 
 
-def record_review_confirmation(request, *args, **kwargs):
+def _receive_send_review_request_form_response(request, *args, **kwargs):
     '''
-    This view will be shown to the clients who post a review for Innocelf.
+    The function view accepts a review request form from the front end and stores
+    it in the appropriate instance
     '''
-    return render(request, 'client_reviews/record_review_confirmation.html')
+    post_request = request.POST
+    if request.user.is_superuser:
+        form = SendReviewRequestForm(request.POST)
+        if form.is_valid():
+            unique_uuid = uuid.uuid4().hex
+            send_review_request = SendReviewRequest(
+                first_name=post_request['first_name'],
+                last_name=post_request['last_name'],
+                email=post_request['email'],
+                uuid=unique_uuid
+            )
+            send_review_request.save()
+
+            email_context = {
+                'first_name': request.POST['first_name'],
+                # 'unique_link': f'http://127.0.0.1:8000/write-review/{unique_uuid}/',
+                'unique_link': f'https://www.innocelf.com/write-review/{unique_uuid}/'
+            }
+            email_template = get_template(
+                '../templates/client_reviews/email_template.html'
+            ).render(email_context)
+
+            send_mail(
+                subject='Request for Review -- Innocelf, LLC',
+                message='',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[request.POST['email']],
+                html_message=email_template,
+                fail_silently=False
+            )
+
+        return JsonResponse(
+            {'Success': 'The request has been sent. Sit tight and wait for the review.'}
+        )
+    else:
+        return JsonResponse({
+            'Failure': 'You are not authorized to send these requests. Please login as an administrator.'
+        })
 
 
-def record_client_review(request, *args, **kwargs):
+def write_review(request, *args, **kwargs):
     '''
-    This function takes in the unique uuid token to record a review that the client posted
+    The function / view renders the review form for the user to write a review
     '''
-    form = ClientReviewForm()
-
     unique_uuid = kwargs['uuid_token']
 
-    # Filter review requests to get the client first name and last name
-    client_review_request = SendReviewRequest.objects.filter(
-        uuid=unique_uuid, uuid_used=False)
+    review_request = SendReviewRequest.objects.filter(
+        uuid=unique_uuid,
+        uuid_used=False
+    )
+    first_name = review_request[0].first_name
+    last_name = review_request[0].last_name
 
-    if client_review_request:
-        first_name = client_review_request[0].first_name
-        last_name = client_review_request[0].last_name
-        context = {
-            'form': form,
-            'first_name': first_name,
-            'last_name': last_name
-        }
+    context = {
+        'first_name': first_name,
+        'last_name': last_name
+    }
+    return render(request, 'innoservices/send_review_request/write_review.html', context)
 
-        if request.POST:
-            form = ClientReviewForm(request.POST)
-            if form.is_valid():
-                datetime_today = datetime.now()
-                current_month = datetime_today.strftime('%B')
-                current_year = datetime_today.strftime('%Y')
-                month_year = current_month + ' ' + current_year
 
-                new_review = ClientReview(
-                    first_name=request.POST['first_name'],
-                    last_name=request.POST['last_name'],
-                    review=request.POST['review'],
-                    month_year=month_year
-                )
-                new_review.save()
+def _obtain_write_review_form(request, *args, **kwargs):
+    '''
+    The function sends the ClientReviewForm to the frontend
+    '''
+    first_name = request.META.get('HTTP_FIRSTNAME')
+    last_name = request.META.get('HTTP_LASTNAME')
+    names_dict = {
+        'first_name': first_name,
+        'last_name': last_name
+    }
 
-                client_review_request[0].uuid_used = True
-                client_review_request[0].save()
+    form = ClientReviewForm(initial=names_dict)
+    return HttpResponse(form)
 
-                return redirect('innoservices:record-review-confirmation', uuid_token=unique_uuid)
 
-        return render(request, 'client_reviews/record_review.html', context)
+def _receive_write_review_form_response(request, *args, **kwargs):
+    '''
+    The function receives the response from the ClientReviewForm and saves the 
+    review as a new instance. It disables the previously created unique uuid
+    '''
+    post_request = request.POST
 
-    else:
-        messages.error(request,
-                       'Your unique link has either expired or is incorrect. Please check the link, try again or contact us from our homepage.')
-        return redirect('innoservices:home')
+    review_requests_filtered = SendReviewRequest.objects.filter(
+        uuid=post_request['uuid_token'],
+        uuid_used=False
+    )
+    review_request = review_requests_filtered[0]
+    review_request.uuid_used = True
+    review_request.save()
+
+    datetime_today = datetime.now()
+    current_month = datetime_today.strftime('%B')
+    current_year = datetime_today.strftime('%Y')
+    month_year = current_month + ' ' + current_year
+
+    new_review = ClientReview(
+        first_name=post_request['first_name'],
+        last_name=post_request['last_name'],
+        review=post_request['review'],
+        month_year=month_year
+    )
+    new_review.save()
+
+    return JsonResponse({
+        'Success': 'Your review has been recorded. Thank you for taking the time to review our services. We appreciate it.'
+    })

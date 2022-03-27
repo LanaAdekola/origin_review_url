@@ -1,26 +1,31 @@
 'use strict';
 import * as RenderTS from './render_ts.js';
+import { renderHomepage } from './renderHomepage.js';
+import { renderServices } from './renderServices.js';
+import { renderAboutUs } from './renderAboutUs.js';
+import { renderFAQ } from './renderFAQ.js';
+import { renderTestimonial } from './renderTestimonials.js';
 import * as RenderPrivacyDisclaimerTerms from './render_privacy_disclaimer_terms.js';
 document.addEventListener('DOMContentLoaded', function () {
     let pathname = window.location.pathname;
     if (pathname === '/' || pathname === '/home/') {
-        RenderTS.renderHomepage();
+        renderHomepage();
     } else if (pathname === '/services' || pathname === '/services/') {
-        RenderTS.renderServicesPage();
+        renderServices();
     } else if (
         pathname === '/testimonials-page' ||
         pathname === '/testimonials-page/'
     ) {
-        RenderTS.renderTestimonialsPage();
+        renderTestimonial();
     } else if (
         pathname === '/frequently-asked-questions/' ||
         pathname === '/frequently-asked-questions'
     ) {
-        RenderTS.renderFAQPage();
+        renderFAQ();
     } else if (pathname === '/contact-us/' || pathname === '/contact-us') {
         RenderTS.renderContactUsPage();
     } else if (pathname === '/about-us/' || pathname === '/about-us') {
-        RenderTS.renderAboutUsPage();
+        renderAboutUs();
     } else if (
         pathname === '/privacy-policy/' ||
         pathname === '/privacy-policy'
@@ -40,7 +45,5 @@ document.addEventListener('DOMContentLoaded', function () {
         RenderTS.renderSendReviewRequest();
     } else if (pathname.includes('/write-review/')) {
         RenderTS.renderWriteReviewPage();
-    } else if (pathname === '/our-process' || pathname === '/our-process/') {
-        RenderTS.renderOurProcessPage();
     }
 });

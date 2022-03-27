@@ -1,4 +1,7 @@
 'use strict';
+
+import { _obtainForm } from './render_ts.js';
+
 const NAVBAR_ABOUT_US_DROPDOWN_LINKS = {
     'Our Story': {
         link: '/about-us',
@@ -224,9 +227,10 @@ export class AnchorLinks {
             'sm:text-center',
             'sm:ml-2',
             'sm:mr-8',
+            'sm:text-lg',
             'lg:ml-5',
             'lg:mr-12',
-            '2xl:text-lg',
+            '2xl:text-xl',
             '2xl:mt-0',
             '2xl:inline-block',
         ];
@@ -280,6 +284,103 @@ export class AnchorLinks {
             'md:text-lg',
             'md:py-3',
             'md:px-8',
+        ];
+        desiredClassList.map((item) => {
+            this.result.classList.add(item);
+        });
+        return this;
+    }
+    renderLargeInnocelfButtonFullRound() {
+        this.result.textContent = this.textContent;
+        this.result.target = '_blank';
+        let desiredClassList = [
+            'lato-regular',
+            'block',
+            'text-center',
+            'w-1/3',
+            // 'w-1/2',
+            // 'mt-4',
+            'py-2',
+            'px-5',
+            'rounded-full',
+            'shadow',
+            'cursor-pointer',
+            'border-2',
+            'border-innoblack',
+            'bg-innoblack',
+            'text-white',
+            'focus:ring',
+            'focus:ring-innoblack',
+            'focus:ring-offset-4',
+            'hover:bg-gray-800',
+            'text-sm',
+            'md:text-2xl',
+            'md:py-3',
+            'md:px-8',
+        ];
+        desiredClassList.map((item) => {
+            this.result.classList.add(item);
+        });
+        return this;
+    }
+    renderLargeInnocelfGradientButtonFullRound() {
+        this.result.textContent = this.textContent;
+        this.result.target = '_blank';
+        let desiredClassList = [
+            'lato-bold',
+            'block',
+            'text-center',
+            'w-1/3',
+            'py-2',
+            'px-5',
+            'rounded-full',
+            'bg-gradient-to-r',
+            'from-gray-300',
+            'to-gray-200',
+            'shadow',
+            'cursor-pointer',
+            'text-black',
+            'focus:ring',
+            'focus:ring-innoblack',
+            'focus:ring-offset-4',
+            'hover:bg-gray-800',
+            'text-sm',
+            'md:text-3xl',
+            'md:py-4',
+            'md:px-8',
+        ];
+        desiredClassList.map((item) => {
+            this.result.classList.add(item);
+        });
+        return this;
+    }
+    renderMediumInnocelfButtonFullRound() {
+        this.result.textContent = this.textContent;
+        this.result.target = '_blank';
+        let desiredClassList = [
+            'lato-regular',
+            'block',
+            'text-center',
+            'w-4/12',
+            // 'w-1/2',
+            // 'mt-4',
+            'py-2',
+            'px-5',
+            'rounded-full',
+            'shadow',
+            'cursor-pointer',
+            'border-2',
+            'border-innoblack',
+            'bg-innoblack',
+            'text-white',
+            'focus:ring',
+            'focus:ring-innoblack',
+            'focus:ring-offset-4',
+            'hover:bg-gray-800',
+            'text-sm',
+            'md:text-xl',
+            'md:py-2',
+            'md:px-5',
         ];
         desiredClassList.map((item) => {
             this.result.classList.add(item);
@@ -400,6 +501,8 @@ export class DropdownMenu {
             // 'p-2',
             'hover:border-gray-500',
             'focus:border-gray-500',
+            'sm:text-lg',
+            '2xl:text-xl',
         ];
         let desiredIconClass = ['fas', 'fa-chevron-down', 'text-xs', 'ml-2'];
         this.mainButton.type = 'button';
@@ -495,18 +598,17 @@ export class Navbar {
             'text-right',
             'pr-5',
             'hidden',
-            'bg-gray-200',
+            // 'bg-gray-200',
             'sm:flex',
             'sm:flex-row',
             'sm:justify-center',
             'sm:mt-5',
-            'sm:bg-white',
+            // 'sm:bg-white',
             'sm:pr-0',
             '2xl:justify-end',
-            // '2xl:flex',
             '2xl:w-auto',
             '2xl:items-center',
-            '2xl:ml-auto',
+            '2xl:mx-auto',
             '2xl:mt-0',
         ];
         this.collapsibleContentClasses.map((item) => {
@@ -518,6 +620,7 @@ export class Navbar {
         this.createCollapsibleContent();
         this.createAboutUsDropdown();
         this.createNavbarLinks();
+        this.createSocialLinks();
         this.createNavbarToggle();
         let collapsibleContent = this.collapsibleContent;
         this.navbarToggle.addEventListener('click', function () {
@@ -538,7 +641,7 @@ export class Navbar {
             '2xl:justify-start',
         ];
         let logoPath =
-            '/static/innoservices/img/Innocelf-Logo-BlackFont-WhiteBack.svg';
+            '/static/innoservices/img/Innocelf-Logo-BlackFont-TransparentBack.svg';
         let brand = document.createElement('a');
         desiredBrandClass.map((item) => {
             brand.classList.add(item);
@@ -547,7 +650,7 @@ export class Navbar {
         _importSVG(logoPath).then((data) => {
             let svgLogo = _parseSVG(data);
             if (svgLogo) {
-                svgLogo.setAttribute('width', '350');
+                svgLogo.setAttribute('width', '280');
                 // Desired classes for the svg... controlling transition
                 let svgLogoClasses = [
                     'transition-opacity',
@@ -582,6 +685,22 @@ export class Navbar {
             navLink.href = NAVBAR_LINKS[item].link;
             this.collapsibleContent.append(navLink);
         });
+    }
+    createSocialLinks() {
+        let linkedin = new AnchorLinks().renderWithIcon([
+            'fab',
+            'fa-linkedin-in',
+            'fa-lg',
+        ]).result;
+        linkedin.classList.add(
+            'my-auto',
+            'py-1.5',
+            'px-2',
+            'bg-innoblack',
+            'text-white',
+            'rounded-full'
+        );
+        this.result.append(linkedin);
     }
     createNavbarToggle() {
         let icon = document.createElement('i');
@@ -630,18 +749,21 @@ export class DynamicTypedHeading {
             'mt-12',
             'mb-6',
             'h-16',
-            'text-center',
-            'text-transparent',
-            'text-xl',
-            'bg-clip-text',
-            'bg-gradient-to-r',
-            'from-black',
+            'text-white',
+            'lato-bold',
+            // 'text-center',
+            // 'text-transparent',
+            // 'text-xl',
+            // 'bg-clip-text',
+            // 'bg-gradient-to-r',
+            // 'from-black',
             'to-gray-400',
             'sm:text-2xl',
             'md:text-2xl',
             'lg:text-3xl',
             'xl:text-4xl',
-            '2xl:my-24',
+            '2xl:mt-12',
+            '2xl:mb-6',
             '2xl:text-5xl',
         ];
         desiredClasses.map((item) => {
@@ -707,9 +829,9 @@ export class FirstPageListItem {
     addCheck() {
         let addCheck = document.createElement('i');
         let desiredClassList = [
-            'far',
+            'fas',
             'fa-check-circle',
-            'mr-3',
+            'mr-5',
             'text-xl',
             'sm:text-xl',
             'lg:text-2xl',
@@ -721,7 +843,9 @@ export class FirstPageListItem {
         this.result.append(addCheck);
     }
     addListText() {
-        let listTextTag = new HeadingOrParagraph('h3', this.listText).result;
+        let listTextTag = new HeadingOrParagraph('h4', this.listText).result;
+        listTextTag.classList.replace('lato-bold', 'lato-semibold');
+        listTextTag.classList.remove('font-bold');
         this.result.append(listTextTag);
     }
 }
@@ -866,20 +990,18 @@ export class Footer {
             Home: '/',
             Services: '/services',
             About: '/about-us',
-            'Our Process': '/our-process',
+            // 'Our Process': '/our-process',
             Testimonials: '/testimonials-page',
-            'Frequently Asked Questions': '/frequently-asked-questions',
+            FAQ: '/frequently-asked-questions',
             Blog: '/',
         };
-        this._expertiseList = [
-            'Healthcare and Medical Devices',
-            'Pharmaceutical',
-            'Chemical and Material Science',
-            'Biotechnology and Life Sciences',
-            'Food Technology',
-            'Consumer Products',
-        ];
+        this._privacyPolicyLinks = {
+            'Privacy Policy': '/privacy-policy/',
+            'Terms of Use': '/terms-and-conditions/',
+            Disclaimer: '/disclaimer/',
+        };
     }
+
     render() {
         let footerClasslist = [
             'flex',
@@ -888,103 +1010,238 @@ export class Footer {
             'lato-regular',
             'text-white',
             'pt-5',
+            'relative',
+            'h-96',
+            'mt-80',
         ];
         footerClasslist.map((item) => {
             this.result.classList.add(item);
         });
-        let container = this._createContainerWithGrid();
-        let mergerOfCopyrightandTermsSection =
-            this._createMergerofCopyrightAndTermsSection();
-        // let termsAndDisclaimerSection = this._createTermsAndDisclaimerSection();
-        this.result.append(container, mergerOfCopyrightandTermsSection);
+
+        let contactUsForm = this.contactUsForm();
+        let scheduleConsultation = this.createScheduleConsultationButton();
+        let container = this.createMainContainer();
+        this.result.append(contactUsForm, scheduleConsultation, container);
         return this;
     }
-    _createContainerWithGrid() {
+
+    createMainContainer() {
         let container = document.createElement('div');
-        let grid = document.createElement('div');
-        let desiredContainerClass = [
-            'container',
+        container.classList.add(
+            'flex',
+            'flex-col',
             'w-2/3',
             'mx-auto',
             'my-5',
             'opacity-95',
             'md:w-full',
             'lg:w-11/12',
-            '2xl:w-2/3',
-        ];
-        desiredContainerClass.map((item) => {
-            container.classList.add(item);
-        });
-        let desiredGridClass = [
-            'grid',
-            'grid-cols-1',
-            'md:grid-cols-3',
+            '2xl:w-3/4',
+            'justify-end',
+            'items-end'
+        );
+
+        let logoLinksPrivacyColumnContainer = this.createColumnsContainer();
+        let copyRightSection = this.createCopyRightInfo();
+
+        container.append(logoLinksPrivacyColumnContainer, copyRightSection);
+        return container;
+    }
+
+    createColumnsContainer() {
+        let container = document.createElement('div');
+        container.classList.add(
+            'flex',
+            'flex-row',
+            'justify-end',
+            'items-center',
+            'w-1/2',
+            'pb-5',
             'md:gap-2',
-            'lg:gap-4',
-        ];
-        desiredGridClass.map((item) => {
-            grid.classList.add(item);
-        });
-        let firstColumn = this._createFirstColumn();
-        let quickLinksColumn = this._createListColumn(
+            'border-0',
+            'border-b',
+            'border-white'
+        );
+        let firstColumn = this.createFirstColumn();
+        let quickLinksColumn = this.createListColumn(
             'Links',
             this._quickLinksObject
         );
-        quickLinksColumn.classList.add('lg:ml-12', 'xl:ml-20');
-        let contactColumn = this._createContactColumn();
-        grid.append(firstColumn, quickLinksColumn, contactColumn);
-        container.append(grid);
+        let privacyPolicyColumn = this.createPrivacyPolicySection();
+        container.append(firstColumn, quickLinksColumn, privacyPolicyColumn);
+
         return container;
     }
-    _createFirstColumn() {
-        let column = this.__createFooterColumn();
-        let companyName = new HeadingOrParagraph(
-            'h5',
-            'Innocelf, LLC'
-        ).renderWithClass(['uppercase']).result;
-        let hr = this.__createFooterHR();
-        let companyDescription = new HeadingOrParagraph(
+
+    contactUsForm() {
+        let formContainer = document.createElement('form');
+        formContainer.method = 'POST';
+        formContainer.enctype = 'application/x-www-form-urlencoded';
+        formContainer.classList.add(
+            'flex',
+            'flex-col',
+            'w-1/3',
+            'p-16',
+            'bg-gradient-to-br',
+            'from-gray-300',
+            'to-gray-200',
+            'drop-shadow-md',
+            'absolute',
+            'left-48',
+            '-top-48'
+        );
+        formContainer.style.borderRadius = '35px';
+
+        let heading = new HeadingOrParagraph(
+            'h3',
+            'Contact Us'
+        ).renderWithClass(['mb-4', 'text-black', 'text-center']).result;
+        let paragraph = new HeadingOrParagraph(
             'p',
-            `Innocelf, LLC is a patent search firm in Michigan, USA, that offers
-            the highest quality patent searches and
-            analytics services to protect your invention at a resonable price.
-            Schedule a free consultation with us today
-            to get started on your patent journey.`
-        ).result;
-        let classesToRemove = [
-            'text-sm',
-            'sm:text-base',
-            'lg:text-lg',
-            '2xl:text-lg',
-        ];
-        let classesToAdd = ['text-sm', 'lg:text-base'];
-        classesToRemove.map((item) => {
-            companyDescription.classList.remove(item);
+            `Get started by providing your contact below.`
+        ).renderWithClass(['mb-8', 'text-black', 'text-center']).result;
+
+        _obtainForm('/obtain-contact-us-form').then((data) => {
+            let form = new DOMParser().parseFromString(data, 'text/html');
+
+            let fullName = new TextInputWithLabel(
+                'Name*',
+                form.querySelector('[name="full_name"]')
+            ).render().result;
+            fullName = this.__changeClassListFormInput(fullName);
+            let email = new TextInputWithLabel(
+                'Email Address*',
+                form.querySelector('[name="email"]')
+            ).render().result;
+            email = this.__changeClassListFormInput(email);
+            let reason = new SelectInputWithLabel(
+                `Today's Inquiry Topic*`,
+                form.querySelector('[name="inquiry_reason"]')
+            ).render().result;
+            reason = this.__changeClassListFormInput(reason);
+            reason
+                .querySelector('select')
+                .setAttribute('style', '-webkit-appearance: none;');
+
+            let submitButton = new TypicalFormSubmitButton('Submit').result;
+            submitButton.classList.replace('rounded-xl', 'rounded-full');
+            submitButton.classList.add('mt-3');
+
+            formContainer.append(
+                heading,
+                paragraph,
+                fullName,
+                email,
+                reason,
+                submitButton
+            );
+
+            submitButton.onclick = function (event) {
+                if (contactUsForm.checkValidity()) {
+                    event.preventDefault();
+                    _submitForm(
+                        contactUsForm,
+                        mainContainer,
+                        '/receive-contact-us-form/',
+                        'contact-us'
+                    );
+                }
+            };
         });
-        classesToAdd.map((item) => {
-            companyDescription.classList.add(item);
+
+        return formContainer;
+    }
+
+    createScheduleConsultationButton() {
+        let scheduleConsultationButton = new AnchorLinks(
+            'Schedule Consultation'
+        ).renderLargeInnocelfGradientButtonFullRound().result;
+        scheduleConsultationButton.classList.replace('w-1/3', 'w-1/4');
+        scheduleConsultationButton.classList.add(
+            'absolute',
+            '-top-32',
+            'right-96'
+        );
+
+        scheduleConsultationButton.href =
+            'https://calendly.com/innocelf/virtual-appointment';
+
+        return scheduleConsultationButton;
+    }
+
+    createFirstColumn() {
+        let column = this.__createFooterColumn();
+
+        _importSVG(
+            '/static/innoservices/img/Innocelf-Logo-WhiteFont-TransparentBack.svg'
+        ).then((response) => {
+            let svgElement = _parseSVG(response);
+            column.append(svgElement);
         });
-        column.append(companyName, hr, companyDescription);
         return column;
     }
-    _createListColumn(columnName, quickLinksObject) {
+
+    createListColumn(columnName, quickLinksObject) {
         let column = this.__createFooterColumn();
-        let columnHeading = new HeadingOrParagraph(
-            'h5',
-            columnName
-        ).renderWithClass(['uppercase']).result;
-        let hr = this.__createFooterHR();
+
         let listContainer = document.createElement('ul');
         Object.keys(quickLinksObject).map((item) => {
             let li = document.createElement('li');
             let link = new AnchorLinks(item).renderWithText().result;
             link.href = quickLinksObject[item];
+
+            // link.classList.add(
+            //     'text-sm',
+            //     'lato-semibold',
+            //     'sm:text-base',
+            //     'lg:text-lg',
+            //     '2xl:text-xl',
+            //     'ml-5',
+            //     'text-justify',
+            //     'mt-6'
+            // );
+
             li.append(link);
             listContainer.append(li);
         });
-        column.append(columnHeading, hr, listContainer);
+        column.append(listContainer);
         return column;
     }
+
+    createPrivacyPolicySection() {
+        let column = this.__createFooterColumn();
+
+        let listContainer = this._createTermsAndDisclaimerSection();
+        column.append(listContainer);
+        return column;
+    }
+
+    createCopyRightInfo() {
+        let row = document.createElement('div');
+        row.classList.add(
+            'flex',
+            'flex-col',
+            'justify-end',
+            'items-center',
+            'w-1/2',
+            'py-5',
+            'md:gap-2',
+            'lg:gap-16',
+            'border-0',
+            'border-b',
+            'border-white'
+        );
+
+        let paragraph = new HeadingOrParagraph(
+            'p',
+            '© 2020-2022 Copyright: Innocelf, LLC. All Rights Reserved'
+        ).renderWithClass(['text-white']).result;
+
+        row.append(paragraph);
+
+        return row;
+    }
+
     _createContactColumn() {
         let column = this.__createFooterColumn();
         let columnName = new HeadingOrParagraph(
@@ -1012,150 +1269,53 @@ export class Footer {
         );
         return column;
     }
-    _createMergerofCopyrightAndTermsSection() {
-        let container = document.createElement('div');
-        container.classList.add(
-            'flex',
-            'flex-col',
-            'gap-2',
-            'py-3',
-            'bg-black',
-            'justify-center',
-            'md:flex-row',
-            'md:gap-12',
-            'md:py-1'
-        );
 
-        let copyRightSection = this._createCopyRightSection();
-        let termsAndDisclaimerSection = this._createTermsAndDisclaimerSection();
-
-        container.append(copyRightSection, termsAndDisclaimerSection);
-
-        return container;
-    }
-    _createCopyRightSection() {
-        let container = document.createElement('div');
-        let containerClasses = ['bg-black', 'justify-center', 'text-center'];
-        containerClasses.map((item) => {
-            container.classList.add(item);
-        });
-        let paragraph = new HeadingOrParagraph(
-            'p',
-            '© 2020-2021 Copyright: Innocelf, LLC. All Rights Reserved'
-        ).result;
-        let classesToRemove = [
-            'text-sm',
-            'sm:text-base',
-            'lg:text-lg',
-            '2xl:text-lg',
-        ];
-        let classesToAdd = ['text-sm', 'lg:text-base'];
-        classesToRemove.map((item) => {
-            paragraph.classList.remove(item);
-        });
-        classesToAdd.map((item) => {
-            paragraph.classList.add(item);
-        });
-        container.append(paragraph);
-        return container;
-    }
     _createTermsAndDisclaimerSection() {
-        let container = document.createElement('div');
-        let containerClasses = ['bg-black', 'justify-center'];
-        containerClasses.map((item) => {
-            container.classList.add(item);
+        let unList = document.createElement('ul');
+
+        Object.keys(this._privacyPolicyLinks).map((item) => {
+            let list = document.createElement('li');
+            let link = new AnchorLinks(item).renderWithText().result;
+            link.href = this._privacyPolicyLinks[link];
+
+            list.append(link);
+            unList.append(list);
         });
-        let grid = document.createElement('div');
-        let gridClasses = [
-            'grid',
-            'grid-cols-3',
-            'text-center',
-            'gap-1',
-            'mx-auto',
-            // 'mt-3',
-            'md:grid-rows-none',
-            'md:grid-cols-3',
-            'md:gap-4',
-            // 'md:w-2/3',
-            // 'lg:w-2/5',
-            // '2xl:w-1/3',
-        ];
-        gridClasses.map((item) => {
-            grid.classList.add(item);
-        });
-        let privacyPolicy = new AnchorLinks(
-            'Privacy Policy'
-        ).renderWithTextAndUnderline().result;
-        privacyPolicy.href = '/privacy-policy/';
 
-        let termsOfUse = new AnchorLinks(
-            'Terms of Use'
-        ).renderWithTextAndUnderline().result;
-        termsOfUse.href = '/terms-and-conditions/';
-
-        let disclaimer = new AnchorLinks(
-            'Disclaimer'
-        ).renderWithTextAndUnderline().result;
-        disclaimer.href = '/disclaimer/';
-
-        grid.append(privacyPolicy, termsOfUse, disclaimer);
-        container.append(grid);
-        return container;
+        return unList;
     }
+
     __createFooterColumn() {
         let column = document.createElement('div');
-        column.classList.add('p-4');
+        column.classList.add('p-4', 'w-1/3', 'text-center');
         return column;
     }
-    __createFooterHR() {
-        let hr = document.createElement('hr');
-        let hrClassList = [
-            'w-40',
-            'mb-4',
-            'mt-3',
-            'inline-block',
-            'mx-auto',
-            'border',
-            'border-purple-800',
-        ];
-        hrClassList.map((item) => {
-            hr.classList.add(item);
-        });
-        return hr;
-    }
-    __createSocialMedia() {
-        let paragraph = new HeadingOrParagraph('p', '').renderWithClass([
-            'mt-4',
-        ]).result;
-        let grid = document.createElement('div');
-        let gridClassList = ['grid', 'grid-cols-6', 'gap-2'];
-        gridClassList.map((item) => {
-            grid.classList.add(item);
-        });
-        let linkedIn = new AnchorLinks('').renderWithIcon([
-            'fab',
-            'fa-linkedin-in',
-            'fa-lg',
-            'white-text',
-            'mr-4',
-        ]).result;
-        linkedIn.target = '_blank';
-        linkedIn.href = 'https://www.linkedin.com/company/innocelf-llc';
-        let facebook = new AnchorLinks('').renderWithIcon([
-            'fab',
-            'fa-facebook-f',
-            'fa-lg',
-            'white-text',
-            'mr-4',
-        ]).result;
-        facebook.target = '_blank';
-        facebook.href = 'https://www.facebook.com/Innocelf-106570791228978';
-        grid.append(
-            linkedIn
-            // facebook
+
+    __changeClassListFormInput(inputElement, inputClassList) {
+        let inputElementIn = inputElement.querySelector('input');
+        if (!inputElementIn) {
+            inputElementIn = inputElement.querySelector('select');
+        }
+
+        inputElement.querySelector('span').remove();
+
+        inputElementIn.className = '';
+        inputElementIn.classList.add(
+            'mt-0',
+            'block',
+            'lato-regular',
+            'w-full',
+            'px-5',
+            'py-4',
+            'text-sm',
+            'focus:ring-0',
+            'focus:border-black',
+            'rounded-full',
+            'text-black',
+            'bg-white',
+            'my-5'
         );
-        paragraph.append(grid);
-        return paragraph;
+        return inputElement;
     }
 }
 /**
