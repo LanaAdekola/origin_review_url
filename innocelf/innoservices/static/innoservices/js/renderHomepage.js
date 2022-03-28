@@ -10,6 +10,7 @@ import { DynamicTypedHeading } from './ComponentClasses/DynamicTypedHeading.js';
 import {
     _importSVG,
     _parseSVG,
+    launchContactUsModal,
     _fullWidthContainerWithBlueBackground,
     _grayCirclesOfBlueBeltBackground,
 } from './utils.js';
@@ -54,6 +55,7 @@ class GridContainerFirstCTA {
         let getStartedButton = new AnchorLinks(
             'Get Started'
         ).renderLargeInnocelfButtonFullRound().result;
+        getStartedButton.addEventListener('click', launchContactUsModal);
         getStartedButton.classList.add('mt-8');
 
         leftColumn.append(heading, paragraph, getStartedButton);
@@ -77,14 +79,14 @@ class GridContainerFirstCTA {
 
         // List items
         let listItem1 = new FirstPageListItem(
-            `Know Your Invention's Novelty`
+            `Know your Invention's Novelty`
         ).render().result;
         let listItem2 = new FirstPageListItem(
             `Make Informed Market Decisions`
         ).render().result;
         listItem2.classList.add('mt-5');
         let listItem3 = new FirstPageListItem(
-            `Simplify Your Patent Process`
+            `Simplify your Patent Process`
         ).render().result;
         listItem3.classList.add('mt-5');
         let listItem4 = new FirstPageListItem(

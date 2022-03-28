@@ -1,6 +1,8 @@
 'use strict';
 
 import { HeadingOrParagraph } from './ComponentClasses/HeadingOrParagraph.js';
+import { TypicalModal } from './ComponentClasses/TypicalModal.js';
+import { ContactUsForm } from './ComponentClasses/ContactUsForm.js';
 
 /**
  * The object is the state of all the important aspects of the pages in one
@@ -46,7 +48,7 @@ export const STATE = {
 				and where to read specific information in a similar patent 
 				document.`,
                     `While researching novelty for your invention, we also enlist
-				all possible claimns that one can consider while drafting a
+				all possible claims that one can consider while drafting a
 				patent application.`,
                 ],
                 advantages: [
@@ -257,6 +259,23 @@ export const STATE = {
         title: 'Our Process | Process we follow for all Clients',
     },
 };
+
+export function launchContactUsModal() {
+    let modal = new TypicalModal('contact_us_form');
+    let modalResult = modal.result;
+    modalResult.id = 'contact-us-form-modal';
+
+    let contactUsForm = new ContactUsForm(true, modal).result;
+    modalResult
+        .querySelector('[id="contact_us_form_modal_content_div"]')
+        .append(contactUsForm);
+
+    modalResult
+        .querySelector('[id="contact_us_form_modal_content_div"]')
+        .classList.add('bg-gradient-to-r', 'from-gray-50', 'to-gray-100');
+    document.getElementById('app').append(modalResult);
+    modal._showModal();
+}
 
 /**
  * The function fetches the SVG file designated in the path and returns a promise

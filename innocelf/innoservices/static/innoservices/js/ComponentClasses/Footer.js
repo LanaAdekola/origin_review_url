@@ -289,7 +289,6 @@ export class Footer {
         let unList = document.createElement('ul');
 
         Object.keys(this._privacyPolicyLinks).map((item) => {
-            console.log(this._privacyPolicyLinks[item]);
             let list = document.createElement('li');
             let link = new AnchorLinks(item).renderWithText().result;
             link.href = this._privacyPolicyLinks[item];
