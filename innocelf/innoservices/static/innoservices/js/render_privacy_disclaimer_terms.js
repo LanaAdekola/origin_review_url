@@ -1,5 +1,7 @@
 'use strict';
 import * as ComponentsTS from './components_ts.js';
+import { Navbar } from './ComponentClasses/Navbar.js';
+import { Footer } from './ComponentClasses/Footer.js';
 import { PageHeadElements, STATE } from './render_ts.js';
 /**
  * The function returns a paragraph element for the Terms, Disclaimer and Privacy
@@ -8,9 +10,13 @@ import { PageHeadElements, STATE } from './render_ts.js';
  * @returns A paragraph element with predefined classes and provided text content
  */
 function __typicalParagraph(textContent) {
-    let para = new ComponentsTS.HeadingOrParagraph('p', textContent).renderWithClass(['mt-5', 'text-justify']).result;
+    let para = new ComponentsTS.HeadingOrParagraph(
+        'p',
+        textContent
+    ).renderWithClass(['mt-5', 'text-justify']).result;
     return para;
 }
+
 /**
  * The function returns a heading element for the Terms, Disclaimer and Privacy
  * Policy pages. It has certain classes predefined
@@ -18,16 +24,23 @@ function __typicalParagraph(textContent) {
  * @returns A heading element with predefined classes and provided text content
  */
 function __typicalHeading(textContent) {
-    let heading = new ComponentsTS.HeadingOrParagraph('h6', textContent).renderWithClass(['mt-10']).result;
+    let heading = new ComponentsTS.HeadingOrParagraph(
+        'h6',
+        textContent
+    ).renderWithClass(['mt-10']).result;
     return heading;
 }
+
 /**
  * The function renders the Privacy Policy Page /privacy-policy
  */
 export function renderPrivacyPolicy() {
     new PageHeadElements(STATE.privacyPolicy.meta, STATE.privacyPolicy.title);
-    let navbar = new ComponentsTS.Navbar().render().result;
-    let heading = new ComponentsTS.HeadingOrParagraph('h3', 'Privacy Policy').renderGradientText().result;
+    let navbar = new Navbar().render().result;
+    let heading = new ComponentsTS.HeadingOrParagraph(
+        'h3',
+        'Privacy Policy'
+    ).renderGradientText().result;
     let paraContainer = document.createElement('div');
     let paraContainerClasses = [
         'block',
@@ -266,52 +279,66 @@ export function renderPrivacyPolicy() {
         POSTING OF A CHANGE NOTICE WILL CONSTITUTE BINDING ACCEPTANCE OF THOSE
         CHANGES.`,
     };
-    let subHead1 = new ComponentsTS.HeadingOrParagraph('h6', 'Innocelf, LLC').result;
-    let subHead2 = new ComponentsTS.HeadingOrParagraph('h6', 'Website Privacy Policy').result;
-    let subHead3 = new ComponentsTS.HeadingOrParagraph('h6', 'Revised as of October 16, 2020').result;
+    let subHead1 = new ComponentsTS.HeadingOrParagraph('h6', 'Innocelf, LLC')
+        .result;
+    let subHead2 = new ComponentsTS.HeadingOrParagraph(
+        'h6',
+        'Website Privacy Policy'
+    ).result;
+    let subHead3 = new ComponentsTS.HeadingOrParagraph(
+        'h6',
+        'Revised as of October 16, 2020'
+    ).result;
     paraContainer.append(subHead1, subHead2, subHead3);
     Object.keys(privacyPageObject).map((item) => {
         let element = document.createElement('p');
         if (item.includes('h')) {
             element = __typicalHeading(privacyPageObject[item]);
-        }
-        else if (item.includes('p')) {
+        } else if (item.includes('p')) {
             element = __typicalParagraph(privacyPageObject[item]);
         }
         paraContainer.append(element);
     });
     let footNoteContainer = function () {
         let container = document.createElement('div');
-        let containerClasses = [
-            'block',
-            'w-full',
-            'bg-gray-200',
-            'p-4',
-        ];
+        let containerClasses = ['block', 'w-full', 'bg-gray-200', 'p-4'];
         containerClasses.map((item) => {
             container.classList.add(item);
         });
-        let para1 = new ComponentsTS.HeadingOrParagraph('p', `* Testimonials found on this website are actual client reviews.
-            Prospective clients may not obtain the same or similar results.`).result;
-        let para2 = new ComponentsTS.HeadingOrParagraph('p', `** The information contained in this website is intended for
+        let para1 = new ComponentsTS.HeadingOrParagraph(
+            'p',
+            `* Testimonials found on this website are actual client reviews.
+            Prospective clients may not obtain the same or similar results.`
+        ).result;
+        let para2 = new ComponentsTS.HeadingOrParagraph(
+            'p',
+            `** The information contained in this website is intended for
             general informational purposes only, and should not be construed as
-            legal advice on any matter.`).result;
-        let para3 = new ComponentsTS.HeadingOrParagraph('p', `*** For important disclaimer information please visit
-            https://www.innocelf.com/disclaimer.`).result;
+            legal advice on any matter.`
+        ).result;
+        let para3 = new ComponentsTS.HeadingOrParagraph(
+            'p',
+            `*** For important disclaimer information please visit
+            https://www.innocelf.com/disclaimer.`
+        ).result;
         container.append(para1, para2, para3);
         return container;
     };
-    let footer = new ComponentsTS.Footer().render().result;
+    let footer = new Footer().render().result;
     let app = document.getElementById('app');
     app.append(navbar, heading, paraContainer, footNoteContainer(), footer);
 }
+
 /**
  * The function renders the Disclaimer Page /disclaimer
  */
 export function renderDisclaimerPage() {
     new PageHeadElements(STATE.disclaimer.meta, STATE.disclaimer.title);
-    let navbar = new ComponentsTS.Navbar().render().result;
-    let heading = new ComponentsTS.HeadingOrParagraph('h3', 'Disclaimer').renderGradientText().result;
+    let navbar = new Navbar().render().result;
+    let heading = new ComponentsTS.HeadingOrParagraph(
+        'h3',
+        'Disclaimer'
+    ).renderGradientText().result;
     let paraContainer = document.createElement('div');
     let paraContainerClasses = [
         'block',
@@ -343,29 +370,36 @@ export function renderDisclaimerPage() {
         we cannot guarantee particular results for future clients based on
         successes we have achieved in past matters.`,
     };
-    let subHead1 = new ComponentsTS.HeadingOrParagraph('h6', 'Not Legal Advice').result;
+    let subHead1 = new ComponentsTS.HeadingOrParagraph('h6', 'Not Legal Advice')
+        .result;
     paraContainer.append(subHead1);
     Object.keys(privacyPageObject).map((item) => {
         let element = document.createElement('p');
         if (item.includes('h')) {
             element = __typicalHeading(privacyPageObject[item]);
-        }
-        else if (item.includes('p')) {
+        } else if (item.includes('p')) {
             element = __typicalParagraph(privacyPageObject[item]);
         }
         paraContainer.append(element);
     });
-    let footer = new ComponentsTS.Footer().render().result;
+    let footer = new Footer().render().result;
     let app = document.getElementById('app');
     app.append(navbar, heading, paraContainer, footer);
 }
+
 /**
  * The function renders the Privacy Policy Page /privacy-policy
  */
 export function renderTermsOfUsePage() {
-    new PageHeadElements(STATE.termsAndConditions.meta, STATE.termsAndConditions.title);
-    let navbar = new ComponentsTS.Navbar().render().result;
-    let heading = new ComponentsTS.HeadingOrParagraph('h3', 'Terms of Use').renderGradientText().result;
+    new PageHeadElements(
+        STATE.termsAndConditions.meta,
+        STATE.termsAndConditions.title
+    );
+    let navbar = new Navbar().render().result;
+    let heading = new ComponentsTS.HeadingOrParagraph(
+        'h3',
+        'Terms of Use'
+    ).renderGradientText().result;
     let paraContainer = document.createElement('div');
     let paraContainerClasses = [
         'block',
@@ -697,16 +731,22 @@ export function renderTermsOfUsePage() {
         Website, superseding any prior written or oral agreements in relation to
         the same subject matter herein.`,
     };
-    let subHead1 = new ComponentsTS.HeadingOrParagraph('h6', 'Innocelf, LLC').result;
-    let subHead2 = new ComponentsTS.HeadingOrParagraph('h6', 'Website Terms and Conditions of Use').result;
-    let subHead3 = new ComponentsTS.HeadingOrParagraph('h6', 'Revised as of October 16, 2020').result;
+    let subHead1 = new ComponentsTS.HeadingOrParagraph('h6', 'Innocelf, LLC')
+        .result;
+    let subHead2 = new ComponentsTS.HeadingOrParagraph(
+        'h6',
+        'Website Terms and Conditions of Use'
+    ).result;
+    let subHead3 = new ComponentsTS.HeadingOrParagraph(
+        'h6',
+        'Revised as of October 16, 2020'
+    ).result;
     paraContainer.append(subHead1, subHead2, subHead3);
     Object.keys(privacyPageObject).map((item) => {
         let element = document.createElement('p');
         if (item.includes('h')) {
             element = __typicalHeading(privacyPageObject[item]);
-        }
-        else if (item.includes('p')) {
+        } else if (item.includes('p')) {
             element = __typicalParagraph(privacyPageObject[item]);
         }
         paraContainer.append(element);
@@ -756,13 +796,12 @@ export function renderTermsOfUsePage() {
         let element = document.createElement('p');
         if (item.includes('h')) {
             element = __typicalHeading(privacyPageObject2[item]);
-        }
-        else if (item.includes('p')) {
+        } else if (item.includes('p')) {
             element = __typicalParagraph(privacyPageObject2[item]);
         }
         paraContainer.append(element);
     });
-    let footer = new ComponentsTS.Footer().render().result;
+    let footer = new Footer().render().result;
     let app = document.getElementById('app');
     app.append(navbar, heading, paraContainer, footer);
 }
