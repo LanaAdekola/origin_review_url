@@ -229,7 +229,7 @@ class GridContainerServicesOverview {
             [
                 `Ensures that you have a unique brand for maximum competitive
                 advantage.`,
-                `Saves on non-refundable fees for trademark registrations`,
+                `Saves on non-refundable fees for trademark registrations.`,
             ],
             'researching_new_business_names_or_logos'
         );
@@ -369,7 +369,7 @@ function firstPageShortMissionReminder() {
     ).renderWithClass(['text-white', 'my-8']).result;
     let paragraph = new HeadingOrParagraph(
         'h3',
-        'We promise, our quality will exceed your expections ...'
+        'We promise, our quality will exceed your expectations ...'
     ).renderWithClass(['text-white', 'mb-8']).result;
     paragraph.classList.replace('lato-bold', 'lato-regular');
     paragraph.classList.remove('font-bold');

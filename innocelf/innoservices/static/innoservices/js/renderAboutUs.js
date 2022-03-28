@@ -170,7 +170,7 @@ function __createCEOPhotoContainer() {
 function __createEducationContainer() {
     let container = document.createElement('div');
     container.id = 'about-us-pranita-education-container';
-    container.classList.add('flex', 'flex-col', 'w-full', 'mt-8');
+    container.classList.add('flex', 'flex-col', 'w-full', 'mt-8', 'hidden');
 
     let educationArray = [
         `B.S Pharmaceuticals Sciences, Mumbai University`,
@@ -178,8 +178,7 @@ function __createEducationContainer() {
         `M.A Patent Practice, Case Western Reserve University School of Law`,
     ];
     let profActArray = [
-        `American Intellectual Property Law Association (AIPLA)`,
-        `Mentoring Committee Relationship Manager`,
+        `Mentoring Committee Relationship Manager at AIPLA`,
         `Mentor for Pitch for $K (Business Idea Pitch Competition) at 100K IDEAS`,
     ];
     let expertiseArray = [
@@ -268,7 +267,14 @@ function _createCEOContainer() {
     let readMoreButton = new AnchorLinks(
         'Read More'
     ).renderMediumHollowInnocelfButtonFullRound().result;
-    readMoreButton.href = '#about-us-pranita-education-container';
+    //readMoreButton.href = '#about-us-pranita-education-container';
+    readMoreButton.onclick = () => {
+        let eduCont = document.getElementById(
+            'about-us-pranita-education-container'
+        );
+        eduCont.classList.toggle('hidden');
+    };
+
     readMoreButton.removeAttribute('target');
     paraContainer.append(readMoreButton);
 
@@ -321,7 +327,7 @@ function createLeadershipContainer() {
     let heading = new HeadingOrParagraph(
         'h2',
         'Our Leadership'
-    ).renderWithClass(['text-center', 'mb-12']).result;
+    ).renderWithClass(['mb-12']).result;
     let ceoContainer = _createCEOContainer();
 
     container.append(heading, ceoContainer);
@@ -422,7 +428,7 @@ function createValuesContainer() {
     ];
     let headingsArray = [
         'We are committed',
-        'We are tranparent',
+        'We are transparent',
         'We aim for progress',
     ];
     let paraArray = [
@@ -589,7 +595,7 @@ function _createExpertiseContainer() {
         'Medical Devices',
         'Pharmaceuticals and Nutraceuticals',
         'Chemistry',
-        'Artficial Intelligence (AI)',
+        'Artificial Intelligence (AI)',
         'Software',
         'Consumer Electronics',
         'Food Technology',

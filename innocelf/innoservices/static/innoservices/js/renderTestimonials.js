@@ -26,11 +26,9 @@ function createParagraphContainer() {
 
     let firstPara = new HeadingOrParagraph(
         'p',
-        `
-        At Innocelf, we are dedicated to provide the best possible research to 
-        our clients, using our wide experience and the best possible tools
-        available in the marketplace. This has helped our clients in the short
-        and long term.`
+        `Innocelf has had the great pleasure of working with clients from
+		around the world - here are the kind words they had to say about our
+		work...`
     ).result;
     let br = document.createElement('br');
     let secondPara = () => {
@@ -47,7 +45,7 @@ function createParagraphContainer() {
 
         span.textContent = `How can Innocelf help ...? `;
 
-        a.textContent = 'Schedule Consulation via Calendly';
+        a.textContent = 'Schedule Consultation via Calendly';
         a.classList.add('underline', 'lato-regular');
         a.target = '_blank';
         a.href = 'https://calendly.com/innocelf/virtual-appointment';
@@ -99,7 +97,8 @@ function createReviewGrid() {
         'grid',
         'grid-cols-1',
         'gap-6',
-        'w-10/12',
+        'w-full',
+        'max-w-7xl',
         'mx-auto',
         'my-24',
         'md:w-2/3',
@@ -138,7 +137,7 @@ function createReviewGrid() {
 
 export function renderTestimonial() {
     new PageHeadElements(STATE.faqPage.meta, STATE.faqPage.title);
-    let testHeading = createHeadingWithBlueBackground('Testimonials');
+    let testHeading = createHeadingWithBlueBackground('Client Reviews');
     let navbar = new Navbar().render().result;
     let paraContainer = createParagraphContainer();
     let reviewContainer = createReviewGrid();

@@ -12,7 +12,7 @@ export class DynamicTypedHeading {
             'filing a Patent Application?',
             'commercializing your product?',
             'researching a new business name or logo?',
-            'doing technology analysis?',
+            'performing technology assessment?',
         ];
         this.dynamicTypedContent = document.createElement('span');
         this.dynamicTypedCursor = document.createElement('span');

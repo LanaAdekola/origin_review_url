@@ -34,9 +34,8 @@ export const STATE = {
             'Researching a New Idea': {
                 isFirst: true,
                 listItems: [
-                    'Patentability Search',
-                    'Novelty Search',
-                    'Prior Art Search',
+                    'Patentability / Novelty / Prior Art Search',
+                    'Accelerated Examination Search',
                 ],
                 paragraph: [
                     `We provide a comprehensive research report targeting every
@@ -69,6 +68,7 @@ export const STATE = {
                     'Freedom to Operate Search',
                     'Clearance Search',
                     'Infringement Analysis',
+                    `Amazon Product Patent Search `,
                 ],
                 paragraph: [
                     `Landscape Analysis gives a birds eye view of the patents
@@ -97,12 +97,11 @@ export const STATE = {
                 isFirst: false,
                 listItems: ['Validity / Invalidity Search'],
                 paragraph: [
-                    `Validity / Invalidity search reports are not one size fits all.
-				We understand that each project has its own goals and objectives.
-				We design our search strategies, database selection and report
-				representation according to your needs. Detailed discussions
-				with our clients during the whole process keeps you in the loop
-				at all times.`,
+                    `Validity / Invalidity search reports are not one size fits
+					all. We understand that each project has its own goals. We
+					design our search strategies, database selection and report
+					representation according to your needs after detailed
+					discussions with you.`,
                 ],
                 advantages: [
                     'Collaborative approach to undertand your needs',

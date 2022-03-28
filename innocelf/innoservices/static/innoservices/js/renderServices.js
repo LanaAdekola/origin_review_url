@@ -48,40 +48,14 @@ function createParagraphContainer() {
         return paragraph;
     };
     let firstParagraph = __paragraph(
-        `As an inventor you are constantly trying to add value to this world
-            through your inventions. However, there is always this thought at
-            the back of your mind whether I am infringing on another's
-            invention.  On the other end, as a Patent Practitioner, you are
-            helping an innovator protect their invention by investing long hours
-            in filing all the paper work.`
-    );
-    // Second Paragraph
-    let secondParagraph = __paragraph(
-        `You seldom have the time to divert your energy from your core work
-            to research the patent spectrum and provide stakeholders with the
-            relevant answers they need.`
-    );
-    // Third Paragraph
-    let thirdParagraph = __paragraph(
-        `Let Innocelf help you with comprehensive and systematic
-            intellectual property research and analysis. Whether you have a new
-            idea, drafting claims for a patentable idea, determining clearance 
-            for the next market launch, or deciding to license a patent, you
-            deserve an analysis to revolutionize your IP strategy.`
-    );
-    // Fourth Paragraph
-    let fourthParagraph = __paragraph(
-        `We combine a modern AI search-based approach with manual expert
-            analysis to free you from reading unnecessary search results.`
+        `Innocelf can assist you with comprehensive and customized intellectual
+		property research and analysis. Whether you are filing a patent
+		application, launching a new product, assessing the strength of your
+		portfolio or responding to a claim of infringement; a detailed IP
+		analysis can make a difference.`
     );
 
-    paragraphContainer.append(
-        firstHeading,
-        firstParagraph,
-        secondParagraph,
-        thirdParagraph,
-        fourthParagraph
-    );
+    paragraphContainer.append(firstHeading, firstParagraph);
     return paragraphContainer;
 }
 

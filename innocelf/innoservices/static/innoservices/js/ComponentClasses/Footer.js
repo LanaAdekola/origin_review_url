@@ -275,7 +275,7 @@ export class Footer {
             let a = document.createElement('a');
             a.classList.add('underline');
             a.href = '/disclaimer';
-            a.textContent = 'this page';
+            a.textContent = 'this page.';
 
             p.append(span, a);
             return p;
