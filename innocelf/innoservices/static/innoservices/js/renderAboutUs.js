@@ -447,6 +447,32 @@ function createValuesContainer() {
     return container;
 }
 
+function __createToolsAndExpertiseSmallLargeHeading(
+    smallHeadingText,
+    largeHeadingText
+) {
+    let container = document.createElement('div');
+    container.classList.add('flex', 'flex-col', 'w-full');
+
+    let smallHeading = new HeadingOrParagraph(
+        'p',
+        smallHeadingText
+    ).renderWithClass(['text-black', 'mb-4']).result;
+    smallHeading.classList.remove('font-medium');
+    smallHeading.classList.replace('lato-regular', 'lato-light');
+
+    let heading = new HeadingOrParagraph(
+        'h2',
+        largeHeadingText
+    ).renderWithClass(['text-black']).result;
+    heading.classList.remove('font-bold');
+    heading.classList.replace('lato-bold', 'lato-regular');
+
+    container.append(smallHeading, heading);
+
+    return container;
+}
+
 /**
  * Creates tool information advantages for the tools Innocelf uses
  * @returns Unordered list with all the advantages
@@ -541,6 +567,62 @@ function _createToolsDescription() {
     return container;
 }
 
+function _createExpertiseContainer() {
+    let container = document.createElement('div');
+    container.classList.add('flex', 'flex-row', 'w-full');
+
+    let imageContainer = document.createElement('div');
+    imageContainer.classList.add(
+        'flex',
+        'w-1/3',
+        'justify-center',
+        'self-center'
+    );
+    _importSVG('/static/innoservices/img/about-us/aboutUsExpertise.svg').then(
+        (response) => {
+            let svgElement = _parseSVG(response);
+            imageContainer.append(svgElement);
+        }
+    );
+
+    let expertiseArray = [
+        'Medical Devices',
+        'Pharmaceuticals and Nutraceuticals',
+        'Chemistry',
+        'Artficial Intelligence (AI)',
+        'Software',
+        'Consumer Electronics',
+        'Food Technology',
+    ];
+
+    let paraContainer = document.createElement('div');
+    paraContainer.classList.add('flex', 'flex-col', 'w-2/3', 'self-center');
+
+    let para = new HeadingOrParagraph(
+        'p',
+        `We are constantly expanding our expertise by learning new things and
+		by including subject matter experts to provide the best possible service
+		for your needs. The technologies we have worked on extensively are:`
+    )
+        .renderMissionOrValueText()
+        .renderWithClass(['text-black', 'text-justify']).result;
+
+    let ul = document.createElement('ul');
+    ul.classList.add('list-disc', 'list-inside', 'mt-5', 'mb-8');
+
+    expertiseArray.map((item) => {
+        let li = document.createElement('li');
+        li.textContent = item;
+
+        li.classList.add('text-base', 'lato-light', 'sm:text-lg', 'lg:text-xl');
+        ul.append(li);
+    });
+    paraContainer.append(para, ul);
+
+    container.append(imageContainer, paraContainer);
+    return container;
+}
+
 /**
  * Creates a container with the tools information of Innocelf
  * @returns Container with the tools information for Innocelf
@@ -567,28 +649,19 @@ function createToolsContainer() {
         'gap-24'
     );
 
-    let headingContainer = document.createElement('div');
-    headingContainer.classList.add('flex', 'flex-col', 'w-full');
-
-    let smallHeading = new HeadingOrParagraph(
-        'p',
-        'What we use'
-    ).renderWithClass(['text-black', 'mb-4']).result;
-    smallHeading.classList.remove('font-medium');
-    smallHeading.classList.replace('lato-regular', 'lato-light');
-
-    let heading = new HeadingOrParagraph(
-        'h2',
+    let toolsHeadingContainer = __createToolsAndExpertiseSmallLargeHeading(
+        'What we use',
         'Our Research Tools'
-    ).renderWithClass(['text-black']).result;
-    heading.classList.remove('font-bold');
-    heading.classList.replace('lato-bold', 'lato-regular');
-
-    headingContainer.append(smallHeading, heading);
-    subContainer.append(headingContainer);
-
+    );
     let toolDescContainer = _createToolsDescription();
-    subContainer.append(toolDescContainer);
+    subContainer.append(toolsHeadingContainer, toolDescContainer);
+
+    let expertiseHeadingContainer = __createToolsAndExpertiseSmallLargeHeading(
+        'Our Expertise',
+        'Technologies'
+    );
+    let expertiseContaner = _createExpertiseContainer();
+    subContainer.append(expertiseHeadingContainer, expertiseContaner);
 
     container.append(subContainer);
     return container;
@@ -610,7 +683,7 @@ export function renderAboutUs() {
     let app = document.getElementById('app');
     app.append(
         navbar,
-        innocelfStandsForCont,
+        //innocelfStandsForCont,
         missionValuesCont,
         leadershipContainer,
         valuesContainer,
