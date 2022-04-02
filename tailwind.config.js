@@ -1,6 +1,6 @@
 module.exports = {
 	purge: {
-		enabled: false,
+		enabled: true,
 		content: [
 			'./innocelf/innoservices/static/innoservices/js/*.js',
 			'./innocelf/innoservices/static/innoservices/js/ComponentClasses/*.js',
@@ -31,6 +31,8 @@ module.exports = {
 			},
 			width: {
 				'3/10': '30%',
+				'92p': '92px',
+				'125p': '125px'
 			},
 			lineHeight: {
 				12: '4rem',

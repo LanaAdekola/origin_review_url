@@ -18,7 +18,7 @@ function createParagraphContainer() {
     container.classList.add(
         'flex',
         'flex-col',
-        'w-full',
+        'w-11/12',
         'mx-auto',
         'my-24',
         'max-w-4xl'
@@ -96,8 +96,8 @@ function createReviewGrid() {
     container.classList.add(
         'grid',
         'grid-cols-1',
-        'gap-6',
-        'w-full',
+        'gap-12',
+        'w-11/12',
         'max-w-7xl',
         'mx-auto',
         'my-24',

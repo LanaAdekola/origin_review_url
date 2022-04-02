@@ -27,7 +27,7 @@ function createExpandCollapseButtons() {
     let row = document.createElement('div');
     row.classList.add(
         'flex',
-        'w-full',
+        'w-11/12',
         'mx-auto',
         'mb-6',
         'justify-end',
@@ -58,7 +58,7 @@ function createFAQContainer() {
     container.classList.add(
         'flex',
         'flex-col',
-        'w-full',
+        'w-11/12',
         'mx-auto',
         'my-24',
         'max-w-7xl',
