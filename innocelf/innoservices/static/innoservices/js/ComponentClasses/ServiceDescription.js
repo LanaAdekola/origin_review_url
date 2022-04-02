@@ -45,7 +45,9 @@ export class ServiceDescription {
             'h3',
             this.desiredHeading
         ).renderWithClass([
-            'my-16',
+            'mt-16',
+            'mb-6',
+            'lg:mb-16',
             'text-black',
             'text-center',
             'max-w-7xl',
@@ -60,10 +62,11 @@ export class ServiceDescription {
         let container = document.createElement('div');
         container.classList.add(
             'flex',
-            'flex-row',
+            'flex-col',
             'w-full',
             'mx-auto',
-            'max-w-7xl'
+            'max-w-7xl',
+            'lg:flex-row'
         );
 
         let listAndParaContainer = this._createListAndParaContainer();
@@ -71,7 +74,14 @@ export class ServiceDescription {
         _importSVG(this.imageSrc).then((response) => {
             let svgElement = _parseSVG(response);
             svgElement.setAttribute('height', '355');
-            svgElement.classList.add('w-1/2');
+            svgElement.classList.add(
+                'w-56',
+                'h-56',
+                'm-auto',
+                'lg:w-1/3',
+                'lg:h-96',
+                'xl:w-1/2'
+            );
             container.append(svgElement, listAndParaContainer);
         });
 
@@ -85,7 +95,7 @@ export class ServiceDescription {
             'my-12',
             'h-18',
             'mx-auto',
-            'w-full',
+            'w-11/12',
             'max-w-7xl'
         );
         let para = this.__createOneAdvantage(
@@ -183,10 +193,16 @@ export class ServiceDescription {
         container.classList.add(
             'flex',
             'flex-col',
-            'w-1/2',
+            'px-6',
             'h-full',
-            'gap-12',
-            'my-auto'
+            'mt-10',
+            'gap-6',
+            'sm:w-10/12',
+            'sm:mx-auto',
+            'lg:mt-auto',
+            'lg:my-auto',
+            'lg:w-1/2',
+            'lg:gap-12'
         );
 
         let unorderedList = this.__createUnorderedList();
@@ -208,11 +224,9 @@ export class ServiceDescription {
             'text-base',
             'list-disc',
             'list-inside',
-            'pb-6',
             'sm:pb-0',
             'sm:text-lg',
             'sm:leading-10',
-            'sm:gap-3',
             'lg:text-2xl',
         ];
         unorderedListClass.map((item) => {

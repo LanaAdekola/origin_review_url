@@ -30,6 +30,7 @@ export class ContactUsForm {
             'drop-shadow-md',
             'sm:px-16',
             'sm:py-8',
+            'md:w-2/3',
             'lg:px-8',
             'lg:w-1/2',
             'xl:px-16',
