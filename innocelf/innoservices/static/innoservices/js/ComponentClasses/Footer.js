@@ -37,8 +37,8 @@ export class Footer {
             'text-white',
             'pt-5',
             'relative',
-            'h-96',
             'mt-96',
+            'lg:h-96',
         ];
         footerClasslist.map((item) => {
             this.result.classList.add(item);
@@ -55,7 +55,6 @@ export class Footer {
         container.classList.add(
             'flex',
             'flex-col',
-            'w-2/3',
             'mx-auto',
             'my-5',
             'md:w-full',
@@ -63,7 +62,9 @@ export class Footer {
             'max-w-7xl',
             'justify-end',
             'items-end',
-            'relative'
+            'relative',
+            'w-full',
+            'lg:w-2/3'
         );
 
         let contactUsForm = this.contactUsForm();
@@ -84,15 +85,18 @@ export class Footer {
         let container = document.createElement('div');
         container.classList.add(
             'flex',
-            'flex-row',
+            'flex-col',
+            'w-full',
             'justify-end',
             'items-center',
-            'w-1/2',
             'pb-5',
             'md:gap-2',
             'border-0',
             'border-b',
-            'border-white'
+            'border-white',
+            'mt-5',
+            'lg:flex-row',
+            'lg:w-1/2'
         );
         let firstColumn = this.createFirstColumn();
         let quickLinksColumn1 = this.createListColumn(
@@ -118,7 +122,7 @@ export class Footer {
 
     contactUsForm() {
         let formContainer = new ContactUsForm().result;
-        formContainer.classList.add('absolute', 'left-0', '-bottom-6');
+        formContainer.classList.add('lg:absolute', 'lg:left-0', 'lg:-bottom-6');
 
         return formContainer;
     }
@@ -143,7 +147,8 @@ export class Footer {
 
     createFirstColumn() {
         let column = this.__createFooterColumn();
-        column.classList.replace('w-1/3', 'w-2/5');
+        column.classList.replace('w-1/3', 'lg:w-2/5');
+        column.classList.add('mb-5', 'sm:w-1/2');
 
         _importSVG(
             '/static/innoservices/img/Innocelf-Logo-WhiteFont-TransparentBack.svg'
@@ -156,7 +161,7 @@ export class Footer {
 
     createListColumn(columnName, quickLinksObject, columnState) {
         let column = this.__createFooterColumn();
-        column.classList.replace('w-1/3', 'w-1/5');
+        column.classList.replace('w-1/3', 'lg:w-1/5');
 
         let keysToConsider = [];
         if (columnState === 'first') {
@@ -211,13 +216,14 @@ export class Footer {
             'flex-col',
             'justify-end',
             'items-center',
-            'w-1/2',
             'py-5',
             'md:gap-2',
             'lg:gap-16',
             'border-0',
             'border-b',
-            'border-white'
+            'border-white',
+            'w-full',
+            'lg:w-1/2'
         );
 
         let paragraph = new HeadingOrParagraph(
@@ -245,12 +251,15 @@ export class Footer {
         container.classList.add(
             'flex',
             'flex-col',
-            'w-3/4',
             'max-w-7xl',
-            'absolute',
-            'left-1/4',
-            'bottom-0',
-            'mt-8'
+            'mt-8',
+            'px-3',
+            'mx-auto',
+            'lg:w-10/12',
+            'xl:w-3/4',
+            '2xl:absolute',
+            '2xl:left-1/4',
+            '2xl:bottom-0'
         );
 
         let p1 = new HeadingOrParagraph(
@@ -302,7 +311,14 @@ export class Footer {
 
     __createFooterColumn() {
         let column = document.createElement('div');
-        column.classList.add('p-4', 'w-1/3', 'text-left');
+        column.classList.add(
+            'px-4',
+            'w-3/4',
+            'text-center',
+            'w-1/3',
+            'lg:text-left',
+            'lg:py-4'
+        );
         return column;
     }
 }

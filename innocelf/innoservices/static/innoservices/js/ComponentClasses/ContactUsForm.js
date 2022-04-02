@@ -21,16 +21,20 @@ export class ContactUsForm {
             'flex',
             'flex-col',
             'w-full',
-            'max-w-xl',
-            'px-16',
-            'py-8',
+            'px-4',
+            'py-5',
+            'mx-auto',
             'bg-gradient-to-r',
             'from-gray-50',
             'to-gray-100',
-            'drop-shadow-md'
-            // 'absolute',
-            // 'left-0',
-            // '-bottom-6'
+            'drop-shadow-md',
+            'sm:px-16',
+            'sm:py-8',
+            'lg:px-8',
+            'lg:w-1/2',
+            'xl:px-16',
+            'xl:py-8',
+            'xl:max-w-xl'
         );
         this.result.style.borderRadius = '35px';
 

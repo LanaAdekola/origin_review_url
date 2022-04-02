@@ -26,10 +26,16 @@ class GridContainerFirstCTA {
         this.result = document.createElement('div');
         this.result.classList.add(
             'flex',
-            'flex-row',
-            'max-w-7xl',
             'mx-auto',
-            'my-24'
+            'my-12',
+            'flex-col',
+            'gap-8',
+            'sm:flex-row',
+            'lg:max-w-4xl',
+            'lg:my-16',
+            'xl:my-24',
+            'xl:max-w-7xl',
+            'xl:gap-0'
         );
         this.populateLeftColumn();
         this.populateRightColumn();
@@ -37,12 +43,20 @@ class GridContainerFirstCTA {
 
     populateLeftColumn() {
         let leftColumn = document.createElement('div');
-        leftColumn.classList.add('flex', 'flex-col', 'w-1/2', 'my-auto');
+        leftColumn.classList.add(
+            'flex',
+            'flex-col',
+            'my-auto',
+            'px-8',
+            'sm:px-4',
+            'sm:w-1/2',
+            'xl:px-0'
+        );
 
         let heading = new HeadingOrParagraph(
             'h2',
             'Data-Driven Insights for your Inventions'
-        ).renderWithClass(['leading-6']).result;
+        ).renderWithClass(['leading-6', 'text-center', 'sm:text-left']).result;
         heading.classList.replace('2xl:text-5xl', '2xl:text-6xl');
         heading.classList.replace('lato-regular', 'lato-bold');
 
@@ -56,7 +70,7 @@ class GridContainerFirstCTA {
             'Get Started'
         ).renderLargeInnocelfButtonFullRound().result;
         getStartedButton.addEventListener('click', launchContactUsModal);
-        getStartedButton.classList.add('mt-8');
+        getStartedButton.classList.add('xl:mt-8');
 
         leftColumn.append(heading, paragraph, getStartedButton);
         this.result.append(leftColumn);
@@ -75,7 +89,15 @@ class GridContainerFirstCTA {
         // });
         // this.result.append(rightColumn);
 
-        rightColumn.classList.add('flex', 'flex-col', 'w-1/2', 'pl-24');
+        rightColumn.classList.add(
+            'flex',
+            'flex-col',
+            'pl-8',
+            'sm:w-1/2',
+            'sm:my-auto',
+            'sm:pl-8',
+            'xl:pl-24'
+        );
 
         // List items
         let listItem1 = new FirstPageListItem(
@@ -111,10 +133,10 @@ function firstCallToActionContainer() {
         'flex',
         'flex-col',
         'w-full',
-        'lg:bg-polkadot-graphic',
-        'lg:bg-no-repeat',
-        'lg:bg-cover',
-        'lg:bg-center'
+        'sm:bg-polkadot-graphic',
+        'sm:bg-no-repeat',
+        'sm:bg-center',
+        'xl:bg-cover'
     );
     let navbar = new Navbar().render().result;
     let gridContainer = new GridContainerFirstCTA().result;
@@ -135,8 +157,17 @@ function dynamicHeadingContainer() {
     let container = _fullWidthContainerWithBlueBackground();
 
     let subContainer = document.createElement('div');
-    subContainer.classList.add('flex', 'flex-col', 'w-3/5', 'mx-auto');
+    subContainer.classList.add(
+        'flex',
+        'flex-col',
+        'w-11/12',
+        'mx-auto',
+        'lg:max-w-4xl',
+        'xl:max-w-7xl',
+        'xl:w-3/5'
+    );
     let dynamicTypedHeading = new DynamicTypedHeading().render().result;
+
     let paragraph = new HeadingOrParagraph(
         'h3',
         'Here are a few ways we can help ...'
@@ -155,7 +186,18 @@ function dynamicHeadingContainer() {
         '/static/innoservices/img/firstPage/firstPageMiddleBlueBeltLogo.svg'
     ).then((response) => {
         let svgElement = _parseSVG(response);
-        svgElement.classList.add('absolute', '-bottom-16', 'left-1/2');
+        svgElement.classList.add(
+            'w-16',
+            'h-16',
+            'absolute',
+            'left-40',
+            '-bottom-8',
+            'sm:left-80',
+            'md:left-1/2',
+            'xl:w-24',
+            'xl:h-24',
+            'xl:-bottom-16'
+        );
         container.append(svgElement);
     });
 
@@ -171,12 +213,13 @@ class GridContainerServicesOverview {
     constructor() {
         this.result = document.createElement('div');
         this.result.classList.add(
-            'grid',
-            'grid-rows-4',
-            'gap-12',
+            'flex',
+            'flex-col',
             'max-w-7xl',
+            'gap-6',
             'mx-auto',
-            'my-24'
+            'my-24',
+            'md:gap-12'
         );
 
         this.populateImageLeftRow(
@@ -262,7 +305,7 @@ class GridContainerServicesOverview {
         listItems,
         anchorLinkIdToAddress
     ) {
-        let container = this._createMainContainerGridItem();
+        let container = this._createMainContainerGridItem('right');
         let subContainer = this._createSubContainerGridItem(
             textHeading,
             paragraphContent,
@@ -275,9 +318,14 @@ class GridContainerServicesOverview {
         this.result.append(container);
     }
 
-    _createMainContainerGridItem() {
+    _createMainContainerGridItem(imagePosition = 'left') {
         let container = document.createElement('div');
-        container.classList.add('flex', 'flex-row', 'gap-28');
+        if (imagePosition === 'left') {
+            container.classList.add('flex', 'flex-col');
+        } else if (imagePosition === 'right') {
+            container.classList.add('flex', 'flex-col-reverse');
+        }
+        container.classList.add('md:flex-row', 'xl:gap-28');
         return container;
     }
 
@@ -291,9 +339,11 @@ class GridContainerServicesOverview {
         subContainer.classList.add(
             'flex',
             'flex-col',
-            'w-1/2',
+            'p-4',
             'my-auto',
-            'p-8'
+            'sm:p-12',
+            'md:w-1/2',
+            'md:p-8'
         );
         let heading = new HeadingOrParagraph('h3', textHeading).renderWithClass(
             ['mb-8']
@@ -328,6 +378,14 @@ class GridContainerServicesOverview {
             ).then((response) => {
                 let svgElement = _parseSVG(response);
                 svgElement.setAttribute('width', '600');
+                svgElement.classList.add(
+                    'w-80',
+                    'h-64',
+                    'm-auto',
+                    'lg:w-auto',
+                    'lg:h-96',
+                    'xl:h-auto'
+                );
 
                 result(svgElement);
             });
@@ -362,15 +420,26 @@ function firstPageShortMissionReminder() {
     let container = _fullWidthContainerWithBlueBackground();
 
     let subContainer = document.createElement('div');
-    subContainer.classList.add('flex', 'flex-col', 'max-w-7xl', 'm-auto');
+    subContainer.classList.add(
+        'flex',
+        'flex-col',
+        'w-11/12',
+        'mx-auto',
+        'gap-4',
+        'my-5',
+        'sm:my-auto',
+        'lg:max-w-4xl',
+        'xl:max-w-7xl',
+        'xl:w-3/5'
+    );
     let dynamicTypedHeading = new HeadingOrParagraph(
         'h2',
         `Innocelf is on a mission to EMPOWER inventors.`
-    ).renderWithClass(['text-white', 'my-8']).result;
+    ).renderWithClass(['text-white']).result;
     let paragraph = new HeadingOrParagraph(
         'h3',
         'We promise, our quality will exceed your expectations ...'
-    ).renderWithClass(['text-white', 'mb-8']).result;
+    ).renderWithClass(['text-white']).result;
     paragraph.classList.replace('lato-bold', 'lato-regular');
     paragraph.classList.remove('font-bold');
     paragraph.classList.replace('2xl:text-3xl', '2xl:text-4xl');
@@ -436,7 +505,7 @@ class FirstPageTestimonials {
         let heading = new HeadingOrParagraph(
             'h3',
             'What Our Clients Say ...'
-        ).renderWithClass(['mx-auto', 'my-24']).result;
+        ).renderWithClass(['mx-auto', 'my-10', 'lg:my-16', 'xl:my-24']).result;
 
         this.result.append(heading);
     }
@@ -447,7 +516,14 @@ class FirstPageTestimonials {
         ).then((response) => {
             let svgElement = _parseSVG(response);
             svgElement.setAttribute('width', '100');
-            svgElement.classList.add('mx-auto', 'mb-8');
+            svgElement.classList.add(
+                'h-16',
+                'w-16',
+                'mx-auto',
+                'mb-8',
+                'lg:h-20',
+                'lg:w-20'
+            );
             this.result.append(svgElement);
 
             // Create testimonial grid and populate here
@@ -459,10 +535,12 @@ class FirstPageTestimonials {
         this.flexGrid.classList.add(
             'flex',
             'flex-row',
-            'w-3/4',
             'mx-auto',
             'gap-6',
-            'h-60'
+            'h-60',
+            'w-11/12',
+            'lg:w-10/12',
+            'xl:w-3/4'
         );
 
         this.flexGrid.append(this.leftButton);
@@ -578,13 +656,15 @@ class FirstPageTestimonials {
         container.classList.add(
             'flex',
             'flex-col',
-            'px-36',
             'text-center',
             'hidden',
             'transition-all',
             'ease-in-out',
             'duration-700',
-            'opacity-0'
+            'opacity-0',
+            'p-1',
+            'md:px-16',
+            'xl:px-36'
         );
 
         let contentText = new HeadingOrParagraph('p', content).renderWithClass([

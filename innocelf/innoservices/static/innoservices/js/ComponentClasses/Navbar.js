@@ -49,11 +49,9 @@ export class Navbar {
             'justify-center',
             'flex-wrap',
             'lato-regular',
-            'md:w-4/6',
-            '2xl:flex-row',
-            '2xl:flex',
-            '2xl:w-9/12',
-            'max-w-7xl',
+            'lg:flex-row',
+            'lg:w-11/12',
+            'lg:max-w-7xl',
         ];
         this.desiredMainClasses.map((item) => {
             this.result.classList.add(item);
@@ -71,12 +69,13 @@ export class Navbar {
             'sm:justify-center',
             'sm:mt-5',
             // 'sm:bg-white',
-            'sm:pr-0',
-            '2xl:justify-end',
-            '2xl:w-auto',
-            '2xl:items-center',
-            '2xl:mx-auto',
-            '2xl:mt-0',
+            'sm:px-8',
+            'sm:items-center',
+            'lg:justify-end',
+            'lg:mt-0',
+            'xl:flex-grow',
+            'xl:items-center',
+            'xl:ml-44',
         ];
         this.collapsibleContentClasses.map((item) => {
             this.collapsibleContent.classList.add(item);
@@ -106,8 +105,8 @@ export class Navbar {
             'items-center',
             'w-4/6',
             'sm:w-full',
-            '2xl:w-auto',
-            '2xl:justify-start',
+            'lg:w-auto',
+            'lg:justify-start',
         ];
         let logoPath =
             '/static/innoservices/img/Innocelf-Logo-BlackFont-TransparentBack.svg';
@@ -169,11 +168,12 @@ export class Navbar {
                     'bg-red-600',
                     'text-white',
                     'rounded-full',
-                    'absolute',
+                    'text-xs',
                     'px-2',
-                    '-top-3',
-                    '-right-5',
-                    'text-xs'
+                    'ml-3',
+                    'sm:absolute',
+                    'sm:-top-3',
+                    'sm:-right-5'
                 );
                 navLink.append(span);
             }
@@ -189,23 +189,34 @@ export class Navbar {
         let linkedin = new AnchorLinks().renderWithIcon([
             'fab',
             'fa-linkedin-in',
-            'fa-lg',
         ]).result;
         linkedin.classList.add(
-            'my-auto',
-            'h-10',
-            'w-10',
             'flex',
+            'h-6',
+            'w-6',
             'justify-center',
             'items-center',
             'py-1.5',
             'px-2',
             'bg-innoblack',
             'text-white',
-            'rounded-full'
+            'rounded-full',
+            'sm:h-7',
+            'sm:w-7',
+            'md:h-8',
+            'md:w-8',
+            'lg:ml-auto',
+            'lg:h-9',
+            'lg:w-9',
+            'lg:text-xl',
+            'xl:h-10',
+            'xl:w-10',
+            'xl:my-auto',
+            'xl:text-2xl'
         );
         linkedin.href = 'https://www.linkedin.com/company/innocelf-llc';
-        this.result.append(linkedin);
+        this.collapsibleContent.append(linkedin);
+        //this.result.append(linkedin);
     }
 
     createNavbarToggle() {

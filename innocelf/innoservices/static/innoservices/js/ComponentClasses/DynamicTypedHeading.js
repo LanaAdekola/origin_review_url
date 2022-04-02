@@ -11,7 +11,7 @@ export class DynamicTypedHeading {
         this.stringsArray = [
             'filing a Patent Application?',
             'commercializing your product?',
-            'researching a new business name or logo?',
+            'researching a new brand name or logo?',
             'performing technology assessment?',
         ];
         this.dynamicTypedContent = document.createElement('span');
@@ -20,9 +20,9 @@ export class DynamicTypedHeading {
     }
     render() {
         let desiredClasses = [
-            'mt-12',
-            'mb-6',
-            'h-16',
+            'mt-6',
+            'mb-3',
+            //'h-16',
             'text-white',
             'lato-regular',
             // 'text-center',
@@ -35,7 +35,10 @@ export class DynamicTypedHeading {
             'sm:text-2xl',
             'md:text-2xl',
             'lg:text-3xl',
+            'lg:my-8',
             'xl:text-4xl',
+            'xl:mt-12',
+            'xl:mb-6',
             '2xl:mt-12',
             '2xl:mb-6',
             '2xl:text-5xl',

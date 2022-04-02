@@ -1,6 +1,6 @@
 module.exports = {
 	purge: {
-		enabled: true,
+		enabled: false,
 		content: [
 			'./innocelf/innoservices/static/innoservices/js/*.js',
 			'./innocelf/innoservices/static/innoservices/js/ComponentClasses/*.js',

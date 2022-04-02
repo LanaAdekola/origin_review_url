@@ -120,7 +120,8 @@ export class AnchorLinks {
             'lato-regular',
             'block',
             'text-center',
-            'w-1/3',
+            'w-3/4',
+            'mx-auto',
             // 'w-1/2',
             // 'mt-4',
             'py-2',
@@ -137,9 +138,12 @@ export class AnchorLinks {
             'focus:ring-offset-4',
             'hover:bg-gray-800',
             'text-sm',
-            'md:text-2xl',
-            'md:py-3',
-            'md:px-8',
+            'sm:w-2/3',
+            'md:text-xl',
+            'md:w-1/2',
+            'lg:ml-0',
+            'xl:w-1/3',
+            'xl:ml-0',
         ];
         desiredClassList.map((item) => {
             this.result.classList.add(item);
@@ -186,7 +190,7 @@ export class AnchorLinks {
             'lato-regular',
             'block',
             'text-center',
-            'w-4/12',
+            'w-2/5',
             // 'w-1/2',
             // 'mt-4',
             'py-2',
@@ -203,9 +207,12 @@ export class AnchorLinks {
             'focus:ring-offset-4',
             'hover:bg-gray-800',
             'text-sm',
+            'sm:w-1/3',
+            'md:w-1/2',
             'md:text-xl',
             'md:py-2',
             'md:px-5',
+            'lg:w-4/12',
         ];
         desiredClassList.map((item) => {
             this.result.classList.add(item);

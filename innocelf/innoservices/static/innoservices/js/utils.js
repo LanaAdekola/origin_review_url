@@ -407,11 +407,13 @@ export function _fullWidthContainerWithBlueBackground() {
     container.classList.add(
         'flex',
         'w-full',
-        'h-56',
         'bg-cover',
         'bg-no-repeat',
         'bg-center',
-        'relative'
+        'relative',
+        'sm:h-36',
+        'lg:h-44',
+        'xl:h-56'
     );
     container.style.backgroundImage = `url('/static/innoservices/img/firstPage/firstPageMiddleBlueBelt.svg')`;
 
@@ -431,7 +433,19 @@ export function _grayCirclesOfBlueBeltBackground() {
             let svgElement = _parseSVG(response);
             // svgElement.setAttribute('height', '225');
             svgElement.setAttribute('viewBox', '0 0 350 220');
-            svgElement.classList.add('absolute', 'right-0', 'h-56');
+            svgElement.classList.add(
+                'hidden',
+                'sm:block',
+                'sm:absolute',
+                'sm:right-0',
+                'sm:h-36',
+                'sm:-right-36',
+                'lg:h-44',
+                'lg:-right-24',
+                'xl:absolute',
+                'xl:right-0',
+                'xl:h-56'
+            );
 
             result(svgElement);
         });

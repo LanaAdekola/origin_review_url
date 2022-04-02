@@ -140,7 +140,12 @@ export class HeadingOrParagraph {
 
     renderFooterDisclaimers() {
         this.result.className = '';
-        this.result.classList.add('text-sm', 'lato-light', 'text-white');
+        this.result.classList.add(
+            'text-xs',
+            'lg:text-sm',
+            'lato-light',
+            'text-white'
+        );
 
         return this;
     }
