@@ -201,6 +201,8 @@ export class Navbar {
             'bg-innoblack',
             'text-white',
             'rounded-full',
+            'ml-auto',
+            'sm:ml-0',
             'sm:h-7',
             'sm:w-7',
             'md:h-8',
