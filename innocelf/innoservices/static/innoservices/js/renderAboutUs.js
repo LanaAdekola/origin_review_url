@@ -4,7 +4,6 @@ import { Footer } from './ComponentClasses/Footer.js';
 import { Navbar } from './ComponentClasses/Navbar.js';
 import { HeadingOrParagraph } from './ComponentClasses/HeadingOrParagraph.js';
 import { AnchorLinks } from './ComponentClasses/AnchorLinks.js';
-import { ServiceDescription } from './ComponentClasses/ServiceDescription.js';
 import { PageHeadElements, homepageReviews } from './render_ts.js';
 import {
     STATE,
@@ -122,12 +121,14 @@ function createMissionContainer() {
         'w-full',
         'max-w-7xl',
         'mx-auto',
-        'self-center'
+        'self-center',
+        'my-6',
+        'gap-8'
     );
     let ourMission = new HeadingOrParagraph(
         'h6',
         'Our Mission'
-    ).renderWithClass(['text-center', 'text-white', 'mb-8']).result;
+    ).renderWithClass(['text-center', 'text-white']).result;
     let missionStatement = new HeadingOrParagraph(
         'h1',
         'To Support Inventors in a Data-Driven World.'
@@ -144,19 +145,27 @@ function createMissionContainer() {
  */
 function __createCEOPhotoContainer() {
     let photoContainer = document.createElement('div');
-    photoContainer.classList.add('flex', 'flex-col', 'w-2/5', 'p-12');
+    photoContainer.classList.add('flex', 'flex-col', 'lg:w-2/5', 'lg:p-12');
 
     let photo = document.createElement('img');
-    photo.classList.add('rounded-3xl', 'h-40', 'mx-auto', 'md:h-72', 'lg:h-96');
+    photo.classList.add('rounded-3xl', 'h-72', 'mx-auto', 'md:h-72', 'xl:h-96');
     photo.src = '/static/img/innoimg/innocelf-pranita-photo.jpg';
 
     let name = new HeadingOrParagraph(
         'h5',
         'Pranita Dharmadhikari'
-    ).renderWithClass(['text-black', 'mt-6', 'ml-6']).result;
+    ).renderWithClass([
+        'text-black',
+        'text-center',
+        'mt-6',
+        'ml-6',
+        'lg:text-left',
+    ]).result;
     let title = new HeadingOrParagraph('p', 'CEO').renderWithClass([
         'text-gray-300',
+        'text-center',
         'ml-6',
+        'lg:text-left',
     ]).result;
 
     photoContainer.append(photo, name, title);
@@ -226,7 +235,16 @@ function __createEducationContainer() {
  */
 function _createCEOContainer() {
     let container = document.createElement('div');
-    container.classList.add('flex', 'flex-row', 'w-full', 'max-w-7xl');
+    container.classList.add(
+        'flex',
+        'flex-col',
+        'w-full',
+        'max-w-7xl',
+        'gap-6',
+        'sm:gap-8',
+        'lg:gap-0',
+        'lg:flex-row'
+    );
 
     let photoContainer = __createCEOPhotoContainer();
 
@@ -234,9 +252,11 @@ function _createCEOContainer() {
     paraContainer.classList.add(
         'flex',
         'flex-col',
-        'w-3/5',
-        'p-12',
-        'text-justify'
+        'text-justify',
+        'sm:px-6',
+        'md:px-16',
+        'lg:w-3/5',
+        'lg:p-12'
     );
     let paraArray = [
         `Pranita is the founder and CEO of Innocelf. Her work focuses on Patent
@@ -267,6 +287,7 @@ function _createCEOContainer() {
     let readMoreButton = new AnchorLinks(
         'Read More'
     ).renderMediumHollowInnocelfButtonFullRound().result;
+    readMoreButton.classList.add('mx-auto', 'lg:ml-0');
     //readMoreButton.href = '#about-us-pranita-education-container';
     readMoreButton.onclick = () => {
         let eduCont = document.getElementById(
@@ -296,10 +317,11 @@ function createMissionAndValuesContainer() {
         'flex',
         'flex-col',
         'w-full',
-        'my-24',
+        'my-12',
         'bg-contain',
         'bg-no-repeat',
-        'bg-center'
+        'bg-center',
+        'lg:my-24'
         // 'h-96'
     );
 
@@ -319,15 +341,13 @@ function createLeadershipContainer() {
     container.classList.add(
         'flex',
         'flex-col',
-        'w-full',
+        'w-11/12',
+        'gap-6',
         'max-w-7xl',
         'mx-auto'
     );
 
-    let heading = new HeadingOrParagraph(
-        'h2',
-        'Our Leadership'
-    ).renderWithClass(['mb-12']).result;
+    let heading = new HeadingOrParagraph('h2', 'Our Leadership').result;
     let ceoContainer = _createCEOContainer();
 
     container.append(heading, ceoContainer);
@@ -344,7 +364,14 @@ function createLeadershipContainer() {
  */
 function __createOneValue(imageFilename, headingText, paraText) {
     let container = document.createElement('div');
-    container.classList.add('flex', 'flex-row', 'w-full');
+    container.classList.add(
+        'flex',
+        'flex-col',
+        'gap-6',
+        'w-full',
+        'lg:gap-0',
+        'lg:flex-row'
+    );
 
     let imageContainer = document.createElement('div');
     imageContainer.classList.add(
@@ -359,10 +386,18 @@ function __createOneValue(imageFilename, headingText, paraText) {
     });
 
     let paraContainer = document.createElement('div');
-    paraContainer.classList.add('flex', 'flex-col', 'w-2/3', 'self-center');
+    paraContainer.classList.add(
+        'flex',
+        'flex-col',
+        'w-10/12',
+        'lg:w-2/3',
+        'self-center'
+    );
     let heading = new HeadingOrParagraph('h3', headingText).renderWithClass([
         'text-black',
+        'text-center',
         'mb-5',
+        'lg:text-left',
     ]).result;
     heading.classList.replace('lato-bold', 'lato-regular');
     heading.classList.remove('font-bold');
@@ -387,7 +422,8 @@ function createValuesContainer() {
         'bg-gradient-to-tr',
         'from-gray-50',
         'to-gray-100',
-        'mb-24'
+        'my-12',
+        'lg:my-24'
     );
 
     let subContainer = document.createElement('div');
@@ -396,13 +432,21 @@ function createValuesContainer() {
         'flex-col',
         'w-full',
         'mx-auto',
-        'my-24',
         'max-w-7xl',
-        'gap-24'
+        'gap-12',
+        'my-12',
+        'lg:gap-24',
+        'lg:my-24'
     );
 
     let headingContainer = document.createElement('div');
-    headingContainer.classList.add('flex', 'flex-col', 'w-full');
+    headingContainer.classList.add(
+        'flex',
+        'flex-col',
+        'w-10/12',
+        'mx-auto',
+        'lg:w-full'
+    );
 
     let smallHeading = new HeadingOrParagraph(
         'p',
@@ -536,14 +580,14 @@ function __createQuestelInfo() {
  */
 function _createToolsDescription() {
     let container = document.createElement('div');
-    container.classList.add('flex', 'flex-row', 'w-full');
+    container.classList.add('flex', 'flex-col', 'lg:flex-row', 'w-full');
 
     let imageContainer = document.createElement('div');
     imageContainer.classList.add(
         'flex',
-        'w-1/3',
         'justify-center',
-        'self-center'
+        'self-center',
+        'lg:w-1/3'
     );
     _importSVG(
         '/static/innoservices/img/about-us/aboutUsResearchTools.svg'
@@ -553,7 +597,13 @@ function _createToolsDescription() {
     });
 
     let paraContainer = document.createElement('div');
-    paraContainer.classList.add('flex', 'flex-col', 'w-2/3', 'self-center');
+    paraContainer.classList.add(
+        'flex',
+        'flex-col',
+        'w-full',
+        'lg:w-2/3',
+        'self-center'
+    );
 
     let para = new HeadingOrParagraph(
         'p',
@@ -575,12 +625,19 @@ function _createToolsDescription() {
 
 function _createExpertiseContainer() {
     let container = document.createElement('div');
-    container.classList.add('flex', 'flex-row', 'w-full');
+    container.classList.add(
+        'flex',
+        'flex-col',
+        'gap-10',
+        'lg:gap-0',
+        'lg:flex-row',
+        'w-full'
+    );
 
     let imageContainer = document.createElement('div');
     imageContainer.classList.add(
         'flex',
-        'w-1/3',
+        'lg:w-1/3',
         'justify-center',
         'self-center'
     );
@@ -602,7 +659,7 @@ function _createExpertiseContainer() {
     ];
 
     let paraContainer = document.createElement('div');
-    paraContainer.classList.add('flex', 'flex-col', 'w-2/3', 'self-center');
+    paraContainer.classList.add('flex', 'flex-col', 'lg:w-2/3', 'self-center');
 
     let para = new HeadingOrParagraph(
         'p',
@@ -648,11 +705,13 @@ function createToolsContainer() {
     subContainer.classList.add(
         'flex',
         'flex-col',
-        'w-full',
+        'w-10/12',
         'mx-auto',
-        'my-24',
+        'my-12',
+        'gap-12',
         'max-w-7xl',
-        'gap-24'
+        'lg:gap-24',
+        'lg:my-24'
     );
 
     let toolsHeadingContainer = __createToolsAndExpertiseSmallLargeHeading(
