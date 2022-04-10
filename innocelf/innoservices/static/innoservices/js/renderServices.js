@@ -3,9 +3,8 @@
 import { Footer } from './ComponentClasses/Footer.js';
 import { Navbar } from './ComponentClasses/Navbar.js';
 import { HeadingOrParagraph } from './ComponentClasses/HeadingOrParagraph.js';
-import { AnchorLinks } from './ComponentClasses/AnchorLinks.js';
 import { ServiceDescription } from './ComponentClasses/ServiceDescription.js';
-import { PageHeadElements, homepageReviews } from './render_ts.js';
+import { PageHeadElements } from './render_ts.js';
 import { STATE, createHeadingWithBlueBackground } from './utils.js';
 
 /**
