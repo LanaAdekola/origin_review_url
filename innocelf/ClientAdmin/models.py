@@ -10,7 +10,10 @@ PROJECT_TYPE_CHOICES = (
     ('LAN', 'Landscape / State of the Art'),
     ('TS', 'Trademark Search'),
     ('PD', 'Provisional Draft'),
-    ('FPD', 'Full Patent Draft')
+    ('FPD', 'Full Patent Draft'),
+    ('AC', 'Agreements / Contracts'),
+    ('LR', 'Legal Research'),
+    ('TA', 'Trademark Applications')
 )
 INVENTION_TYPE_CHOICES = (
     ('MECH', 'Mechanical'),
