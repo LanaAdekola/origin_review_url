@@ -1,0 +1,8 @@
+User-Agent: Googlebot
+User-Agent: Bingbot
+User-Agent: Slurp
+User-Agent: DuckDuckBot
+
+Disallow: /static/
+Sitemap: https://innocelf.com/sitemap.xml
+

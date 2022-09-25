@@ -35,7 +35,8 @@ export class ContactUsForm {
             'lg:w-1/2',
             'xl:px-16',
             'xl:py-8',
-            'xl:max-w-xl'
+            'xl:max-w-xl',
+            'xl:w-full'
         );
         this.result.style.borderRadius = '35px';
 

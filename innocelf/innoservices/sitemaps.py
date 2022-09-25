@@ -10,7 +10,7 @@ class StaticViewSiteMap(Sitemap):
 
     def items(self):
         return ['innoservices:home',
-                'innoservices:technologies',
+                # 'innoservices:technologies',
                 'innoservices:contact-us',
                 'innoservices:about-us-and-testimonials',
                 'innoservices:privacy-policy',
