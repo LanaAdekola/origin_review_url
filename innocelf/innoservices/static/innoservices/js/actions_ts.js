@@ -5,7 +5,9 @@ import { renderServices } from './renderServices.js';
 import { renderAboutUs } from './renderAboutUs.js';
 import { renderFAQ } from './renderFAQ.js';
 import { renderTestimonial } from './renderTestimonials.js';
+import { renderBlogHome } from './render_blog_home.js';
 import * as RenderPrivacyDisclaimerTerms from './render_privacy_disclaimer_terms.js';
+
 document.addEventListener('DOMContentLoaded', function () {
     let pathname = window.location.pathname;
     if (pathname === '/' || pathname === '/home/') {
@@ -45,5 +47,8 @@ document.addEventListener('DOMContentLoaded', function () {
         RenderTS.renderSendReviewRequest();
     } else if (pathname.includes('/write-review/')) {
         RenderTS.renderWriteReviewPage();
+    } else if (pathname.includes('/knowledge-home')) {
+        console.log("LOL")
+        renderBlogHome();
     }
 });

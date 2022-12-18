@@ -19,6 +19,7 @@ from .views import (
     _obtain_write_review_form,
     _receive_write_review_form_response,
     our_process_view,
+    knowledge_home_view
 )
 from .sitemaps import StaticViewSiteMap
 from django.urls import path, include
@@ -46,6 +47,8 @@ urlpatterns = [
 
     path('testimonials-page', testimonials_view, name='testimonials-page'),
     path('testimonials', testimonials, name='testimonials'),
+
+    path('knowledge-home', knowledge_home_view, name='knowledge-home'),
 
     path('contact-us/',  contact_us_view, name='contact-us'),
     path(

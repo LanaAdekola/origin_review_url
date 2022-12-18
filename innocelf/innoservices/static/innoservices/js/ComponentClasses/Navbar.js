@@ -23,7 +23,7 @@ const NAVBAR_LINKS = {
         link: '/services',
     },
     Knowledge: {
-        link: '/innocelf-blog',
+        link: '/knowledge-home',
     },
     Contact: {
         link: '#',
@@ -156,27 +156,6 @@ export class Navbar {
             let navLink = new AnchorLinks(item)
                 .renderWithText()
                 .renderNavLink().result;
-
-            if (item === 'Knowledge') {
-                navLink.style.pointerEvents = 'None';
-                navLink.style.cursor = 'default';
-                navLink.classList.add('text-gray-300', 'relative');
-
-                let span = document.createElement('span');
-                span.textContent = 'Coming Soon';
-                span.classList.add(
-                    'bg-red-600',
-                    'text-white',
-                    'rounded-full',
-                    'text-xs',
-                    'px-2',
-                    'ml-3',
-                    'sm:absolute',
-                    'sm:-top-3',
-                    'sm:-right-5'
-                );
-                navLink.append(span);
-            }
 
             navLink.href = NAVBAR_LINKS[item].link;
             navLink.id = desiredId;

@@ -302,3 +302,10 @@ def _receive_write_review_form_response(request, *args, **kwargs):
     return JsonResponse({
         'Success': 'Your review has been recorded. Thank you for taking the time to review our services. We appreciate it.'
     })
+
+def knowledge_home_view(request):
+    """
+    Function is the view of knowledge home which houses all the blogs that are 
+    written by staff
+    """
+    return render(request, 'innoservices/blog_home.html')

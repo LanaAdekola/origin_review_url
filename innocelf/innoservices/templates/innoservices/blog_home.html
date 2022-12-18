@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% extends 'base.html' %}
+	{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="At Innocelf we are determined to provide
+    transparent intellectual property research and analysis. Transparency starts
+    with sharing our knowledge about patents, trademarks and other IP related
+    material. Our blog will help you understand the nuances of IP.">
+    <title>
+        The Innocelf Blog | Knowledge
+    </title>
+</head>
+<body>
+    {% block content %}
+    <div id="app"></div>
+    <script type="module"
+        src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+    {% endblock content %}
+</body>
+</html>
