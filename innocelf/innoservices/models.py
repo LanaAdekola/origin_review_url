@@ -12,6 +12,14 @@ SERVICES = (
     ('NS', 'Introduction / Unsure')
 )
 
+BLOG_CATEGORIES = (
+    ('PAT', 'Patents'),
+    ('TMK', 'Trademarks'),
+    ('GRE', 'General Research'),
+    ('CAS', 'Case Studies'),
+    ('IPR', 'Intellectual Property')
+)
+
 
 class ContactUs(models.Model):
 
@@ -57,3 +65,25 @@ class ClientReview(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name} Review'
+
+
+class BlogPost(models.Model):
+    """
+    Class will define a model for a particular blog. The blog will have a 
+    particular title, a highlight paragraph and an image. The blog post will also
+    have a category as listed in BLOG_CATEGORIES with an author
+    """
+    title = models.TextField()
+    author = models.CharField(max_length = 500)
+    category = models.CharField(max_length = 3, choices = BLOG_CATEGORIES)
+
+    highlight_para = models.TextField(null = True, blank = True)
+    highlight_img = models.ImageField(null = True, blank = True)
+
+    content_in_md = models.TextField(null = True, blank = True)
+
+    def __str__(self):
+        """
+        String representation of the blog post in the Admin portal
+        """
+        return self.title

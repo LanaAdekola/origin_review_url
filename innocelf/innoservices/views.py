@@ -16,7 +16,7 @@ from django.template.loader import get_template
 from django.views.generic import FormView, ListView, View
 
 from .forms import ClientReviewForm, ContactUsForm, SendReviewRequestForm
-from .models import ClientReview, ContactUs, SendReviewRequest
+from .models import ClientReview, ContactUs, SendReviewRequest, BlogPost
 from ClientAdmin.views import _csrf_token_input_html
 
 PRIVACY_POLICY_RESPONSE = '''The information contained in this website is provided for informational purposes only, and should not be
@@ -309,3 +309,14 @@ def knowledge_home_view(request):
     written by staff
     """
     return render(request, 'innoservices/blog_home.html')
+
+
+def get_all_blog_posts(request):
+    """
+    Function gets all the blog posts that are stored in the database for easy 
+    visualization
+    """
+    blog_posts = BlogPost.objects.all()
+    blog_posts_json = serializers.serialize(
+        'json', blog_posts, cls=DjangoJSONEncoder)
+    return JsonResponse(blog_posts_json, safe=False)

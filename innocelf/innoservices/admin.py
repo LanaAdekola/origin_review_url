@@ -1,6 +1,6 @@
 from django.contrib import admin
 import uuid
-from .models import ContactUs, SendReviewRequest, ClientReview
+from .models import ContactUs, SendReviewRequest, ClientReview, BlogPost
 
 
 class SendReviewRequestAdmin(admin.ModelAdmin):
@@ -23,3 +23,4 @@ class ClientReviewAdmin(admin.ModelAdmin):
 admin.site.register(ContactUs)
 admin.site.register(SendReviewRequest, SendReviewRequestAdmin)
 admin.site.register(ClientReview, ClientReviewAdmin)
+admin.site.register(BlogPost)

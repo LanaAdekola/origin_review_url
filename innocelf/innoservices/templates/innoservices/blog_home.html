@@ -8,13 +8,18 @@
     transparent intellectual property research and analysis. Transparency starts
     with sharing our knowledge about patents, trademarks and other IP related
     material. Our blog will help you understand the nuances of IP.">
+
+    {% block title %}
     <title>
         The Innocelf Blog | Knowledge
     </title>
+    {% endblock title %}
 </head>
 <body>
     {% block content %}
     <div id="app"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js">
+    </script>
     <script type="module"
         src="{% static 'innoservices/js/actions_ts.js' %}"></script>
     {% endblock content %}
