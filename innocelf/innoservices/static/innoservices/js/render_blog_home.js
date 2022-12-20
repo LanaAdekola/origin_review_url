@@ -84,6 +84,120 @@ function oneBlogOnHomePage(blogObject) {
 }
 
 /**
+    * Function is an event listener for click events that will be triggered when
+    * the filter links are clicked
+    *
+    * @param item - Event: The click event
+    */
+function filterBlogs(item) {
+    item.target.classList.remove('text-gray-300');
+    document.getElementById('clear-filter-button').classList.remove('hidden');
+
+    let filterId = item.target.id;
+    let requestedFilter = filterId.split('-')[0];
+
+    let allBlogs = document
+        .getElementById('blog-home-page-right-container')
+        .childNodes;
+    allBlogs = [...allBlogs];
+    allBlogs.map((item) => item.classList.remove('hidden'));
+
+
+    let blogsNotInRequestedFilter = document
+        .getElementById('blog-home-page-right-container')
+        .querySelectorAll('div:not([id^=' + requestedFilter + '])')
+    blogsNotInRequestedFilter = [...blogsNotInRequestedFilter];
+    blogsNotInRequestedFilter.map((item) => item.classList.add('hidden'));
+}
+
+/**
+    * Function is an event listener for click events of the clear filter button
+    * It will clear the filters and restore
+    *
+    */
+function clearFilter() {
+    document.getElementById('clear-filter-button').classList.add('hidden');
+
+    let allBlogs = document
+        .getElementById('blog-home-page-right-container')
+        .childNodes;
+    allBlogs = [...allBlogs];
+    allBlogs.map((item) => item.classList.remove('hidden'));
+
+    let allFilters = document.querySelectorAll('[id$="-filter"]');
+    allFilters = [...allFilters];
+    allFilters.map((item) => item.classList.add('text-gray-300'));
+}
+
+/**
+    * Function renders the filter elements that will be used to click on nad
+    * filter blogs based on the clicked item
+    *
+    * @returns HTMLDivElement which is the container with the elements in it
+    */
+function filterOnBlogHome() {
+    let container = document.createElement('div');
+    container.classList.add(
+        'flex',
+        'flex-col',
+        'w-full',
+        'p-5',
+        'mb-auto'
+    )
+
+    let searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.classList.add(
+        'lato-regular',
+        'rounded',
+        'border',
+        'border-black',
+        'p-3',
+    )
+    searchInput.placeholder = 'Search';
+
+    let searchByCategory = new HeadingOrParagraph('h6', 'Search By Category')
+        .renderWithClass(['uppercase', 'mt-5', 'mb-3'])
+        .result;
+    let clearFilterSpan = document.createElement('span');
+    clearFilterSpan.classList.add(
+        'lato-light',
+        'text-sm',
+        'underline',
+        'uppercase',
+        'ml-5',
+        'cursor-pointer',
+        'hidden',
+    );
+    clearFilterSpan.textContent = 'Clear Filter';
+    clearFilterSpan.id = 'clear-filter-button';
+    clearFilterSpan.addEventListener('click', clearFilter);
+    searchByCategory.append(clearFilterSpan);
+
+    container.append(searchByCategory);
+
+    Object.keys(BLOG_CATEGORIES).map(item => {
+        let category = new AnchorLinks(BLOG_CATEGORIES[item])
+            .renderWithTextAndUnderline()
+            .result;
+        category.classList.add('cursor-pointer', 'text-gray-300');
+        category.id = item + '-filter';
+        category.addEventListener('click', filterBlogs);
+        container.append(category)
+    });
+
+    let aboutInnocelf = new AnchorLinks('About Innocelf')
+        .renderLargeHollowInnocelfButton()
+        .result;
+    aboutInnocelf.classList.add('my-8');
+    aboutInnocelf.href = '/about-us';
+    aboutInnocelf.target = '';
+    container.append(aboutInnocelf);
+
+    return container;
+}
+
+/**
     * Function renders all the blog posts on the knowledge home page by taking
     * a list of all blog post objects from the backend
     *
@@ -96,10 +210,14 @@ function allBlogsHomePage(blogObjectArr) {
     let twoColContainer = new TwoColumnContainer('blog-home-page').result;
     twoColContainer.classList.replace('mb-24', 'my-24');
     twoColContainer.children[0].classList.remove('hidden');
+    twoColContainer.children[0].classList.replace('lg:w-2/5', 'lg:w-1/5');
+    twoColContainer.children[1].classList.replace('lg:w-3/5', 'lg:w-4/5');
 
-    blogObjectArr.map((item) => {
+    twoColContainer.children[0].append(filterOnBlogHome());
+
+    blogObjectArr.map((item, index) => {
         let oneBlog = oneBlogOnHomePage(item);
-
+        oneBlog.id = item.fields.category + '-' + index.toFixed(0);
         twoColContainer.children[1].append(oneBlog);
     })
 

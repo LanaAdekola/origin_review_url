@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else if (pathname.includes('/write-review/')) {
         RenderTS.renderWriteReviewPage();
     } else if (pathname.includes('/knowledge-home')) {
-        console.log("LOL")
         renderBlogHome();
     }
 });
