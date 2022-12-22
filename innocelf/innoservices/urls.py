@@ -23,7 +23,7 @@ from .views import (
     blog_view,
     get_all_blog_posts,
 )
-from .sitemaps import StaticViewSiteMap
+from .sitemaps import StaticViewSiteMap, BlogSiteMap
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import TemplateView
@@ -33,6 +33,7 @@ app_name = 'innoservices'
 
 sitemaps = {
     'static': StaticViewSiteMap,
+    'blogs': BlogSiteMap
 }
 
 

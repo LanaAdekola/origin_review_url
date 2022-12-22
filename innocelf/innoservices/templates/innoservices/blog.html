@@ -4,14 +4,11 @@
 	{% load static %}
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="At Innocelf we are determined to provide
-    transparent intellectual property research and analysis. Transparency starts
-    with sharing our knowledge about patents, trademarks and other IP related
-    material. Our blog will help you understand the nuances of IP.">
 
     {% block title %}
+    <meta name="description" content="{{ highlight_para }}">
     <title>
-        The Innocelf Blog | Knowledge
+        The Innocelf Blog | Knowledge | {{ title }}
     </title>
     {% endblock title %}
 </head>
