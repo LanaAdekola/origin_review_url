@@ -8,7 +8,7 @@ import { AnchorLinks } from './ComponentClasses/AnchorLinks.js'
 import { createHeadingWithBlueBackground } from './utils.js';
 import { _importSVG, _parseSVG } from './utils.js';
 
-const BLOG_CATEGORIES = {
+export const BLOG_CATEGORIES = {
     'PAT': 'Patents',
     'TMK': 'Trademarks',
     'GRE': 'General Research',
@@ -39,7 +39,7 @@ function oneBlogOnHomePage(blogObject) {
     );
 
     let heading = new HeadingOrParagraph('h5', blogObject.fields.title)
-        .renderWithClass(['text-center', 'uppercase'])
+        .renderWithClass(['uppercase'])
         .result;
 
     let category = document.createElement('span');
@@ -65,6 +65,7 @@ function oneBlogOnHomePage(blogObject) {
         .renderLargeInnocelfButton()
         .result;
     readMore.classList.replace('mx-auto', 'mr-auto');
+    readMore.href = '/knowledge-home/' + blogObject.pk.toFixed(0);
 
     let author = document.createElement('span');
     author.classList.add(
@@ -141,7 +142,8 @@ function filterOnBlogHome() {
         'flex',
         'flex-col',
         'w-full',
-        'p-5',
+        'px-5',
+        'py-20',
         'mb-auto'
     )
 
@@ -156,7 +158,7 @@ function filterOnBlogHome() {
     )
     searchInput.placeholder = 'Search';
 
-    let searchByCategory = new HeadingOrParagraph('h6', 'Search By Category')
+    let searchByCategory = new HeadingOrParagraph('p', 'Search By Category')
         .renderWithClass(['uppercase', 'mt-5', 'mb-3'])
         .result;
     let clearFilterSpan = document.createElement('span');
@@ -192,7 +194,7 @@ function filterOnBlogHome() {
     aboutInnocelf.classList.add('my-8');
     aboutInnocelf.href = '/about-us';
     aboutInnocelf.target = '';
-    container.append(aboutInnocelf);
+    // container.append(aboutInnocelf);
 
     return container;
 }

@@ -8,7 +8,7 @@ import { renderTestimonial } from './renderTestimonials.js';
 import { renderBlogHome } from './render_blog_home.js';
 import * as RenderPrivacyDisclaimerTerms from './render_privacy_disclaimer_terms.js';
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     let pathname = window.location.pathname;
     if (pathname === '/' || pathname === '/home/') {
         renderHomepage();

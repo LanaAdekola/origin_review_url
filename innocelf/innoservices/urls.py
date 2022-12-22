@@ -20,6 +20,7 @@ from .views import (
     _receive_write_review_form_response,
     our_process_view,
     knowledge_home_view,
+    blog_view,
     get_all_blog_posts,
 )
 from .sitemaps import StaticViewSiteMap
@@ -51,6 +52,7 @@ urlpatterns = [
 
     path('knowledge-home', knowledge_home_view, name='knowledge-home'),
     path('get-all-blog-posts', get_all_blog_posts, name='get-all-blog-posts'),
+    path('knowledge-home/<pk>', blog_view, name='blog-view'),
 
     path('contact-us/',  contact_us_view, name='contact-us'),
     path(

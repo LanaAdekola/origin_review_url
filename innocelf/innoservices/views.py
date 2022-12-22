@@ -320,3 +320,21 @@ def get_all_blog_posts(request):
     blog_posts_json = serializers.serialize(
         'json', blog_posts, cls=DjangoJSONEncoder)
     return JsonResponse(blog_posts_json, safe=False)
+
+
+def blog_view(request, **kwargs):
+    """
+    Function is the view of one blog post that is being rendered
+    """
+    pk = kwargs['pk']
+    blog_post = BlogPost.objects.get(pk = pk)
+
+    context = {
+        'pk': blog_post.pk,
+        'title': blog_post.title,
+        'author': blog_post.author,
+        'category': blog_post.category,
+        'highlight_para': blog_post.highlight_para,
+        'content_in_md': blog_post.content_in_md
+    }
+    return render(request, 'innoservices/blog.html', context)

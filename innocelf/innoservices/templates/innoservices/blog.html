@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% extends 'base.html' %}
+	{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="At Innocelf we are determined to provide
+    transparent intellectual property research and analysis. Transparency starts
+    with sharing our knowledge about patents, trademarks and other IP related
+    material. Our blog will help you understand the nuances of IP.">
+
+    {% block title %}
+    <title>
+        The Innocelf Blog | Knowledge
+    </title>
+    {% endblock title %}
+</head>
+<body>
+    {% block content %}
+    <div id="app"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js">
+    </script>
+    <script>
+        var pk = '{{ pk }}'
+        var title = '{{ title }}';
+        var author = '{{ author }}';
+        var category = '{{ category }}';
+        var highlight_para = '{{ highlight_para }}';
+        var content_in_md = `{{ content_in_md }}`;
+    </script>
+    <script type="module"
+        src="{% static 'innoservices/js/renderBlog.js' %}"></script>
+    {% endblock content %}
+</body>
+</html>
