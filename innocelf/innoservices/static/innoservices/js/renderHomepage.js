@@ -711,7 +711,7 @@ class FirstPageTestimonials {
  * tag
  */
 export function renderHomepage() {
-    new PageHeadElements(STATE.homepage.meta, STATE.homepage.title);
+    // new PageHeadElements(STATE.homepage.meta, STATE.homepage.title);
     let topContainer = firstCallToActionContainer();
     let dynamicContainer = dynamicHeadingContainer();
     let servicesOverview = new GridContainerServicesOverview().result;

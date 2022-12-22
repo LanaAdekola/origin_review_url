@@ -91,7 +91,7 @@ function createFAQContainer() {
  * Main driver to render the FAQ page
  */
 export function renderFAQ() {
-    new PageHeadElements(STATE.faqPage.meta, STATE.faqPage.title);
+    // new PageHeadElements(STATE.faqPage.meta, STATE.faqPage.title);
     let faqHeading = createHeadingWithBlueBackground(
         'Frequently Asked Questions'
     );

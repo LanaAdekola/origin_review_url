@@ -36,7 +36,7 @@ function __typicalHeading(textContent) {
  * The function renders the Privacy Policy Page /privacy-policy
  */
 export function renderPrivacyPolicy() {
-    new PageHeadElements(STATE.privacyPolicy.meta, STATE.privacyPolicy.title);
+    // new PageHeadElements(STATE.privacyPolicy.meta, STATE.privacyPolicy.title);
     let navbar = new Navbar().render().result;
     let heading = createHeadingWithBlueBackground('Privacy Policy');
 
@@ -302,7 +302,7 @@ export function renderPrivacyPolicy() {
  * The function renders the Disclaimer Page /disclaimer
  */
 export function renderDisclaimerPage() {
-    new PageHeadElements(STATE.disclaimer.meta, STATE.disclaimer.title);
+    // new PageHeadElements(STATE.disclaimer.meta, STATE.disclaimer.title);
     let navbar = new Navbar().render().result;
     let heading = createHeadingWithBlueBackground('Disclaimer');
 
@@ -364,10 +364,10 @@ export function renderDisclaimerPage() {
  * The function renders the Privacy Policy Page /privacy-policy
  */
 export function renderTermsOfUsePage() {
-    new PageHeadElements(
-        STATE.termsAndConditions.meta,
-        STATE.termsAndConditions.title
-    );
+    // new PageHeadElements(
+    //     STATE.termsAndConditions.meta,
+    //     STATE.termsAndConditions.title
+    // );
     let navbar = new Navbar().render().result;
     let heading = createHeadingWithBlueBackground('Terms of Use');
 

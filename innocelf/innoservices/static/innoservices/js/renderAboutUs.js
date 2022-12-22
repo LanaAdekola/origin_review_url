@@ -736,7 +736,7 @@ function createToolsContainer() {
  * Function is main driver for rendering the About Us Page
  */
 export function renderAboutUs() {
-    new PageHeadElements(STATE.aboutUs.meta, STATE.aboutUs.title);
+    // new PageHeadElements(STATE.aboutUs.meta, STATE.aboutUs.title);
     let navbar = new Navbar().render().result;
     let innocelfStandsForCont = createInnocelfStandsForCont();
     let missionValuesCont = createMissionAndValuesContainer();

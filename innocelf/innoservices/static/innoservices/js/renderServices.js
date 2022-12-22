@@ -94,7 +94,7 @@ function createServicesContainer() {
  * the services option from the navbar is clicked
  */
 export function renderServices() {
-    new PageHeadElements(STATE.homepage.meta, STATE.homepage.title);
+    // new PageHeadElements(STATE.homepage.meta, STATE.homepage.title);
     let navbar = new Navbar().render().result;
     let paragraphContainer = createParagraphContainer();
     let headingContainer = createHeadingWithBlueBackground('Services');

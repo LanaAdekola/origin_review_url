@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         pathname === '/frequently-asked-questions'
     ) {
         renderFAQ();
-    } else if (pathname === '/contact-us/' || pathname === '/contact-us') {
-        RenderTS.renderContactUsPage();
     } else if (pathname === '/about-us/' || pathname === '/about-us') {
         renderAboutUs();
     } else if (

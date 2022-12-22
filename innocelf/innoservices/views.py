@@ -31,7 +31,7 @@ PRIVACY_POLICY_RESPONSE = '''The information contained in this website is provid
                 results for future clients based on successes we have achieved in past matters.'''
 
 
-def home_view(request, *args, **kwargs):
+def home_view(request):
     '''
     Defining homepage of Innocelf
     '''
@@ -46,7 +46,7 @@ def home_view(request, *args, **kwargs):
     return response
 
 
-def services_view(request, *args, **kwargs):
+def services_view(request):
     '''
     Defining the services view for Innocelf
     '''
@@ -54,7 +54,7 @@ def services_view(request, *args, **kwargs):
     return render(request, 'innoservices/services.html')
 
 
-def about_us_view(request, *args, **kwargs):
+def about_us_view(request):
     '''
     Defining the about us page for Innocelf
     '''
@@ -62,28 +62,28 @@ def about_us_view(request, *args, **kwargs):
     return render(request, 'innoservices/about_us.html')
 
 
-def testimonials_view(request, *args, **kwargs):
+def testimonials_view(request):
     '''
     Defining the testimonials page for Innocelf
     '''
     return render(request, 'innoservices/testimonials.html')
 
 
-def frequently_asked_questions(request, *args, **kwargs):
+def frequently_asked_questions(request):
     '''
     Defining a page for the websites frequently asked questions
     '''
     return render(request, 'innoservices/faq.html')
 
 
-def contact_us_view(request, *args, **kwargs):
+def contact_us_view(request):
     '''
     Defining a page for the websites contact us page
     '''
     return render(request, 'innoservices/contact_us.html')
 
 
-def _obtain_contact_us_form(request, *args, **kwargs):
+def _obtain_contact_us_form(request):
     '''
     Defining a view to get the Contact Us form
     '''
@@ -92,7 +92,7 @@ def _obtain_contact_us_form(request, *args, **kwargs):
     return HttpResponse(form)
 
 
-def _obtain_contact_us_form_csrf(request, *args):
+def _obtain_contact_us_form_csrf(request):
     """
     Defining a view to obtain the contact us form csrf token so that the post
     of the form is successful
@@ -102,7 +102,7 @@ def _obtain_contact_us_form_csrf(request, *args):
     return HttpResponse(csrf_token_html)
 
 
-def _receive_contact_us_form_response(request, *args, **kwargs):
+def _receive_contact_us_form_response(request):
     '''
     Defining a view to record the contact us form responses
     '''
@@ -132,35 +132,35 @@ def _receive_contact_us_form_response(request, *args, **kwargs):
             })
 
 
-def privacy_policy(request, *args, **kwargs):
+def privacy_policy(request):
     '''
     Defining a page for privacy policy that will be tagged on using the link near the footer
     '''
     return render(request, 'innoservices/terms_and_conditions/privacy_policy.html')
 
 
-def disclaimer(request, *args, **kwargs):
+def disclaimer(request):
     '''
     Defining a page for the websites disclaimer and will be part of the footer
     '''
     return render(request, 'innoservices/terms_and_conditions/disclaimer.html')
 
 
-def website_terms_and_conditions(request, *args, **kwargs):
+def website_terms_and_conditions(request):
     '''
     Defining a page for the websites terms and conditions and will be a part of the footer
     '''
     return render(request, 'innoservices/terms_and_conditions/terms_and_conditions.html')
 
 
-def our_process_view(request, *args, **kwargs):
+def our_process_view(request):
     '''
     Defining a page for highlighting our process
     '''
     return render(request, 'innoservices/our_process.html')
 
 
-def testimonials(request, *args, **kwargs):
+def testimonials(request):
     '''
     Defining a page for the websites / the company's testimonials
     '''
@@ -174,7 +174,7 @@ def testimonials(request, *args, **kwargs):
     return JsonResponse(context)
 
 
-def send_review_request(request, *args, **kwargs):
+def send_review_request(request):
     '''
     The function / view renders the review request template where the administrator
     can send a request for review to a customer of their choice
@@ -182,7 +182,7 @@ def send_review_request(request, *args, **kwargs):
     return render(request, 'innoservices/send_review_request/send_review_request.html')
 
 
-def _obtain_send_review_request_form(request, *args, **kwargs):
+def _obtain_send_review_request_form(request):
     '''
     The function / view sends the send review request form to the frontend via
     XML
@@ -191,7 +191,7 @@ def _obtain_send_review_request_form(request, *args, **kwargs):
     return HttpResponse(form)
 
 
-def _receive_send_review_request_form_response(request, *args, **kwargs):
+def _receive_send_review_request_form_response(request):
     '''
     The function view accepts a review request form from the front end and stores
     it in the appropriate instance
@@ -236,7 +236,7 @@ def _receive_send_review_request_form_response(request, *args, **kwargs):
         })
 
 
-def write_review(request, *args, **kwargs):
+def write_review(request, **kwargs):
     '''
     The function / view renders the review form for the user to write a review
     '''
@@ -256,7 +256,7 @@ def write_review(request, *args, **kwargs):
     return render(request, 'innoservices/send_review_request/write_review.html', context)
 
 
-def _obtain_write_review_form(request, *args, **kwargs):
+def _obtain_write_review_form(request):
     '''
     The function sends the ClientReviewForm to the frontend
     '''
@@ -271,7 +271,7 @@ def _obtain_write_review_form(request, *args, **kwargs):
     return HttpResponse(form)
 
 
-def _receive_write_review_form_response(request, *args, **kwargs):
+def _receive_write_review_form_response(request):
     '''
     The function receives the response from the ClientReviewForm and saves the 
     review as a new instance. It disables the previously created unique uuid
