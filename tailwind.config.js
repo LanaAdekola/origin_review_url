@@ -1,12 +1,12 @@
 module.exports = {
 	purge: {
-		enabled: false,
+		enabled: true,
 		content: [
-		// 	'./innocelf/innoservices/static/innoservices/js/*.js',
-		// 	'./innocelf/innoservices/static/innoservices/js/ComponentClasses/*.js',
-		// 	'./innocelf/innoservices/templates/innoservices/*.html',
-		// 	'./innocelf/ClientAdmin/static/ClientAdmin/js/*.js',
-		// 	'./innocelf/ClientAdmin/templates/ClientAdmin/*.html',
+            './innocelf/innoservices/static/innoservices/js/*.js',
+            './innocelf/innoservices/static/innoservices/js/ComponentClasses/*.js',
+            './innocelf/innoservices/templates/innoservices/*.html',
+            './innocelf/ClientAdmin/static/ClientAdmin/js/*.js',
+            './innocelf/ClientAdmin/templates/ClientAdmin/*.html',
 		],
 	},
 	darkMode: false, // or 'media' or 'class'

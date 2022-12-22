@@ -66,6 +66,7 @@ function oneBlogOnHomePage(blogObject) {
         .result;
     readMore.classList.replace('mx-auto', 'mr-auto');
     readMore.href = '/knowledge-home/' + blogObject.pk.toFixed(0);
+    readMore.target = ''
 
     let author = document.createElement('span');
     author.classList.add(
@@ -91,8 +92,12 @@ function oneBlogOnHomePage(blogObject) {
     * @param item - Event: The click event
     */
 function filterBlogs(item) {
+    let allFilters = document.querySelectorAll('[id$="-filter"]');
+    allFilters = [...allFilters];
+    allFilters.map((item) => item.classList.add('text-gray-300'));
+
     item.target.classList.remove('text-gray-300');
-    document.getElementById('clear-filter-button').classList.remove('hidden');
+    document.getElementById('clear-filter-button').classList.remove('text-white');
 
     let filterId = item.target.id;
     let requestedFilter = filterId.split('-')[0];
@@ -117,7 +122,7 @@ function filterBlogs(item) {
     *
     */
 function clearFilter() {
-    document.getElementById('clear-filter-button').classList.add('hidden');
+    document.getElementById('clear-filter-button').classList.add('text-white');
 
     let allBlogs = document
         .getElementById('blog-home-page-right-container')
@@ -159,24 +164,23 @@ function filterOnBlogHome() {
     searchInput.placeholder = 'Search';
 
     let searchByCategory = new HeadingOrParagraph('p', 'Search By Category')
-        .renderWithClass(['uppercase', 'mt-5', 'mb-3'])
+        .renderWithClass(['uppercase', 'mt-5'])
         .result;
-    let clearFilterSpan = document.createElement('span');
+    let clearFilterSpan = document.createElement('p');
     clearFilterSpan.classList.add(
         'lato-light',
-        'text-sm',
+        'text-xs',
         'underline',
         'uppercase',
-        'ml-5',
+        'mb-8',
         'cursor-pointer',
-        'hidden',
+        'text-white',
     );
     clearFilterSpan.textContent = 'Clear Filter';
     clearFilterSpan.id = 'clear-filter-button';
     clearFilterSpan.addEventListener('click', clearFilter);
-    searchByCategory.append(clearFilterSpan);
 
-    container.append(searchByCategory);
+    container.append(searchByCategory, clearFilterSpan);
 
     Object.keys(BLOG_CATEGORIES).map(item => {
         let category = new AnchorLinks(BLOG_CATEGORIES[item])
@@ -240,15 +244,6 @@ export async function renderBlogHome() {
         .then(response => {
             let responseJson = JSON.parse(response);
             return responseJson;
-            // let text = responseJson[0].fields.content_in_md;
-            // var converter = new showdown.Converter({
-            //     noHeaderId: true,
-            //     simpleLineBreaks: true,
-            //     requireSpaceBeforeHeadingText: true,
-            //     openLinksInNewWindow: true,
-            // }),
-            //     html      = converter.makeHtml(text);
-            // console.log(html);
         });
 
     let allBlogContainer = allBlogsHomePage(allBlogs);
