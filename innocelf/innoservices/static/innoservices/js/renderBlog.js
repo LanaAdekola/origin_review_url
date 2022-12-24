@@ -74,7 +74,7 @@ function renderBlogMaterial() {
         'mx-auto',
         'my-24',
         'pt-12',
-        'lg:w-1/2',
+        'lg:w-2/5',
     )
 
     let heading = new HeadingOrParagraph('h4', title)
@@ -105,13 +105,24 @@ function renderBlogMaterial() {
     let authorRen = document.createElement('span');
     authorRen.classList.add(
         'text-sm',
-        'lato-thin',
+        'lato-regular',
         'sm:text-base',
         'lg:text-base',
         '2xl:text-base',
         'tracking-wide'
     );
     authorRen.textContent = 'By: ' + author;
+
+    let publishedOn = document.createElement('span');
+    publishedOn.classList.add(
+        'text-sm',
+        'lato-light',
+        'sm:text-base',
+        'lg:text-base',
+        '2xl:text-base',
+        'tracking-wide'
+    );
+    publishedOn.textContent = 'Published On: ' + publication_date;
 
     let highlight = new HeadingOrParagraph('p', highlight_para)
         .renderWithClass(['text-justify', 'mt-8', 'mb-3'])
@@ -124,6 +135,7 @@ function renderBlogMaterial() {
         goBack,
         categoryRen,
         authorRen,
+        publishedOn,
         highlight,
         parsedBlog
     );

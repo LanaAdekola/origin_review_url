@@ -71,7 +71,7 @@ function oneBlogOnHomePage(blogObject) {
     let author = document.createElement('span');
     author.classList.add(
         'text-sm',
-        'lato-thin',
+        'lato-regular',
         'sm:text-base',
         'lg:text-base',
         '2xl:text-base',
@@ -80,8 +80,28 @@ function oneBlogOnHomePage(blogObject) {
     );
     author.textContent = 'By: ' + blogObject.fields.author;
 
+    let publishedDate = document.createElement('span');
+    publishedDate.classList.add(
+        'text-sm',
+        'lato-light',
+        'sm:text-base',
+        'lg:text-base',
+        '2xl:text-base',
+        'mt-3',
+        'tracking-wide'
+    );
+    publishedDate.textContent = 'Published On: ' + blogObject.fields.publication_date;
 
-    container.append(heading, category, highlight, readMore, author);
+    console.log(blogObject)
+
+    container.append(
+        heading,
+        category,
+        highlight,
+        readMore,
+        author,
+        publishedDate
+    );
     return container;
 }
 

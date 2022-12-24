@@ -335,6 +335,7 @@ def blog_view(request, **kwargs):
         'author': blog_post.author,
         'category': blog_post.category,
         'highlight_para': blog_post.highlight_para,
-        'content_in_md': blog_post.content_in_md
+        'content_in_md': blog_post.content_in_md,
+        'publication_date': blog_post.publication_date
     }
     return render(request, 'innoservices/blog.html', context)

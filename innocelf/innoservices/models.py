@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 # Service Choices
@@ -76,6 +77,7 @@ class BlogPost(models.Model):
     title = models.TextField()
     author = models.CharField(max_length = 500)
     category = models.CharField(max_length = 3, choices = BLOG_CATEGORIES)
+    publication_date = models.DateField(default=timezone.now)
 
     highlight_para = models.TextField(null = True, blank = True)
     highlight_img = models.ImageField(null = True, blank = True)
