@@ -11,7 +11,7 @@ import { _importSVG, _parseSVG } from './utils.js';
 export const BLOG_CATEGORIES = {
     'PAT': 'Patents',
     'TMK': 'Trademarks',
-    'GRE': 'General Research',
+    'FDA': 'FDA',
     'CAS': 'Case Studies',
     'IPR': 'Intellectual Property'
 };
