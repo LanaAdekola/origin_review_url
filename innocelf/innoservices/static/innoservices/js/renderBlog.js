@@ -54,6 +54,13 @@ function parseBlog() {
                 'text-xs',
                 'md:text-sm'
             );
+        } else if (itemLower === 'img') {
+            item.classList.add(
+                'h-72',
+                'mx-auto',
+                'md:h-72',
+                'xl:h-96'
+            )
         }
     })
 

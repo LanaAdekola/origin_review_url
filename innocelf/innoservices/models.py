@@ -16,7 +16,7 @@ SERVICES = (
 BLOG_CATEGORIES = (
     ('PAT', 'Patents'),
     ('TMK', 'Trademarks'),
-    ('GRE', 'General Research'),
+    ('FDA', 'FDA'),
     ('CAS', 'Case Studies'),
     ('IPR', 'Intellectual Property')
 )
