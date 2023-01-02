@@ -245,6 +245,7 @@ function _createCEOContainer() {
         'lg:gap-0',
         'lg:flex-row'
     );
+    container.id = 'about-us-ceo-container';
 
     let photoContainer = __createCEOPhotoContainer();
 

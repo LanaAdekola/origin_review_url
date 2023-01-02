@@ -68,7 +68,7 @@ function oneBlogOnHomePage(blogObject) {
     readMore.href = '/knowledge-home/' + blogObject.pk.toFixed(0);
     readMore.target = ''
 
-    let author = document.createElement('span');
+    let author = document.createElement('a');
     author.classList.add(
         'text-sm',
         'lato-regular',
@@ -79,6 +79,7 @@ function oneBlogOnHomePage(blogObject) {
         'tracking-wide'
     );
     author.textContent = 'By: ' + blogObject.fields.author;
+    author.href = '/about-us#about-us-ceo-container'
 
     let publishedDate = document.createElement('span');
     publishedDate.classList.add(

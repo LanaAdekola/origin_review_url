@@ -109,7 +109,7 @@ function renderBlogMaterial() {
     );
     categoryRen.textContent = BLOG_CATEGORIES[category];
 
-    let authorRen = document.createElement('span');
+    let authorRen = document.createElement('a');
     authorRen.classList.add(
         'text-sm',
         'lato-regular',
@@ -119,6 +119,7 @@ function renderBlogMaterial() {
         'tracking-wide'
     );
     authorRen.textContent = 'By: ' + author;
+    authorRen.href = '/about-us#about-us-ceo-container'
 
     let publishedOn = document.createElement('span');
     publishedOn.classList.add(
