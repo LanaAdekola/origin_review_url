@@ -27,6 +27,7 @@ from .sitemaps import StaticViewSiteMap, BlogSiteMap
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
 from django.views.generic.base import TemplateView
+from .feed import BlogFeed
 
 
 app_name = 'innoservices'
@@ -123,6 +124,7 @@ urlpatterns = [
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
+    path('feed', BlogFeed()),
     path("robots.txt",TemplateView.as_view(template_name="innoservices/robots.txt", content_type="text/plain"))
 
     # path('user-login/', '', name='user-login')
