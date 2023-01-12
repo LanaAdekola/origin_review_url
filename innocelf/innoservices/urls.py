@@ -124,7 +124,7 @@ urlpatterns = [
 
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
-    path('knowledge-home/feed', BlogFeed()),
+    path('knowledge-home-feed', BlogFeed()),
     path("robots.txt",TemplateView.as_view(template_name="innoservices/robots.txt", content_type="text/plain"))
 
     # path('user-login/', '', name='user-login')
