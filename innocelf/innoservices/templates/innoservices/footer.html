@@ -1,49 +1,10 @@
+{% load static %}
+
 <footer class="flex flex-col bg-innoblack lato-regular text-white pt-5 relative mt-96 lg:h-96">
     <div
         class="flex flex-col mx-auto my-5 md:w-full lg:w-11/12 max-w-7xl justify-end items-end relative w-full lg:w-2/3">
-        <div class="flex flex-col w-full px-4 py-5 mx-auto bg-gradient-to-r from-gray-50 to-gray-100 drop-shadow-md sm:px-16 sm:py-8 md:w-2/3 lg:px-8 lg:w-1/2 xl:px-16 xl:py-8 xl:max-w-xl xl:w-full lg:absolute lg:left-0 lg:-bottom-6"
-            style="border-radius: 35px;">
-            <form method="POST" enctype="application/x-www-form-urlencoded">
-                <h3 class="text-xl lato-regular sm:text-xl lg:text-2xl 2xl:text-3xl mb-4 text-black text-center">Contact
-                    us
-                </h3>
-                <p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg mb-8 text-black text-center">Get
-                    started by
-                    providing your contact below.</p><input type="hidden" name="csrfmiddlewaretoken"
-                    value="YAQLjMUqnUPb9QVaM6ftPG19O2vveeZDxlOzpdE8yD2EV0diDJdQizclo08Ez03B"><label
-                    class="block lato-regular"><input type="text" name="full_name" id="contact_us_first_name"
-                        placeholder="Name" required="" maxlength="255"
-                        class="mt-0 block lato-regular w-full px-5 py-4 text-sm focus:ring-0 focus:border-black rounded-full text-black bg-white my-5"></label><label
-                    class="block lato-regular"><input type="email" name="email" id="contact_us_email"
-                        placeholder="your_email@domain.com" required="" maxlength="254"
-                        class="mt-0 block lato-regular w-full px-5 py-4 text-sm focus:ring-0 focus:border-black rounded-full text-black bg-white my-5"></label><label
-                    class="block lato-regular"><select name="inquiry_reason" id="contact_us_reason" required=""
-                        class="mt-0 block lato-regular w-full px-5 py-4 text-sm focus:ring-0 focus:border-black rounded-full text-black bg-white my-5"
-                        style="-webkit-appearance: none;">
-                        <option value="" selected="">---------</option>
 
-                        <option value="PS">Patentability / Novelty Search</option>
-
-                        <option value="CS">Clearance Search</option>
-
-                        <option value="IS">Invalidity Search</option>
-
-                        <option value="FS">Freedom to Operate Search</option>
-
-                        <option value="LA">Landscape / State of the Art</option>
-
-                        <option value="PR">Product Research</option>
-
-                        <option value="NS">Introduction / Unsure</option>
-
-                    </select></label><button type="submit"
-                    class="lato-regular block text-center mx-auto py-2 px-5 rounded-full shadow cursor-pointer border-2 border-innoblack bg-innoblack text-white focus:ring focus:ring-innoblack focus:ring-offset-4 hover:bg-gray-800 text-sm md:text-lg md:py-3 md:px-8 mt-3">Submit</button>
-            </form>
-            <h4 class="text-lg lato-regular sm:text-xl lg:text-2xl 2xl:text-3xl text-black text-center my-5">OR</h4><a
-                target="_blank"
-                class="lato-regular block text-center mx-auto py-2 px-5 rounded-xl shadow cursor-pointer border-2 border-innoblack focus:ring focus:ring-innoblack focus:ring-offset-4 hover:bg-gray-300 text-sm md:text-lg md:py-3 md:px-8 text-innoblack"
-                href="https://calendly.com/innocelf/virtual-appointment">Schedule via Calendly</a>
-        </div>
+        <div id="contact-us-form-div"></div>
         <div
             class="flex flex-col w-full justify-end items-center pb-5 md:gap-2 border-0 border-b border-white mt-5 lg:flex-row lg:w-1/2">
             <div class="px-4 w-3/4 text-center lg:w-2/5 lg:text-left lg:py-4 mb-5 sm:w-1/2">
@@ -159,3 +120,5 @@
                 class="underline" href="/disclaimer">this page.</a></p>
     </div>
 </footer>
+
+<script type="module" src="{% static 'innoservices/js/footer.js' %}"></script>
