@@ -94,20 +94,6 @@ function createServicesContainer() {
  * the services option from the navbar is clicked
  */
 export function renderServices() {
-    // new PageHeadElements(STATE.homepage.meta, STATE.homepage.title);
     let navbar = new Navbar().render().result;
     document.getElementById('navbar-div').append(navbar);
-    // let paragraphContainer = createParagraphContainer();
-    // let headingContainer = createHeadingWithBlueBackground('Services');
-    // let servicesContainer = createServicesContainer();
-    // let footer = new Footer().render().result;
-
-    // let app = document.getElementById('app');
-    // app.append(
-    //     navbar,
-    //     paragraphContainer,
-    //     headingContainer,
-    //     servicesContainer,
-    //     footer
-    // );
 }

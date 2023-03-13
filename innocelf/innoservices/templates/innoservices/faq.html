@@ -1,34 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	{% extends 'base.html' %}
-	{% load static %}
+{% extends 'base.html' %}
+{% load static %}
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% block title %}
-    <link rel="canonical" href="https://www.innocelf.com/frequently-asked-questions" />
-    <meta name="description" content="Innocelf specializes in Patent Research 
+	{% block title %}
+	<link rel="canonical" href="https://www.innocelf.com/frequently-asked-questions" />
+	<meta name="description" content="Innocelf specializes in Patent Research 
                             and is a Patent Research Consultant firm based in Michigan. 
                             But there could be questions about our services. 
                             The page helps to identify the questions and answer them.">
-    <title>
-        Frequenty Asked Questions | Answers regarding our Patent Services
-    </title>
-    {% endblock title %}
+	<title>
+		Frequenty Asked Questions | Answers regarding our Patent Services
+	</title>
+	{% endblock title %}
 
-	</head>
+</head>
 
-	<body class="creative-lp">
-		{% block content %}
-		<div id="app"></div>
+<body class="creative-lp">
+	{% block content %}
+	<div id="app">
+		<div id="navbar-div"></div>
 
-		<script type="module"
-			src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+		<div class="flex w-full bg-cover bg-no-repeat bg-center relative sm:h-36 lg:h-44 xl:h-56 mt-12"
+			style="background-image: url(&quot;/static/innoservices/img/firstPage/firstPageMiddleBlueBelt.svg&quot;);">
+			<div class="flex flex-col w-3/5 m-auto">
+				<h2 class="text-2xl lato-bold sm:text-3xl lg:text-4xl 2xl:text-5xl text-white my-8 text-center">
+					Frequently Asked Questions</h2>
+			</div>
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="469" height="280"
+				viewBox="0 0 350 220"
+				class="hidden sm:block sm:absolute sm:right-0 sm:h-36 sm:-right-36 lg:h-44 lg:-right-24 xl:absolute xl:right-0 xl:h-56">
+				<defs>
+					<clipPath id="clip-path">
+						<rect id="Rectangle_492" data-name="Rectangle 492" width="469" height="280"
+							transform="translate(1451 1358)" fill="#0d161e"></rect>
+					</clipPath>
+					<clipPath id="clip-path-2">
+						<rect id="Rectangle_16" data-name="Rectangle 16" width="1920" height="803"
+							transform="translate(0 1078)" fill="#1c1c1c"></rect>
+					</clipPath>
+				</defs>
+				<g id="Mask_Group_6" data-name="Mask Group 6" transform="translate(-1451 -1358)"
+					clip-path="url(#clip-path)">
+					<g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(0 280)"
+						clip-path="url(#clip-path-2)">
+						<g id="Group_30" data-name="Group 30" transform="translate(4759 -576)" opacity="0.4">
+							<circle id="Ellipse_1" data-name="Ellipse 1" cx="481" cy="481" r="481"
+								transform="translate(-3305 1400)" fill="#7b7b7b" opacity="0.5"></circle>
+							<circle id="Ellipse_2" data-name="Ellipse 2" cx="350" cy="350" r="350"
+								transform="translate(-3174 1531)" fill="#7b7b7b" opacity="0.8"></circle>
+							<circle id="Ellipse_3" data-name="Ellipse 3" cx="207" cy="207" r="207"
+								transform="translate(-3031 1674)" fill="#7b7b7b"></circle>
+						</g>
+					</g>
+				</g>
+			</svg>
+		</div>
+		<div class="flex flex-col w-11/12 mx-auto my-24 max-w-7xl bg-no-repeat bg-center"
+			style="background-image: url(&quot;/static/innoservices/img/innocelfGrayCNoGradient.svg&quot;); background-size: 500px 500px;">
+			<div class="flex w-11/12 mx-auto mb-6 justify-end items-center">
+				<a type="button"
+					class="lato-regular bg-white text-gray-500 p-2 block rounded border border-gray-500 hover:text-blue-500 hover:border-blue-500 focus:text-blue-700 focus:border-blue-700 mr-4"
+					id="expand-all-answers-button">Expand All</a>
+				<a type="button"
+					class="lato-regular bg-white text-gray-500 p-2 block rounded border border-gray-500 hover:text-blue-500 hover:border-blue-500 focus:text-blue-700 focus:border-blue-700"
+					id="collapse-all-answers-button">Collapse All</a>
+			</div>
+			<div class="flex flex-col gap-8">
+				<div class="grid grid-cols-1 shadow-md">
+					<button type="button" id="faq-1"
+						class="flex text-left lato-regular text-base px-4 py-6 border border-gray-100 hover:border-gray-500 focus:border-gray-500">
+						Is my submitted search disclosure secure?
+						<i class="fas fa-chevron-down text-xs ml-auto self-center"></i>
+					</button>
+					<div class="container p-4 hidden" data-expand="true" id="faq-ans-1">
+						<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg">
+							Yes. We sign non-disclosure agreements with all of
+							our clients and the security of your technical and
+							proprietary information is our top priority.
+						</p>
+					</div>
+				</div>
+				<div class="grid grid-cols-1 shadow-md">
+					<button type="button" id="faq-2"
+						class="flex text-left lato-regular text-base px-4 py-6 border border-gray-100 hover:border-gray-500 focus:border-gray-500">Can
+						Innocelf provide me with Non-Patent Literature (NPL) searching?
+						<i class="fas fa-chevron-down text-xs ml-auto self-center"></i>
+					</button>
+					<div class="container p-4 hidden" data-expand="true" id="faq-ans-2">
+						<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg">
+							Yes. We can provide you with NPL searching.
+						</p>
+					</div>
+				</div>
+				<div class="grid grid-cols-1 shadow-md">
+					<button type="button" id="faq-3"
+						class="flex text-left lato-regular text-base px-4 py-6 border border-gray-100 hover:border-gray-500 focus:border-gray-500">Do
+						you offer high volume discounts?
+						<i class="fas fa-chevron-down text-xs ml-auto self-center"></i>
+					</button>
+					<div class="container p-4 hidden" data-expand="true" id="faq-ans-3">
+						<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg">
+							Absolutely! We offer substantial discounts to our
+							clients for high volume work.
+						</p>
+					</div>
+				</div>
+				<div class="grid grid-cols-1 shadow-md">
+					<button type="button" id="faq-4"
+						class="flex text-left lato-regular text-base px-4 py-6 border border-gray-100 hover:border-gray-500 focus:border-gray-500">
+						How do I place an order for a search?
+						<i class="fas fa-chevron-down text-xs ml-auto self-center"></i>
+					</button>
+					<div class="container p-4 hidden" data-expand="true" id="faq-ans-4">
+						<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg">
+							Please schedule a free consultation with us <a
+								href="https://calendly.com/innocelf/virtual-appointment">here</a>
+						</p>
+					</div>
+				</div>
+				<div class="grid grid-cols-1 shadow-md">
+					<button type="button" id="faq-5"
+						class="flex text-left lato-regular text-base px-4 py-6 border border-gray-100 hover:border-gray-500 focus:border-gray-500">
+						Is Innocelf a law firm?
+						<i class="fas fa-chevron-down text-xs ml-auto self-center"></i>
+					</button>
+					<div class="container p-4 hidden" data-expand="true" id="faq-ans-5">
+						<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg">
+							No. Innocelf, LLC only provides cutting edge
+							intellectual property research and does not practice patent law.
+						</p>
+					</div>
+				</div>
+				<div class="grid grid-cols-1 shadow-md">
+					<button type="button" id="faq-6"
+						class="flex text-left lato-regular text-base px-4 py-6 border border-gray-100 hover:border-gray-500 focus:border-gray-500">
+						Will Innocelf write or draft a patent application for me?
+						<i class="fas fa-chevron-down text-xs ml-auto self-center"></i>
+					</button>
+					<div class="container p-4 hidden" data-expand="true" id="faq-ans-6">
+						<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg">
+							Yes. Innocelf may help you in writing a patent
+							application as a technical writer but we do not
+							offer patent filing or prosecution.
+						</p>
+					</div>
+				</div>
+				<div class="grid grid-cols-1 shadow-md">
+					<button type="button" id="faq-7"
+						class="flex text-left lato-regular text-base px-4 py-6 border border-gray-100 hover:border-gray-500 focus:border-gray-500">
+						Will Innocelf file a patent application for me?
+						<i class="fas fa-chevron-down text-xs ml-auto self-center"></i>
+					</button>
+					<div class="container p-4 hidden" data-expand="true" id="faq-ans-7">
+						<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg">
+							No. Innocelf, LLC only provides cutting edge
+							intellectual property research and does not practice
+							patent law or patent prosecution.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 
-		{% endblock content %}
-	</body>
+		{% include 'innoservices/footer.html' %}
+	</div>
+
+	<script type="module" src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+
+	{% endblock content %}
+</body>
 
 </html>

@@ -20,6 +20,19 @@ function __expandCollapseAnswers() {
 }
 
 /**
+ * Function toggles the hidden class for one question
+ * 
+ * @param event: the click event associated with the button click
+ */
+function __expandSingleAnswer(event) {
+    let eventTarget = event.target.id;
+    let questionNumber = eventTarget.split("-")[1]
+
+    document.getElementById('faq-ans-' + questionNumber)
+        .classList.toggle('hidden');
+}
+
+/**
  * Creates a container / row for the expand all and collapse all buttons
  * @returns Container with the two buttons
  */
@@ -91,14 +104,14 @@ function createFAQContainer() {
  * Main driver to render the FAQ page
  */
 export function renderFAQ() {
-    // new PageHeadElements(STATE.faqPage.meta, STATE.faqPage.title);
-    let faqHeading = createHeadingWithBlueBackground(
-        'Frequently Asked Questions'
-    );
-    let faqContainer = createFAQContainer();
     let navbar = new Navbar().render().result;
-    let footer = new Footer().render().result;
+    document.getElementById('navbar-div').append(navbar);
 
-    let app = document.getElementById('app');
-    app.append(navbar, faqHeading, faqContainer, footer);
+    document.getElementById('expand-all-answers-button').onclick = __expandCollapseAnswers;
+    document.getElementById('collapse-all-answers-button').onclick = __expandCollapseAnswers;
+
+    let allFaqButtons = document.querySelectorAll('button[id^="faq-"]')
+    allFaqButtons.forEach((element) => {
+        element.addEventListener('click', __expandSingleAnswer);
+    })
 }
