@@ -136,15 +136,7 @@ function createReviewGrid() {
 }
 
 export function renderTestimonial() {
-    // new PageHeadElements(STATE.faqPage.meta, STATE.faqPage.title);
-    let testHeading = createHeadingWithBlueBackground('Client Reviews');
     let navbar = new Navbar().render().result;
-    let paraContainer = createParagraphContainer();
-    let reviewContainer = createReviewGrid();
-    let footer = new Footer().render().result;
-
-    let app = document.getElementById('app');
-    app.append(navbar, testHeading, paraContainer, reviewContainer, footer);
-
+    document.getElementById('navbar-div').append(navbar);
     animateTestimonialView();
 }

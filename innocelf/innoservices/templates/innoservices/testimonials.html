@@ -1,37 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	{% extends 'base.html' %}
-	{% load static %}
+{% extends 'base.html' %}
+{% load static %}
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% block title %}
-    <link rel="canonical" href="https://www.innocelf.com/testimonials-page" />
-    <meta name="description" content="Innocelf strives to provide the best 
+	{% block title %}
+	<link rel="canonical" href="https://www.innocelf.com/testimonials-page" />
+	<meta name="description" content="Innocelf strives to provide the best 
                             Patent Research to our clients. This includes using 
                             our wide experience and the best possible tools in 
                             the marketplace. The testimonials are a product of 
                             Innocelf's work, working directly with the client or 
                             through Upwork">
-    <title>
-        Testimonials | Client Reviews regarding our Patent Services
-    </title>
-    {% endblock title %}
+	<title>
+		Testimonials | Client Reviews regarding our Patent Services
+	</title>
+	{% endblock title %}
 
 
-	</head>
+</head>
 
-	<body class="creative-lp">
-		{% block content %}
-		<div id="app"></div>
+<body class="creative-lp">
+	{% block content %}
+	<div id="app">
+		<div id="navbar-div"></div>
+		<div class="flex w-full bg-cover bg-no-repeat bg-center relative sm:h-36 lg:h-44 xl:h-56 mt-12"
+			style="background-image: url(&quot;/static/innoservices/img/firstPage/firstPageMiddleBlueBelt.svg&quot;);">
+			<div class="flex flex-col w-3/5 m-auto">
+				<h2 class="text-2xl lato-bold sm:text-3xl lg:text-4xl 2xl:text-5xl text-white my-8 text-center">Client
+					Reviews</h2>
+			</div>
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="469" height="280"
+				viewBox="0 0 350 220"
+				class="hidden sm:block sm:absolute sm:right-0 sm:h-36 sm:-right-36 lg:h-44 lg:-right-24 xl:absolute xl:right-0 xl:h-56">
+				<defs>
+					<clipPath id="clip-path">
+						<rect id="Rectangle_492" data-name="Rectangle 492" width="469" height="280"
+							transform="translate(1451 1358)" fill="#0d161e"></rect>
+					</clipPath>
+					<clipPath id="clip-path-2">
+						<rect id="Rectangle_16" data-name="Rectangle 16" width="1920" height="803"
+							transform="translate(0 1078)" fill="#1c1c1c"></rect>
+					</clipPath>
+				</defs>
+				<g id="Mask_Group_6" data-name="Mask Group 6" transform="translate(-1451 -1358)"
+					clip-path="url(#clip-path)">
+					<g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(0 280)"
+						clip-path="url(#clip-path-2)">
+						<g id="Group_30" data-name="Group 30" transform="translate(4759 -576)" opacity="0.4">
+							<circle id="Ellipse_1" data-name="Ellipse 1" cx="481" cy="481" r="481"
+								transform="translate(-3305 1400)" fill="#7b7b7b" opacity="0.5"></circle>
+							<circle id="Ellipse_2" data-name="Ellipse 2" cx="350" cy="350" r="350"
+								transform="translate(-3174 1531)" fill="#7b7b7b" opacity="0.8"></circle>
+							<circle id="Ellipse_3" data-name="Ellipse 3" cx="207" cy="207" r="207"
+								transform="translate(-3031 1674)" fill="#7b7b7b"></circle>
+						</g>
+					</g>
+				</g>
+			</svg>
+		</div>
 
-		<script type="module"
-			src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+		<div class="flex flex-col w-11/12 mx-auto my-24 max-w-4xl">
+			<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg">
+				Innocelf has had the great pleasure of working with clients from
+				around the world - here are the kind words they had to say about our
+				work...
+			</p>
+			<br>
+			<p class="text-base lato-light sm:text-lg lg:text-xl">
+				<span>How can Innocelf help ...? </span>
+				<a class="underline lato-regular" target="_blank"
+					href="https://calendly.com/innocelf/virtual-appointment">
+					Schedule Consultation via Calendly
+				</a>
+			</p>
+		</div>
 
-		{% endblock content %}
-	</body>
+		<div
+			class="grid grid-cols-1 gap-12 w-11/12 max-w-7xl mx-auto my-24 md:w-2/3 lg:w-10/12 lg:grid-cols-2 lg:gap-x-24 lg:gap-y-72 xl:w-3/4 2xl:w-2/3">
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-100" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita from Innocelf has been a guide to
+						me in my pursuit for patent filing. She is very knowledgeable of the technology industry and
+						performs good research to provide assessment of patentability of your innovation. As an
+						individual inventor the person tends to focus too much on the technical content and does not
+						realize the 360 degree view of the other comparable work out there. Pranita worked closely with
+						me and was open for dialogue whenever I had any question. She was quick to pick up on the
+						learning of a new field of human psychology and its connection with technology. I would easily
+						recommend her to anyone looking for guidance in patent research and filing.</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Dr. Abhishek V.</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">July 2022</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-100" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">"Pranita did a great job with a
+						patentability search. Her report was complete and had all supporting documentation. She
+						completed the work on time."</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Stephen V.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">July 2022</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">"Pranita provided invaluable assistance to
+						me doing patent and trademark research. She is polite, thoughtful, quick, and extremely skilled.
+						I would not hesitate to hire her again. Not for a second."</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">David A.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">January 2022</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">"Pranita was wonderful to work with,
+						answered all of our questions clearly so even a non-patent expert could understand, and gave us
+						a thorough and complete report that saved us a lot of time, money, and headaches. We would
+						recommend her very highly."</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Dan M.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">February 2022</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">"Very very thorough work! Searched through
+						tens of thousands of Patents for me. Easily digestible findings. Hired twice, will hire again in
+						the future!"</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Megan Q.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">February 2022</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">"Great experience working with Pranita!
+						She is an expert in her field! I highly recommend hiring her!"</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Steve M.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">January 2022</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">"It was a pleasure working with Pranita!
+						It was my first provisional patent but she walked me through each step and answered all my
+						questions! She was professional and requested an NDA before any information was transferred and
+						was so quick at getting to work on my provisional patent. She even made suggestions to the
+						wording to make the patent have more coverage which made it even better!! I can’t wait to work
+						with her for the final patent again soon!"</span><i class="fas fa-quote-right fa-sm ml-3"></i>
+				</p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Jade B.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">March 2022</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">"Pranita is not only a pleasure to work
+						with, she's extremely competent, prompt, polite, flexible, and thorough. I would hire her again
+						without question."</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">David A.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">January 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">I felt Pranita was experienced,
+						knowledgeable and responsible. She quickly understood the issues I was having with a patent
+						application and set us on a path of corrective action. Beyond the Patent process, I felt Pranita
+						developed a good understanding of our Claims and was able to update our Specifications
+						accordingly. She sized all her tasks correctly and was clear and methodical throughout. I would
+						definitely work with her again.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Faisal H.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">November 2021</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">"Amazing and Fast Work! Perfect for any
+						looking for IP protection. Plus, her fees are MORE than fair for the excellent work product she
+						produces. I am looking forward to filing several more patents."</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Clint W.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">July 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita was timely and professional. A
+						pleasure to work with!</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Nell B.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">June 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">I had a specific challenge for Pranita and
+						she excelled at it. She provided a detailed, thorough, and convincing analysis. If you get the
+						chance, hire her!</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Matt L.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">September 2021</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita is a real gem of a find. She is
+						thoughtful, conscientious, detail oriented, timely and assiduous.
+
+						She is patient and you don’t feel rushed to ‘get it over with’ so she can get on with another
+						client.
+
+						I would definitely rehire her.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Kumar C.</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">May 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">"Pranita did a fantastic job with my
+						patent research. Will use her again on my next project!"</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Heather S.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">October 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita was a great help and excellent
+						worker. She was very positive and completed our tasks in a timely manner. I would recommend
+						Pranita for anyone needing a patent or other patent help in the future.</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Jason M.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">June 2020</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita was a pleasure to work with! Great
+						work in a timely fashion. Highly recommend.</span><i class="fas fa-quote-right fa-sm ml-3"></i>
+				</p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Jared B.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">March 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita conducted a thorough patent search
+						for our company and compiled a detailed report. When we asked her to expand the search later,
+						she graciously agreed. Great communication and excellent work!</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Jacob R.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">March 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita is fantastic at patent searching
+						and is prompt, professional, and kind. Innocelf, LLC is a pleasure to work with!</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Katherine K.</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">March 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Quick and efficient service - walked me
+						through the steps and made me comfortable with what could have been a very confusing
+						process.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Jeffry A.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">March 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Absolutely perfect work, flawlessly done,
+						everything well explained. Thank you for taking care of this difficult project so well.</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Kumar D.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">December 2020</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">I liked working with Pranita as she was
+						effective and quick to get the job done.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Jack K.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">December 2020</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Great Work!</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Ron B.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">December 2020</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">What an incredible pleasure it was to work
+						with her. She is fast, professional and extremely knowledgeable. It is hard to find people like
+						this.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Tim D.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">November 2020</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">I was quite pleased with the scope of work
+						performed, regarding the patent search report. I appreciate the professionalism! Couldn't have
+						done it without Pranita.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">David H.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">October 2020</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita Dharmadhikari has been great to
+						work with and we will continue to use her in the future. We have used her on multiple projects
+						for patent research and all were completed in a timely manner and the final results were very
+						well prepared. Highly recommended.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Lennie F.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">October 2020</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Amazing Work, Very Detailed , Clear,
+						Coherent And Thorough Information. Cannot Ask For More. Thank You</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Kumar D.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">September 2020</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Working with Pranita was a great
+						experience. I highly suggest hiring her for patent research. The job she did was thorough and
+						complete and she was great to work with. The project went smooth and efficiently. 5
+						stars!</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Katrina G.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">February 2021</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita fulfilled the project and
+						surpassed expectations in a VERY timely manner. I certainly recommend her work!</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Eric G.*</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">January 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">I am blessed to have Innocelf to support
+						my IP protection. The founder, Pranita is very dedicated and punctual in her work. I found her
+						always well studied and prepared for the discussions . She has a sound knowledge base and
+						confident of the deliverables. I wish all the best to Innocelf for multifold growth in
+						future.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Dr. Anubha K.</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">January 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">I found Pranita's work professional and of
+						high quality. I will definitely work with you again on my next projects, and I encourage my
+						friends to work with you.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Nael M.</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">January 2021</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita is everything you could want or
+						need in regards to patent work. She is detailed, efficient, a hard worker, diligent, and also,
+						as a bonus, she is very pleasant to work with. She helped me from patent search to final filing
+						and I was very impressed. I would highly recommend her to anyone looking for help with their
+						patent. You will not be disappointed!</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Robin B.</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">December 2020</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita's years of IP experience and
+						educational credentials truly come through in each and every IP project she produces. She is an
+						expert in her field and a pleasure to work with. I am grateful for her contributions both as a
+						Patent Summer Intern and now a contract supplier for my firm. I highly recommend Pranita for
+						patent and trademark searches for your business.</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Randi K.</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">October 2020</span></div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">Pranita is a good person to work with. I
+						appreciate and respect her work.</span><i class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Robin B.</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">November 2020</span>
+				</div>
+			</div>
+			<div class="transition-opacity duration-2000 delay-200 ease-in-out opacity-0" animate-testimonials="true">
+				<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg text-justify"><i
+						class="fas fa-quote-left fa-sm mr-3"></i><span
+						class="text-xs sm:text-sm lg:text-base 2xl:text-base">I have had the pleasure of working with
+						Pranita over the last 6 months while I put together and finalized a very important patent
+						application. Pranita was flexible, attentive and went over and above to make sure that I was
+						able to meet a very tight schedule, despite having to deal with competing timelines from my
+						formulation team. Pranita’s guidance and experience with pharmaceutical patents was paramount in
+						ensuring that the final product was ready for application. I would absolutely recommend Pranita
+						for anybody needing help with the patenting process, specifically as it relates to the
+						pharmaceutical industry. I will be keeping her contact close for future guidance!</span><i
+						class="fas fa-quote-right fa-sm ml-3"></i></p>
+				<hr class="mt-4 mb-2 w-1/2 hr-bold hr-light mx-auto">
+				<h5 class="text-base lato-regular sm:text-lg lg:text-xl 2xl:text-2xl text-center">Adam M.</h5>
+				<div class="justify-center text-center -mt-2"><span class="text-xs lato-light">May 2020</span></div>
+			</div>
+		</div>
+
+    {% include 'innoservices/footer.html' %}
+	</div>
+
+	<script type="module" src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+
+	{% endblock content %}
+</body>
 
 </html>
