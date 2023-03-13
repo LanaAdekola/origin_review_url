@@ -711,21 +711,11 @@ class FirstPageTestimonials {
  * tag
  */
 export function renderHomepage() {
-    // new PageHeadElements(STATE.homepage.meta, STATE.homepage.title);
-    let topContainer = firstCallToActionContainer();
-    let dynamicContainer = dynamicHeadingContainer();
-    let servicesOverview = new GridContainerServicesOverview().result;
-    let firstPageShortMissionReminderCont = firstPageShortMissionReminder();
-    let firstPageTestimonials = new FirstPageTestimonials().result;
-    let footer = new Footer().render().result;
+    let navbar = new Navbar().render().result;
+    document.getElementById('navbar-div').append(navbar)
 
-    let app = document.getElementById('app');
-    app.append(
-        topContainer,
-        dynamicContainer,
-        servicesOverview,
-        firstPageShortMissionReminderCont,
-        firstPageTestimonials,
-        footer
-    );
+    let dynamicContainer = dynamicHeadingContainer();
+    document.getElementById('dynamic-heading-div').append(dynamicContainer);
+    let firstPageTestimonials = new FirstPageTestimonials().result;
+    document.getElementById('testimonial-div').append(firstPageTestimonials)
 }

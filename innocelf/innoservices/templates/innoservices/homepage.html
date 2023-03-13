@@ -1,33 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  {% extends 'base.html' %}
-  {% load static %}
+{% extends 'base.html' %}
+{% load static %}
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% block title %}
-    <link rel="canonical" href="https://www.innocelf.com/" />
-    <meta name="description" content="Innocelf, LLC is a patent search firm in Michigan, USA, that
+  {% block title %}
+  <link rel="canonical" href="https://www.innocelf.com/" />
+  <meta name="description" content="Innocelf, LLC is a patent search firm in Michigan, USA, that
 			offers the highest quality patent searches and analytics services
 			to protect your invention at a resonable price. Schedule a free
 			consultation with us today to get started on your patent journey.">
-    <title>
-        Innocelf | Patent Search Firm in USA | USPTO Patent Research    
-    </title>
-    {% endblock title %}
+  <title>
+    Innocelf | Patent Search Firm in USA | USPTO Patent Research
+  </title>
+  {% endblock title %}
 
-  </head>
+</head>
 
-  <body class="creative-lp">
-    {% block content %}
-    <div id="app"></div>
-    <script type="module"
-      src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+<body class="creative-lp">
+  {% block content %}
+  <div id="app">
+    <div class="flex flex-col w-full sm:bg-polkadot-graphic sm:bg-no-repeat sm:bg-center xl:bg-cover">
 
-    {% endblock content %}
-  </body>
+      <div id="navbar-div"></div>
+
+      <div class="flex mx-auto my-12 flex-col gap-8 sm:flex-row lg:max-w-4xl lg:my-16 xl:my-24 xl:max-w-7xl xl:gap-0">
+        <div class="flex flex-col my-auto px-8 sm:px-4 sm:w-1/2 xl:px-0">
+          <h2 class="text-2xl lato-bold sm:text-3xl lg:text-4xl 2xl:text-6xl leading-6 text-center sm:text-left">
+            Data-Driven Insights for your Inventions</h2>
+          <h6 class="text-sm lato-regular sm:text-base lg:text-lg 2xl:text-xl my-8">Rigorous research to acquire
+            Intellectual Property Rights, curated
+            for your needs</h6><a target="_blank"
+            class="lato-regular block text-center w-3/4 mx-auto py-2 px-5 rounded-full shadow cursor-pointer border-2 border-innoblack bg-innoblack text-white focus:ring focus:ring-innoblack focus:ring-offset-4 hover:bg-gray-800 text-sm sm:w-2/3 md:text-xl md:w-1/2 lg:ml-0 xl:w-1/3 xl:ml-0 xl:mt-8">Get
+            Started</a>
+        </div>
+        <div class="flex flex-col pl-8 sm:w-1/2 sm:my-auto sm:pl-8 xl:pl-24">
+          <div class="flex items-center my-2"><i
+              class="fas fa-check-circle mr-5 text-xl sm:text-xl lg:text-2xl 2xl:text-3xl"></i>
+            <h6 class="text-sm lato-regular sm:text-base lg:text-lg 2xl:text-xl">Know your Invention's Novelty</h6>
+          </div>
+          <div class="flex items-center my-2 mt-5"><i
+              class="fas fa-check-circle mr-5 text-xl sm:text-xl lg:text-2xl 2xl:text-3xl"></i>
+            <h6 class="text-sm lato-regular sm:text-base lg:text-lg 2xl:text-xl">Make Informed Market Decisions</h6>
+          </div>
+          <div class="flex items-center my-2 mt-5"><i
+              class="fas fa-check-circle mr-5 text-xl sm:text-xl lg:text-2xl 2xl:text-3xl"></i>
+            <h6 class="text-sm lato-regular sm:text-base lg:text-lg 2xl:text-xl">Simplify your Patent Process</h6>
+          </div>
+          <div class="flex items-center my-2 mt-5"><i
+              class="fas fa-check-circle mr-5 text-xl sm:text-xl lg:text-2xl 2xl:text-3xl"></i>
+            <h6 class="text-sm lato-regular sm:text-base lg:text-lg 2xl:text-xl">Gain Competitive Advantage</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="dynamic-heading-div"></div>
+    <div class="flex flex-col max-w-7xl gap-6 mx-auto my-24 md:gap-12">
+      <div class="flex flex-col md:flex-row xl:gap-28">
+        <img src="/static/innoservices/img/firstPage/firstPageServicesGrid_ResearchingNewInvention.svg"
+          alt="researching-new-inventions" class="p-4 my-auto sm:p-12 md:p-8 md:w-1/2">
+        <div class="flex flex-col p-4 my-auto sm:p-12 md:w-1/2 md:p-8">
+          <h3 class="text-xl lato-regular sm:text-xl lg:text-2xl 2xl:text-3xl mb-8">Researching a New Idea</h3>
+          <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl text-justify leading-8">Prior art studies
+            can be helpful to evaluate the novelty of an
+            invention for a new product or process. Prepared before a patent
+            application, it answers the following important questions:</h6>
+          <ul class="list-disc mt-4 ml-8 leading-10">
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">Does a similar invention already
+                exists?</h6>
+            </li>
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">Who has the intellectual property
+                rights on it?</h6>
+            </li>
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">Is that patent still active or expired?
+              </h6>
+            </li>
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">What is the scope of the granted
+                claims?</h6>
+            </li>
+          </ul><a
+            class="lato-regular block text-center w-2/5 py-2 px-5 rounded-full shadow cursor-pointer border-2 border-innoblack bg-innoblack text-white focus:ring focus:ring-innoblack focus:ring-offset-4 hover:bg-gray-800 text-sm sm:w-1/3 md:w-1/2 md:text-xl md:py-2 md:px-5 lg:w-4/12 mt-8"
+            href="/services#researching_a_new_idea">Learn More</a>
+        </div>
+      </div>
+      <div class="flex flex-col-reverse md:flex-row xl:gap-28">
+        <div class="flex flex-col p-4 my-auto sm:p-12 md:w-1/2 md:p-8">
+          <h3 class="text-xl lato-regular sm:text-xl lg:text-2xl 2xl:text-3xl mb-8">Commercialization of a Product</h3>
+          <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl text-justify leading-8">A successful product
+            launch depends, in conjunction with many
+            other factors, on understanding the landscape of inventions
+            surrounding the field of invention. During a launch one may have
+            the following queries:</h6>
+          <ul class="list-disc mt-4 ml-8 leading-10">
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">Is the field of invention crowded?</h6>
+            </li>
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">What other opportunities of innovation
+                exist?</h6>
+            </li>
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">Are there any competitors focused on
+                certain inventions?</h6>
+            </li>
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">Are there opportunities to sharpen the
+                current invention to make the product stand out?</h6>
+            </li>
+          </ul><a
+            class="lato-regular block text-center w-2/5 py-2 px-5 rounded-full shadow cursor-pointer border-2 border-innoblack bg-innoblack text-white focus:ring focus:ring-innoblack focus:ring-offset-4 hover:bg-gray-800 text-sm sm:w-1/3 md:w-1/2 md:text-xl md:py-2 md:px-5 lg:w-4/12 mt-8"
+            href="/services#during_commercialization_of_your_product">Learn More</a>
+        </div>
+        <img src="/static/innoservices/img/firstPage/firstPageServicesGrid_CommercializingProduct.svg"
+          alt="commercializing-products" class="p-4 my-auto sm:p-12 md:p-8 md:w-1/2">
+      </div>
+      <div class="flex flex-col md:flex-row xl:gap-28">
+        <img src="/static/innoservices/img/firstPage/firstPageServicesGrid_DuringLitigation.svg"
+          alt="innocelf-during-litigation" class="p-4 my-auto sm:p-12 md:p-8 md:w-1/2">
+        <div class="flex flex-col p-4 my-auto sm:p-12 md:w-1/2 md:p-8">
+          <h3 class="text-xl lato-regular sm:text-xl lg:text-2xl 2xl:text-3xl mb-8">During Litigation</h3>
+          <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl text-justify leading-8">Whether you are
+            assessing the strength of your portfolio or
+            responding to a claim of infringement, a validity/invalidity search
+            with the correct search methodology ensures you get the proper
+            results for your needs.</h6><a
+            class="lato-regular block text-center w-2/5 py-2 px-5 rounded-full shadow cursor-pointer border-2 border-innoblack bg-innoblack text-white focus:ring focus:ring-innoblack focus:ring-offset-4 hover:bg-gray-800 text-sm sm:w-1/3 md:w-1/2 md:text-xl md:py-2 md:px-5 lg:w-4/12 mt-8"
+            href="/services#during_litigation">Learn More</a>
+        </div>
+      </div>
+      <div class="flex flex-col-reverse md:flex-row xl:gap-28">
+        <div class="flex flex-col p-4 my-auto sm:p-12 md:w-1/2 md:p-8">
+          <h3 class="text-xl lato-regular sm:text-xl lg:text-2xl 2xl:text-3xl mb-8">New Business Name or Logo</h3>
+          <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl text-justify leading-8">Research a business
+            name or logo designs to identify all the
+            confusingly similar trademarks that are already registered or in
+            the public domain.</h6>
+          <ul class="list-disc mt-4 ml-8 leading-10">
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">Ensures that you have a unique brand
+                for maximum competitive
+                advantage.</h6>
+            </li>
+            <li>
+              <h6 class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-xl">Saves on non-refundable fees for
+                trademark registrations.</h6>
+            </li>
+          </ul><a
+            class="lato-regular block text-center w-2/5 py-2 px-5 rounded-full shadow cursor-pointer border-2 border-innoblack bg-innoblack text-white focus:ring focus:ring-innoblack focus:ring-offset-4 hover:bg-gray-800 text-sm sm:w-1/3 md:w-1/2 md:text-xl md:py-2 md:px-5 lg:w-4/12 mt-8"
+            href="/services#researching_new_business_names_or_logos">Learn More</a>
+        </div>
+        <img src="/static/innoservices/img/firstPage/firstPageServicesGrid_BusinessNameLogo.svg"
+          alt="researching-new-business-name-or-logo" class="p-4 my-auto sm:p-12 md:p-8 md:w-1/2">
+      </div>
+    </div>
+    <div class="flex w-full bg-cover bg-no-repeat bg-center relative sm:h-36 lg:h-44 xl:h-56"
+      style="background-image: url(&quot;/static/innoservices/img/firstPage/firstPageMiddleBlueBelt.svg&quot;);">
+      <div class="flex flex-col w-11/12 mx-auto gap-4 my-5 sm:my-auto lg:max-w-4xl xl:max-w-7xl xl:w-3/5">
+        <h2 class="text-2xl lato-regular sm:text-3xl lg:text-4xl 2xl:text-5xl text-white">Innocelf is on a mission to
+          EMPOWER inventors.</h2>
+        <h3 class="text-xl lato-regular sm:text-xl lg:text-2xl 2xl:text-4xl text-white">We promise, our quality will
+          exceed your expectations ...</h3>
+      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="469" height="280"
+        viewBox="0 0 350 220"
+        class="hidden sm:block sm:absolute sm:right-0 sm:h-36 sm:-right-36 lg:h-44 lg:-right-24 xl:absolute xl:right-0 xl:h-56">
+        <defs>
+          <clipPath id="clip-path">
+            <rect id="Rectangle_492" data-name="Rectangle 492" width="469" height="280" transform="translate(1451 1358)"
+              fill="#0d161e"></rect>
+          </clipPath>
+          <clipPath id="clip-path-2">
+            <rect id="Rectangle_16" data-name="Rectangle 16" width="1920" height="803" transform="translate(0 1078)"
+              fill="#1c1c1c"></rect>
+          </clipPath>
+        </defs>
+        <g id="Mask_Group_6" data-name="Mask Group 6" transform="translate(-1451 -1358)" clip-path="url(#clip-path)">
+          <g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(0 280)" clip-path="url(#clip-path-2)">
+            <g id="Group_30" data-name="Group 30" transform="translate(4759 -576)" opacity="0.4">
+              <circle id="Ellipse_1" data-name="Ellipse 1" cx="481" cy="481" r="481" transform="translate(-3305 1400)"
+                fill="#7b7b7b" opacity="0.5"></circle>
+              <circle id="Ellipse_2" data-name="Ellipse 2" cx="350" cy="350" r="350" transform="translate(-3174 1531)"
+                fill="#7b7b7b" opacity="0.8"></circle>
+              <circle id="Ellipse_3" data-name="Ellipse 3" cx="207" cy="207" r="207" transform="translate(-3031 1674)"
+                fill="#7b7b7b"></circle>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div id="testimonial-div"></div>
+
+    {% include 'innoservices/footer.html' %}
+  </div>
+  <script type="module" src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+
+  {% endblock content %}
+</body>
 
 </html>
