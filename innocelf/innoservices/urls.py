@@ -40,11 +40,10 @@ sitemaps = {
 
 urlpatterns = [
     path('', home_view, name='home'),
-    path('home', home_view, name='home'),
     path('services', services_view, name='services'),
     path('about-us', about_us_view, name='about-us'),
     path(
-        'frequently-asked-questions/',
+        'faq',
         frequently_asked_questions,
         name='frequently-asked-questions'
     ),
@@ -73,12 +72,12 @@ urlpatterns = [
         name='receive-contact-us-form'
     ),
 
-    path('our-process/',  our_process_view, name='our-process'),
+    path('our-process',  our_process_view, name='our-process'),
 
-    path('privacy-policy/', privacy_policy, name='privacy-policy'),
-    path('disclaimer/', disclaimer, name='disclaimer'),
+    path('privacy-policy', privacy_policy, name='privacy-policy'),
+    path('disclaimer', disclaimer, name='disclaimer'),
     path(
-        'terms-and-conditions/',
+        'terms-and-conditions',
         website_terms_and_conditions,
         name='terms-and-conditions'
     ),

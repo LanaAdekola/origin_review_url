@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
         renderTestimonial();
     } else if (
         pathname === '/frequently-asked-questions/' ||
-        pathname === '/frequently-asked-questions'
+        pathname === '/faq'
     ) {
         renderFAQ();
     } else if (pathname === '/about-us/' || pathname === '/about-us') {

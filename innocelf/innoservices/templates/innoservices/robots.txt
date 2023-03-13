@@ -4,5 +4,4 @@ User-Agent: Slurp
 User-Agent: DuckDuckBot
 
 Disallow: /static/
-Sitemap: https://innocelf.com/sitemap.xml
-
+Sitemap: https://www.innocelf.com/sitemap.xml

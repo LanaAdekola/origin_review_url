@@ -14,7 +14,7 @@ const NAVBAR_ABOUT_US_DROPDOWN_LINKS = {
         link: '/testimonials-page',
     },
     'Frequently Asked Questions': {
-        link: '/frequently-asked-questions',
+        link: '/faq',
     },
 };
 

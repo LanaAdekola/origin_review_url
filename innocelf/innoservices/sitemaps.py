@@ -11,7 +11,7 @@ class StaticViewSiteMap(Sitemap):
 
     change_frequency = 'monthly'
     priority = 0.8
-    protocol = 'http'
+    protocol = 'https'
 
     def items(self):
         return ['innoservices:home',
