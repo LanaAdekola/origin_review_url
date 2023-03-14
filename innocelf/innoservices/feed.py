@@ -1,6 +1,7 @@
 from django.contrib.syndication.views import Feed
 from django.urls import reverse
 from .models import BlogPost
+import markdown
 
 class BlogFeed(Feed):
     """
@@ -20,7 +21,9 @@ class BlogFeed(Feed):
         return item.title
 
     def item_description(self, item):
-        return item.highlight_para
+        highlight_para = item.highlight_para
+        content = markdown.markdown(item.content_in_md)
+        return highlight_para + content
 
     def item_link(self, item):
         title_lowered = item.title.lower()
