@@ -1,31 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	{% extends 'base.html' %}
-	{% load static %}
+{% extends 'base.html' %}
+{% load static %}
 
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    {% block title %}
-    <link rel="canonical" href="https://www.innocelf.com/disclaimer" />
-    <meta name="description" content="A disclaimer about Innocelf LLC's website">
-    <title>
-        Disclaimer | Innocelf, LLC
-    </title>
-    {% endblock title %}
+	{% block title %}
+	<link rel="canonical" href="https://www.innocelf.com/disclaimer" />
+	<meta name="description" content="A disclaimer about Innocelf LLC's website, its usage and content.">
+	<title>
+		Disclaimer | Innocelf, LLC
+	</title>
+	{% endblock title %}
 
-	</head>
+</head>
 
-	<body class="creative-lp">
-		{% block content %}
-		<div id="app"></div>
+<body class="creative-lp">
+	{% block content %}
+	<div id="app">
+		<div id="navbar-div"></div>
+		<div class="flex w-full bg-cover bg-no-repeat bg-center relative sm:h-36 lg:h-44 xl:h-56 mt-12"
+			style="background-image: url(&quot;/static/innoservices/img/firstPage/firstPageMiddleBlueBelt.svg&quot;);">
+			<div class="flex flex-col w-3/5 m-auto">
+				<h2 class="text-2xl lato-bold sm:text-3xl lg:text-4xl 2xl:text-5xl text-white my-8 text-center">
+					Disclaimer</h2>
+			</div>
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="469" height="280"
+				viewBox="0 0 350 220"
+				class="hidden sm:block sm:absolute sm:right-0 sm:h-36 sm:-right-36 lg:h-44 lg:-right-24 xl:absolute xl:right-0 xl:h-56">
+				<defs>
+					<clipPath id="clip-path">
+						<rect id="Rectangle_492" data-name="Rectangle 492" width="469" height="280"
+							transform="translate(1451 1358)" fill="#0d161e"></rect>
+					</clipPath>
+					<clipPath id="clip-path-2">
+						<rect id="Rectangle_16" data-name="Rectangle 16" width="1920" height="803"
+							transform="translate(0 1078)" fill="#1c1c1c"></rect>
+					</clipPath>
+				</defs>
+				<g id="Mask_Group_6" data-name="Mask Group 6" transform="translate(-1451 -1358)"
+					clip-path="url(#clip-path)">
+					<g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(0 280)"
+						clip-path="url(#clip-path-2)">
+						<g id="Group_30" data-name="Group 30" transform="translate(4759 -576)" opacity="0.4">
+							<circle id="Ellipse_1" data-name="Ellipse 1" cx="481" cy="481" r="481"
+								transform="translate(-3305 1400)" fill="#7b7b7b" opacity="0.5"></circle>
+							<circle id="Ellipse_2" data-name="Ellipse 2" cx="350" cy="350" r="350"
+								transform="translate(-3174 1531)" fill="#7b7b7b" opacity="0.8"></circle>
+							<circle id="Ellipse_3" data-name="Ellipse 3" cx="207" cy="207" r="207"
+								transform="translate(-3031 1674)" fill="#7b7b7b"></circle>
+						</g>
+					</g>
+				</g>
+			</svg>
+		</div>
 
-		<script type="module"
-			src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+		<div class="block w-11/12 mx-auto my-20 lg:w-2/3 2xl:w-1/2">
+			<h6 class="text-sm lato-regular sm:text-base lg:text-lg 2xl:text-xl mt-10">Not Legal Advice</h6>
+			<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg mt-5 text-justify">The information
+				contained in this website is provided for
+				informational purposes only, and should not be construed as legal
+				advice, nor are they intended as a source of advertising or
+				solicitation. The transmission and receipt of information contained on
+				this Web site, in whole or in part, or communication with Innocelf, LLC
+				via the Internet or email through this website does not constitute or
+				create a client relationship between us and any recipient. You should
+				not send us any confidential information in response to this webpage.
+				Such responses will not create a client relationship, and whatever you
+				disclose to us will not be privileged or confidential unless we have
+				agreed and you have executed a written engagement agreement with
+				Innocelf, LLC. The material on this website may not reflect the most
+				current legal developments. We disclaim all liability in respect to
+				actions taken or not taken based on any or all the contents of this
+				site to the fullest extent permitted by law. Do not act or refrain from
+				acting upon this information without seeking professional legal counsel
+				in your own state. No past results serve in any way as a guarantee of
+				future results.</p>
+			<h6 class="text-sm lato-regular sm:text-base lg:text-lg 2xl:text-xl mt-10">Testimonials</h6>
+			<p class="text-sm lato-light sm:text-base lg:text-lg 2xl:text-lg mt-5 text-justify">Testimonials found on
+				this website are actual client reviews of
+				INNOCELF, LLC or team members. We appreciate our clients and their
+				willingness to share their experiences. Please keep in mind that the
+				success of any matter depends on the unique circumstances of each case:
+				we cannot guarantee particular results for future clients based on
+				successes we have achieved in past matters.</p>
+		</div>
 
-		{% endblock content %}
-	</body>
+		{% include 'innoservices/footer.html' %}
+	</div>
+
+	<script type="module" src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+
+	{% endblock content %}
+</body>
 
 </html>
