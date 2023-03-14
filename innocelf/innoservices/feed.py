@@ -23,4 +23,6 @@ class BlogFeed(Feed):
         return item.highlight_para
 
     def item_link(self, item):
-        return '/knowledge-home/%d' % item.pk
+        title_lowered = item.title.lower()
+        title_lowered = title_lowered.replace(' ', '-')
+        return '/knowledge-home/%s' % title_lowered
