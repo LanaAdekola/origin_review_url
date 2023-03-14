@@ -33,10 +33,12 @@ class BlogSiteMap(Sitemap):
     """
     change_frequency = 'monthly'
     priority = 0.7
-    protocol = 'http'
+    protocol = 'https'
 
     def items(self):
         return BlogPost.objects.all()
 
     def location(self, obj):
-        return '/knowledge-home/%d' % obj.pk
+        title_lowered = obj.title.lower()
+        title_lowered = title_lowered.replace(' ', '-')
+        return '/knowledge-home/%s' % title_lowered

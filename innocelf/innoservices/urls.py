@@ -53,7 +53,7 @@ urlpatterns = [
 
     path('knowledge-home', knowledge_home_view, name='knowledge-home'),
     path('get-all-blog-posts', get_all_blog_posts, name='get-all-blog-posts'),
-    path('knowledge-home/<pk>', blog_view, name='blog-view'),
+    path('knowledge-home/<title_lowered>', blog_view, name='blog-view'),
 
     path('contact-us/',  contact_us_view, name='contact-us'),
     path(

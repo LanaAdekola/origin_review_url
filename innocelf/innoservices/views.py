@@ -326,8 +326,10 @@ def blog_view(request, **kwargs):
     """
     Function is the view of one blog post that is being rendered
     """
-    pk = kwargs['pk']
-    blog_post = BlogPost.objects.get(pk = pk)
+    # pk = kwargs['pk']
+    title_lowered = kwargs['title_lowered']
+    title_lowered = title_lowered.replace('-', ' ')
+    blog_post = BlogPost.objects.filter(title__iexact = title_lowered)[0]
 
     context = {
         'pk': blog_post.pk,

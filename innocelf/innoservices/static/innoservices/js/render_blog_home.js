@@ -61,11 +61,13 @@ function oneBlogOnHomePage(blogObject) {
         .result;
     highlight.classList.remove('lg:text-lg', '2xl:text-lg')
 
+    let titleLowerCase = blogObject.fields.title.toLowerCase().replaceAll(" ", "-");
     let readMore = new AnchorLinks('Read More')
         .renderLargeInnocelfButton()
         .result;
     readMore.classList.replace('mx-auto', 'mr-auto');
-    readMore.href = '/knowledge-home/' + blogObject.pk.toFixed(0);
+    // readMore.href = '/knowledge-home/' + blogObject.pk.toFixed(0);
+    readMore.href = '/knowledge-home/' + titleLowerCase;
     readMore.target = ''
 
     let author = document.createElement('a');
@@ -92,8 +94,6 @@ function oneBlogOnHomePage(blogObject) {
         'tracking-wide'
     );
     publishedDate.textContent = 'Published On: ' + blogObject.fields.publication_date;
-
-    console.log(blogObject)
 
     container.append(
         heading,
