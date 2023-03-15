@@ -9,6 +9,7 @@ class ContactUsForm(forms.ModelForm):
         fields = [
             'full_name',
             'email',
+            'phone_number',
             'inquiry_reason',
             'explanation'
         ]
@@ -22,6 +23,11 @@ class ContactUsForm(forms.ModelForm):
             'email': forms.EmailInput(attrs={
                 'id': 'contact_us_email',
                 'placeholder': 'your_email@domain.com',
+                'required': 'true'
+            }),
+            'phone_number': forms.TextInput(attrs={
+                'id': 'contact_us_phone',
+                'placeholder': 'Phone Number (xxx-xxx-xxxx)',
                 'required': 'true'
             }),
             'inquiry_reason': forms.Select(attrs={
@@ -38,6 +44,7 @@ class ContactUsForm(forms.ModelForm):
         labels = {
             'full_name': 'Full Name',
             'email': 'Email Address',
+            'phone_number': 'Phone Number',
             'inquiry_reason': 'Inquiry Reason',
             'explanation': 'Brief Explanation',
         }

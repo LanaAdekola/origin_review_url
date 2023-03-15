@@ -30,6 +30,7 @@ class ContactUs(models.Model):
 
     full_name = models.CharField(max_length=255)
     email = models.EmailField()
+    phone_number = models.CharField(max_length=15)
     inquiry_reason = models.CharField(max_length=3, choices=SERVICES)
     explanation = models.CharField(max_length=3000, null=True, blank=True)
 

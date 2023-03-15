@@ -17,6 +17,7 @@ from django.views.generic import FormView, ListView, View
 
 from .forms import ClientReviewForm, ContactUsForm, SendReviewRequestForm
 from .models import ClientReview, ContactUs, SendReviewRequest, BlogPost
+from .send_email import send_email_pranita_contactus, send_email_client_contactus
 from ClientAdmin.views import _csrf_token_input_html
 
 PRIVACY_POLICY_RESPONSE = '''The information contained in this website is provided for informational purposes only, and should not be
@@ -88,6 +89,7 @@ def _obtain_contact_us_form(request):
     Defining a view to get the Contact Us form
     '''
     form = ContactUsForm()
+    print(form)
 
     return HttpResponse(form)
 
@@ -112,19 +114,21 @@ def _receive_contact_us_form_response(request):
 
         if form.is_valid():
             form.save()
+            send_email_pranita_contactus(form)
+            send_email_client_contactus(form)
 
-            send_mail(
-                subject='ATTENTION!! Someone contacted you on Innocelf',
-                message=f"{form['full_name'].value()} with the email id {form['email'].value()} has contacted you.\n\n The reason for their inquiry is {form['inquiry_reason'].value()}.\n They typed this message: {form['explanation'].value()}",
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=['ppd24@case.edu',
-                                'dharmadhikari.pranita@gmail.com'],
-                # recipient_list=['ppmahamu@mtu.edu'],
-                fail_silently=False
-            )
+            # send_mail(
+            #     subject='ATTENTION!! Someone contacted you on Innocelf',
+            #     message=f"{form['full_name'].value()} with the email id {form['email'].value()} has contacted you.\n\n The reason for their inquiry is {form['inquiry_reason'].value()}.\n They typed this message: {form['explanation'].value()}",
+            #     from_email=settings.EMAIL_HOST_USER,
+            #     recipient_list=['ppd24@case.edu',
+            #                     'dharmadhikari.pranita@gmail.com'],
+            #     # recipient_list=['ppmahamu@mtu.edu'],
+            #     fail_silently=False
+            # )
 
             return JsonResponse({
-                'Success': 'Thank you for contacting us. We will get back to you within 48 hours.'
+                'Success': 'Thank you for contacting us. We will get back to you within 24-48 hours. We also sent you a confirmation email (please check your spam folder as well).'
             })
         else:
             return JsonResponse({
@@ -215,7 +219,7 @@ def _receive_send_review_request_form_response(request):
                 'unique_link': f'https://www.innocelf.com/write-review/{unique_uuid}/'
             }
             email_template = get_template(
-                '../templates/client_reviews/email_template.html'
+                '../templates/client_reviews/email_template_send_review_request.html'
             ).render(email_context)
 
             send_mail(

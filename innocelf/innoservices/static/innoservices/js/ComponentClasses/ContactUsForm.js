@@ -97,7 +97,7 @@ export class ContactUsForm {
             let message;
             if (responseJson.hasOwnProperty('Success')) {
                 message = new HeadingOrParagraph(
-                    'h3',
+                    'h6',
                     responseJson['Success']
                 ).renderWithClass([
                     'm-auto',
@@ -152,6 +152,11 @@ export class ContactUsForm {
                 form.querySelector('[name="email"]')
             ).render().result;
             email = this.__changeClassListFormInput(email);
+            let phone = new TextInputWithLabel(
+                'Phone Number*',
+                form.querySelector('[name="phone_number"]')
+            ).render().result;
+            phone = this.__changeClassListFormInput(phone)
             let reason = new SelectInputWithLabel(
                 `Today's Inquiry Topic*`,
                 form.querySelector('[name="inquiry_reason"]')
@@ -160,6 +165,11 @@ export class ContactUsForm {
             reason
                 .querySelector('select')
                 .setAttribute('style', '-webkit-appearance: none;');
+            let explanation = new TextInputWithLabel(
+                'Describe',
+                form.querySelector('[name="explanation"]')
+            ).render().result;
+            explanation = this.__changeClassListTextArea(explanation)
 
             let submitButton = new TypicalFormSubmitButton('Submit').result;
             submitButton.classList.replace('rounded-xl', 'rounded-full');
@@ -180,7 +190,9 @@ export class ContactUsForm {
                     csrfResponseInput,
                     fullName,
                     email,
+                    phone,
                     reason,
+                    explanation,
                     submitButton
                 );
             });
@@ -214,6 +226,29 @@ export class ContactUsForm {
             'focus:ring-0',
             'focus:border-black',
             'rounded-full',
+            'text-black',
+            'bg-white',
+            'my-5'
+        );
+        return inputElement;
+    }
+
+    __changeClassListTextArea(inputElement) {
+        let inputElementIn = inputElement.querySelector('textarea');
+        inputElement.querySelector('span').remove();
+
+        inputElementIn.className = ''
+        inputElementIn.classList.add(
+            'mt-0',
+            'block',
+            'lato-regular',
+            'w-full',
+            'px-5',
+            'py-4',
+            'text-sm',
+            'focus:ring-0',
+            'focus:border-black',
+            'rounded-lg',
             'text-black',
             'bg-white',
             'my-5'
