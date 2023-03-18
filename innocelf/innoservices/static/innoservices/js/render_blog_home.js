@@ -259,6 +259,7 @@ export async function renderBlogHome() {
     let mainHeading = createHeadingWithBlueBackground('Innocelf Knowledge');
     let navbar = new Navbar().render().result;
     let footer = new Footer().render().result;
+    footer.style.marginTop = '36rem';
 
     let allBlogs = await fetch('/get-all-blog-posts')
         .then(response => response.json())

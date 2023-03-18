@@ -18,13 +18,13 @@ export class Footer {
             About: '/about-us',
             // 'Our Process': '/our-process',
             Testimonials: '/testimonials-page',
-            FAQ: '/frequently-asked-questions',
-            Knowledge: '/innocelf-blog',
+            FAQ: '/faq',
+            Knowledge: '/knowledge-home',
         };
         this._privacyPolicyLinks = {
-            'Privacy Policy': '/privacy-policy/',
-            'Terms of Use': '/terms-and-conditions/',
-            Disclaimer: '/disclaimer/',
+            'Privacy Policy': '/privacy-policy',
+            'Terms of Use': '/terms-and-conditions',
+            Disclaimer: '/disclaimer',
         };
     }
 
@@ -175,11 +175,11 @@ export class Footer {
             let li = document.createElement('li');
             let link = new AnchorLinks(item).renderWithText().result;
 
-            if (item === 'Knowledge') {
-                link.style.pointerEvents = 'None';
-                link.style.cursor = 'default';
-                link.classList.add('text-gray-600', 'relative');
-            }
+            // if (item === 'Knowledge') {
+            //     link.style.pointerEvents = 'None';
+            //     link.style.cursor = 'default';
+            //     link.classList.add('text-gray-600', 'relative');
+            // }
             link.href = quickLinksObject[item];
 
             // link.classList.add(
