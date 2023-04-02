@@ -89,7 +89,6 @@ def _obtain_contact_us_form(request):
     Defining a view to get the Contact Us form
     '''
     form = ContactUsForm()
-    print(form)
 
     return HttpResponse(form)
 

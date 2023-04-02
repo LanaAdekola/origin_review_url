@@ -43,6 +43,7 @@ export class Footer {
         footerClasslist.map((item) => {
             this.result.classList.add(item);
         });
+        this.result.style.marginTop = '36rem'
 
         let container = this.createMainContainer();
         let disclaimers = this.createDisclaimersFooterBottom();
