@@ -22,13 +22,15 @@ function parseBlog() {
         openLinksInNewWindow: true,
         headerLevelStart: 5
     }),
-        html = converter.makeHtml(content_in_md);
+        content_html = converter.makeHtml(content_in_md);
+
+    console.log(content_html)
 
     let classDefs = new HeadingOrParagraph('p', '').headingClassDefs;
 
-    let parsedHTML = new DOMParser().parseFromString(html, 'text/html');
+    let parsedHTML = new DOMParser().parseFromString(content_html, 'text/html');
     let container = document.createElement('div');
-    container.classList.add('flex', 'flex-col', 'w-full');
+    container.classList.add('flex', 'flex-col', 'w-full', 'mt-8');
 
     let allElements = parsedHTML.body.children;
     allElements = [...allElements];
@@ -144,7 +146,7 @@ function renderBlogMaterial() {
         categoryRen,
         authorRen,
         publishedOn,
-        highlight,
+        // highlight,
         parsedBlog
     );
     return container;
@@ -160,6 +162,7 @@ function renderBlog() {
     let blogMaterial = renderBlogMaterial();
 
     console.log(title);
+    console.log(highlight_img)
     let app = document.getElementById('app');
     app.append(navbar, mainHeading, blogMaterial, footer)
 }

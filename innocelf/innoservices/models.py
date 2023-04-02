@@ -81,7 +81,7 @@ class BlogPost(models.Model):
     publication_date = models.DateField(default=timezone.now)
 
     highlight_para = models.TextField(null = True, blank = True)
-    highlight_img = models.ImageField(null = True, blank = True)
+    highlight_img = models.ImageField(null = True, blank = True, upload_to = 'blogpost/')
 
     content_in_md = models.TextField(null = True, blank = True)
 

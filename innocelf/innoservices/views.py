@@ -329,6 +329,7 @@ def blog_view(request, **kwargs):
     """
     Function is the view of one blog post that is being rendered
     """
+    import markdown
     # pk = kwargs['pk']
     title_lowered = kwargs['title_lowered']
     title_lowered = title_lowered.replace('-', ' ')
