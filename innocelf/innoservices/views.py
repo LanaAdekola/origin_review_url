@@ -319,7 +319,7 @@ def get_all_blog_posts(request):
     Function gets all the blog posts that are stored in the database for easy 
     visualization
     """
-    blog_posts = BlogPost.objects.all()
+    blog_posts = BlogPost.objects.all().order_by('-publication_date')
     blog_posts_json = serializers.serialize(
         'json', blog_posts, cls=DjangoJSONEncoder)
     return JsonResponse(blog_posts_json, safe=False)

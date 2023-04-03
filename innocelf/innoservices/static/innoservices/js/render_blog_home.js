@@ -41,6 +41,7 @@ function oneBlogOnHomePage(blogObject) {
     let heading = new HeadingOrParagraph('h5', blogObject.fields.title)
         .renderWithClass(['uppercase'])
         .result;
+    heading.classList.add('cursor-pointer')
 
     let category = document.createElement('span');
     category.classList.add(
@@ -69,6 +70,7 @@ function oneBlogOnHomePage(blogObject) {
     // readMore.href = '/knowledge-home/' + blogObject.pk.toFixed(0);
     readMore.href = '/knowledge-home/' + titleLowerCase;
     readMore.target = ''
+    heading.onclick = () => window.location.href = '/knowledge-home/' + titleLowerCase
 
     let author = document.createElement('a');
     author.classList.add(

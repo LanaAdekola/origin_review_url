@@ -5,4 +5,5 @@ __pycache__
 node_modules
 reportlab-userguide.pdf
 innocelf/media/GeneratedInvoices/*
-innocelf/*/migrations
+innocelf/**/migrations
+innocelf/media

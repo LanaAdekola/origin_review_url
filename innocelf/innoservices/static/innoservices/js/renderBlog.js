@@ -24,7 +24,7 @@ function parseBlog() {
     }),
         content_html = converter.makeHtml(content_in_md);
 
-    console.log(content_html)
+    // console.log(content_html)
 
     let classDefs = new HeadingOrParagraph('p', '').headingClassDefs;
 
@@ -161,8 +161,8 @@ function renderBlog() {
     let footer = new Footer().render().result;
     let blogMaterial = renderBlogMaterial();
 
-    console.log(title);
-    console.log(highlight_img)
+    // console.log(title);
+    // console.log(highlight_img)
     let app = document.getElementById('app');
     app.append(navbar, mainHeading, blogMaterial, footer)
 }
