@@ -38,7 +38,7 @@ function oneBlogOnHomePage(blogObject) {
         'border-black'
     );
 
-    let heading = new HeadingOrParagraph('h5', blogObject.fields.title)
+    let heading = new HeadingOrParagraph('h3', blogObject.fields.title)
         .renderWithClass(['uppercase'])
         .result;
     heading.classList.add('cursor-pointer')
@@ -57,7 +57,7 @@ function oneBlogOnHomePage(blogObject) {
     );
     category.textContent = BLOG_CATEGORIES[blogObject.fields.category];
 
-    let highlight = new HeadingOrParagraph('p', blogObject.fields.highlight_para)
+    let highlight = new HeadingOrParagraph('h6', blogObject.fields.highlight_para)
         .renderWithClass(['text-justify', 'mb-16'])
         .result;
     highlight.classList.remove('lg:text-lg', '2xl:text-lg')

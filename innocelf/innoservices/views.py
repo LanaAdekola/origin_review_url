@@ -329,11 +329,10 @@ def blog_view(request, **kwargs):
     """
     Function is the view of one blog post that is being rendered
     """
-    import markdown
     # pk = kwargs['pk']
     title_lowered = kwargs['title_lowered']
     title_lowered = title_lowered.replace('-', ' ')
-    blog_post = BlogPost.objects.filter(title__iexact = title_lowered)[0]
+    blog_post = BlogPost.objects.filter(title__icontains = title_lowered)[0]
 
     context = {
         'pk': blog_post.pk,

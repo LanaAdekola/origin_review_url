@@ -76,8 +76,8 @@ def _create_top_rectangle_table(my_canvas, invoice_number, top_rect_height, lett
         <para leading="20">
         <font color="white" size=15 name="Lato-Light">
         <b>Innocelf LLC</b><br/>
-        48342 Carnegie Way,<br/>
-        Macomb, Michigan 48042<br/>
+        250 W Queen Creek Rd,<br/>
+        Chandler, Arizona 85248<br/>
         pranita.dharmadhikari@innocelf.com<br/>
         248-606-2236
         </font>
@@ -365,9 +365,9 @@ def payable_to_table(my_canvas, des_height, des_y_pos, letter_height_in, letter_
         Payable To:<br/>
         <br/>
         Innocelf, LLC<br/>
-        A/C No.: 4534539338<br/>
-        Routing No.: 241 070 417<br/>
-        Bank Name: Citizens Bank NA
+        A/C No.: 306453488<br/>
+        Routing No.: 072000326<br/>
+        Bank Name: JP Morgan Chase
         </font>
         </para>
         '''
