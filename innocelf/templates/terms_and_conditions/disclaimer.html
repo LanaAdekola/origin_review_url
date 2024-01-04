@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% extends 'base.html' %}
+    {% load static %}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% block meta_data %}
+        <meta name="description" content="Innocelf, LLC and it's website come with the following disclaimers" />
+        {% endblock meta_data %}
+
+        <title>
+            {% block head_title %}
+            Innocelf | Disclaimer
+            {% endblock head_title %}
+        </title>
+    </head>
+
+    {% block content %}
+
+    <body>
+
+        <style>
+            footer {
+                position: absolute;
+                width: -moz-available;
+                width: -webkit-fill-available;
+                width: stretch;
+            }
+        </style>
+
+        {% include '_navbar.html' %}
+        <div class="container-fluid bg-light align-items-center m-auto" style="height: 8rem;">
+            <h1 class="lato-bold text-center pt-4">
+                Disclaimer
+            </h1>
+        </div>
+        <div class="container-fluid my-5" style="max-width: 1200px">
+            <p class="lato-regular text-justify">
+                <b class="lato-bold">
+                    Not Legal Advice
+                </b>
+                <br>
+                <br>
+                The information contained in this website is provided for informational purposes only, and should not be
+                construed as legal advice, nor are they intended as a source of advertising or solicitation. The
+                material on this website may not reflect the most current legal developments. We disclaim all liability
+                in respect to actions taken or not taken based on any or all the contents of this site to the fullest
+                extent permitted by law. Do not act or refrain from acting upon this information without seeking
+                professional legal counsel in your own state. No past results serve in any way as a guarantee of future
+                results.
+                <br>
+                <br>
+                <b class="lato-bold">
+                    Testimonials
+                </b>
+                <br>
+                <br>
+                Testimonials found on this website are actual client reviews of INNOCELF, LLC or team members. We
+                appreciate our clients and their willingness to share their experiences. Please keep in mind that the
+                success of any matter depends on the unique circumstances of each case: we cannot guarantee particular
+                results for future clients based on successes we have achieved in past matters.
+            </p>
+        </div>
+
+        {% include '_footer.html' %}
+    </body>
+    {% endblock content %}
+
+</html>

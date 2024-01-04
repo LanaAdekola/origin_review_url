@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	{% extends 'base.html' %}
+	{% load static %}
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	</head>
+
+	<body class="creative-lp">
+		{% block content %}
+		{% csrf_token %}
+		<div id="app"></div>
+
+		{{ first_name|json_script:"first_name" }}
+		{{ last_name|json_script:"last_name" }}
+		<script type="module"
+			src="{% static 'innoservices/js/actions_ts.js' %}"></script>
+
+		{% endblock content %}
+	</body>
+
+</html>

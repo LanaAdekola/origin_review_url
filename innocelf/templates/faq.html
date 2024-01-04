@@ -1,0 +1,129 @@
+{% extends 'base.html' %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>
+      {% block head_title %} Innocelf | Frequently Asked Questions | About Our
+      Patent Services {% endblock head_title %}
+    </title>
+  </head>
+
+  {% block content %}
+  <body>
+    {% include '_navbar.html' %}
+    <div
+      class="
+        container-fluid
+        cloudy-knoxville-gradient
+        d-flex
+        align-items-center
+        justify-content-center
+      "
+      style="height: 8rem"
+    >
+      <h2 class="lato-bold">FREQUENTLY ASKED QUESTIONS</h2>
+    </div>
+
+    <div class="row mx-auto my-5 w-75">
+      <div class="col-5 px-0 text-right">
+        <img
+          src="{% static 'img/innoimg/innocelf-faq-page-picture-cropped.jpg' %}"
+          alt="innocelf-faq-page-picture"
+          style="height: 50rem"
+          class="img-fluid img-responsive"
+        />
+      </div>
+
+      <div class="col-7 px-0">
+        <div class="container-fluid mt-3 d-flex" style="height: 100%">
+          <!--Accordion wrapper-->
+          <div
+            class="accordion md-accordion accordion-3 mx-auto my-auto"
+            id="faq_accordian"
+            role="tablist"
+            aria-multiselectable="true"
+            style="width: 60%"
+          >
+            <button class="btn btn-link text-primary pl-0" id="expand_all_questions">
+                Expand All
+            </button>
+            <button class="btn btn-link text-primary pl-0" id="collapse_all_questions">
+                Collapse All
+            </button>
+            <div
+              is="faq-individual-card"
+              id="question1"
+              class="card mb-1"
+              parent-accordian-id="faq_accordian"
+              question="Is my submitted search disclosure secure?"
+              answer="Yes. We sign non-disclosure agreements with all of our clients
+            and the security of your technical and proprietary information is our top priority."
+            ></div>
+
+            <div
+              is="faq-individual-card"
+              id="question2"
+              class="card mb-1"
+              parent-accordian-id="faq_accordian"
+              question="Can Innocelf provide me with Non-Patent Literature (NPL) searching?"
+              answer="Yes. We can provide you with NPL searching."
+            ></div>
+
+            <div
+              is="faq-individual-card"
+              id="question3"
+              class="card mb-1"
+              parent-accordian-id="faq_accordian"
+              question="Do you offer high volume discounts?"
+              answer="Absolutely! We offer substantial discounts to our clients for high volume work."
+            ></div>
+
+            <div
+              is="faq-individual-card"
+              id="question4"
+              class="card mb-1"
+              parent-accordian-id="faq_accordian"
+              question="How do I place an order for a search?"
+              answer="Please schedule a free consultation with us <a href={% url 'innoservices:contact-us' %}>here</a>."
+            ></div>
+
+            <div
+              is="faq-individual-card"
+              id="question5"
+              class="card mb-1"
+              parent-accordian-id="faq_accordian"
+              question="Is Innocelf a law firm?"
+              answer="No. Innocelf, LLC only provides cutting edge intellectual property research and does not practice patent law."
+            ></div>
+
+            <div
+              is="faq-individual-card"
+              id="question6"
+              class="card mb-1"
+              parent-accordian-id="faq_accordian"
+              question="Will Innocelf write or draft a patent application for me?"
+              answer="Yes. Innocelf may help you in writing a patent application as a technical writer but we do not offer patent filing or prosecution."
+            ></div>
+
+            <div
+              is="faq-individual-card"
+              id="question7"
+              class="card mb-1"
+              parent-accordian-id="faq_accordian"
+              question="Will Innocelf file a patent application for me?"
+              answer="No. Innocelf, LLC only provides cutting edge intellectual property research and does not practice patent law or patent prosecution."
+            ></div>
+          </div>
+          <!--/.Accordion wrapper-->
+        </div>
+      </div>
+    </div>
+
+    {% include '_footer.html' %}
+
+    <script type="module" src="{% static 'js/innojs/faq.js' %}"></script>
+  </body>
+  {% endblock content %}
+</html>

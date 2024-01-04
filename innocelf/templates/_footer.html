@@ -1,0 +1,132 @@
+{% load static %}
+
+<style>
+  footer p {
+    margin-bottom: 0.5rem
+  }
+</style>
+
+<footer class="flex bg-innoblack lato-regular text-white pt-5">
+  <div class="container w-4/6 mx-auto mt-5">
+    <div class="grid grid-cols-4 gap-4">
+      <div class="p-4">
+        <h6 class="uppercase lato-bold">Innocelf LLC</h6>
+        <hr
+          class="w-40 mb-4 mt-2 inline-block mx-auto border border-purple-800">
+        <p>
+          Innocelf, LLC is a patent search firm in Michigan, USA, that offers
+          the highest quality patent searches and
+          analytics services to protect your invention at a resonable price.
+          Schedule a free consultation with us today
+          to get started on your patent journey.
+        </p>
+      </div>
+
+      <div class="p-4">
+        <h6 class="uppercase lato-bold">Services</h6>
+        <hr
+          class="w-40 mb-4 mt-2 inline-block mx-auto border border-purple-800">
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#patentability_and_novelty_search">Patentability
+            and Novelty
+            Search</a>
+        </p>
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#validity_invalidity_search">Validity
+            / Invalidity Search</a>
+        </p>
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#freedom_to_operate_search">Freedom
+            to Operate Search</a>
+        </p>
+        <p>
+          <a href="{% url 'innoservices:technologies' %}#product_research">Product
+            Research</a>
+        </p>
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#landscape_state_of_the_art">Landscape
+            / State of the Art
+            Search</a>
+        </p>
+      </div>
+
+      <div class="p-4">
+        <h6 class="uppercase lato-bold">Expertise</h6>
+        <hr
+          class="w-40 mb-4 mt-2 inline-block mx-auto border border-purple-800">
+
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Healthcare
+            and Medical
+            Devices</a>
+        </p>
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Pharmaceutical</a>
+        </p>
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Chemical
+            and Material Science</a>
+        </p>
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Biotechnology
+            and Life
+            Sciences</a>
+        </p>
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Food
+            Technology</a>
+        </p>
+        <p>
+          <a
+            href="{% url 'innoservices:technologies' %}#tech_page_technology_section">Consumer
+            Products</a>
+        </p>
+      </div>
+
+      <div class="p-4">
+        <h6 class="uppercase lato-bold">Contact</h6>
+        <hr
+          class="w-40 mb-4 mt-2 inline-block mx-auto border border-purple-800">
+
+        <p>
+          <i class="fas fa-home mr-3"></i>Michigan, USA
+        </p>
+        <p>
+          <a type="button"
+            class="bg-white text-center text-black p-2 block rounded mt-3"
+            href="https://calendly.com/innocelf/virtual-appointment"
+            target="_blank">
+            Schedule Free Consultation
+          </a>
+        </p>
+        <p>
+          <a type="button" href="{% url 'innoservices:contact-us' %}"
+            class="bg-white text-center text-black p-2 block rounded mt-3">
+            Contact Us
+          </a>
+        </p>
+        <p class="mt-4">
+        <div class="grid grid-cols-6 gap-2">
+          <a href="https://www.linkedin.com/company/innocelf-llc"
+            target="_blank">
+            <i class="fab fa-linkedin-in fa-lg white-text mr-4"> </i>
+          </a>
+          <a href="https://www.facebook.com/Innocelf-106570791228978"
+            target="_blank">
+            <i class="fab fa-facebook-f fa-lg white-text mr-4"> </i>
+          </a>
+        </div>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% load static %}
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% block title %} {% endblock title %}
+
+    <link rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <link rel="stylesheet" href="{% static 'css/innocelf.css' %}">
+    <link rel="stylesheet" href="{% static 'css/innocelf_font.css' %}">
+
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-E6X82PQ6X6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-E6X82PQ6X6');
+    </script>
+    <meta name="msvalidate.01" content="DF58885368A0616CEEA46732B3CE6300" />
+  </head>
+
+  <body>
+
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'error' %}
+    <div class="alert alert-danger my-3 lato-regular">
+      <button type="button" class="close" data-dismiss="alert"
+        aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}
+    </div>
+    {% else %}
+    <div class="alert alert-{{ message.tags }} my-3 lato-regular">
+      <button type="button" class="close" data-dismiss="alert"
+        aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}
+    </div>
+    {% endif %}
+
+    {% endfor %}
+    {% endif %}
+
+
+    {% block content %} {% endblock content %}
+    {% block additional_content %} {% endblock additional_content %}
+  </body>
+
+
+
+</html>

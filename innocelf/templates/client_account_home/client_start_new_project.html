@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% extends 'base.html' %}
+  {% load static %}
+  {% load crispy_forms_tags %}
+  {% load crispy_forms_filters %}
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block head_title %}
+      Innocelf | User Home | Start Project
+      {% endblock head_title %}
+    </title>
+  </head>
+
+  {% block content %}
+
+  <body>
+    {% include './_client_persistent_info.html' %}
+    {% include '_side_navbar.html' %}
+
+    <div class="container-lg lato-regular mt-1 " id="profile_container" style="margin-left: 20rem">
+      <div class="row justify-content-center text-align-center lato-bold mb-3">
+        <h3>Start a New Project</h3>
+      </div>
+      <div class="container border border-light rounded-lg">
+        <form action="" method="POST" id="start_new_project_request_form" enctype="multipart/form-data">
+          {% csrf_token %}
+
+          <div class="form-row mt-3 mb-5 mx-5">
+            <label for="" class="control-label mb-0 mt-0">
+              {{ form.project_type.label_tag }}
+            </label>
+            {{ form.project_type }}
+          </div>
+          <div class="form-row mx-5 mb-3">
+            {{ form.project_description.label_tag }}
+            {{ form.project_description }}
+          </div>
+          <div class="form-row mx-5 mt-n4 mb-3 justify-content-end">
+            <small id="start_new_project_description_word_count" class="lato-light">
+              0 / 3000
+            </small>
+          </div>
+        </form>
+      </div>
+
+      <button class="btn btn-dark float-right" id="submit_start_new_project_request" type="button">
+        Submit for Review
+      </button>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade lato-regular" id="start_project_request_saved_modal" tabindex="-1" role="dialog"
+      aria-labelledby="start_project_request_saved_modal_title" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content" id="start_project_request_saved_modal_content">
+          <div class="modal-header" id="start_project_request_saved_modal_header">
+            <h4 class="modal-title w-100 lato-bold" id="start_project_request_saved_modal_title">
+              Project Request Sent
+            </h4>
+          </div>
+          <div class="modal-body text-center justify-content-center" id="start_project_request_saved_modal_title">
+            <i class="fas fa-check fa-4x mb-3 green-text animated rotateIn"></i>
+            <p>
+              Thank you for starting a new project with us. Someone will reach out to you within 1-2 business days.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark btn-sm" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Success Modal -->
+
+    <!-- Failure Modal -->
+    <div class="modal fade lato-regular" id="start_project_request_failed_modal" tabindex="-1" role="dialog"
+      aria-labelledby="start_project_request_failed_modal_title" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content" id="start_project_request_failed_modal_content">
+          <div class="modal-header" id="start_project_request_failed_modal_header">
+            <h4 class="modal-title w-100 lato-bold" id="start_project_request_failed_modal_title">
+              Request didn't go through
+            </h4>
+          </div>
+          <div class="modal-body text-center justify-content-center" id="start_project_request_failed_modal_title">
+            <i class="fas fa-times fa-4x mb-3 red-text animated rotateIn"></i>
+            <p>
+              Something went wrong. Please retry or contact us from our home-page directly.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-dark btn-sm" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Failure Modal -->
+
+    <script type="text/javascript"
+      src="{% static 'js/innojs/client_account_home/client_start_new_project.js' %}"></script>
+  </body>
+  {% endblock content %}
+
+</html>

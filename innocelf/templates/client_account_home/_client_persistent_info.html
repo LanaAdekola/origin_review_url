@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+
+
+  <div class="container-lg lato-regular mt-5 " id="profile_container" style="margin-left: 20rem">
+    <div class="row mb-4">
+      <div class="col">
+        <b class="lato-bold">Name: </b>{{client_qs.first_name}} {{client_qs.last_name}}
+      </div>
+      <div class="col">
+        <b class="lato-bold">Email: </b>{{client_qs.email}}
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col">
+        <b class="lato-bold">Company: </b>{{client_qs.company}}
+      </div>
+      <div class="col">
+        <b class="lato-bold">Phone: </b>{{client_qs.phone}}
+      </div>
+    </div>
+  </div>
+
+</html>

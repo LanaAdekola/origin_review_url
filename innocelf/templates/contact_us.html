@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  {% extends 'base.html' %}
+  {% load static %}
+  {% load crispy_forms_tags %}
+  {% load crispy_forms_filters %}
+
+
+  <head>
+
+    {% block meta_data %}
+    <meta name="description"
+      content="Start your patent and market research with Innocelf, LLC. Contact us today by filling out the simple form below or scheduling a virtual consultation. This is your invention we are talking about. Don't let it slide." />
+    {% endblock meta_data %}
+
+    <title>
+      {% block head_title %}
+      Innocelf | Contact Us
+      {% endblock head_title %}
+    </title>
+  </head>
+
+  <body>
+    {% block content %}
+
+    <style>
+      #contact_us_container {
+        background: url('/static/img/innoimg/Innocelf_ContactUs_Picture_Reduced.jpg');
+        background-size: cover;
+        height: 940px
+      }
+
+      input::placeholder {
+        color: white !important;
+      }
+
+      textarea::placeholder {
+        color: white !important;
+      }
+
+      #main_column {
+        margin-bottom: 3rem;
+      }
+
+      @media (max-width: 768px) {
+        #main_column {
+          margin-top: 3rem;
+          margin-bottom: 3rem;
+        }
+
+        #contact_us_container {
+          height: auto
+        }
+      }
+    </style>
+
+    {% include '_navbar.html' %}
+
+    <!-- style="max-width: 1500px; height: 740px;" -->
+    <div class="container-fluid align-items-center" id="contact_us_container">
+      <div class="row mask rgba-black-light" style="height: inherit;">
+
+        <div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto align-self-end" id="main_column">
+          <div class="row justify-content-center mb-2">
+            <a type="button" class="btn btn-light btn-large btn-block"
+              href="https://calendly.com/innocelf/virtual-appointment" target="_blank">
+              Schedule a Virtual Consultation
+            </a>
+          </div>
+          <div class="row justify-content-center mb-2">
+            <h5 class="h5-responsive text-white lato-bold text-center">OR</h5>
+          </div>
+          <div class="row justify-content-center mb-2">
+            <h2 class="h2-responsive text-white lato-bold text-center">CONTACT US</h2>
+          </div>
+          <form action="" id="contact_us_form" method="POST" class="lato-regular">
+
+            {% csrf_token %}
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {{ form.first_name }}
+                {{ form.first_name.errors }}
+              </div>
+              <div class="form-group col-md-6">
+                {{ form.last_name }}
+                {{ form.last_name.errors }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                {{ form.email }}
+              </div>
+              <div class="form-group col-md-6">
+                {{ form.phone }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col">
+                {{ form.inquiry_reason }}
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col">
+                {{ form.explanation }}
+              </div>
+            </div>
+
+            <div class="form-row justify-content-end g-recaptcha">
+              <button class="btn btn-light" type="submit" id="submit_contact_us_form">
+                Submit Inquiry
+              </button>
+            </div>
+
+            {{ form.errors }}
+            {{ form.non_field_errors }}
+          </form>
+        </div>
+      </div>
+    </div>
+
+    {% include '_footer.html' %}
+
+    <script>
+      // function onSubmit(token) {
+      //   document.getElementById("contact_us_form").submit();
+      // }
+
+      let recaptcha_site_key = '{{ recaptcha_site_key }}'
+    </script>
+
+    <!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
+    <script src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key }}"></script>
+    <script type="text/javascript" src="{% static 'js/innojs/_global_functions.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/innojs/contact_us.js' %}"></script>
+
+
+
+    {% endblock content %}
+  </body>
+
+</html>

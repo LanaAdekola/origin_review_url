@@ -1,0 +1,111 @@
+                <!--Controls-->
+                <a class="carousel-control-prev left carousel-control" href="#carousel-example-1" role="button"
+                  data-slide="prev">
+                  <span class="icon-prev" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next right carousel-control" href="#carousel-example-1" role="button"
+                  data-slide="next">
+                  <span class="icon-next" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+                <!--Controls-->
+
+
+                  <!--First slide-->
+                  <div class="carousel-item active">
+                    <testimonial-card testimonial-name="Adam M. (May 2020)"
+                      testimonial-content="I have had the pleasure of working with Pranita over the last 6 months while I put together and finalized a very important patent application. Pranita was flexible, attentive and went over and above to make sure that I was able to meet a very tight schedule, despite having to deal with competing timelines from my formulation team. Pranita’s guidance and experience with pharmaceutical patents was paramount in ensuring that the final product was ready for application. I would absolutely recommend Pranita for anybody needing help with the patenting process, specifically as it relates to the pharmaceutical industry. I will be keeping her contact close for future guidance!">
+                    </testimonial-card>
+                  </div>
+                  <!--First slide-->
+                  <!--Second slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Jason M. (June 2020)"
+                      testimonial-content="Pranita was a great help and excellent worker. She was very positive and completed our tasks in a timely manner. I would recommend Pranita for anyone needing a patent or other legal help in the future.">
+                    </testimonial-card>
+                  </div>
+                  <!--Second slide-->
+                  <!--Third slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="D. Kumar (September 2020)"
+                      testimonial-content="Amazing Work, Very Detailed , Clear, Coherent And Thorough Information. Cannot Ask For More. Thank You">
+                    </testimonial-card>
+                  </div>
+                  <!--Third slide-->
+                  <!--Fourth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Lennie F. (October 2020)"
+                      testimonial-content="Pranita Dharmadhikari has been great to work with and we will continue to use her in the future. We have used her on multiple projects for patent research and all were completed in a timely manner and the final results were very well prepared. Highly recommended.">
+                    </testimonial-card>
+                  </div>
+                  <!--Fourth slide-->
+                  <!--Fifth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="David H. (October 2020)"
+                      testimonial-content="I was quite pleased with the scope of work performed, regarding the patent search report. I appreciate the professionalism! Couldn't have done it without Pranita.">
+                    </testimonial-card>
+                  </div>
+                  <!--Fifth slide-->
+                  <!--Sixth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Robin B. (November 2020)"
+                      testimonial-content="Pranita is a good person to work with. I appreciate and respect her work.">
+                    </testimonial-card>
+                  </div>
+                  <!--Sixth slide-->
+                  <!--Seventh slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Randi K. - Law Firm Owner (October 2020)"
+                      testimonial-content="Pranita's years of IP experience and educational credentials truly come through in each and every IP project she produces. She is an expert in her field and a pleasure to work with. I am grateful for her contributions both as a Patent Summer Intern and now a contract supplier for my firm. I highly recommend Pranita for patent and trademark searches for your business.">
+                    </testimonial-card>
+                  </div>
+                  <!--Seventh slide-->
+                  <!--Eigth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Tim D. (November 2020)"
+                      testimonial-content="What an incredible pleasure it was to work with her. She is fast, professional and extremely knowledgeable. It is hard to find people like this.">
+                    </testimonial-card>
+                  </div>
+                  <!--Eigth slide-->
+                  <!--Ninth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Robin B. (December 2020)" testimonial-content="Pranita is everything you could want or need in regards to patent work. She is detailed, efficient, a hard worker, diligent, and also, as a bonus, she is very pleasant to work with. She helped me from patent search to final filing and I was very impressed. I would highly recommend her to anyone looking for help with their patent. You will not be disappointed!
+                      ">
+                    </testimonial-card>
+                  </div>
+                  <!--Ninth slide-->
+                  <!--Tenth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Ron B. (December 2020)" testimonial-content="Great Work!">
+                    </testimonial-card>
+                  </div>
+                  <!--Tenth slide-->
+                  <!--Eleventh slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Jack K. (December 2020)"
+                      testimonial-content="I liked working with Pranita as she was effective and quick to get the job done.">
+                    </testimonial-card>
+                  </div>
+                  <!--Eleventh slide-->
+                  <!--Twelfth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="D. Kumar (December 2020)"
+                      testimonial-content="Absolutely perfect work, flawlessly done, everything well explained. Thank you for taking care of this difficult project so well.">
+                    </testimonial-card>
+                  </div>
+                  <!--Twelfth slide-->
+                  <!--Thirteenth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Nael M. (January 2021)"
+                      testimonial-content="I found Pranita's work professional and of high quality. I will definitely work with you again on my next projects, and I encourage my friends to work with you.">
+                    </testimonial-card>
+                  </div>
+                  <!--Thirteenth slide-->
+                  <!--Fourteenth slide-->
+                  <div class="carousel-item">
+                    <testimonial-card testimonial-name="Dr. Anubha K. (January 2021)"
+                      testimonial-content="I am blessed to have Innocelf to support my IP protection. The founder, Pranita is very dedicated and punctual in her work. I found her always well studied and prepared for the discussions . She has a sound knowledge base and confident of the deliverables. I wish all the best to Innocelf for multifold growth in future.">
+                    </testimonial-card>
+                  </div>
+                  <!--Fourteenth slide-->
