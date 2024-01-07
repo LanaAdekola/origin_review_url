@@ -180,7 +180,7 @@ def obtain_projects(request, *args, **kwargs):
     '''
     The function / view obtains all the projects from the backend to the frontend
     '''
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('project_deadline')
 
     projects_json_string = serializers.serialize('json', projects)
     projects_json = json.loads(projects_json_string)
@@ -332,6 +332,7 @@ def monthly_revenue_calculator():
     monthly_revenue_dict = {}
     for year in unique_years:
         monthly_revenue_dict[str(year)] = {}
+        yearly_sum_value = 0
 
         # unique_months = [d.month for d in payments.filter(payment_date__year=year).dates(
         #     'payment_date', 'month')]
@@ -340,8 +341,9 @@ def monthly_revenue_calculator():
             dollar_values = [d.amount for d in payments.filter(
                 payment_date__year=year).filter(payment_date__month=month)]
             total_dollar_value = sum(dollar_values)
-
+            yearly_sum_value += total_dollar_value 
             monthly_revenue_dict[str(year)][str(month)] = total_dollar_value
+        monthly_revenue_dict[str(year)]['total'] = yearly_sum_value
 
     return monthly_revenue_dict
 

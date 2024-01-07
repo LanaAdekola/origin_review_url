@@ -56,7 +56,7 @@ class ProjectForm(forms.ModelForm):
             'project_name',
             'project_type',
             'project_deadline',
-            # 'assigned_to',
+            'project_assigned_to',
             'project_estimated_days',
             'start_date',
             'end_date',
@@ -93,6 +93,10 @@ class ProjectForm(forms.ModelForm):
                 'id': 'add_project_projectDeadline',
                 'type': 'date'
             }),
+            'project_assigned_to': forms.TextInput(attrs={
+                # 'class': 'form-control form-control-sm lato-regular',
+                'id': 'add_project_assignedTo'
+            }),
             'project_estimated_days': forms.NumberInput(attrs={
                 # 'class': 'form-control form-control-sm lato-regular',
                 'id': 'add_project_projectEstimatedDays'
@@ -121,7 +125,7 @@ class ProjectForm(forms.ModelForm):
             'project_name': 'Project Name',
             'project_type': 'Project Type',
             'project_deadline': 'Project Deadline',
-            # 'assigned_to': 'Assigned To',
+            'project_assigned_to': 'Assigned To',
             'project_estimated_days': 'Estimated Days for Completion',
             'start_date': 'Project Start Date',
             'end_date': 'Project End Date',
@@ -141,6 +145,7 @@ class EditProjectForm(forms.ModelForm):
             'client_email',
             'project_name',
             'project_type',
+            'project_assigned_to',
             'project_deadline',
             'expected_revenue'
         ]
@@ -166,6 +171,10 @@ class EditProjectForm(forms.ModelForm):
                 # 'class': 'custom-select custom-select-sm lato-regular',
                 'id': 'edit_project_row_projectType'
             }),
+            'assigned_to': forms.TextInput(attrs={
+                # 'class': 'form-control form-control-sm lato-regular',
+                'id': 'add_project_assignedTo'
+            }),
             'project_deadline': forms.DateInput(attrs={
                 # 'class': 'form-control form-control-sm lato-regular',
                 'id': 'edit_project_row_projectDeadline',
@@ -189,6 +198,7 @@ class EditProjectForm(forms.ModelForm):
             'project_name': 'Project Name',
             'project_type': 'Project Type',
             'project_deadline': 'Project Deadline',
+            'project_assigned_to': 'Assigned To',
             'expected_revenue': 'Expected Revenue',
         }
 

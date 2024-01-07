@@ -522,6 +522,7 @@ export class ProjectTableRow {
                 project_name: this.projectRowObject.project_name,
                 project_type: this.projectRowObject.project_type,
                 project_deadline: this.projectRowObject.project_deadline,
+                project_assigned_to: this.projectRowObject.project_assigned_to,
                 expected_revenue: this.projectRowObject.expected_revenue,
             };
 
@@ -612,7 +613,9 @@ export class ProjectTableRow {
             PROJECT_TYPE_CHOICES[this.projectRowObject.project_type]
         );
         this.createTableCell(this.projectRowObject.project_deadline_full);
+        this.createTableCell(this.projectRowObject.project_assigned_to);
         this.createTableCell('$' + this.projectRowObject.expected_revenue);
+
         // this.createTableCell('Payments');
         this.createPaymentsCell();
         this.createActionsCell();
@@ -1257,6 +1260,9 @@ export class ProjectTable extends TypicalTable {
                         .toLowerCase()
                         .includes(lowerSearchString) ||
                     value.fields.project_name
+                        .toLowerCase()
+                        .includes(lowerSearchString) ||
+                    value.fields.project_assigned_to
                         .toLowerCase()
                         .includes(lowerSearchString)
                 );

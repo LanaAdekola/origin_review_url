@@ -158,9 +158,20 @@ function _addressCell() {
     ).renderWithClass(['mx-auto', 'text-center']).result;
 
     let clientName = new ComponentServices.TextInputWithLabel(
-        'Client Namer*',
+        'Client Name (Regular Client)*',
         // _createtextInput('client-name', true)
         _createSelectInput(['Adeboy', 'Flash'],'client-name', true)
+
+        // populate the input with the clients object name
+
+    ).render().result;
+    let longTermClientName = new ComponentServices.TextInputWithLabel(
+        'Client Name (Long-Term)*',
+        // _createtextInput('client-name', true)
+        _createSelectInput(['Adeboy', 'Flash'],'client-name', true)
+
+        // populate the input with the clients object name
+
     ).render().result;
     let addressLine1 = new ComponentServices.TextInputWithLabel(
         'Address Line 1*',
@@ -177,6 +188,7 @@ function _addressCell() {
     addressCell.append(
         title,
         clientName,
+        longTermClientName,
         addressLine1,
         addressLine2,
         addressLine3
