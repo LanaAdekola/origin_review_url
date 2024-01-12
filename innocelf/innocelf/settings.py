@@ -99,9 +99,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': 'celfdb',
+        'NAME': 'innocelf',
         'USER': 'root',
-        'PASSWORD': 'newpassword',
+        'PASSWORD': 'Ayomide@1',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }

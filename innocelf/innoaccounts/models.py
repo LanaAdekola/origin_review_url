@@ -29,7 +29,7 @@ class InnocelfClient(models.Model):
     company_name = models.CharField(max_length=50, blank=True, null=True)
     global_nda_authorization = models.BooleanField(default=False)
     global_nda_document = models.FileField(
-        max_length=500, blank=True, null=True)
+        max_length=255, blank=True, null=True)
     total_business_recieved = models.FloatField(default=0)
 
     def __str__(self):
@@ -57,16 +57,16 @@ class InnocelfProject(models.Model):
     '''
     # Project related fields
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=3000)
+    description = models.CharField(max_length=255)
     date_initiated = models.DateTimeField(auto_now_add=True)
-    project_id = models.CharField(max_length=200)
+    project_id = models.CharField(max_length=255)
     project_status = models.CharField(
         max_length=20, choices=PROJECT_STATUS, default='Pending NDA')
 
     # Client related fields
     client = models.ForeignKey(InnocelfClient, on_delete=models.CASCADE)
     report_reviewed = models.BooleanField(default=False)
-    review_comments = models.CharField(max_length=3000, blank=True, null=True)
+    review_comments = models.CharField(max_length=255, blank=True, null=True)
 
     # Payment related fields
     payment_status = models.BooleanField(default=False)
@@ -75,11 +75,11 @@ class InnocelfProject(models.Model):
         InnocelfPayment, on_delete=models.CASCADE)
 
     # Documents associated with the project
-    engagement_letter = models.FileField(max_length=500, blank=True, null=True)
-    nda_document = models.FileField(max_length=500, blank=True, null=True)
+    engagement_letter = models.FileField(max_length=255, blank=True, null=True)
+    nda_document = models.FileField(max_length=255, blank=True, null=True)
     reports_for_review = models.FileField(
-        max_length=500, blank=True, null=True)
-    final_reports = models.FileField(max_length=500, blank=True, null=True)
+        max_length=255, blank=True, null=True)
+    final_reports = models.FileField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f'{self.name}'
@@ -96,7 +96,7 @@ class InnocelfInvoice(models.Model):
     payment_status = models.BooleanField(default=False)
     can_download_invoice = models.BooleanField(default=False)
     # FIXME Remove the blank and null true statements
-    invoice_file = models.FileField(max_length=500, blank=True, null=True)
+    invoice_file = models.FileField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return f'{self.project_associated.name} {self.client.first_name}, Amount: {self.project_amount}'
@@ -108,7 +108,7 @@ class InnocelfStartProject(models.Model):
     '''
     client = models.ForeignKey(InnocelfClient, on_delete=models.CASCADE)
     project_type = models.CharField(max_length=4, choices=INNOCELF_SERVICES)
-    project_description = models.CharField(max_length=3000)
+    project_description = models.CharField(max_length=255)
     project_approved = models.BooleanField(default=False)
 
     def __str__(self):

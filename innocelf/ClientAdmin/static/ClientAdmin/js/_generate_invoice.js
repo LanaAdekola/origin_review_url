@@ -104,11 +104,11 @@ function submitInvoiceGeneratorForm(event) {
 
                 form.querySelector('#invoice-number').value =
                     responseJson['NewInvoiceNumber'];
-            }
+            } 
         };
-
-        xhttp.open('POST', '/client-admin/generate-invoice');
-        xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+console.log(formData)
+        xhttp.open('POST', '/client-admin/generate-invoice');      
+        xhttp.setRequestHeader('X-CSRFToken', csrftoken); 
         xhttp.send(formData);
     }
 }
@@ -159,20 +159,20 @@ function _addressCell() {
 
     let clientName = new ComponentServices.TextInputWithLabel(
         'Client Name (Regular Client)*',
-        // _createtextInput('client-name', true)
-        _createSelectInput(['Adeboy', 'Flash'],'client-name', true)
+        _createtextInput('client-name', true)
+        // _createSelectInput(['Adeboy', 'Flash'],'client-name', true)
 
         // populate the input with the clients object name
 
     ).render().result;
-    let longTermClientName = new ComponentServices.TextInputWithLabel(
-        'Client Name (Long-Term)*',
-        // _createtextInput('client-name', true)
-        _createSelectInput(['Adeboy', 'Flash'],'client-name', true)
+    // let longTermClientName = new ComponentServices.TextInputWithLabel(
+    //     'Client Name (Long-Term)*',
+    //     // _createtextInput('client-name', true)
+    //     _createSelectInput(['Adeboy', 'Flash'],'client-name', true)
 
-        // populate the input with the clients object name
+    //     // populate the input with the clients object name
 
-    ).render().result;
+    // ).render().result;
     let addressLine1 = new ComponentServices.TextInputWithLabel(
         'Address Line 1*',
         _createtextInput('address-line-1', true)
@@ -188,7 +188,7 @@ function _addressCell() {
     addressCell.append(
         title,
         clientName,
-        longTermClientName,
+        // longTermClientName,
         addressLine1,
         addressLine2,
         addressLine3
