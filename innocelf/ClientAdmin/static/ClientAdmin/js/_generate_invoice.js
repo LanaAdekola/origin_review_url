@@ -157,6 +157,20 @@ function _addressCell() {
         'Client Info'
     ).renderWithClass(['mx-auto', 'text-center']).result;
 
+    let clientTypeSelect = document.createElement('select');
+    clientTypeSelect.id = 'client-type';
+
+    let regularOption = document.createElement('option');
+    regularOption.value = 'regular';
+    regularOption.textContent = 'Regular Client';
+
+    let longTimeOption = document.createElement('option');
+    longTimeOption.value = 'long-time';
+    longTimeOption.textContent = 'Long Time Client';
+
+    clientTypeSelect.appendChild(regularOption);
+    clientTypeSelect.appendChild(longTimeOption);
+
     let clientName = new ComponentServices.TextInputWithLabel(
         'Client Name (Regular Client)*',
         _createtextInput('client-name', true)
