@@ -171,14 +171,34 @@ function _addressCell() {
     clientTypeSelect.appendChild(regularOption);
     clientTypeSelect.appendChild(longTimeOption);
 
-    let clientName = new ComponentServices.TextInputWithLabel(
-        'Client Name (Regular Client)*',
+    // Create a button
+    let insertClientButton = document.createElement('button');
+    insertClientButton.id = 'insert-client-button';
+    insertClientButton.textContent = 'Insert Client Name';
+    
+    let clientNameLabelText = 'Client Name (Regular Client)';
+
+    let clientNameInput = new ComponentServices.TextInputWithLabel(
+        clientNameLabelText,
         _createtextInput('client-name', true)
         // _createSelectInput(['Adeboy', 'Flash'],'client-name', true)
 
         // populate the input with the clients object name
-
     ).render().result;
+ 
+    clientTypeSelect.addEventListener('change', function() {
+        // Update the label text based on the selected option
+        if (clientTypeSelect.value === 'regular') {
+            clientNameLabelText = 'Client Name (Regular Client)';
+        } else if (clientTypeSelect.value === 'long-time') {
+            clientNameLabelText = 'Client Name (Long Time Client)';
+        } else {
+            // Handle other cases if needed
+        }
+    
+        // Update the label text in the existing input field
+        clientNameInput.innerText = clientNameLabelText;
+    });
     // let longTermClientName = new ComponentServices.TextInputWithLabel(
     //     'Client Name (Long-Term)*',
     //     // _createtextInput('client-name', true)
@@ -187,6 +207,17 @@ function _addressCell() {
     //     // populate the input with the clients object name
 
     // ).render().result;
+
+    // Event listener for the button click
+    insertClientButton.addEventListener('click', function() {
+        // Get the selected option value from the dropdown
+        let selectedOption = clientTypeSelect.value;
+
+        // Insert the selected option into the client name input
+        clientNameInput.value = selectedOption === 'long-time' ? 'Long Time Client' : 'Regular Client';
+    });
+
+    
     let addressLine1 = new ComponentServices.TextInputWithLabel(
         'Address Line 1*',
         _createtextInput('address-line-1', true)
@@ -199,14 +230,14 @@ function _addressCell() {
         'City, State, Zip*',
         _createtextInput('address-line-3', false)
     ).render().result;
-    addressCell.append(
-        title,
-        clientName,
-        // longTermClientName,
-        addressLine1,
-        addressLine2,
-        addressLine3
-    );
+    
+    addressCell.appendChild(title);
+    addressCell.appendChild(clientTypeSelect);
+    addressCell.appendChild(insertClientButton);
+    addressCell.appendChild(clientNameInput);
+    addressCell.appendChild(addressLine1);
+    addressCell.appendChild(addressLine2);
+    addressCell.appendChild(addressLine3);
 
     addressCell.childNodes.forEach((element) => {
         element.classList.add('mb-6');
