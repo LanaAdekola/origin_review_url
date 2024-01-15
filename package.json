@@ -1,0 +1,27 @@
+{
+  "devDependencies": {
+    "tailwindcss": "^2.2.19"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "moduleNameMapper": {
+      "^/static/innoservices/js/(.*)": "<rootDir>/innocelf/innoservices/static/innoservices/js/$1",
+      "^/static/js/(.*)": "<rootDir>/innocelf/static/js/$1"
+    }
+  },
+  "dependencies": {
+  }
+}

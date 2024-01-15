@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	{% extends 'base_ca.html' %}
+	{% load static %}
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	</head>
+
+	<body class="creative-lp">
+		{% block content %}
+		<script src="{% static 'js/chart.min.js' %}"></script>
+
+		{% csrf_token %}
+		<div id="app"></div>
+
+		<script type="module"
+			src="{% static 'ClientAdmin/js/action.js' %}"></script>
+
+		{% endblock content %}
+	</body>
+
+</html>

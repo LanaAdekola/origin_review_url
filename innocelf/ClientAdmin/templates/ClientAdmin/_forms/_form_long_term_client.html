@@ -1,0 +1,45 @@
+<form action="" method="POST" id="long_term_client_details_form" validate>
+  {% csrf_token %}
+  <div class="container-lg w-100 m-auto p-0 d-none" id="long_term_client_details">
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4 lato-bold">
+        Add Long Term Client
+      </legend>
+
+      <div class="form-row align-items-center justify-content-center">
+
+        <div class="form-row align-items-center justify-content-center">
+          <div class="form-group col-md-3 mr-3">
+            <label class="requiredField" for="add_potentialProject_clientName">
+              {{ long_term_client_form.client_name.label }}
+              <span class="asteriskField">*</span>
+            </label>
+            {{ long_term_client_form.client_name }}
+          </div>
+
+          <div class="form-group col-md-3 mr-3">
+            <label for="add_potentialProject_clientCompany">
+              {{ long_term_client_form.client_company.label }}
+              <span class="asteriskField">*</span>
+            </label>
+            {{ long_term_client_form.client_company }}
+          </div>
+
+          <div class="form-group col-md-3 mr-3">
+            <label class="requiredField" for="add_potentialProject_clientEmail">
+              {{ long_term_client_form.client_email.label }}
+              <span class="asteriskField">*</span>
+            </label>
+            {{ long_term_client_form.client_email }}
+          </div>
+
+        </div>
+
+    </fieldset>
+    <div class="form-row justify-content-center">
+      <button class="btn btn-dark lato-regular" type="submit" id="add_long_term_client_form_save">
+        Save
+      </button>
+    </div>
+  </div>
+</form>

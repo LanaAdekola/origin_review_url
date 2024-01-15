@@ -1,0 +1,43 @@
+{% load static %}
+
+<!--Navbar-->
+<nav
+  class="flex py-6 w-4/6 m-auto justify-between items-center flex-wrap lato-regular">
+
+  <!-- Navbar brand -->
+  <div class="block sm:flex flex-shrink-0 items-center ml-3" id="navbar_logo">
+  </div>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
+    data-target="#basicExampleNav" aria-controls="basicExampleNav"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div
+    class="w-50 sm:justify-end block flex-grow sm:flex md:items-center sm:w-auto">
+
+    <div is="navigation-dropdown-menu" text-content="About"
+      data-links="Our Story, Testimonials, Frequently Asked Questions"></div>
+
+    <a href="{% url 'innoservices:services' %}" text-content="Services" is="navigation-link">
+    </a>
+
+    <a href="" text-content="Our Process" is="navigation-link">
+    </a>
+
+    <a href="" text-content="Blog" is="navigation-link">
+    </a>
+
+    <a href="" text-content="Contact Us" is="navigation-link">
+    </a>
+
+    <a href="" text-content="" has-icon="fab fa-linkedin fa-lg"
+      is="navigation-link">
+    </a>
+
+  </div>
+
+</nav>
