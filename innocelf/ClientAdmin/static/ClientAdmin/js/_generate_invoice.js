@@ -171,52 +171,51 @@ function _addressCell() {
     clientTypeSelect.appendChild(regularOption);
     clientTypeSelect.appendChild(longTimeOption);
 
-    // Create a button
     let insertClientButton = document.createElement('button');
     insertClientButton.id = 'insert-client-button';
     insertClientButton.classList.add('p-2', 'bg-blue-800')
     
-    let clientNameLabelText = 'Client Name (Regular Client)';
 
-    let clientNameInput = new ComponentServices.TextInputWithLabel(
-        clientNameLabelText,
-        _createtextInput('client-name', true)
-        // _createSelectInput(['Adeboy', 'Flash'],'client-name', true)
+    let clientNameLabel = document.createElement('label');
+    clientNameLabel.textContent = 'Client Name (Regular Client)';
 
-        // populate the input with the clients object name
-    ).render().result;
- 
-    clientTypeSelect.addEventListener('change', function() {
-        // Update the label text based on the selected option
-        if (clientTypeSelect.value === 'regular') {
-            clientNameLabelText = 'Client Name (Regular Client)';
-        } else if (clientTypeSelect.value === 'long-time') {
-            clientNameLabelText = 'Client Name (Long Time Client)';
-        } else {
-            // Handle other cases if needed
-        }
+    let clientNameContainer = document.createElement('div');
+    clientNameContainer.classList.add('client-name-container');
     
-        // Update the label text in the existing input field
-        clientNameInput.innerText = clientNameLabelText;
-    });
-    // let longTermClientName = new ComponentServices.TextInputWithLabel(
-    //     'Client Name (Long-Term)*',
-    //     // _createtextInput('client-name', true)
-    //     _createSelectInput(['Adeboy', 'Flash'],'client-name', true)
+    let clientNameInput = document.createElement('select');
+    clientNameInput.id = 'client-name';
 
-    //     // populate the input with the clients object name
-
-    // ).render().result;
-
-    // Event listener for the button click
-    insertClientButton.addEventListener('click', function() {
-        // Get the selected option value from the dropdown
+    let clientNameInputContainer = document.createElement('div');
+    
+    let defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select a client name';
+    clientNameInput.appendChild(defaultOption);
+    
+    let mockData = {
+        'regular': { label: 'Regular Client', names: ['John Doe', 'Alice Johnson', 'Bob Smith'] },
+        'long-time': { label: 'Long Time Client', names: ['Jane Smith', 'Charlie Brown', 'Eva Davis'] }
+    };
+    
+    clientTypeSelect.addEventListener('change', function () {
         let selectedOption = clientTypeSelect.value;
-
-        // Insert the selected option into the client name input
-        clientNameInput.value = selectedOption === 'long-time' ? 'Long Time Client' : 'Regular Client';
+        let selectedClient = mockData[selectedOption] || { label: 'Unknown Client', names: [] };
+    
+        clientNameLabel.textContent = `Client Name (${selectedClient.label})`;
+    
+        clientNameInput.innerHTML = '';
+    
+        selectedClient.names.forEach(name => {
+            let option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            clientNameInput.appendChild(option);
+        });
     });
-
+    
+    clientNameInputContainer.appendChild(clientNameInput);
+    clientNameContainer.appendChild(clientNameLabel);
+    clientNameContainer.appendChild(clientNameInput);    
     
     let addressLine1 = new ComponentServices.TextInputWithLabel(
         'Address Line 1*',
@@ -234,7 +233,7 @@ function _addressCell() {
     addressCell.appendChild(title);
     addressCell.appendChild(clientTypeSelect);
     addressCell.appendChild(insertClientButton);
-    addressCell.appendChild(clientNameInput);
+    addressCell.appendChild(clientNameContainer);
     addressCell.appendChild(addressLine1);
     addressCell.appendChild(addressLine2);
     addressCell.appendChild(addressLine3);
