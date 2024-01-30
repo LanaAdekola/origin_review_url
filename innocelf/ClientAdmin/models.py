@@ -52,7 +52,7 @@ class LongTermClient(models.Model):
 
 class Project(models.Model):
     '''
-    Creates a project instance for a particular client using the Project Type, start dates, end dates,
+    Creates a project instance for a particular client using the Project Type, Assigned to, start dates, end dates,
     revenue expected etc.
     '''
 
@@ -67,6 +67,7 @@ class Project(models.Model):
     project_type = models.CharField(max_length=4, choices=PROJECT_TYPE_CHOICES)
     project_deadline = models.DateField()
     project_estimated_days = models.IntegerField(default=15)
+    project_assigned_to = models.CharField(max_length=255, null=True)
 
     # Dates and Times
     start_date = models.DateField()
@@ -80,7 +81,7 @@ class Project(models.Model):
     is_invoice_sent = models.BooleanField(default=False)
 
     # Identifier
-    slug = models.SlugField(max_length=2500)
+    slug = models.SlugField(max_length=255)
 
     def __str__(self):
         return f'{self.client_name}"s {self.project_type} project'
@@ -159,17 +160,17 @@ class InventionDisclosureQuestionnaire(models.Model):
 
     title = models.CharField(max_length=255)
     category = models.CharField(max_length=5, choices=INVENTION_TYPE_CHOICES)
-    summary = models.CharField(max_length=3000)
+    summary = models.CharField(max_length=255)
 
     # Detailed description of the invention questions
-    problem_solved = models.CharField(max_length=3000)
-    closest_art = models.CharField(max_length=3000)
-    competing_products = models.CharField(max_length=3000)
-    advantages = models.CharField(max_length=3000)
+    problem_solved = models.CharField(max_length=255)
+    closest_art = models.CharField(max_length=255)
+    competing_products = models.CharField(max_length=255)
+    advantages = models.CharField(max_length=255)
 
     # Future Improvements
     future_improvements = models.CharField(
-        max_length=3000,
+        max_length=255,
         null=True,
         blank=True
     )
@@ -178,7 +179,7 @@ class InventionDisclosureQuestionnaire(models.Model):
     drawings = models.FileField(null=True, blank=True)
 
     # Slug
-    slug = models.SlugField(max_length=2500)
+    slug = models.SlugField(max_length=255)
 
     def __str__(self):
         '''
@@ -208,10 +209,10 @@ class Invoice(models.Model):
     '''
     number = models.CharField(max_length=50)
     created_on = models.DateField()
-    filename = models.CharField(max_length=3000)
+    filename = models.CharField(max_length=255)
 
-    client_name_company = models.CharField(max_length=500)
-    address = models.CharField(max_length=3000)
+    client_name_company = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
 
     def __str__(self):
         '''

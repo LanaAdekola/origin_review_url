@@ -104,11 +104,11 @@ function submitInvoiceGeneratorForm(event) {
 
                 form.querySelector('#invoice-number').value =
                     responseJson['NewInvoiceNumber'];
-            }
+            } 
         };
-
-        xhttp.open('POST', '/client-admin/generate-invoice');
-        xhttp.setRequestHeader('X-CSRFToken', csrftoken);
+console.log(formData)
+        xhttp.open('POST', '/client-admin/generate-invoice');      
+        xhttp.setRequestHeader('X-CSRFToken', csrftoken); 
         xhttp.send(formData);
     }
 }
@@ -157,10 +157,66 @@ function _addressCell() {
         'Client Info'
     ).renderWithClass(['mx-auto', 'text-center']).result;
 
-    let clientName = new ComponentServices.TextInputWithLabel(
-        'Client Name*',
-        _createtextInput('client-name', true)
-    ).render().result;
+    let clientTypeSelect = document.createElement('select');
+    clientTypeSelect.id = 'client-type';
+
+    let regularOption = document.createElement('option');
+    regularOption.value = 'regular';
+    regularOption.textContent = 'Regular Client';
+
+    let longTimeOption = document.createElement('option');
+    longTimeOption.value = 'long-time';
+    longTimeOption.textContent = 'Long Time Client';
+
+    clientTypeSelect.appendChild(regularOption);
+    clientTypeSelect.appendChild(longTimeOption);
+
+    let insertClientButton = document.createElement('button');
+    insertClientButton.id = 'insert-client-button';
+    insertClientButton.classList.add('p-2', 'bg-blue-800')
+    
+
+    let clientNameLabel = document.createElement('label');
+    clientNameLabel.textContent = 'Client Name (Regular Client)';
+
+    let clientNameContainer = document.createElement('div');
+    clientNameContainer.classList.add('client-name-container');
+    
+    let clientNameInput = document.createElement('select');
+    clientNameInput.id = 'client-name';
+
+    let clientNameInputContainer = document.createElement('div');
+    
+    let defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select a client name';
+    clientNameInput.appendChild(defaultOption);
+    
+    let mockData = {
+        'regular': { label: 'Regular Client', names: ['John Doe', 'Alice Johnson', 'Bob Smith'] },
+        'long-time': { label: 'Long Time Client', names: ['Jane Smith', 'Charlie Brown', 'Eva Davis'] }
+    };
+    
+    clientTypeSelect.addEventListener('change', function () {
+        let selectedOption = clientTypeSelect.value;
+        let selectedClient = mockData[selectedOption] || { label: 'Unknown Client', names: [] };
+    
+        clientNameLabel.textContent = `Client Name (${selectedClient.label})`;
+    
+        clientNameInput.innerHTML = '';
+    
+        selectedClient.names.forEach(name => {
+            let option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            clientNameInput.appendChild(option);
+        });
+    });
+    
+    clientNameInputContainer.appendChild(clientNameInput);
+    clientNameContainer.appendChild(clientNameLabel);
+    clientNameContainer.appendChild(clientNameInput);    
+    
     let addressLine1 = new ComponentServices.TextInputWithLabel(
         'Address Line 1*',
         _createtextInput('address-line-1', true)
@@ -173,13 +229,14 @@ function _addressCell() {
         'City, State, Zip*',
         _createtextInput('address-line-3', false)
     ).render().result;
-    addressCell.append(
-        title,
-        clientName,
-        addressLine1,
-        addressLine2,
-        addressLine3
-    );
+    
+    addressCell.appendChild(title);
+    addressCell.appendChild(clientTypeSelect);
+    addressCell.appendChild(insertClientButton);
+    addressCell.appendChild(clientNameContainer);
+    addressCell.appendChild(addressLine1);
+    addressCell.appendChild(addressLine2);
+    addressCell.appendChild(addressLine3);
 
     addressCell.childNodes.forEach((element) => {
         element.classList.add('mb-6');
@@ -301,6 +358,25 @@ function _createtextInput(desiredId, required = false) {
     if (required) {
         input.required = true;
     }
+
+    return input;
+}
+
+function _createSelectInput(options, desiredId, required = false) {
+    let input = document.createElement('select');
+    input.name = desiredId;
+    input.id = desiredId;
+
+    if (required) {
+        input.required = true;
+    }
+
+    options.forEach(optionValue => {
+        let option = document.createElement('option');
+        option.value = optionValue;
+        option.text = optionValue;
+        input.appendChild(option);
+    });
 
     return input;
 }
