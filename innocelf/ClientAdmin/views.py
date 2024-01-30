@@ -89,7 +89,8 @@ def obtain_long_term_client_form(request, *args, **kwargs):
     The function gathers the long term client form and sends it to the frontend
     via XML request
     '''
-    long_term_client_form = LongTermClientForm()
+    long_term_client_form = LongTermClientForm()   
+
     return HttpResponse(long_term_client_form)
 
 

@@ -112,6 +112,44 @@ console.log(formData)
         xhttp.send(formData);
     }
 }
+/**
+ * This function retrieves long clients data from the table
+ */
+
+function obtainLongTermClients(){
+    return new Promise((resolve) => { 
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if(this.readyState === 4 && this.status === 200) {
+                let response = this.response;
+                let responseJson = JSON.parse(response);
+                let ltArr = []
+
+                console.log(responseJson)
+
+                Object.keys(responseJson = JSON.parse(response)).map((item) => {
+                    let fields = responseJson[item].fields
+
+                    let ltClientName = fields.client_name
+                    ltArr.push(ltClientName)
+                })
+                console.log(ltArr)
+                resolve(responseJson)               
+                
+            }
+        }      
+
+        xhttp.open('GET', '/client-admin/obtain-long-term-clients-list');
+        xhttp.send()
+    })
+}
+
+// function obtainLongTermClientsObject(){
+//     _obtainLongTermClients().then((response) => {
+//         this.longTermClientObject = response
+//     })
+// }
+// COME BACK TO THIS
 
 /**
  * The function returns an input element (text input) for the invoice number
@@ -159,17 +197,18 @@ function _addressCell() {
 
     let clientTypeSelect = document.createElement('select');
     clientTypeSelect.id = 'client-type';
+    clientTypeSelect.name = 'client-name';
 
     let regularOption = document.createElement('option');
-    regularOption.value = 'regular';
+    regularOption.value = 'regular-client';
     regularOption.textContent = 'Regular Client';
 
-    let longTimeOption = document.createElement('option');
-    longTimeOption.value = 'long-time';
-    longTimeOption.textContent = 'Long Time Client';
+    let longTermOption = document.createElement('option');
+    longTermOption.value = 'long-term';
+    longTermOption.textContent = 'Long Term Client';
 
     clientTypeSelect.appendChild(regularOption);
-    clientTypeSelect.appendChild(longTimeOption);
+    clientTypeSelect.appendChild(longTermOption);
 
     let insertClientButton = document.createElement('button');
     insertClientButton.id = 'insert-client-button';
@@ -184,6 +223,7 @@ function _addressCell() {
     
     let clientNameInput = document.createElement('select');
     clientNameInput.id = 'client-name';
+    clientNameInput.className = 'mx-auto w-3/5';
 
     let clientNameInputContainer = document.createElement('div');
     
@@ -191,10 +231,12 @@ function _addressCell() {
     defaultOption.value = '';
     defaultOption.textContent = 'Select a client name';
     clientNameInput.appendChild(defaultOption);
-    
+        
+    console.log(obtainLongTermClients())
+
     let mockData = {
-        'regular': { label: 'Regular Client', names: ['John Doe', 'Alice Johnson', 'Bob Smith'] },
-        'long-time': { label: 'Long Time Client', names: ['Jane Smith', 'Charlie Brown', 'Eva Davis'] }
+        'regular-client': { label: 'Regular Client', names: ['John Doe', 'Alice Johnson', 'Bob Smith'] },
+        'long-term': { label: 'Long Term Client', names: obtainLongTermClients() }
     };
     
     clientTypeSelect.addEventListener('change', function () {
@@ -204,6 +246,7 @@ function _addressCell() {
         clientNameLabel.textContent = `Client Name (${selectedClient.label})`;
     
         clientNameInput.innerHTML = '';
+
     
         selectedClient.names.forEach(name => {
             let option = document.createElement('option');
@@ -215,6 +258,7 @@ function _addressCell() {
     
     clientNameInputContainer.appendChild(clientNameInput);
     clientNameContainer.appendChild(clientNameLabel);
+    clientNameContainer.appendChild(document.createElement('br'));
     clientNameContainer.appendChild(clientNameInput);    
     
     let addressLine1 = new ComponentServices.TextInputWithLabel(
