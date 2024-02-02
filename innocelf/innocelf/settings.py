@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # All auth apps
     'crispy_forms',
+    'crispy_bootstrap4',
     'allauth',
     'allauth.account'
 ]
@@ -60,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'allauth.account.middleware.AccountMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'innocelf.urls'
@@ -68,7 +69,7 @@ ROOT_URLCONF = 'innocelf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Add your project-specific template directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,9 +101,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         # 'NAME': BASE_DIR / 'db.sqlite3',
-        'NAME': 'celfdb',
+        'NAME': 'innocelf',
         'USER': 'root',
-        'PASSWORD': 'newpassword',
+        'PASSWORD': 'Ayomide@1',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
