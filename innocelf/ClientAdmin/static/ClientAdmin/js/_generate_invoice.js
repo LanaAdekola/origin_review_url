@@ -254,7 +254,6 @@ function showOngoingProjectsModal(clientName, projects) {
         modal.appendChild(noProjectsMessage);
     }
 
-    
     modal.appendChild(closeModalButton);
 
     // Get the client name dropdown select
