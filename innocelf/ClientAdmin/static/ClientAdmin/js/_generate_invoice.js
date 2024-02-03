@@ -25,8 +25,9 @@ export function generateInvoiceContainer() {
         'Generate Invoice'
     ).renderWithClass(['my-5', 'text-center']).result;
     let invoiceForm = createInvoiceGeneratorForm();
+    let projectsSidebar = createProjectsSidebar(); // Added line to create sidebar
 
-    container.append(heading, invoiceForm);
+    container.append(heading, invoiceForm, projectsSidebar); // Added sidebar to container
 
     return container;
 }
@@ -247,6 +248,100 @@ function _invoiceNumberCell() {
     return invoiceNumberCell;
 }
 
+
+function createProjectsSidebar() {
+    let sidebar = document.createElement('div');
+    sidebar.classList.add('p-5', 'm-auto', 'w-1/4', 'border-l', 'border-gray-500');
+
+    let title = new ComponentServices.HeadingOrParagraph(
+        'h6',
+        'Ongoing Projects'
+    ).renderWithClass(['mx-auto', 'text-center']).result;
+
+    // Add an empty list to display ongoing projects
+    let projectList = document.createElement('ul');
+    projectList.id = 'ongoing-projects-list';
+    sidebar.appendChild(title);
+    sidebar.appendChild(projectList);
+
+    return sidebar;
+}
+
+
+function updateProjectsSidebar(clientName) {
+    let projectList = document.getElementById('ongoing-projects-list');
+
+    // Fetch ongoing projects for the selected client (using mock data for now)
+    let ongoingProjects = getMockOngoingProjects(clientName);
+
+    // Clear existing projects
+    projectList.innerHTML = '';
+
+    // Populate the project list
+    ongoingProjects.forEach((project) => {
+        let projectItem = document.createElement('li');
+        projectItem.textContent = project;
+        projectList.appendChild(projectItem);
+    });
+}
+
+
+function showOngoingProjectsModal(clientName, projects) {
+    // Replace this part with your actual modal HTML structure and styling
+    let modal = document.createElement('div');
+    modal.classList.add('modal', 'bg-white', 'p-4', 'rounded', 'shadow-md', 'absolute');
+
+    let closeModalButton = document.createElement('button');
+    closeModalButton.textContent = 'Close';
+    closeModalButton.classList.add('bg-blue-500', 'text-white', 'p-2', 'rounded', 'mb-4');
+
+    // Add a heading to the modal
+    let heading = document.createElement('h3');
+    heading.textContent = `Ongoing Projects for ${clientName}`;
+    heading.classList.add('text-lg', 'font-bold', 'mb-2');
+    modal.appendChild(heading);
+
+    // Check if there are ongoing projects
+    if (projects.length > 0) {
+        let projectsList = document.createElement('ul');
+        projectsList.classList.add('list-disc', 'pl-6');
+
+        // Populate the list with project details
+        projects.forEach(project => {
+            let projectItem = document.createElement('li');
+            projectItem.innerHTML = `<strong>${project.projectName}</strong>: ${project.startDate} to ${project.endDate}`;
+            projectsList.appendChild(projectItem);
+        });
+
+        modal.appendChild(projectsList);
+    } else {
+        let noProjectsMessage = document.createElement('p');
+        noProjectsMessage.textContent = 'No ongoing projects for this client.';
+        modal.appendChild(noProjectsMessage);
+    }
+
+    modal.appendChild(closeModalButton);
+
+    // Get the client name dropdown select
+    let clientNameSelect = document.getElementById('client-name');
+
+    // Get the position of the client name dropdown select
+    let clientNameRect = clientNameSelect.getBoundingClientRect();
+
+    // Set the position of the modal beside the client name dropdown select
+    modal.style.top = `${clientNameRect.bottom + window.scrollY}px`;
+    modal.style.left = `${clientNameRect.left + window.scrollX + clientNameRect.width}px`;
+
+    // Append the modal to the document body
+    document.body.appendChild(modal);
+
+    // Add an event listener to close the modal when the close button is clicked
+    closeModalButton.addEventListener('click', function () {
+        document.body.removeChild(modal);
+    });
+}
+
+
 /**
  * The function returns the address cell that will be part of the invoice generator
  * form
@@ -287,11 +382,12 @@ function _addressCell() {
     let clientNameContainer = document.createElement('div');
     clientNameContainer.classList.add('client-name-container');
     
-    let clientNameInput = document.createElement('select');
+    let clientNameInput = _createSelectInput([], 'client-name');  // Empty options for now
     clientNameInput.id = 'client-name';
     clientNameInput.className = 'mx-auto w-3/5';
 
     let clientNameInputContainer = document.createElement('div');
+    clientNameInputContainer.appendChild(clientNameInput);
     
     let defaultOption = document.createElement('option');
     defaultOption.value = '';
@@ -303,24 +399,38 @@ function _addressCell() {
 
     let mockData = {
         'regular-client': { label: 'Regular Client', names: ['John Doe', 'Alice Johnson', 'Bob Smith'] },
-        'long-term': { label: 'Long Term Client', names: obtainLongTermClients() }
+        'long-term': { label: 'Long Term Client', names: ['Richard Kelvin', 'Pratik Mahanmuni', 'Sol Pauper'] }
     };
     
     clientTypeSelect.addEventListener('change', function () {
         let selectedOption = clientTypeSelect.value;
         let selectedClient = mockData[selectedOption] || { label: 'Unknown Client', names: [] };
-    
+
+        
+        // Update the client name label
         clientNameLabel.textContent = `Client Name (${selectedClient.label})`;
-    
+
+        // Update the projects sidebar when a client is selected
+        updateProjectsSidebar(selectedOption);
+
         clientNameInput.innerHTML = '';
 
-    
         selectedClient.names.forEach(name => {
             let option = document.createElement('option');
             option.value = name;
             option.textContent = name;
             clientNameInput.appendChild(option);
+
+            let ongoingProjects = getMockOngoingProjects(name);
+
+            // Show a custom-designed modal with ongoing projects when a name is clicked
+            option.addEventListener('click', function (event) {
+                event.preventDefault();
+                showOngoingProjectsModal(name, ongoingProjects);
         });
+
+        });
+
     });
     
     clientNameInputContainer.appendChild(clientNameInput);
@@ -471,6 +581,20 @@ function _createtextInput(desiredId, required = false) {
     }
 
     return input;
+}
+
+function getMockOngoingProjects(clientName) {
+    // Simulate fetching ongoing projects based on the selected client
+    let mockData = {
+        'John Doe': ['Project A', 'Project B', 'Project C'],
+        'Alice Johnson': ['Project X', 'Project Y'],
+        'Bob Smith': ['Project P', 'Project Q', 'Project R'],
+        'Richard Kelvin': ['Project Alpha', 'Project Beta'],
+        'Pratik Mahanmuni': ['Project One', 'Project Two', 'Project Three'],
+        'Sol Pauper': ['Project Delta', 'Project Gamma']
+    };
+
+    return mockData[clientName] || [];
 }
 
 function _createSelectInput(options, desiredId, required = false) {
