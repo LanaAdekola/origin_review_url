@@ -117,25 +117,22 @@ console.log(formData)
  * This function retrieves long clients data from the table
  */
 
-function obtainLongTermClients(){
+function _obtainLongTermClients(){
     return new Promise((resolve) => { 
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if(this.readyState === 4 && this.status === 200) {
                 let response = this.response;
                 let responseJson = JSON.parse(response);
-                let ltArr = []
-
-                console.log(responseJson)
+                let ltArr = [] 
 
                 Object.keys(responseJson = JSON.parse(response)).map((item) => {
                     let fields = responseJson[item].fields
 
-                    let ltClientName = fields.client_name
-                    ltArr.push(ltClientName)
+                    ltArr.push(fields)
                 })
-                console.log(ltArr)
-                resolve(responseJson)               
+        
+                resolve(ltArr)               
                 
             }
         }      
@@ -145,78 +142,10 @@ function obtainLongTermClients(){
     })
 }
 
-// obtaining all ongoing projects
 
-function obtainProjectsLists() {
-    return new Promise((resolve) => {
-        let xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if (this.readyState === 4 && this.status === 200) {
-                let response = this.response;
-                let responseJson = JSON.parse(response);
-
-                // Add Posix time to the fields structure
-                Object.keys(responseJson).map((item) => {
-                    // Un null any fields
-                    Object.keys(responseJson[item].fields).map((field) => {
-                        if (responseJson[item].fields[field] === null) {
-                            responseJson[item].fields[field] = '';
-                        }
-                    });
-
-                    responseJson[item].fields['project_deadline_posix'] =
-                        Date.parse(responseJson[item].fields.project_deadline);
-
-                    responseJson[item].fields['project_deadline_full'] =
-                        new Date(
-                            responseJson[item].fields.project_deadline_posix
-                        )
-                            .toDateString()
-                            .substring(4);
-                    responseJson[item].fields['paymentsObject'] = JSON.parse(
-                        responseJson[item].fields.payments
-                    );
-
-                    // Get sum of all payments
-                    let sum = 0;
-                    Object.keys(responseJson[item].fields.paymentsObject).map(
-                        (payment) => {
-                            sum +=
-                                responseJson[item].fields.paymentsObject[
-                                    payment
-                                ].fields.amount;
-                        }
-                    );
-                    responseJson[item].fields['paymentSum'] = sum;
-                });
-
-                console.log(responseJson);
-                resolve(responseJson);
-            }
-        };
-        xhttp.open('GET', '/client-admin/obtain-projects');
-        xhttp.send();
-    });
-}
-
-// function obtainProjectsObject() {
-//     _obtainProjects().then((response) => {
-//         this.projectsObject = response;
-
-//         // Initial populate of the table
-//         // this.populateProjects(this.projectsObject);
-
-//         return this.projectsObject
-//     });
-// }
+// create a filter per client_type
 
 
-// function obtainLongTermClientsObject(){
-//     _obtainLongTermClients().then((response) => {
-//         this.longTermClientObject = response
-//     })
-// }
-// COME BACK TO THIS
 
 /**
  * The function returns an input element (text input) for the invoice number
@@ -394,8 +323,17 @@ function _addressCell() {
     defaultOption.textContent = 'Select a client name';
     clientNameInput.appendChild(defaultOption);
         
-    console.log(obtainLongTermClients())
-    console.log(obtainProjectsLists())
+    // console.log(obtainProjectsLists())
+    // factor in the data here
+    _obtainLongTermClients(client, project = null).then((data) => {
+        // console.log(data)
+        if(client == 'regular-client'){
+            return data.map((value, index) => {
+                
+            })
+        }
+
+    })
 
     let mockData = {
         'regular-client': { label: 'Regular Client', names: ['John Doe', 'Alice Johnson', 'Bob Smith'] },
