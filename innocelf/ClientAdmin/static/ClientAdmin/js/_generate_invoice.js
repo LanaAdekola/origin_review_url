@@ -144,6 +144,72 @@ function obtainLongTermClients(){
     })
 }
 
+// obtaining all ongoing projects
+
+function obtainProjectsLists() {
+    return new Promise((resolve) => {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let response = this.response;
+                let responseJson = JSON.parse(response);
+
+                // Add Posix time to the fields structure
+                Object.keys(responseJson).map((item) => {
+                    // Un null any fields
+                    Object.keys(responseJson[item].fields).map((field) => {
+                        if (responseJson[item].fields[field] === null) {
+                            responseJson[item].fields[field] = '';
+                        }
+                    });
+
+                    responseJson[item].fields['project_deadline_posix'] =
+                        Date.parse(responseJson[item].fields.project_deadline);
+
+                    responseJson[item].fields['project_deadline_full'] =
+                        new Date(
+                            responseJson[item].fields.project_deadline_posix
+                        )
+                            .toDateString()
+                            .substring(4);
+                    responseJson[item].fields['paymentsObject'] = JSON.parse(
+                        responseJson[item].fields.payments
+                    );
+
+                    // Get sum of all payments
+                    let sum = 0;
+                    Object.keys(responseJson[item].fields.paymentsObject).map(
+                        (payment) => {
+                            sum +=
+                                responseJson[item].fields.paymentsObject[
+                                    payment
+                                ].fields.amount;
+                        }
+                    );
+                    responseJson[item].fields['paymentSum'] = sum;
+                });
+
+                console.log(responseJson);
+                resolve(responseJson);
+            }
+        };
+        xhttp.open('GET', '/client-admin/obtain-projects');
+        xhttp.send();
+    });
+}
+
+// function obtainProjectsObject() {
+//     _obtainProjects().then((response) => {
+//         this.projectsObject = response;
+
+//         // Initial populate of the table
+//         // this.populateProjects(this.projectsObject);
+
+//         return this.projectsObject
+//     });
+// }
+
+
 // function obtainLongTermClientsObject(){
 //     _obtainLongTermClients().then((response) => {
 //         this.longTermClientObject = response
@@ -233,6 +299,7 @@ function _addressCell() {
     clientNameInput.appendChild(defaultOption);
         
     console.log(obtainLongTermClients())
+    console.log(obtainProjectsLists())
 
     let mockData = {
         'regular-client': { label: 'Regular Client', names: ['John Doe', 'Alice Johnson', 'Bob Smith'] },
