@@ -105,11 +105,11 @@ function submitInvoiceGeneratorForm(event) {
 
                 form.querySelector('#invoice-number').value =
                     responseJson['NewInvoiceNumber'];
-            } 
+            }
         };
-console.log(formData)
-        xhttp.open('POST', '/client-admin/generate-invoice');      
-        xhttp.setRequestHeader('X-CSRFToken', csrftoken); 
+        console.log(formData);
+        xhttp.open('POST', '/client-admin/generate-invoice');
+        xhttp.setRequestHeader('X-CSRFToken', csrftoken);
         xhttp.send(formData);
     }
 }
@@ -117,35 +117,33 @@ console.log(formData)
  * This function retrieves long clients data from the table
  */
 
-function _obtainLongTermClients(){
-    return new Promise((resolve) => { 
+function _obtainLongTermClients() {
+    return new Promise((resolve) => {
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            if(this.readyState === 4 && this.status === 200) {
+            if (this.readyState === 4 && this.status === 200) {
                 let response = this.response;
                 let responseJson = JSON.parse(response);
-                let ltArr = [] 
+                let ltArr = [];
 
-                Object.keys(responseJson = JSON.parse(response)).map((item) => {
-                    let fields = responseJson[item].fields
+                Object.keys((responseJson = JSON.parse(response))).map(
+                    (item) => {
+                        let fields = responseJson[item].fields;
 
-                    ltArr.push(fields)
-                })
-        
-                resolve(ltArr)               
-                
+                        ltArr.push(fields);
+                    }
+                );
+
+                resolve(ltArr);
             }
-        }      
+        };
 
-        xhttp.open('GET', '/client-admin/obtain-long-term-clients-list');
-        xhttp.send()
-    })
+        xhttp.open('GET', '/client-admin/obtain-projects');
+        xhttp.send();
+    });
 }
 
-
 // create a filter per client_type
-
-
 
 /**
  * The function returns an input element (text input) for the invoice number
@@ -177,10 +175,15 @@ function _invoiceNumberCell() {
     return invoiceNumberCell;
 }
 
-
 function createProjectsSidebar() {
     let sidebar = document.createElement('div');
-    sidebar.classList.add('p-5', 'm-auto', 'w-1/4', 'border-l', 'border-gray-500');
+    sidebar.classList.add(
+        'p-5',
+        'm-auto',
+        'w-1/4',
+        'border-l',
+        'border-gray-500'
+    );
 
     let title = new ComponentServices.HeadingOrParagraph(
         'h6',
@@ -195,7 +198,6 @@ function createProjectsSidebar() {
 
     return sidebar;
 }
-
 
 function updateProjectsSidebar(clientName) {
     let projectList = document.getElementById('ongoing-projects-list');
@@ -214,15 +216,27 @@ function updateProjectsSidebar(clientName) {
     });
 }
 
-
 function showOngoingProjectsModal(clientName, projects) {
     // Replace this part with your actual modal HTML structure and styling
     let modal = document.createElement('div');
-    modal.classList.add('modal', 'bg-white', 'p-4', 'rounded', 'shadow-md', 'absolute');
+    modal.classList.add(
+        'modal',
+        'bg-white',
+        'p-4',
+        'rounded',
+        'shadow-md',
+        'absolute'
+    );
 
     let closeModalButton = document.createElement('button');
     closeModalButton.textContent = 'Close';
-    closeModalButton.classList.add('bg-blue-500', 'text-white', 'p-2', 'rounded', 'mb-4');
+    closeModalButton.classList.add(
+        'bg-blue-500',
+        'text-white',
+        'p-2',
+        'rounded',
+        'mb-4'
+    );
 
     // Add a heading to the modal
     let heading = document.createElement('h3');
@@ -236,7 +250,7 @@ function showOngoingProjectsModal(clientName, projects) {
         projectsList.classList.add('list-disc', 'pl-6');
 
         // Populate the list with project details
-        projects.forEach(project => {
+        projects.forEach((project) => {
             let projectItem = document.createElement('li');
             projectItem.innerHTML = `<strong>${project.projectName}</strong>: ${project.startDate} to ${project.endDate}`;
             projectsList.appendChild(projectItem);
@@ -259,7 +273,9 @@ function showOngoingProjectsModal(clientName, projects) {
 
     // Set the position of the modal beside the client name dropdown select
     modal.style.top = `${clientNameRect.bottom + window.scrollY}px`;
-    modal.style.left = `${clientNameRect.left + window.scrollX + clientNameRect.width}px`;
+    modal.style.left = `${
+        clientNameRect.left + window.scrollX + clientNameRect.width
+    }px`;
 
     // Append the modal to the document body
     document.body.appendChild(modal);
@@ -269,7 +285,6 @@ function showOngoingProjectsModal(clientName, projects) {
         document.body.removeChild(modal);
     });
 }
-
 
 /**
  * The function returns the address cell that will be part of the invoice generator
@@ -302,49 +317,90 @@ function _addressCell() {
 
     let insertClientButton = document.createElement('button');
     insertClientButton.id = 'insert-client-button';
-    insertClientButton.classList.add('p-2', 'bg-blue-800')
-    
+    insertClientButton.classList.add('p-2', 'bg-blue-800');
 
     let clientNameLabel = document.createElement('label');
     clientNameLabel.textContent = 'Client Name (Regular Client)';
 
     let clientNameContainer = document.createElement('div');
     clientNameContainer.classList.add('client-name-container');
-    
-    let clientNameInput = _createSelectInput([], 'client-name');  // Empty options for now
+
+    let clientNameInput = _createSelectInput([], 'client-name'); // Empty options for now
     clientNameInput.id = 'client-name';
     clientNameInput.className = 'mx-auto w-3/5';
 
     let clientNameInputContainer = document.createElement('div');
     clientNameInputContainer.appendChild(clientNameInput);
-    
+
     let defaultOption = document.createElement('option');
     defaultOption.value = '';
     defaultOption.textContent = 'Select a client name';
     clientNameInput.appendChild(defaultOption);
-        
-    // console.log(obtainProjectsLists())
+
     // factor in the data here
-    _obtainLongTermClients(client, project = null).then((data) => {
-        // console.log(data)
-        if(client == 'regular-client'){
-            return data.map((value, index) => {
-                
+
+    function parser() {
+        _obtainLongTermClients().then((data) => {
+            let result = data;
+        });
+    }
+
+    function contextProcessor(client) {
+
+        // _obtainLongTermClients().then((data) => {
+        //    console.log(data);
+        // });
+
+        if (client === 'regular-client') {
+            let result
+            _obtainLongTermClients().then((data) => {
+            let Arr = [];
+
+            data.forEach((value, index) => {
+                if(value.client_long_term === false){
+                Arr.push(value.client_name)
+                }
             })
+            
+            console.log(Arr)
+            result = { label: 'Regular Client', names: Arr };
+             });
+            
         }
 
-    })
+        if (client === 'long-term') {
+           _obtainLongTermClients().then((data) => {
+            let Arr = [];
+            
+            data.forEach((value, index) => {
+                if(value.client_long_term === true){
+                Arr.push(value.client_name)
+                }
+            })
+            console.log(Arr)
+                return { label: 'Long Term Client', names: Arr };
+             });
+        }
+    }
 
     let mockData = {
-        'regular-client': { label: 'Regular Client', names: ['John Doe', 'Alice Johnson', 'Bob Smith'] },
-        'long-term': { label: 'Long Term Client', names: ['Richard Kelvin', 'Pratik Mahanmuni', 'Sol Pauper'] }
+        'regular-client': {
+            label: 'Regular Client',
+            names: ['John Doe', 'Alice Johnson', 'Bob Smith'],
+        },
+        'long-term': {
+            label: 'Long Term Client',
+            names: ['Richard Kelvin', 'Pratik Mahanmuni', 'Sol Pauper'],
+        },
     };
-    
+
     clientTypeSelect.addEventListener('change', function () {
         let selectedOption = clientTypeSelect.value;
-        let selectedClient = mockData[selectedOption] || { label: 'Unknown Client', names: [] };
+        let selectedClient = contextProcessor(selectedOption) || {
+            label: 'Unknown Client',
+            names: [],
+        };
 
-        
         // Update the client name label
         clientNameLabel.textContent = `Client Name (${selectedClient.label})`;
 
@@ -353,7 +409,7 @@ function _addressCell() {
 
         clientNameInput.innerHTML = '';
 
-        selectedClient.names.forEach(name => {
+        selectedClient.names.forEach((name) => {
             let option = document.createElement('option');
             option.value = name;
             option.textContent = name;
@@ -365,17 +421,15 @@ function _addressCell() {
             option.addEventListener('click', function (event) {
                 event.preventDefault();
                 showOngoingProjectsModal(name, ongoingProjects);
+            });
         });
-
-        });
-
     });
-    
+
     clientNameInputContainer.appendChild(clientNameInput);
     clientNameContainer.appendChild(clientNameLabel);
     clientNameContainer.appendChild(document.createElement('br'));
-    clientNameContainer.appendChild(clientNameInput);    
-    
+    clientNameContainer.appendChild(clientNameInput);
+
     let addressLine1 = new ComponentServices.TextInputWithLabel(
         'Address Line 1*',
         _createtextInput('address-line-1', true)
@@ -388,7 +442,7 @@ function _addressCell() {
         'City, State, Zip*',
         _createtextInput('address-line-3', false)
     ).render().result;
-    
+
     addressCell.appendChild(title);
     addressCell.appendChild(clientTypeSelect);
     addressCell.appendChild(insertClientButton);
@@ -529,7 +583,7 @@ function getMockOngoingProjects(clientName) {
         'Bob Smith': ['Project P', 'Project Q', 'Project R'],
         'Richard Kelvin': ['Project Alpha', 'Project Beta'],
         'Pratik Mahanmuni': ['Project One', 'Project Two', 'Project Three'],
-        'Sol Pauper': ['Project Delta', 'Project Gamma']
+        'Sol Pauper': ['Project Delta', 'Project Gamma'],
     };
 
     return mockData[clientName] || [];
@@ -544,7 +598,7 @@ function _createSelectInput(options, desiredId, required = false) {
         input.required = true;
     }
 
-    options.forEach(optionValue => {
+    options.forEach((optionValue) => {
         let option = document.createElement('option');
         option.value = optionValue;
         option.text = optionValue;
