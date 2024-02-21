@@ -337,7 +337,7 @@ function _addressCell() {
     defaultOption.textContent = 'Select a client name';
     clientNameInput.appendChild(defaultOption);
 
-    // factor in the data here
+
 
     function parser() {
         _obtainLongTermClients().then((data) => {
@@ -345,41 +345,35 @@ function _addressCell() {
         });
     }
 
-    function contextProcessor(client) {
-
-        // _obtainLongTermClients().then((data) => {
-        //    console.log(data);
-        // });
+    async function contextProcessor(client) {
 
         if (client === 'regular-client') {
             let result
-            _obtainLongTermClients().then((data) => {
-            let Arr = [];
 
+            const data = await _obtainLongTermClients()
+            let Arr = []
             data.forEach((value, index) => {
                 if(value.client_long_term === false){
                 Arr.push(value.client_name)
                 }
             })
-            
-            console.log(Arr)
             result = { label: 'Regular Client', names: Arr };
-             });
+            return result            
             
         }
 
         if (client === 'long-term') {
-           _obtainLongTermClients().then((data) => {
-            let Arr = [];
-            
+            let result
+
+            const data = await _obtainLongTermClients()
+            let Arr = []
             data.forEach((value, index) => {
                 if(value.client_long_term === true){
                 Arr.push(value.client_name)
                 }
             })
-            console.log(Arr)
-                return { label: 'Long Term Client', names: Arr };
-             });
+            result = { label: 'Long Term Client', names: Arr };
+            return result  
         }
     }
 
@@ -394,17 +388,18 @@ function _addressCell() {
         },
     };
 
-    clientTypeSelect.addEventListener('change', function () {
+    clientTypeSelect.addEventListener('change', async function () {
         let selectedOption = clientTypeSelect.value;
-        let selectedClient = contextProcessor(selectedOption) || {
+        let ff = await contextProcessor(selectedOption)
+        let selectedClient = ff || {
             label: 'Unknown Client',
             names: [],
         };
+  
 
-        // Update the client name label
+        
         clientNameLabel.textContent = `Client Name (${selectedClient.label})`;
 
-        // Update the projects sidebar when a client is selected
         updateProjectsSidebar(selectedOption);
 
         clientNameInput.innerHTML = '';
@@ -417,7 +412,7 @@ function _addressCell() {
 
             let ongoingProjects = getMockOngoingProjects(name);
 
-            // Show a custom-designed modal with ongoing projects when a name is clicked
+            // it shows a custom-designed modal with ongoing projects when a name is clicked
             option.addEventListener('click', function (event) {
                 event.preventDefault();
                 showOngoingProjectsModal(name, ongoingProjects);
