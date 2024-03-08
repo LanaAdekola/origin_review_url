@@ -21,6 +21,9 @@ export class ClientAdminNavbar extends ComponentServices.Navbar {
         super();
         this.collapsibleContent.classList.add('gap-12');
     }
+
+
+
     render() {
         this.addBrand();
 
@@ -988,7 +991,7 @@ export class ProjectTable extends TypicalTable {
 
         this.pageNumber = 1;
         this.totalPages = 1;
-        this.recordsPerPage = 10;
+        this.recordsPerPage = 3;
         this.columnSorted = false;
 
         // Search input element
@@ -1183,9 +1186,13 @@ export class ProjectTable extends TypicalTable {
         if (this.pageNumber > 1) {
             this.pageNumber -= 1;
             if (this.columnSorted) {
-                this.populateProjects(this.projectsObjectColumnSorted);
+                let variant = this.filteredProjectsObject || this.projectsObjectColumnSorted
+
+                this.populateProjects(variant);
             } else {
-                this.populateProjects(this.projectsObject);
+
+                let variant = this.filteredProjectsObject || this.projectObject
+                this.populateProjects(variant);
             }
         }
     }
@@ -1193,9 +1200,12 @@ export class ProjectTable extends TypicalTable {
         if (this.pageNumber < this.totalPages) {
             this.pageNumber += 1;
             if (this.columnSorted) {
-                this.populateProjects(this.projectsObjectColumnSorted);
+                let variant = this.filteredProjectsObject || this.projectsObjectColumnSorted
+
+                this.populateProjects(variant);
             } else {
-                this.populateProjects(this.projectsObject);
+                let variant = this.filteredProjectsObject || this.projectObject
+                this.populateProjects(variant);
             }
         }
     }
@@ -1248,7 +1258,7 @@ export class ProjectTable extends TypicalTable {
 
         let lowerSearchString = searchString.toLowerCase();
         if (lowerSearchString.trim() !== '') {
-            let filteredProjectsObject = this.projectsObject.filter((value) => {
+            this.filteredProjectsObject = this.projectsObject.filter((value) => {
                 return (
                     value.fields.client_name
                         .toLowerCase()
@@ -1268,7 +1278,7 @@ export class ProjectTable extends TypicalTable {
                 );
             });
 
-            this.populateProjects(filteredProjectsObject);
+            this.populateProjects(this.filteredProjectsObject);
         } else {
             this.populateProjects(this.projectsObject);
         }
