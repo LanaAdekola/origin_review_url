@@ -274,7 +274,7 @@ export class RevenueTableRow {
             // 'block',
             // 'flex',
             // 'w-32',
-            'w-125p',
+            'w-32',
             'table-cell',
             'text-center',
             'text-base',
