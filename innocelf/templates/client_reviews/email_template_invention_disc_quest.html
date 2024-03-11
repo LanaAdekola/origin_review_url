@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+            rel="stylesheet">
+
+        <style>
+            body {
+                background-color: #222222;
+            }
+
+            .outer-container {
+                background-color: #222222;
+                width: 100%;
+                height: 100%
+            }
+
+            .main-container {
+                width: 80%;
+                height: 80%;
+                background-color: white;
+                margin-right: auto;
+                margin-left: auto;
+                margin-top: 3rem;
+                margin-bottom: 3rem;
+                padding: 3rem;
+                text-align: justify;
+                line-height: 1.5rem;
+            }
+
+            .lato-regular {
+                font-family: 'Lato', sans-serif;
+            }
+
+            .lato-bold {
+                font-family: 'Lato', sans-serif;
+                font-weight: 700;
+            }
+
+            .last-thank-you {
+                font-size: 3.2em;
+                color: white;
+                margin-right: 0.8em
+            }
+
+            .unique-link {
+                text-decoration: none !important;
+                background-color: #222222 !important;
+                color: white !important;
+                padding: 0.5rem;
+            }
+
+            .footer-copyright {
+                text-align: center;
+            }
+
+            .footer-links {
+                text-decoration: none !important;
+                color: black !important
+            }
+
+            .important-links {
+                list-style-type: none;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 0.5rem;
+            }
+
+            .important-links li {
+                display: inline;
+                margin: 0px 20px 0px 20px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="outer-container">
+            <div style="background-color: #222222;">
+                <img src="https://www.innocelf.com/static/img/innoimg/InnocelfLogo_222222Background_SVG.png"
+                    alt="innocelf-logo" width="300px" style="margin-left: 2em">
+            </div>
+
+            <div class="main-container lato-regular">
+                <p style="font-size: large">Hello {{client_name}},
+                    <br>
+                    <br>
+                    Thank you for choosing Innocelf, LLC for your research
+                    needs.
+                    To better serve you we have developed a questionnaire to
+                    understand your invention and its details.
+                    Please fill out the questionnaire by accessing the link
+                    below.
+                    <br>
+                    <br>
+                    To protect your data the link will expire as soon as you
+                    submit
+                    the questionnaire. Any changes that need to be made after
+                    you
+                    submit, will be done via email. The link will expire
+                    on:
+                    <b>{{link_expiry_date}}</b>
+                    <br>
+                    <br>
+                    Thank you for choosing Innocelf. We hope to talk to you
+                    soon.
+                    <br>
+                    <br>
+                    Best,
+                    <br>
+                    Pranita
+                </p>
+
+                <div style="margin-top: 2rem">
+                    <a class="unique-link" href="{{ unique_link }}"
+                        target="_blank">CLICK HERE TO ACCESS THE
+                        QUESTIONNAIRE</a>
+                </div>
+
+                <hr style="margin-top: 3rem; width: 100%">
+
+                <!-- Copyright -->
+                <div class="footer-copyright text-center pt-3">© 2020 Copyright:
+                    <a class="footer-links" href="https://www.innocelf.com"
+                        target="_blank">INNOCELF, LLC.
+                        All
+                        Rights Reserved</a>
+
+                    <div class="important-links" style="font-size:small">
+                        <li>
+                            <a class="footer-links"
+                                href="https://www.innocelf.com/privacy-policy/"
+                                target="_blank">Privacy Policy</a>
+                        </li>
+                        <li>
+                            <a class="footer-links"
+                                href="https://www.innocelf.com/terms-and-conditions/#privacy-policy"
+                                target="_blank">Terms of
+                                Use</a>
+                        </li>
+                        <li>
+                            <a class="footer-links"
+                                href="https://www.innocelf.com/disclaimer/"
+                                target="_blank">Disclaimer</a>
+                        </li>
+                    </div>
+
+                </div>
+                <!-- Copyright -->
+            </div>
+            <div style="justify-content: end; text-align: end">
+                <h1 class="lato-bold last-thank-you">
+                    Invention Disclosure Questionnaire
+                </h1>
+            </div>
+        </div>
+
+
+    </body>
+
+</html>

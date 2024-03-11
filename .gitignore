@@ -1,0 +1,10 @@
+venv
+innocelf/adeboy
+__pycache__
+.vscode
+.idea
+node_modules
+reportlab-userguide.pdf
+innocelf/media/GeneratedInvoices/*
+innocelf/**/migrations
+innocelf/media

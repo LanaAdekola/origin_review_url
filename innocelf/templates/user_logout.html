@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    {% extends 'base.html' %}
+    {% load static %}
+    {% load crispy_forms_tags %}
+    {% load crispy_forms_filters %}
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            {% block head_title %}
+            Logged Out | Innocelf Portal
+            {% endblock head_title %}
+        </title>
+    </head>
+
+    <body>
+        {% block content %}
+
+        <style>
+            body {
+                background-color: #212121 !important;
+            }
+        </style>
+
+        <a class="row" href="{% url 'innoservices:home' %}">
+            <img src="{% static 'img/innoimg/InnocelfLogo_NoBackground_SVG.svg' %}" alt="Innocelf_Logo" width="150px"
+                class="mx-auto my-3">
+        </a>
+
+        <div class="container-fluid lato-regular align-self-center p-5 bg-white mb-5" style="max-width: 700px;">
+            <h3>You have been logged out of Innocelf Portal.</h3>    
+            <div class="form-row border-top pt-3 mt-3">
+                    <small class="text-muted">
+                        Didn't mean to logout?
+                        <a class="ml-2" href="{% url 'innoaccounts:login-user' %}">
+                            Login Again
+                        </a>
+                    </small>
+                </div>
+        </div>
+
+        <div class="row">
+
+        </div>
+
+        {% endblock content %}
+    </body>
+
+</html>
