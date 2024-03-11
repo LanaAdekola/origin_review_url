@@ -53,7 +53,6 @@
         let invoiceNumberCell = _invoiceNumberCell();
         let popUpCell = _popUpCell()
         let {addressCell, popUpCell: pcell} = _addressCell();
-        console.log("pp: ",pcell)
         let servicesCell = _servicesCell();
         let submitButton = new ComponentServices.TypicalFormSubmitButton(
             'Generate Invoice'
@@ -181,10 +180,7 @@
             // Assuming the backend API endpoint to fetch client projects is /clients/{clientId}/projects
             const response = await fetch(`/client-admin/obtain-projects?clientId=${clientId}`);
             const projects = await response.json();
-            console.log("Client Projects:");
-            projects.forEach((project, index) => {
-                console.log(`Project ${index + 1}: ${project.fields.client_company}`);
-            });
+            projects.forEach((project, index) => {            });
             return projects;
         } catch (error) {
             console.error('Error fetching client projects:', error);
@@ -196,11 +192,7 @@
             // Assuming the backend API endpoint to fetch client projects is /clients/{clientId}/projects
             // const response = await fetch(`/client-admin/obtain-projects?clientId=${clientId}`);
             // const projects = await response.json();
-
-            console.log("Client Projects:");
-            console.log("hhh: ", project)
             let result = project.fields.find(slug => slug.slug = slug)
-            console.log(result)
             return result;
         } catch (error) {
             console.error('Error fetching client projects:', error);
@@ -210,7 +202,6 @@
 
     async function displayClientProjects(clientId, popUpCell) {
         const projects = await fetchClientProjects(clientId);
-        console.log(projects)
 
         // Remove the existing projectsDiv if it exists
         const existingProjectsDiv = document.getElementById('projects-div');
@@ -271,8 +262,6 @@
             return;
         } 
 
-        console.log("dd: ",projects)
-
         const filtered_projects = projects.filter(project => {
             return project?.fields?.client_name === clientId
         })
@@ -291,8 +280,6 @@
                 document.getElementById('address-line-1').value = project.fields.client_company;
                 document.getElementById('address-line-2').value = project.fields.client_email;
                 document.getElementById('address-line-3').value = project.fields.project_name;
-                console.log('Client Detailsss:', selectedClientId); // Log the fetched client details
-
             });
             
             projectList.appendChild(listItem);
@@ -462,148 +449,40 @@
     function _popUpCell(){
         let popUpCell = document.createElement('div');
 
-        // async function fetchClientProjects(clientId) {
-        //     try {
-        //         // Assuming the backend API endpoint to fetch client projects is /clients/{clientId}/projects
-        //         const response = await fetch(`/client-admin/obtain-projects? clientId=${clientId}`);
-        //         const projects = await response.json();
-        //         console.log("Client Projects:");
-        //         projects.forEach((project, index) => {
-        //             console.log(`Project ${index + 1}: ${project.fields.client_company}`);
-        //         });
-        //         return projects;
-        //     } catch (error) {
-        //         console.error('Error fetching client projects:', error);
-        //         return [];
-        //     }
-        // }        
-        
-        
-        // // Function to display client's ongoing projects
-        // async function displayClientProjects(clientId) {
-        //     const projects = await fetchClientProjects(clientId);
-        //     console.log(projects)
-
-        //     // Remove the existing projectsDiv if it exists
-        //     const existingProjectsDiv = document.getElementById('projects-div');
-        //     if (existingProjectsDiv) {
-        //         existingProjectsDiv.remove();
-        //     }
-
-        //     let projectsDiv = document.createElement('div');
-        //     projectsDiv.id = 'projects-div';
-        //     projectsDiv.classList.add('mb-6');
-    
-        //     let projectsTitle = new ComponentServices.HeadingOrParagraph(
-        //         'h6',
-        //         'Client Projects'
-        //     ).renderWithClass(['mx-auto', 'text-center']).result;
-    
-        //     const projectList = document.createElement('ul');
-        //     projectList.id = 'client-projects-list'
-    
-        //     projectsDiv.appendChild(projectsTitle);
-        //     projectsDiv.appendChild(projectList);
-        //     popUpCell.appendChild(projectsDiv)
-
-        //     // Clear previous projects
-        //     projectList.innerHTML = '';
-        
-        //     //this checks if the project is not empty
-        //     if (projects.length === 0){
-        //         console.log('No project found for the client.')
-        //         return;
-        //     } 
-
-        //     console.log("dd: ",projects)
-
-        //     const filtered_projects = projects.filter(project => {
-        //         return project?.fields?.client_name === clientId
-        //     })
-        
-        //     // Display each project as a list item
-        //     filtered_projects.forEach(project => {
-        //         console.log('Project Name:', project.fields.project_name);
-
-        //         const listItem = document.createElement('li');
-        //         listItem.textContent = project.fields.project_name;
-        //         listItem.dataset.projectId = project.slug; // Assuming project slug is unique
-        //         listItem.draggable = true; // Enable drag and drop
-        //         projectList.appendChild(listItem);
-        //     });
-        // }
-        
         setTimeout(() => {
             document.getElementById('client-name').addEventListener('change', function () {
                 const selectedClientId = this.value;
                 if (selectedClientId) {
-                    console.log(selectedClientId)
                     displayClientProjects(selectedClientId, popUpCell);
                 }
             });
         }, 0)  
             
-       // Function to handle drag and drop
-       function handleDragStart(event) {
-        event.dataTransfer.setData('text/plain', event.target.dataset.projectId);
-    }
+    //    // Function to handle drag and drop
+    //    function handleDragStart(event) {
+    //     event.dataTransfer.setData('text/plain', event.target.dataset.projectId);
+    //     }
     
-    function handleDrop(event) {
-        event.preventDefault();
-        const projectId = event.dataTransfer.getData('text/plain');
-        const selectedProject = document.querySelector(`[data-project-id="${projectId}"]`);
-        // Add the selected project as a line item in the invoice form
-        addLineItem(selectedProject.textContent);
-    }
+    // function handleDrop(event) {
+    //     event.preventDefault();
+    //     const projectId = event.dataTransfer.getData('text/plain');
+    //     const selectedProject = document.querySelector(`[data-project-id="${projectId}"]`);
+    //     // Add the selected project as a line item in the invoice form
+    //     addLineItem(selectedProject.textContent);
+    // }
     
-    function allowDrop(event) {
-        event.preventDefault();
-    }
+    // function allowDrop(event) {
+    //     event.preventDefault();
+    // }
     
-    // Attach drag and drop event listeners
-    const projectListItems = document.querySelectorAll('#client-projects-list li');
-    projectListItems.forEach(item => {
-        item.addEventListener('dragstart', handleDragStart);
-    });
+    // // Attach drag and drop event listeners
+    // const projectListItems = document.querySelectorAll('#client-projects-list li');
+    // projectListItems.forEach(item => {
+    //     item.addEventListener('dragstart', handleDragStart);
+    // });
 
         return popUpCell;
     }
-    
-
-// Event listener for client selection change
-//     // Event listener for client selection change
-    // document.getElementById('client-name').addEventListener('change', function () {
-    //     const selectedClientId = this.value;
-
-    //     console.log("change id happening")
-    //     if (selectedClientId) {
-    //         displayClientProjects(selectedClientId);
-    //     }
-    // });
-
-    // runs in the next tick
-     
-        
-
-        // // Function to retrieve a client's ongoing projects
- 
-        
-        // // Calls the displayClientProjects function initially if a client is already selected
-        // const initialSelectedClientId = document.getElementById('client-name').value;
-        // if (initialSelectedClientId) {
-        //     displayClientProjects(initialSelectedClientId);
-        // }
-    // console.log(displayClientProjects())
-
-              
-        // const invoiceForm = document.getElementById('invoice-generator-form');
-        // invoiceForm.addEventListener('drop', handleDrop);
-        // invoiceForm.addEventListener('dragover', allowDrop);
-        
-        
-
-
-
 
     /**
      * The function returns the service cell that will be part of the invoice generator
