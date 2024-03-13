@@ -52,14 +52,14 @@
 
         let invoiceNumberCell = _invoiceNumberCell();
         let popUpCell = _popUpCell()
-        let addressCell = _addressCell();
+        let {addressCell, popUpCell: pcell} = _addressCell();
         let servicesCell = _servicesCell();
         let submitButton = new ComponentServices.TypicalFormSubmitButton(
             'Generate Invoice'
         ).result;
         submitButton.onclick = submitInvoiceGeneratorForm;
 
-        form.append(invoiceNumberCell, popUpCell, addressCell, servicesCell, submitButton);
+        form.append(invoiceNumberCell, pcell, popUpCell, addressCell, servicesCell, submitButton);
         return form;
     }
 
@@ -107,7 +107,6 @@
                         responseJson['NewInvoiceNumber'];
                 }
             };
-            console.log(formData);
             xhttp.open('POST', '/client-admin/generate-invoice');
             xhttp.setRequestHeader('X-CSRFToken', csrftoken);
             xhttp.send(formData);
@@ -144,18 +143,6 @@
     }
 
 
-
-    function _ObtainlongTermClientPopup(){
-        let xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if(this.readyState == 4 && this.status == 200){
-            let responseData = JSON.parse(this.responseText);
-            console.log(responseData);
-            }
-        }
-        xhttp.open('GET', '/client-admin/obtain-projects', true);
-        xhttp.send();
-    }
     // create a filter per client_type
 
     /**
@@ -188,7 +175,121 @@
         return invoiceNumberCell;
     }
 
+    async function fetchClientProjects(clientId) {
+        try {
+            // Assuming the backend API endpoint to fetch client projects is /clients/{clientId}/projects
+            const response = await fetch(`/client-admin/obtain-projects?clientId=${clientId}`);
+            const projects = await response.json();
+            projects.forEach((project, index) => {            });
+            return projects;
+        } catch (error) {
+            console.error('Error fetching client projects:', error);
+            return [];
+        }
+    }
+    async function fetchClientDetails(project, slug) {
+        try {
+            // Assuming the backend API endpoint to fetch client projects is /clients/{clientId}/projects
+            // const response = await fetch(`/client-admin/obtain-projects?clientId=${clientId}`);
+            // const projects = await response.json();
+            let result = project.fields.find(slug => slug.slug = slug)
+            return result;
+        } catch (error) {
+            console.error('Error fetching client projects:', error);
+            return [];
+        }
+    }
+
+    async function displayClientProjects(clientId, popUpCell) {
+        const projects = await fetchClientProjects(clientId);
+
+        // Remove the existing projectsDiv if it exists
+        const existingProjectsDiv = document.getElementById('projects-div');
+        if (existingProjectsDiv) {
+            existingProjectsDiv.remove();
+        }
+
+        let projectsDiv = document.createElement('div');
+        projectsDiv.id = 'projects-div';
+        projectsDiv.classList.add('mx-auto', 'text-center');
+
+        let projectsTitle = new ComponentServices.HeadingOrParagraph(
+            'h6',
+            'Client Projects'
+        ).renderWithClass(['mx-auto', 'text-center']).result;
+
+        const projectList = document.createElement('button');
+        projectList.id = 'client-projects-list'
+        projectList.style.backgroundColor = '#fbf9fa'
+        projectList.style.padding = '20px'; // Padding for better appearance
+        projectList.style.cursor = 'pointer'; // Change cursor to pointer on hover
+        projectList.style.borderRadius = '20px';
+        projectList.style.border = 'solid 1px gray';
+
+        // Light blue background by default
+        projectList.style.backgroundColor = '#fbf9fa';
+        
+        // Darker blue background on hover
+        projectList.addEventListener('mouseenter', function() {
+            projectList.style.backgroundColor = '#e3e3e3'; // Variant blue
+        });
+        
+        projectList.addEventListener('mouseleave', function() {
+            projectList.style.backgroundColor = '#fbf9fa'; // Revert to light blue on mouse leave
+        });
+        
+        // Toggle between different shades of blue on click
+        let isChecked = false;
+        projectList.addEventListener('click', function() {
+            isChecked = !isChecked;
+            if (isChecked) {
+                projectList.style.backgroundColor = '#dfdfdf'; // Another variant blue
+            } else {
+                projectList.style.backgroundColor = '#fbf9fa'; // Revert to light blue
+            }
+        });
+
+        projectsDiv.appendChild(projectsTitle);
+        projectsDiv.appendChild(projectList);
+        popUpCell.appendChild(projectsDiv)
+
+        // Clear previous projects
+        projectList.innerHTML = '';
+    
+        //this checks if the project is not empty
+        if (projects.length === 0){
+            console.log('No project found for the client.')
+            return;
+        } 
+
+        const filtered_projects = projects.filter(project => {
+            return project?.fields?.client_name === clientId
+        })
+    
+        // Display each project as a list item
+        filtered_projects.forEach(project => {
+            const listItem = document.createElement('li');
+            listItem.id = "#list-item"
+            listItem.textContent = project.fields.project_name;
+            listItem.dataset.projectId = project.slug; // Assuming project slug is unique
+            listItem.draggable = true; // Enable drag and drop
+
+            
+            listItem.addEventListener('click', async () => {
+                const selectedClientId = project.fields.client_name; // Assuming the project slug is used as the client ID
+                document.getElementById('address-line-1').value = project.fields.client_company;
+                document.getElementById('address-line-2').value = project.fields.client_email;
+                document.getElementById('address-line-3').value = project.fields.project_name;
+            });
+            
+            projectList.appendChild(listItem);
+        });
+
+    }
+
     function _addressCell() {
+        let popUpCell = document.createElement('div'); 
+
         let addressCell = document.createElement('div');
         addressCell.classList.add('p-5', 'm-auto', 'w-1/2');
 
@@ -258,15 +359,18 @@
                 let result
 
                 const data = await _obtainLongTermClients()
-                console.log(data)
                 let Arr = []
                 data.forEach((value, index) => {
                     if(value.client_long_term === true){
                     Arr.push(value.client_name)
                     }
                 })
+
                 // remove duplicates
                 Arr = [...(new Set(Arr))]
+
+                await displayClientProjects(Arr[0], popUpCell)
+
                 result = { label: 'Long Term Client', names: Arr };
                 return result  
             }
@@ -278,7 +382,6 @@
              if (existingProjectsDiv) {
                  existingProjectsDiv.remove();
              }
-        
 
             let selectedOption = clientTypeSelect.value;
             let ff = await contextProcessor(selectedOption)
@@ -299,6 +402,8 @@
                 option.textContent = name;
                 clientNameInput.appendChild(option);
                 });
+
+                
         });
 
         clientNameInputContainer.appendChild(clientNameInput);
@@ -310,14 +415,19 @@
             'Address Line 1*',
             _createtextInput('address-line-1', true)
         ).render().result;
+        addressLine1.id = '#address-line-1'
+
         let addressLine2 = new ComponentServices.TextInputWithLabel(
             'Address Line 2',
             _createtextInput('address-line-2', false)
         ).render().result;
+        addressLine2.id = '#address-line-2'
+
         let addressLine3 = new ComponentServices.TextInputWithLabel(
             'City, State, Zip*',
             _createtextInput('address-line-3', false)
         ).render().result;
+        addressLine3.id = '#address-line-3'
 
         addressCell.appendChild(title);
         addressCell.appendChild(clientTypeSelect);
@@ -332,156 +442,47 @@
             element.classList.add('mb-6');
         });
 
-        return addressCell;
+        // return addressCell;
+        return {popUpCell, addressCell}
     }
 
     function _popUpCell(){
         let popUpCell = document.createElement('div');
 
-        async function fetchClientProjects(clientId) {
-            try {
-                // Assuming the backend API endpoint to fetch client projects is /clients/{clientId}/projects
-                const response = await fetch(`/client-admin/obtain-projects? clientId=${clientId}`);
-                const projects = await response.json();
-                console.log("Client Projects:");
-                projects.forEach((project, index) => {
-                    console.log(`Project ${index + 1}: ${project.fields.client_company}`);
-                });
-                return projects;
-            } catch (error) {
-                console.error('Error fetching client projects:', error);
-                return [];
-            }
-        }
-        console.log(fetchClientProjects())
-        
-        
-        
-        // // Function to display client's ongoing projects
-        async function displayClientProjects(clientId) {
-            const projects = await fetchClientProjects(clientId);
-            console.log(projects)
-
-            // Remove the existing projectsDiv if it exists
-            const existingProjectsDiv = document.getElementById('projects-div');
-            if (existingProjectsDiv) {
-                existingProjectsDiv.remove();
-            }
-
-            let projectsDiv = document.createElement('div');
-            projectsDiv.id = 'projects-div';
-            projectsDiv.classList.add('mb-6');
-    
-            let projectsTitle = new ComponentServices.HeadingOrParagraph(
-                'h6',
-                'Client Projects'
-            ).renderWithClass(['mx-auto', 'text-center']).result;
-    
-            const projectList = document.createElement('ul');
-            projectList.id = 'client-projects-list'
-    
-            projectsDiv.appendChild(projectsTitle);
-            projectsDiv.appendChild(projectList);
-            popUpCell.appendChild(projectsDiv)
-
-            // Clear previous projects
-            projectList.innerHTML = '';
-        
-            //this checks if the project is not empty
-            if (projects.length === 0){
-                console.log('No project found for the client.')
-                return;
-            } 
-
-            console.log("dd: ",projects)
-
-            const filtered_projects = projects.filter(project => {
-                return project?.fields?.client_name === clientId
-            })
-        
-            // Display each project as a list item
-            filtered_projects.forEach(project => {
-                console.log('Project Name:', project.fields.project_name);
-
-                const listItem = document.createElement('li');
-                listItem.textContent = project.fields.project_name;
-                listItem.dataset.projectId = project.slug; // Assuming project slug is unique
-                listItem.draggable = true; // Enable drag and drop
-                projectList.appendChild(listItem);
-            });
-        }
-        
         setTimeout(() => {
             document.getElementById('client-name').addEventListener('change', function () {
                 const selectedClientId = this.value;
                 if (selectedClientId) {
-                    console.log(selectedClientId)
-                    displayClientProjects(selectedClientId);
+                    displayClientProjects(selectedClientId, popUpCell);
                 }
             });
         }, 0)  
             
-       // Function to handle drag and drop
-       function handleDragStart(event) {
-        event.dataTransfer.setData('text/plain', event.target.dataset.projectId);
-    }
+    //    // Function to handle drag and drop
+    //    function handleDragStart(event) {
+    //     event.dataTransfer.setData('text/plain', event.target.dataset.projectId);
+    //     }
     
-    function handleDrop(event) {
-        event.preventDefault();
-        const projectId = event.dataTransfer.getData('text/plain');
-        const selectedProject = document.querySelector(`[data-project-id="${projectId}"]`);
-        // Add the selected project as a line item in the invoice form
-        addLineItem(selectedProject.textContent);
-    }
+    // function handleDrop(event) {
+    //     event.preventDefault();
+    //     const projectId = event.dataTransfer.getData('text/plain');
+    //     const selectedProject = document.querySelector(`[data-project-id="${projectId}"]`);
+    //     // Add the selected project as a line item in the invoice form
+    //     addLineItem(selectedProject.textContent);
+    // }
     
-    function allowDrop(event) {
-        event.preventDefault();
-    }
+    // function allowDrop(event) {
+    //     event.preventDefault();
+    // }
     
-    // Attach drag and drop event listeners
-    const projectListItems = document.querySelectorAll('#client-projects-list li');
-    projectListItems.forEach(item => {
-        item.addEventListener('dragstart', handleDragStart);
-    });
+    // // Attach drag and drop event listeners
+    // const projectListItems = document.querySelectorAll('#client-projects-list li');
+    // projectListItems.forEach(item => {
+    //     item.addEventListener('dragstart', handleDragStart);
+    // });
 
         return popUpCell;
     }
-    
-
-// Event listener for client selection change
-//     // Event listener for client selection change
-    // document.getElementById('client-name').addEventListener('change', function () {
-    //     const selectedClientId = this.value;
-
-    //     console.log("change id happening")
-    //     if (selectedClientId) {
-    //         displayClientProjects(selectedClientId);
-    //     }
-    // });
-
-    // runs in the next tick
-     
-        
-
-        // // Function to retrieve a client's ongoing projects
- 
-        
-        // // Calls the displayClientProjects function initially if a client is already selected
-        // const initialSelectedClientId = document.getElementById('client-name').value;
-        // if (initialSelectedClientId) {
-        //     displayClientProjects(initialSelectedClientId);
-        // }
-    // console.log(displayClientProjects())
-
-              
-        // const invoiceForm = document.getElementById('invoice-generator-form');
-        // invoiceForm.addEventListener('drop', handleDrop);
-        // invoiceForm.addEventListener('dragover', allowDrop);
-        
-        
-
-
-
 
     /**
      * The function returns the service cell that will be part of the invoice generator

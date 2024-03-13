@@ -190,7 +190,6 @@ export class TypicalTable {
                 'border',
                 'border-black',
                 'py-5',
-                'relative'
             );
 
             let span = document.createElement('span');
@@ -277,10 +276,10 @@ export class RevenueTableRow {
             // 'block',
             // 'flex',
             // 'w-32',
-            'w-125p',
+            'w-32',
             'table-cell',
             'text-center',
-            'text-base',
+            'text-sm',
             'align-center',
             'py-5',
             'border',
@@ -363,18 +362,18 @@ export function createRevenueTable() {
     // Revenue Table
     let monthsList = [
         'Year',
-        'January',
-        'February',
-        'March',
-        'April',
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
         'May',
         'June',
         'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
+        'Aug',
+        'Sept',
+        'Oct',
+        'Nov',
+        'Dec',
         'Total'
     ];
     let revenueTable = new TypicalTable(monthsList, 'revenue-table').result;
@@ -624,7 +623,7 @@ export class ProjectTableRow {
         this.createActionsCell();
     }
 
-    createTableCell(cellText, textClass = 'text-sm', last = false) {
+    createTableCell(cellText, textClass = 'text-xs', last = false) {
         let td = document.createElement('td');
         // td.textContent = cellText;
         td.classList.add(

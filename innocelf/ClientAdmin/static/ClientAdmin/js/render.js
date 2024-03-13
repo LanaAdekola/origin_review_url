@@ -763,10 +763,9 @@ export function projectTableContainer() {
         'my-24',
         'mx-auto',
         'w-8/12',
-        'border',
+        'border-t-2',
         'border-black',
-        'rounded-3xl',
-        'hidden'
+        'hidden',
     );
     container.id = 'project-table-container';
 
@@ -809,9 +808,6 @@ export function ongoingProjectTableContainer() {
         'my-24',
         'mx-auto',
         'w-8/12',
-        'border',
-        'border-black',
-        'rounded-3xl',
         'hidden'
     );
     container.id = 'ongoing-project-table-container';
