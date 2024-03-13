@@ -56,7 +56,7 @@ class ProjectForm(forms.ModelForm):
             'project_name',
             'project_type',
             'project_deadline',
-            # 'project_assigned_to',
+            'project_assigned_to',
             'project_estimated_days',
             'start_date',
             'end_date',
@@ -145,7 +145,7 @@ class EditProjectForm(forms.ModelForm):
             'client_email',
             'project_name',
             'project_type',
-            # 'project_assigned_to',
+            'project_assigned_to',
             'project_deadline',
             'expected_revenue'
         ]
@@ -171,10 +171,10 @@ class EditProjectForm(forms.ModelForm):
                 # 'class': 'custom-select custom-select-sm lato-regular',
                 'id': 'edit_project_row_projectType'
             }),
-            # 'assigned_to': forms.TextInput(attrs={
-            #     # 'class': 'form-control form-control-sm lato-regular',
-            #     'id': 'add_project_assignedTo'
-            # }),
+            'assigned_to': forms.TextInput(attrs={
+                # 'class': 'form-control form-control-sm lato-regular',
+                'id': 'add_project_assignedTo'
+            }),
             'project_deadline': forms.DateInput(attrs={
                 # 'class': 'form-control form-control-sm lato-regular',
                 'id': 'edit_project_row_projectDeadline',
@@ -198,7 +198,7 @@ class EditProjectForm(forms.ModelForm):
             'project_name': 'Project Name',
             'project_type': 'Project Type',
             'project_deadline': 'Project Deadline',
-            # 'project_assigned_to': 'Assigned To',
+            'project_assigned_to': 'Assigned To',
             'expected_revenue': 'Expected Revenue',
         }
 

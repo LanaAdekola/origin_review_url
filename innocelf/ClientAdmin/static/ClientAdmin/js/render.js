@@ -396,19 +396,25 @@ export async function _addProjectFormRender() {
         'Project Name*',
         form.querySelector('[name="project_name"]')
     ).render().result;
-    projectName.classList.add('w-3/10');
+    projectName.classList.add('w-1/3');
 
     let projectType = new ComponentServices.SelectInputWithLabel(
         'Project Type*',
         form.querySelector('[name="project_type"]')
     ).render().result;
-    projectType.classList.add('w-3/10');
+    projectType.classList.add('w-1/3');
 
     let projectDeadline = new ComponentServices.TextInputWithLabel(
         'Project Deadline*',
         form.querySelector('[name="project_deadline"]')
     ).render().result;
-    projectDeadline.classList.add('w-3/10');
+    projectDeadline.classList.add('w-1/3');
+    
+    let assignedTo = new ComponentServices.SelectInputWithLabel(
+        'Assigned To*',
+        form.querySelector('[name="project_assigned_to"]')
+    ).render().result;
+    assignedTo.classList.add('w-1/4');
 
     let projectEstimatedDays = new ComponentServices.TextInputWithLabel(
         'Estimated Days for Completion*',
@@ -446,6 +452,7 @@ export async function _addProjectFormRender() {
         email,
         projectName,
         projectType,
+        assignedTo,
         projectDeadline,
         projectEstimatedDays,
         startDate,
