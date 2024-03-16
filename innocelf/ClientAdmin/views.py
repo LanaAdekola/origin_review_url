@@ -303,6 +303,7 @@ def save_edit_project_form(request, *args, **kwargs):
     project.client_company = post_request['client_company']
     project.client_email = post_request['client_email']
     project.project_name = post_request['project_name']
+    project.project_assigned_to = post_request['project_assigned_to']
     project.project_type = post_request['project_type']
     project.project_deadline = datetime.datetime.fromisoformat(
         post_request['project_deadline']

@@ -1645,6 +1645,10 @@ export class EditProjectModal extends TypicalModal {
                 'Project Deadline*',
                 this.addExistingValueToField(form, 'project_deadline')
             ).render().result;
+            let assignedTo = new ComponentServices.SelectInputWithLabel(
+                'Assigned To*',
+                this.addExistingValueToField(form, 'project_assigned_to')
+            ).render().result;
             let expectedRevenue = new ComponentServices.TextInputWithLabel(
                 'Expected Revenue*',
                 this.addExistingValueToField(form, 'expected_revenue')
@@ -1658,6 +1662,7 @@ export class EditProjectModal extends TypicalModal {
                 projectName,
                 projectType,
                 projectDeadline,
+                assignedTo,
                 expectedRevenue,
                 this.submitButton
             );
