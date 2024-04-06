@@ -219,25 +219,25 @@ async function displayClientProjects(clientId, popUpCell) {
 
     let projectsDiv = document.createElement('div');
     projectsDiv.id = 'projects-div';
-    projectsDiv.classList.add('mx-auto', 'text-center');
+    projectsDiv.classList.add('mx-auto', 'w-1/2', 'text-center');
 
     let projectsTitle = new ComponentServices.HeadingOrParagraph(
         'h6',
         'Client Projects'
     ).renderWithClass(['mx-auto', 'text-center']).result;
 
-    const projectList = document.createElement('div');
+    const projectList = document.createElement('ul');
     // projectList.id = 'client-projects-list'
     // projectList.style.backgroundColor = '#fbf9fa'
-    projectList.style.backgroundColor = '#e3e3e3';
-    projectList.style.padding = '20px'; // Padding for better appearance
+    projectList.style.backgroundColor = '';
+    projectList.style.padding = '10px'; // Padding for better appearance
     projectList.style.width = 'auto';
     // projectList.style.cursor = 'pointer'; // Change cursor to pointer on hover
     // projectList.style.borderRadius = '20px';
     // projectList.style.border = 'solid 1px gray';
 
     // Light blue background by default
-    projectList.style.backgroundColor = '#fbf9fa';
+    projectList.style.backgroundColor = '';
 
     // // Darker blue background on hover
     // projectList.addEventListener('mouseenter', function() {
@@ -253,9 +253,9 @@ async function displayClientProjects(clientId, popUpCell) {
     projectList.addEventListener('click', function () {
         isChecked = !isChecked;
         if (isChecked) {
-            projectList.style.backgroundColor = '#dfdfdf'; // Another variant blue
+            projectList.style.backgroundColor = ''; // Another variant blue
         } else {
-            projectList.style.backgroundColor = '#fbf9fa'; // Revert to light blue
+            projectList.style.backgroundColor = ''; // Revert to light blue
         }
     });
 
@@ -278,29 +278,27 @@ async function displayClientProjects(clientId, popUpCell) {
 
     // Display each project as a list item
     filtered_projects.forEach((project) => {
-        const listItem = document.createElement('span');
+        const listItem = document.createElement('li');
         listItem.id = '#list-item';
         listItem.textContent = project.fields.project_name;
         listItem.dataset.projectId = project.slug; // Assuming project slug is unique
         // configure the styles
+        listItem.style.textAlign = 'left'; // Align list items to the right
 
         listItem.style.margin = '0px 3px 0px 3px';
-        listItem.style.border = '1px solid darkblue';
-        listItem.style.backgroundColor = '#e3e3e3';
-        listItem.style.color = 'darkBlue';
+
+        listItem.style.backgroundColor = '';
+        listItem.style.color = 'black';
         listItem.style.cursor = 'pointer';
         listItem.style.padding = '2px 4px 2px 4px';
 
         listItem.addEventListener('mouseenter', function () {
-            listItem.style.backgroundColor =  '#fbf9fa'; // Variant blue
+            listItem.style.backgroundColor =  ''; // Variant blue
         });
 
         listItem.addEventListener('mouseleave', function () {
-            listItem.style.backgroundColor = '#e3e3e3'; // Revert to light blue on mouse leave
+            listItem.style.backgroundColor = ''; // Revert to light blue on mouse leave
         });
-
-        listItem.draggable = true; // Enable drag and drop
-
        
         listItem.addEventListener('click', async () => {               
             
@@ -371,7 +369,7 @@ function _addressCell() {
 
     let insertClientButton = document.createElement('button');
     insertClientButton.id = 'insert-client-button';
-    insertClientButton.classList.add('p-2', 'bg-blue-800');
+    insertClientButton.classList.add('p-2');
 
     let clientNameLabel = document.createElement('label');
     clientNameLabel.textContent = 'Client Name (Regular Client)';
@@ -405,6 +403,8 @@ function _addressCell() {
             });
             // remove duplicates
             Arr = [...new Set(Arr)];
+            await displayClientProjects(Arr[0], popUpCell);
+
             result = { label: 'Regular Client', names: Arr };
             return result;
         }
