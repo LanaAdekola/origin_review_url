@@ -1207,9 +1207,8 @@ export class ProjectTable extends TypicalTable {
 
                 this.populateProjects(variant);
             } else {
-                let variant = this.filteredProjectsObject
 
-                // let variant = this.filteredProjectsObject || this.projectObject
+                let variant = this.filteredProjectsObject || this.projectsObject
                 this.populateProjects(variant);
             }
         }
