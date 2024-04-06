@@ -648,7 +648,14 @@ function _createOneServiceRow(description = null, inputQuantity = null, cost = n
     button.type = 'button'
     button.classList.add('py-4', 'px-2', 'border-2', 'border-gray-600')
 
-    button.addEventListener('click', (serviceNum) => {
+    button.addEventListener('click', () => {
+
+        let services = document.getElementById('servicesLog')
+
+        // tidy up the calculation around this end
+        services.removeChild(services.childNodes[serviceNum + 2])
+
+        console.log(serviceNum + 2)
         
     })
 
