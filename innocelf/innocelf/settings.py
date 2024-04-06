@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # All auth apps
     'crispy_forms',
+    'crispy_bootstrap4',
     'allauth',
     'allauth.account'
 ]
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'innocelf.urls'
@@ -97,8 +99,13 @@ SITE_ID = 1
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'innocelf',
+        'USER': 'root',
+        'PASSWORD': 'Ayomide@1',
+        'HOST': '127.0.0.1',
+        'PORT': '3306'
     }
 }
 
