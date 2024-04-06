@@ -990,7 +990,7 @@ export class ProjectTable extends TypicalTable {
 
         this.pageNumber = 1;
         this.totalPages = 1;
-        this.recordsPerPage = 4;
+        this.recordsPerPage = 10;
         // this.recordsPerPage = 4 10;
         this.columnSorted = false;
 
@@ -1193,8 +1193,6 @@ export class ProjectTable extends TypicalTable {
 
                 let variant = this.projectsObject
                 // let variant = this.filteredProjectsObject || this.projectObject
-
-                console.log(variant)
                 this.populateProjects(variant);
             }
         }

@@ -653,10 +653,7 @@ function _createOneServiceRow(description = null, inputQuantity = null, cost = n
         let services = document.getElementById('servicesLog')
 
         // tidy up the calculation around this end
-        services.removeChild(services.childNodes[serviceNum + 2])
-
-        console.log(serviceNum + 2)
-        
+        services.removeChild(services.childNodes[serviceNum + 1])        
     })
 
     serviceRow.append(button)
