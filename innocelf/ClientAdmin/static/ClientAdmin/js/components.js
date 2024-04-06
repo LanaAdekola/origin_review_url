@@ -990,7 +990,8 @@ export class ProjectTable extends TypicalTable {
 
         this.pageNumber = 1;
         this.totalPages = 1;
-        this.recordsPerPage = 10;
+        this.recordsPerPage = 4;
+        // this.recordsPerPage = 4 10;
         this.columnSorted = false;
 
         // Search input element
@@ -1190,7 +1191,10 @@ export class ProjectTable extends TypicalTable {
                 this.populateProjects(variant);
             } else {
 
-                let variant = this.filteredProjectsObject || this.projectsObject
+                let variant = this.projectsObject
+                // let variant = this.filteredProjectsObject || this.projectObject
+
+                console.log(variant)
                 this.populateProjects(variant);
             }
         }
