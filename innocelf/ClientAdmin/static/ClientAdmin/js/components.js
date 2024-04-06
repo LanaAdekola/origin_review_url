@@ -1191,8 +1191,10 @@ export class ProjectTable extends TypicalTable {
                 this.populateProjects(variant);
             } else {
 
-                let variant = this.filteredProjectsObject
+                let variant = this.projectsObject
                 // let variant = this.filteredProjectsObject || this.projectObject
+
+                console.log(variant)
                 this.populateProjects(variant);
             }
         }
