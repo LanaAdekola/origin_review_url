@@ -26,7 +26,7 @@ export function generateInvoiceContainer() {
     ).renderWithClass(['my-5', 'text-center']).result;
     let invoiceForm = createInvoiceGeneratorForm();
 
-    container.append(heading, invoiceForm);
+    container.append(heading, invoiceForm); // Added sidebar to container
 
     return container;
 }
@@ -51,14 +51,22 @@ function createInvoiceGeneratorForm() {
     form.method = 'POST';
 
     let invoiceNumberCell = _invoiceNumberCell();
-    let addressCell = _addressCell();
+    let popUpCell = _popUpCell();
+    let { addressCell, popUpCell: pcell } = _addressCell();
     let servicesCell = _servicesCell();
     let submitButton = new ComponentServices.TypicalFormSubmitButton(
         'Generate Invoice'
     ).result;
     submitButton.onclick = submitInvoiceGeneratorForm;
 
-    form.append(invoiceNumberCell, addressCell, servicesCell, submitButton);
+    form.append(
+        invoiceNumberCell,
+        pcell,
+        popUpCell,
+        addressCell,
+        servicesCell,
+        submitButton
+    );
     return form;
 }
 
@@ -106,12 +114,42 @@ function submitInvoiceGeneratorForm(event) {
                     responseJson['NewInvoiceNumber'];
             }
         };
-
         xhttp.open('POST', '/client-admin/generate-invoice');
         xhttp.setRequestHeader('X-CSRFToken', csrftoken);
         xhttp.send(formData);
     }
 }
+/**
+ * This function retrieves long clients data from the table
+ */
+
+function _obtainLongTermClients() {
+    return new Promise((resolve) => {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let response = this.response;
+                let responseJson = JSON.parse(response);
+                let ltArr = [];
+
+                Object.keys((responseJson = JSON.parse(response))).map(
+                    (item) => {
+                        let fields = responseJson[item].fields;
+
+                        ltArr.push(fields);
+                    }
+                );
+
+                resolve(ltArr);
+            }
+        };
+
+        xhttp.open('GET', '/client-admin/obtain-projects');
+        xhttp.send();
+    });
+}
+
+// create a filter per client_type
 
 /**
  * The function returns an input element (text input) for the invoice number
@@ -143,12 +181,171 @@ function _invoiceNumberCell() {
     return invoiceNumberCell;
 }
 
-/**
- * The function returns the address cell that will be part of the invoice generator
- * form
- * @returns Div with the address elements of the form
- */
+async function fetchClientProjects(clientId) {
+    try {
+        // Assuming the backend API endpoint to fetch client projects is /clients/{clientId}/projects
+        const response = await fetch(
+            `/client-admin/obtain-projects?clientId=${clientId}`
+        );
+        const projects = await response.json();
+        projects.forEach((project, index) => {});
+        return projects;
+    } catch (error) {
+        console.error('Error fetching client projects:', error);
+        return [];
+    }
+}
+async function fetchClientDetails(project, slug) {
+    try {
+        // Assuming the backend API endpoint to fetch client projects is /clients/{clientId}/projects
+        // const response = await fetch(`/client-admin/obtain-projects?clientId=${clientId}`);
+        // const projects = await response.json();
+        let result = project.fields.find((slug) => (slug.slug = slug));
+        return result;
+    } catch (error) {
+        console.error('Error fetching client projects:', error);
+        return [];
+    }
+}
+
+async function displayClientProjects(clientId, popUpCell) {
+    const projects = await fetchClientProjects(clientId);
+
+    // Remove the existing projectsDiv if it exists
+    const existingProjectsDiv = document.getElementById('projects-div');
+    if (existingProjectsDiv) {
+        existingProjectsDiv.remove();
+    }
+
+    let projectsDiv = document.createElement('div');
+    projectsDiv.id = 'projects-div';
+    projectsDiv.classList.add('mx-auto', 'text-center');
+
+    let projectsTitle = new ComponentServices.HeadingOrParagraph(
+        'h6',
+        'Client Projects'
+    ).renderWithClass(['mx-auto', 'text-center']).result;
+
+    const projectList = document.createElement('div');
+    // projectList.id = 'client-projects-list'
+    // projectList.style.backgroundColor = '#fbf9fa'
+    projectList.style.backgroundColor = '#e3e3e3';
+    projectList.style.padding = '20px'; // Padding for better appearance
+    projectList.style.width = 'auto';
+    // projectList.style.cursor = 'pointer'; // Change cursor to pointer on hover
+    // projectList.style.borderRadius = '20px';
+    // projectList.style.border = 'solid 1px gray';
+
+    // Light blue background by default
+    projectList.style.backgroundColor = '#fbf9fa';
+
+    // // Darker blue background on hover
+    // projectList.addEventListener('mouseenter', function() {
+    //     projectList.style.backgroundColor = '#e3e3e3'; // Variant blue
+    // });
+
+    // projectList.addEventListener('mouseleave', function() {
+    //     projectList.style.backgroundColor = '#fbf9fa'; // Revert to light blue on mouse leave
+    // });
+
+    // Toggle between different shades of blue on click
+    let isChecked = false;
+    projectList.addEventListener('click', function () {
+        isChecked = !isChecked;
+        if (isChecked) {
+            projectList.style.backgroundColor = '#dfdfdf'; // Another variant blue
+        } else {
+            projectList.style.backgroundColor = '#fbf9fa'; // Revert to light blue
+        }
+    });
+
+    projectsDiv.appendChild(projectsTitle);
+    projectsDiv.appendChild(projectList);
+    popUpCell.appendChild(projectsDiv);
+
+    // Clear previous projects
+    projectList.innerHTML = '';
+
+    //this checks if the project is not empty
+    if (projects.length === 0) {
+        console.log('No project found for the client.');
+        return;
+    }
+
+    const filtered_projects = projects.filter((project) => {
+        return project?.fields?.client_name === clientId;
+    });
+
+    // Display each project as a list item
+    filtered_projects.forEach((project) => {
+        const listItem = document.createElement('span');
+        listItem.id = '#list-item';
+        listItem.textContent = project.fields.project_name;
+        listItem.dataset.projectId = project.slug; // Assuming project slug is unique
+        // configure the styles
+
+        listItem.style.margin = '0px 3px 0px 3px';
+        listItem.style.border = '1px solid darkblue';
+        listItem.style.backgroundColor = '#e3e3e3';
+        listItem.style.color = 'darkBlue';
+        listItem.style.cursor = 'pointer';
+        listItem.style.padding = '2px 4px 2px 4px';
+
+        listItem.addEventListener('mouseenter', function () {
+            listItem.style.backgroundColor =  '#fbf9fa'; // Variant blue
+        });
+
+        listItem.addEventListener('mouseleave', function () {
+            listItem.style.backgroundColor = '#e3e3e3'; // Revert to light blue on mouse leave
+        });
+
+        listItem.draggable = true; // Enable drag and drop
+
+       
+        listItem.addEventListener('click', async () => {               
+            
+            let servicer = document.getElementById('servicesLog')
+
+            let valueArray = []    
+
+            const {client_company, client_email, project_name, project_type, expected_revenue: project_cost} = project.fields
+
+
+            const selectedClientId = project.fields.client_name; // Assuming the project slug is used as the client ID
+            document.getElementById('address-line-1').value =
+                client_company;
+            document.getElementById('address-line-2').value =
+                client_email;
+            document.getElementById('address-line-3').value =
+                project_name;
+
+                // create the appendable list of services here
+                // into the service cell
+            
+                // create an array first like append the needed values into an array
+
+                valueArray.push({serviceName: project_name, serviceDesc: project_type, serviceCost: project_cost})
+
+                // then map the array into the create service whatever
+                valueArray.forEach((value, index) => {
+                   let servik = _createOneServiceRow(value.serviceName, value.serviceDesc, value.serviceCost, index + 1)
+
+                   servicer.append(servik)
+                })
+
+                console.log(valueArray)
+               
+        });
+
+        projectList.appendChild(listItem);
+
+        
+    });
+}
+
 function _addressCell() {
+    let popUpCell = document.createElement('div');
+
     let addressCell = document.createElement('div');
     addressCell.classList.add('p-5', 'm-auto', 'w-1/2');
 
@@ -157,35 +354,185 @@ function _addressCell() {
         'Client Info'
     ).renderWithClass(['mx-auto', 'text-center']).result;
 
-    let clientName = new ComponentServices.TextInputWithLabel(
-        'Client Name*',
-        _createtextInput('client-name', true)
-    ).render().result;
+    let clientTypeSelect = document.createElement('select');
+    clientTypeSelect.id = 'client-type';
+    clientTypeSelect.name = 'client-name';
+
+    let regularOption = document.createElement('option');
+    regularOption.value = 'regular-client';
+    regularOption.textContent = 'Regular Client';
+
+    let longTermOption = document.createElement('option');
+    longTermOption.value = 'long-term';
+    longTermOption.textContent = 'Long Term Client';
+
+    clientTypeSelect.appendChild(regularOption);
+    clientTypeSelect.appendChild(longTermOption);
+
+    let insertClientButton = document.createElement('button');
+    insertClientButton.id = 'insert-client-button';
+    insertClientButton.classList.add('p-2', 'bg-blue-800');
+
+    let clientNameLabel = document.createElement('label');
+    clientNameLabel.textContent = 'Client Name (Regular Client)';
+
+    let clientNameContainer = document.createElement('div');
+    clientNameContainer.classList.add('client-name-container');
+
+    let clientNameInput = _createSelectInput([], 'client-name'); // Empty options for now
+    clientNameInput.id = 'client-name';
+    clientNameInput.className = 'mx-auto w-3/5';
+
+    let clientNameInputContainer = document.createElement('div');
+    clientNameInputContainer.appendChild(clientNameInput);
+
+    let defaultOption = document.createElement('option');
+    defaultOption.id = 'client-select';
+    defaultOption.value = '';
+    defaultOption.textContent = 'Select a client name';
+    clientNameInput.appendChild(defaultOption);
+
+    async function contextProcessor(client) {
+        if (client === 'regular-client') {
+            let result;
+
+            const data = await _obtainLongTermClients();
+            let Arr = [];
+            data.forEach((value, index) => {
+                if (value.client_long_term === false) {
+                    Arr.push(value.client_name);
+                }
+            });
+            // remove duplicates
+            Arr = [...new Set(Arr)];
+            result = { label: 'Regular Client', names: Arr };
+            return result;
+        }
+
+        if (client === 'long-term') {
+            let result;
+
+            const data = await _obtainLongTermClients();
+            let Arr = [];
+            data.forEach((value, index) => {
+                if (value.client_long_term === true) {
+                    Arr.push(value.client_name);
+                }
+            });
+
+            // remove duplicates
+            Arr = [...new Set(Arr)];
+
+            await displayClientProjects(Arr[0], popUpCell);
+
+            result = { label: 'Long Term Client', names: Arr };
+            return result;
+        }
+    }
+
+    clientTypeSelect.addEventListener('change', async function () {
+        // Remove the existing projectsDiv if it exists
+        const existingProjectsDiv = document.getElementById('projects-div');
+        if (existingProjectsDiv) {
+            existingProjectsDiv.remove();
+        }
+
+        let selectedOption = clientTypeSelect.value;
+        let ff = await contextProcessor(selectedOption);
+        let selectedClient = ff || {
+            label: 'Unknown Client',
+            names: [],
+        };
+
+        clientNameLabel.textContent = `Client Name (${selectedClient.label})`;
+
+        clientNameInput.innerHTML = '';
+
+        selectedClient.names.forEach((name) => {
+            let option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            clientNameInput.appendChild(option);
+        });
+    });
+
+    clientNameInputContainer.appendChild(clientNameInput);
+    clientNameContainer.appendChild(clientNameLabel);
+    clientNameContainer.appendChild(document.createElement('br'));
+    clientNameContainer.appendChild(clientNameInput);
+
     let addressLine1 = new ComponentServices.TextInputWithLabel(
         'Address Line 1*',
         _createtextInput('address-line-1', true)
     ).render().result;
+    addressLine1.id = '#address-line-1';
+
     let addressLine2 = new ComponentServices.TextInputWithLabel(
         'Address Line 2',
         _createtextInput('address-line-2', false)
     ).render().result;
+    addressLine2.id = '#address-line-2';
+
     let addressLine3 = new ComponentServices.TextInputWithLabel(
         'City, State, Zip*',
         _createtextInput('address-line-3', false)
     ).render().result;
-    addressCell.append(
-        title,
-        clientName,
-        addressLine1,
-        addressLine2,
-        addressLine3
-    );
+    addressLine3.id = '#address-line-3';
+
+    addressCell.appendChild(title);
+    addressCell.appendChild(clientTypeSelect);
+    addressCell.appendChild(insertClientButton);
+    addressCell.appendChild(clientNameContainer);
+    addressCell.appendChild(addressLine1);
+    addressCell.appendChild(addressLine2);
+    addressCell.appendChild(addressLine3);
 
     addressCell.childNodes.forEach((element) => {
         element.classList.add('mb-6');
     });
 
-    return addressCell;
+    // return addressCell;
+    return { popUpCell, addressCell };
+}
+
+function _popUpCell() {
+    let popUpCell = document.createElement('div');
+
+    setTimeout(() => {
+        document
+            .getElementById('client-name')
+            .addEventListener('change', function () {
+                const selectedClientId = this.value;
+                if (selectedClientId) {
+                    displayClientProjects(selectedClientId, popUpCell);
+                }
+            });
+    }, 0);
+
+    //    // Function to handle drag and drop
+    //    function handleDragStart(event) {
+    //     event.dataTransfer.setData('text/plain', event.target.dataset.projectId);
+    //     }
+
+    // function handleDrop(event) {
+    //     event.preventDefault();
+    //     const projectId = event.dataTransfer.getData('text/plain');
+    //     const selectedProject = document.querySelector(`[data-project-id="${projectId}"]`);
+    //     // Add the selected project as a line item in the invoice form
+    //     addLineItem(selectedProject.textContent);
+    // }
+
+    // function allowDrop(event) {
+    //     event.preventDefault();
+    // }
+
+    // // Attach drag and drop event listeners
+    // const projectListItems = document.querySelectorAll('#client-projects-list li');
+    // projectListItems.forEach(item => {
+    //     item.addEventListener('dragstart', handleDragStart);
+    // });
+
+    return popUpCell;
 }
 
 /**
@@ -196,6 +543,7 @@ function _addressCell() {
 function _servicesCell() {
     let servicesCell = document.createElement('div');
     servicesCell.classList.add('col-span-2', 'p-5', 'my-auto');
+    servicesCell.id='servicesLog'
 
     let title = new ComponentServices.HeadingOrParagraph(
         'h6',
@@ -203,7 +551,7 @@ function _servicesCell() {
     ).renderWithClass(['mx-auto', 'text-center']).result;
 
     let headingRow = document.createElement('div');
-    headingRow.classList.add('grid', 'grid-cols-3', 'grid-flow-row', 'gap-8');
+    headingRow.classList.add('grid', 'grid-cols-4', 'grid-flow-row', 'gap-8');
     let desc = new ComponentServices.HeadingOrParagraph(
         'p',
         'Service Description'
@@ -219,10 +567,10 @@ function _servicesCell() {
     headingRow.append(desc, quantity, amount);
     servicesCell.append(title, headingRow);
 
-    for (let i = 0; i < 10; i++) {
-        let service = _createOneServiceRow(i + 1);
-        servicesCell.append(service);
-    }
+    // for (let i = 0; i < 2; i++) {
+    //     let service = _createOneServiceRow('inte', 'inakelr', 800, i + 1);
+    //     servicesCell.append(service);
+    // }
 
     return servicesCell;
 }
@@ -233,11 +581,11 @@ function _servicesCell() {
  * @param {number} serviceNum A number between 1 thru 10
  * @returns Row with three inputs
  */
-function _createOneServiceRow(serviceNum) {
+function _createOneServiceRow(description = null, inputQuantity = null, cost = null, serviceNum) {
     let serviceRow = document.createElement('div');
     serviceRow.classList.add(
         'grid',
-        'grid-cols-3',
+        'grid-cols-4',
         'grid-flow-row',
         'gap-8',
         'mb-6'
@@ -251,18 +599,27 @@ function _createOneServiceRow(serviceNum) {
     }
 
     let service = _createtextInput(
+        // replace this with the slug
         'service-desc-' + serviceNum.toFixed(0),
         required
     );
-    let quantity = _createNumberInput(
+    service.value = description
+    // let quantity = _createNumberInput(
+    //     'service-quantity-' + serviceNum.toFixed(0),
+    //     required
+    // );
+    let quantity = _createtextInput(
         'service-quantity-' + serviceNum.toFixed(0),
         required
     );
-    quantity.min = '1';
     let dollarAmount = _createNumberInput(
         'service-cost-' + serviceNum.toFixed(0),
         required
     );
+    quantity.value = inputQuantity
+    dollarAmount.value = cost
+
+    
 
     serviceRow.append(service, quantity, dollarAmount);
 
@@ -281,7 +638,22 @@ function _createOneServiceRow(serviceNum) {
             'focus:ring-0',
             'focus:border-black'
         );
+
     });
+
+    // add the list cancelation button here
+
+    let button = document.createElement('button')
+    button.textContent = 'Remove'
+    button.type = 'button'
+    button.classList.add('py-4', 'px-2', 'border-2', 'border-gray-600')
+
+    button.addEventListener('click', (serviceNum) => {
+        
+    })
+
+    serviceRow.append(button)
+
     return serviceRow;
 }
 
@@ -301,6 +673,25 @@ function _createtextInput(desiredId, required = false) {
     if (required) {
         input.required = true;
     }
+
+    return input;
+}
+
+function _createSelectInput(options, desiredId, required = false) {
+    let input = document.createElement('select');
+    input.name = desiredId;
+    input.id = desiredId;
+
+    if (required) {
+        input.required = true;
+    }
+
+    options.forEach((optionValue) => {
+        let option = document.createElement('option');
+        option.value = optionValue;
+        option.text = optionValue;
+        input.appendChild(option);
+    });
 
     return input;
 }

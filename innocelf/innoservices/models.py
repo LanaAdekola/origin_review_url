@@ -30,9 +30,9 @@ class ContactUs(models.Model):
 
     full_name = models.CharField(max_length=255)
     email = models.EmailField()
-    phone_number = models.CharField(max_length=15)
+    phone_number = models.CharField(max_length=15, null=True)
     inquiry_reason = models.CharField(max_length=3, choices=SERVICES)
-    explanation = models.CharField(max_length=3000, null=True, blank=True)
+    explanation = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f'{self.full_name} Inquiry'
@@ -60,7 +60,7 @@ class ClientReview(models.Model):
     '''
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    review = models.TextField(max_length=2000)
+    review = models.TextField(max_length=255)
     month_year = models.CharField(max_length=50, default='January 2021')
     accepted = models.BooleanField(default=False)
     upwork_review = models.BooleanField(default=False)
@@ -76,7 +76,7 @@ class BlogPost(models.Model):
     have a category as listed in BLOG_CATEGORIES with an author
     """
     title = models.TextField()
-    author = models.CharField(max_length = 500)
+    author = models.CharField(max_length = 255)
     category = models.CharField(max_length = 3, choices = BLOG_CATEGORIES)
     publication_date = models.DateField(default=timezone.now)
 

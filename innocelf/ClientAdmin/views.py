@@ -89,7 +89,8 @@ def obtain_long_term_client_form(request, *args, **kwargs):
     The function gathers the long term client form and sends it to the frontend
     via XML request
     '''
-    long_term_client_form = LongTermClientForm()
+    long_term_client_form = LongTermClientForm()   
+
     return HttpResponse(long_term_client_form)
 
 
@@ -180,7 +181,7 @@ def obtain_projects(request, *args, **kwargs):
     '''
     The function / view obtains all the projects from the backend to the frontend
     '''
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('project_deadline')
 
     projects_json_string = serializers.serialize('json', projects)
     projects_json = json.loads(projects_json_string)
@@ -302,6 +303,7 @@ def save_edit_project_form(request, *args, **kwargs):
     project.client_company = post_request['client_company']
     project.client_email = post_request['client_email']
     project.project_name = post_request['project_name']
+    project.project_assigned_to = post_request['project_assigned_to']
     project.project_type = post_request['project_type']
     project.project_deadline = datetime.datetime.fromisoformat(
         post_request['project_deadline']
@@ -332,6 +334,7 @@ def monthly_revenue_calculator():
     monthly_revenue_dict = {}
     for year in unique_years:
         monthly_revenue_dict[str(year)] = {}
+        yearly_sum_value = 0
 
         # unique_months = [d.month for d in payments.filter(payment_date__year=year).dates(
         #     'payment_date', 'month')]
@@ -340,8 +343,9 @@ def monthly_revenue_calculator():
             dollar_values = [d.amount for d in payments.filter(
                 payment_date__year=year).filter(payment_date__month=month)]
             total_dollar_value = sum(dollar_values)
-
+            yearly_sum_value += total_dollar_value 
             monthly_revenue_dict[str(year)][str(month)] = total_dollar_value
+        monthly_revenue_dict[str(year)]['total'] = yearly_sum_value
 
     return monthly_revenue_dict
 

@@ -21,6 +21,9 @@ export class ClientAdminNavbar extends ComponentServices.Navbar {
         super();
         this.collapsibleContent.classList.add('gap-12');
     }
+
+
+
     render() {
         this.addBrand();
 
@@ -187,7 +190,6 @@ export class TypicalTable {
                 'border',
                 'border-black',
                 'py-5',
-                'relative'
             );
 
             let span = document.createElement('span');
@@ -274,10 +276,10 @@ export class RevenueTableRow {
             // 'block',
             // 'flex',
             // 'w-32',
-            'w-125p',
+            'w-32',
             'table-cell',
             'text-center',
-            'text-base',
+            'text-sm',
             'align-center',
             'py-5',
             'border',
@@ -360,18 +362,19 @@ export function createRevenueTable() {
     // Revenue Table
     let monthsList = [
         'Year',
-        'January',
-        'February',
-        'March',
-        'April',
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
         'May',
         'June',
         'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
+        'Aug',
+        'Sept',
+        'Oct',
+        'Nov',
+        'Dec',
+        'Total'
     ];
     let revenueTable = new TypicalTable(monthsList, 'revenue-table').result;
     revenueTable.classList.add('w-11/12', 'mx-auto', 'mb-16', 'table-fixed');
@@ -521,6 +524,7 @@ export class ProjectTableRow {
                 project_name: this.projectRowObject.project_name,
                 project_type: this.projectRowObject.project_type,
                 project_deadline: this.projectRowObject.project_deadline,
+                project_assigned_to: this.projectRowObject.project_assigned_to,
                 expected_revenue: this.projectRowObject.expected_revenue,
             };
 
@@ -611,13 +615,15 @@ export class ProjectTableRow {
             PROJECT_TYPE_CHOICES[this.projectRowObject.project_type]
         );
         this.createTableCell(this.projectRowObject.project_deadline_full);
+        this.createTableCell(this.projectRowObject.project_assigned_to);
         this.createTableCell('$' + this.projectRowObject.expected_revenue);
+
         // this.createTableCell('Payments');
         this.createPaymentsCell();
         this.createActionsCell();
     }
 
-    createTableCell(cellText, textClass = 'text-sm', last = false) {
+    createTableCell(cellText, textClass = 'text-xs', last = false) {
         let td = document.createElement('td');
         // td.textContent = cellText;
         td.classList.add(
@@ -1179,9 +1185,13 @@ export class ProjectTable extends TypicalTable {
         if (this.pageNumber > 1) {
             this.pageNumber -= 1;
             if (this.columnSorted) {
-                this.populateProjects(this.projectsObjectColumnSorted);
+                let variant = this.filteredProjectsObject || this.projectsObjectColumnSorted
+
+                this.populateProjects(variant);
             } else {
-                this.populateProjects(this.projectsObject);
+
+                let variant = this.filteredProjectsObject || this.projectObject
+                this.populateProjects(variant);
             }
         }
     }
@@ -1189,9 +1199,12 @@ export class ProjectTable extends TypicalTable {
         if (this.pageNumber < this.totalPages) {
             this.pageNumber += 1;
             if (this.columnSorted) {
-                this.populateProjects(this.projectsObjectColumnSorted);
+                let variant = this.filteredProjectsObject || this.projectsObjectColumnSorted
+
+                this.populateProjects(variant);
             } else {
-                this.populateProjects(this.projectsObject);
+                let variant = this.filteredProjectsObject || this.projectObject
+                this.populateProjects(variant);
             }
         }
     }
@@ -1244,7 +1257,7 @@ export class ProjectTable extends TypicalTable {
 
         let lowerSearchString = searchString.toLowerCase();
         if (lowerSearchString.trim() !== '') {
-            let filteredProjectsObject = this.projectsObject.filter((value) => {
+            this.filteredProjectsObject = this.projectsObject.filter((value) => {
                 return (
                     value.fields.client_name
                         .toLowerCase()
@@ -1257,11 +1270,14 @@ export class ProjectTable extends TypicalTable {
                         .includes(lowerSearchString) ||
                     value.fields.project_name
                         .toLowerCase()
+                        .includes(lowerSearchString) ||
+                    value.fields.project_assigned_to
+                        .toLowerCase()
                         .includes(lowerSearchString)
                 );
             });
 
-            this.populateProjects(filteredProjectsObject);
+            this.populateProjects(this.filteredProjectsObject);
         } else {
             this.populateProjects(this.projectsObject);
         }
@@ -1629,6 +1645,10 @@ export class EditProjectModal extends TypicalModal {
                 'Project Deadline*',
                 this.addExistingValueToField(form, 'project_deadline')
             ).render().result;
+            let assignedTo = new ComponentServices.SelectInputWithLabel(
+                'Assigned To*',
+                this.addExistingValueToField(form, 'project_assigned_to')
+            ).render().result;
             let expectedRevenue = new ComponentServices.TextInputWithLabel(
                 'Expected Revenue*',
                 this.addExistingValueToField(form, 'expected_revenue')
@@ -1642,6 +1662,7 @@ export class EditProjectModal extends TypicalModal {
                 projectName,
                 projectType,
                 projectDeadline,
+                assignedTo,
                 expectedRevenue,
                 this.submitButton
             );

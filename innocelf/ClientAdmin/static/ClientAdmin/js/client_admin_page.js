@@ -11,6 +11,11 @@ const PROJECT_TYPE_CHOICES = {
 	FPD: 'Full Patent Draft',
 };
 
+// const ASSIGNED_TO_LIST = {
+// 	PK: 'Tratik Mahmud',
+// 	AA: 'Adekola Adelana'
+// };
+
 const LONG_TERM_CLIENTS = {
 	sagacityLegal: {
 		personName: 'Randi Karpinia',

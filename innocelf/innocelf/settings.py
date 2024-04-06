@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'django.contrib.sitemaps',
+    'django.contrib.sitemaps'
+    ,
 
     # Own apps
     'innoservices',
@@ -69,7 +70,7 @@ ROOT_URLCONF = 'innocelf.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Add your project-specific template directory
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
