@@ -469,23 +469,6 @@ export function _obtainProjects() {
     });
 }
 
-// export function _obtainPaymentsForProject(slug) {
-//     return new Promise((resolve) => {
-//         let xhttp = new XMLHttpRequest();
-//         xhttp.onreadystatechange = () => {
-//             if (xhttp.readyState === 4 && xhttp.status === 200) {
-//                 let responseText = xhttp.responseText;
-//                 let responseTextJson = JSON.parse(responseText);
-
-//                 resolve(responseTextJson);
-//             }
-//         };
-
-//         xhttp.open('GET', '/client-admin/obtain-payments-for-project');
-//         xhttp.setRequestHeader('slug', slug);
-//         xhttp.send();
-//     });
-// }
 
 /**
  * The class represents a Project Table Row that is part of the Project Table

@@ -237,8 +237,6 @@ export function _createLongTermClientSelect() {
  * id "add-project-select-long-term-client"
  */
 export function _addLongTermClientOptionsInSelect(select) {
-    // let select = document.getElementById('add-project-select-long-term-client');
-
     // Remove all the contents from the select tag
     select.innerHTML = '';
 
@@ -556,8 +554,6 @@ export function addProjectContainer() {
 export function createRevenueChart(yearRevenueDataObject) {
     let canvas = document.createElement('canvas');
     canvas.style.setProperty('display', 'none', 'important');
-    // canvas.style.setProperty('width', '700px', 'important');
-    // canvas.style.setProperty('height', '700px', 'important');
 
     let ctx = canvas.getContext('2d');
 
@@ -685,7 +681,6 @@ export function revenueContainer() {
             'p-2',
             'border-0',
             'border-b',
-            // 'border-gray-200',
             'border-gray-700',
             'focus:ring-0',
             'focus:border-black'
@@ -751,8 +746,6 @@ export function controlRevenueYearDropdownMenu() {
 export function projectTableContainer() {
     let columnHeads = [
         'Client Name',
-        // 'Client Company',
-        // 'Client Email',
         'Project Name',
         'Project Type',
         'Deadline',

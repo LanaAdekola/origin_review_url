@@ -43,26 +43,20 @@ function createInvoiceGeneratorForm() {
         'w-2/3',
         'flex',
         'flex-col',
-        // 'grid-rows-2',
-        // 'grid-flow-row',
         'gap-4'
     );
     form.id = 'invoice-generator-form';
     form.method = 'POST';
 
     let invoiceNumberCell = _invoiceNumberCell();
-    let popUpCell = _popUpCell();
     let { addressCell, popUpCell: pcell } = _addressCell();
     let servicesCell = _servicesCell();
     let submitButton = new ComponentServices.TypicalFormSubmitButton(
         'Generate Invoice'
     ).result;
     submitButton.onclick = submitInvoiceGeneratorForm;
-
     form.append(
         invoiceNumberCell,
-        pcell,
-        popUpCell,
         addressCell,
         servicesCell,
         submitButton
@@ -149,8 +143,6 @@ function _obtainLongTermClients() {
     });
 }
 
-// create a filter per client_type
-
 /**
  * The function returns an input element (text input) for the invoice number
  * @returns Div with the invoice number cell (input)
@@ -197,9 +189,6 @@ async function fetchClientProjects(clientId) {
 }
 async function fetchClientDetails(project, slug) {
     try {
-        // Assuming the backend API endpoint to fetch client projects is /clients/{clientId}/projects
-        // const response = await fetch(`/client-admin/obtain-projects?clientId=${clientId}`);
-        // const projects = await response.json();
         let result = project.fields.find((slug) => (slug.slug = slug));
         return result;
     } catch (error) {
@@ -219,34 +208,19 @@ async function displayClientProjects(clientId, popUpCell) {
 
     let projectsDiv = document.createElement('div');
     projectsDiv.id = 'projects-div';
-    projectsDiv.classList.add('mx-auto', 'w-1/2', 'text-center');
+    projectsDiv.classList.add('absolute', 'w-1/2', 'right-0', 'top-10', 'h-auto', 'z-50', 'bg-white');
 
     let projectsTitle = new ComponentServices.HeadingOrParagraph(
         'h6',
-        'Client Projects'
     ).renderWithClass(['mx-auto', 'text-center']).result;
 
-    const projectList = document.createElement('ul');
-    // projectList.id = 'client-projects-list'
-    // projectList.style.backgroundColor = '#fbf9fa'
+    const projectList = document.createElement('div');
+    projectList.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08)';
+    projectList.classList.add('w-1/2', 'h-auto', 'flex', 'flex-col','items-start', 'justify-start', 'bg-gray-900', 'bg-opacity-50', 'z-50');
+
     projectList.style.backgroundColor = '';
     projectList.style.padding = '10px'; // Padding for better appearance
     projectList.style.width = 'auto';
-    // projectList.style.cursor = 'pointer'; // Change cursor to pointer on hover
-    // projectList.style.borderRadius = '20px';
-    // projectList.style.border = 'solid 1px gray';
-
-    // Light blue background by default
-    projectList.style.backgroundColor = '';
-
-    // // Darker blue background on hover
-    // projectList.addEventListener('mouseenter', function() {
-    //     projectList.style.backgroundColor = '#e3e3e3'; // Variant blue
-    // });
-
-    // projectList.addEventListener('mouseleave', function() {
-    //     projectList.style.backgroundColor = '#fbf9fa'; // Revert to light blue on mouse leave
-    // });
 
     // Toggle between different shades of blue on click
     let isChecked = false;
@@ -293,11 +267,11 @@ async function displayClientProjects(clientId, popUpCell) {
         listItem.style.padding = '2px 4px 2px 4px';
 
         listItem.addEventListener('mouseenter', function () {
-            listItem.style.backgroundColor =  ''; // Variant blue
+            listItem.style.color = 'gray';
         });
 
         listItem.addEventListener('mouseleave', function () {
-            listItem.style.backgroundColor = ''; // Revert to light blue on mouse leave
+            listItem.style.color = 'black';
         });
        
         listItem.addEventListener('click', async () => {               
@@ -309,18 +283,7 @@ async function displayClientProjects(clientId, popUpCell) {
             const {client_company, client_email, project_name, project_type, expected_revenue: project_cost} = project.fields
 
 
-            const selectedClientId = project.fields.client_name; // Assuming the project slug is used as the client ID
-            document.getElementById('address-line-1').value =
-                client_company;
-            document.getElementById('address-line-2').value =
-                client_email;
-            document.getElementById('address-line-3').value =
-                project_name;
-
-                // create the appendable list of services here
-                // into the service cell
-            
-                // create an array first like append the needed values into an array
+            const selectedClientId = project.fields.client_name; // 
 
                 valueArray.push({serviceName: project_name, serviceDesc: project_type, serviceCost: project_cost})
 
@@ -331,19 +294,16 @@ async function displayClientProjects(clientId, popUpCell) {
                    servicer.append(servik)
                 })
 
-                console.log(valueArray)
-               
+                console.log(valueArray)     
         });
 
-        projectList.appendChild(listItem);
-
-        
+        projectList.appendChild(listItem);       
     });
 }
 
 function _addressCell() {
     let popUpCell = document.createElement('div');
-
+    popUpCell.classList.add('w-full', 'relative', 'right-20'); // Add this line to make it relative
     let addressCell = document.createElement('div');
     addressCell.classList.add('p-5', 'm-auto', 'w-1/2');
 
@@ -429,6 +389,16 @@ function _addressCell() {
             return result;
         }
     }
+    setTimeout(() => {
+        document
+            .getElementById('client-name')
+            .addEventListener('change', function () {
+                const selectedClientId = this.value;
+                if (selectedClientId) {
+                    displayClientProjects(selectedClientId, popUpCell);
+                }
+            });
+    }, 0);
 
     clientTypeSelect.addEventListener('change', async function () {
         // Remove the existing projectsDiv if it exists
@@ -482,6 +452,7 @@ function _addressCell() {
     addressCell.appendChild(title);
     addressCell.appendChild(clientTypeSelect);
     addressCell.appendChild(insertClientButton);
+    addressCell.appendChild(popUpCell)
     addressCell.appendChild(clientNameContainer);
     addressCell.appendChild(addressLine1);
     addressCell.appendChild(addressLine2);
@@ -492,47 +463,7 @@ function _addressCell() {
     });
 
     // return addressCell;
-    return { popUpCell, addressCell };
-}
-
-function _popUpCell() {
-    let popUpCell = document.createElement('div');
-
-    setTimeout(() => {
-        document
-            .getElementById('client-name')
-            .addEventListener('change', function () {
-                const selectedClientId = this.value;
-                if (selectedClientId) {
-                    displayClientProjects(selectedClientId, popUpCell);
-                }
-            });
-    }, 0);
-
-    //    // Function to handle drag and drop
-    //    function handleDragStart(event) {
-    //     event.dataTransfer.setData('text/plain', event.target.dataset.projectId);
-    //     }
-
-    // function handleDrop(event) {
-    //     event.preventDefault();
-    //     const projectId = event.dataTransfer.getData('text/plain');
-    //     const selectedProject = document.querySelector(`[data-project-id="${projectId}"]`);
-    //     // Add the selected project as a line item in the invoice form
-    //     addLineItem(selectedProject.textContent);
-    // }
-
-    // function allowDrop(event) {
-    //     event.preventDefault();
-    // }
-
-    // // Attach drag and drop event listeners
-    // const projectListItems = document.querySelectorAll('#client-projects-list li');
-    // projectListItems.forEach(item => {
-    //     item.addEventListener('dragstart', handleDragStart);
-    // });
-
-    return popUpCell;
+    return { addressCell };
 }
 
 /**
@@ -567,11 +498,6 @@ function _servicesCell() {
     headingRow.append(desc, quantity, amount);
     servicesCell.append(title, headingRow);
 
-    // for (let i = 0; i < 2; i++) {
-    //     let service = _createOneServiceRow('inte', 'inakelr', 800, i + 1);
-    //     servicesCell.append(service);
-    // }
-
     return servicesCell;
 }
 
@@ -604,10 +530,7 @@ function _createOneServiceRow(description = null, inputQuantity = null, cost = n
         required
     );
     service.value = description
-    // let quantity = _createNumberInput(
-    //     'service-quantity-' + serviceNum.toFixed(0),
-    //     required
-    // );
+
     let quantity = _createtextInput(
         'service-quantity-' + serviceNum.toFixed(0),
         required
@@ -633,7 +556,6 @@ function _createOneServiceRow(description = null, inputQuantity = null, cost = n
             'text-sm',
             'border-0',
             'border-b',
-            // 'border-gray-200',
             'border-gray-500',
             'focus:ring-0',
             'focus:border-black'
